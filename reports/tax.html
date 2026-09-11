@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#0E3330;
+  --deeper:#06201E;
+  --ink:#0A2422;
+  --cream:#F4F0E7;
+  --paper:#FBF9F4;
+  --mint:#31917E;
+  --gold:#B3762B;
+  --clay:#C9674D;
+  --line:rgba(10,36,34,.14);
+  --lineD:rgba(244,240,231,.18);
+  --mut:#5E7370;
+  --mutD:rgba(244,240,231,.78);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialiased}
+.slide{
+  width:1600px;height:900px;position:relative;overflow:hidden;
+  background:var(--paper);color:var(--ink);
+  padding:56px 88px 52px;display:flex;flex-direction:column;
+  page-break-after:always;break-after:page;
+}
+.slide.dark,.ondark{--mut:var(--mutD)}
+.slide.dark{background:var(--deep);color:var(--cream)}
+.slide.dark .rule{background:var(--lineD)}
+.slide.deeper{background:var(--deeper)}
+.rule{height:1px;background:var(--line);width:100%}
+
+/* header / footer */
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.dark .hdr{border-color:var(--lineD)}
+.hdr .l{color:var(--mut)}.dark .hdr .l{color:var(--mutD)}
+.hdr .r{color:var(--deep)}.dark .hdr .r{color:var(--mint)}
+.ftr{position:absolute;left:88px;right:88px;bottom:34px;display:flex;justify-content:space-between;
+  font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;
+  border-top:1px solid var(--line);padding-top:12px}
+.dark .ftr{color:var(--mutD);border-color:var(--lineD)}
+.body{flex:1;padding-top:34px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:center}
+
+/* type */
+h1{font-family:var(--dk-serif);font-weight:300;font-size:82px;line-height:1.02;letter-spacing:-.02em}
+h2{font-family:var(--dk-serif);font-weight:300;font-size:54px;line-height:1.06;letter-spacing:-.015em}
+h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
+.eyebrow{margin-bottom:20px;font-size:13px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--deep)}
+.dark .eyebrow{color:color-mix(in srgb,var(--mint) 62%,var(--cream))}
+.lede{font-size:20px;line-height:1.5;color:var(--mut);max-width:62ch;font-weight:400}
+.dark .lede{color:var(--mutD)}
+.small{font-size:14.5px;line-height:1.5;color:var(--mut)}
+.dark .small{color:var(--mutD)}
+.lbl{margin-bottom:8px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.dark .lbl{color:var(--mutD)}
+.num{line-height:1.14;font-family:var(--dk-serif);font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:var(--clay)}
+em{font-style:italic}
+
+/* cover */
+.cover-mark{position:absolute;right:-260px;top:-220px;width:1100px;height:1100px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, rgba(121,210,192,.20), rgba(121,210,192,0) 62%)}
+.cover-rings{position:absolute;right:80px;top:90px;width:720px;height:720px}
+.cover-rings div{position:absolute;border:1px solid rgba(244,240,231,.13);border-radius:50%;inset:0}
+
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+
+/* stat block */
+.stat{border-top:2px solid var(--deep);padding-top:16px}
+.dark .stat{border-color:var(--mint)}
+.stat .v{font-family:var(--dk-serif);font-weight:300;font-size:52px;line-height:1;letter-spacing:-.02em;margin-top:12px;font-variant-numeric:tabular-nums}
+.stat .s{font-size:13.5px;color:var(--mut);margin-top:10px}
+.dark .stat .s{color:var(--mutD)}
+
+/* bars */
+.bar{height:26px;display:flex;overflow:hidden;border-radius:2px}
+.bar > span{display:block;height:100%}
+.track{height:8px;background:rgba(10,36,34,.10);border-radius:99px;overflow:hidden}
+.dark .track{background:rgba(244,240,231,.14)}
+.track > i{display:block;height:100%;background:var(--deep);border-radius:99px}
+.dark .track > i{background:var(--mint)}
+
+/* rows */
+.row{display:grid;align-items:center;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}
+.dark .row{border-color:var(--lineD)}
+.row .name{font-size:17px;font-weight:500}
+.row .val{font-family:var(--dk-serif);font-size:24px;font-weight:400;text-align:right;font-variant-numeric:tabular-nums}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);font-weight:700;text-align:left;padding:0 14px 12px 0;border-bottom:1px solid var(--line)}
+td{padding:15px 14px 15px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.dark th,.dark td{border-color:var(--lineD)}
+.dark th{color:var(--mutD)}
+td.n{text-align:right;font-family:var(--dk-serif);font-size:20px;font-variant-numeric:tabular-nums;padding-right:0}
+th.n{text-align:right;padding-right:0}
+.pad td.n,.pad th.n{padding-right:34px}
+
+/* card */
+.card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:24px 26px}
+.dark .card{background:rgba(244,240,231,.05);border-color:var(--lineD)}
+.card.accent{border-left:3px solid var(--gold)}
+
+/* flow */
+.node{border:1px solid var(--line);border-radius:3px;padding:16px 20px;background:#fff;color:var(--ink)}
+.node .mint{color:#12564C}
+.node .small{color:var(--mut)}
+.dark .node{background:rgba(244,240,231,.06);border-color:var(--lineD);color:var(--cream)}
+.dark .node .mint{color:var(--mint)}
+.dark .node .small{color:var(--mutD)}
+.node .t{font-size:16px;font-weight:600}
+.node .v{font-family:var(--dk-serif);font-size:22px;margin-top:4px}
+.conn{flex:1;height:1px;background:var(--line);position:relative}
+.dark .conn{background:var(--lineD)}
+.conn::after{content:'';position:absolute;right:0;top:-3px;border-left:7px solid var(--deep);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+.dark .conn::after{border-left-color:var(--mint)}
+
+/* section divider */
+.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:rgba(121,210,192,.16);letter-spacing:-.04em}
+.toc-item{display:flex;gap:20px;padding:17px 0;border-bottom:1px solid var(--lineD);font-size:20px}
+.toc-item .i{font-family:var(--dk-serif);color:var(--mint);width:34px;font-size:18px}
+.chip{display:inline-block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:99px}
+.chip.in{background:rgba(121,210,192,.18);color:#12564C}
+.chip.out{background:rgba(192,86,58,.13);color:var(--clay)}
+.dark .chip.in{background:rgba(121,210,192,.2);color:var(--mint)}
+.dark .chip.out{background:rgba(217,162,95,.2);color:var(--gold)}
+.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);background:#fff}
+.dark .avatar{background:rgba(244,240,231,.07);border-color:var(--lineD)}
+</style>
+<style id="ds-themes">
+html{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:3px}
+html[data-theme="editorial"]{--deep:#0E3330;--deeper:#06201E;--ink:#0A2422;--cream:#F4F0E7;--paper:#FBF9F4;--mint:#31917E;--gold:#B3762B;--clay:#C9674D;--line:rgba(10,36,34,.14);--lineD:rgba(244,240,231,.18);--mut:#5E7370;--mutD:rgba(244,240,231,.78)}
+html[data-theme="bone"]{--dk-serif:'Instrument Serif',Georgia,serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#14120F;--deeper:#000000;--ink:#14120F;--cream:#F7F5F0;--paper:#F7F5F0;--mint:#B65E2D;--gold:#C94F2A;--clay:#C94F2A;
+  --line:rgba(20,18,15,.16);--lineD:rgba(247,245,240,.2);--mut:#6D675D;--mutD:rgba(247,245,240,.78)}
+html[data-theme="midnight"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:2px;
+  --deep:#060B16;--deeper:#03060D;--ink:#E8ECF5;--cream:#E8ECF5;--paper:#0B1120;--mint:#6FD3C7;--gold:#C9A84C;--clay:#E07A5F;
+  --line:rgba(232,236,245,.16);--lineD:rgba(232,236,245,.14);--mut:#8D9BB8;--mutD:rgba(232,236,245,.78)}
+html[data-theme="slate"]{--dk-serif:'Work Sans',system-ui,sans-serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:10px;
+  --deep:#0F1B2D;--deeper:#0A1220;--ink:#0F1B2D;--cream:#F8FAFC;--paper:#FFFFFF;--mint:#0F77F7;--gold:#AE7007;--clay:#E14242;
+  --line:rgba(15,27,45,.12);--lineD:rgba(248,250,252,.16);--mut:#5B6B82;--mutD:rgba(248,250,252,.78)}
+html[data-theme="goldman"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Libre Franklin',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#002849;--deeper:#001A2E;--ink:#0B1C2C;--cream:#F4F6F9;--paper:#FFFFFF;--mint:#5684BA;--gold:#9C7C49;--clay:#D15E4D;
+  --line:rgba(0,40,73,.16);--lineD:rgba(244,246,249,.18);--mut:#5A6B7D;--mutD:rgba(244,246,249,.78)}
+html[data-theme="goldman"] h1,html[data-theme="goldman"] h2,html[data-theme="goldman"] h3,html[data-theme="goldman"] .num{font-weight:400;letter-spacing:-.015em}
+html[data-theme="schwab"]{--dk-serif:'Source Sans 3',system-ui,sans-serif;--dk-sans:'Source Sans 3',system-ui,sans-serif;--dk-radius:6px;
+  --deep:#2E3D49;--deeper:#1C2833;--ink:#1C2833;--cream:#F2F5F7;--paper:#FFFFFF;--mint:#0096D1;--gold:#D67212;--clay:#EE5D37;
+  --line:rgba(28,40,51,.14);--lineD:rgba(242,245,247,.2);--mut:#5B6A76;--mutD:rgba(242,245,247,.78)}
+html[data-theme="schwab"] h1,html[data-theme="schwab"] h2,html[data-theme="schwab"] h3,html[data-theme="schwab"] .num{font-weight:600;letter-spacing:-.02em}
+html[data-theme="schwab"] .card,html[data-theme="schwab"] .node,html[data-theme="schwab"] .box{border-radius:var(--dk-radius)}
+html[data-theme="schwab"] .r-dark .mint,html[data-theme="schwab"] .ondark .mint{color:#4FC3F2}
+/* midnight: light slides are dark, so accent text needs the light ink */
+html[data-theme="midnight"] .hdr .r{color:var(--gold)}
+html[data-theme="slate"] .card,html[data-theme="slate"] .node,html[data-theme="slate"] .box{border-radius:var(--dk-radius)}
+html[data-theme="bone"] h1,html[data-theme="bone"] h2,html[data-theme="bone"] h3,html[data-theme="bone"] .num{font-weight:400}
+html[data-theme="slate"] h1,html[data-theme="slate"] h2,html[data-theme="slate"] h3,html[data-theme="slate"] .num{font-weight:500;letter-spacing:-.02em}
+body{background:transparent!important}
+.slide{margin:0 auto 28px}
+html{background:#111}
+</style>
+<script>
+document.documentElement.setAttribute('data-theme','editorial');
+addEventListener('message',function(e){
+  var d=e.data||{};
+  if(d.type==='ds-theme'&&typeof d.theme==='string')document.documentElement.setAttribute('data-theme',d.theme);
+  if(d.type==='ds-ping')announce();
+  if(d.type==='ds-goto'&&typeof d.index==='number'){
+    var s=document.querySelectorAll('.slide');
+    if(s[d.index])s[d.index].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+function announce(){parent.postMessage({type:'ds-ready',count:document.querySelectorAll('.slide').length},'*');}
+addEventListener('DOMContentLoaded',announce);
+addEventListener('load',announce);
+</script>
+</head>
+<body>
+
+<!-- 1 COVER -->
+<section class="slide dark deeper" style="justify-content:space-between">
+  <div class="cover-mark"></div>
+  <div class="cover-rings">
+    <div style="inset:0"></div><div style="inset:90px"></div><div style="inset:180px"></div><div style="inset:270px"></div>
+  </div>
+  <div class="hdr" style="position:relative"><span class="l" style="font-family:Newsreader,serif;text-transform:none;letter-spacing:0;font-size:22px;color:var(--cream)">wealth.com</span><span class="r">Tax Planning · 2026</span></div>
+  <div style="position:relative">
+    <div class="eyebrow" style="margin-bottom:26px">Confidential tax plan</div>
+    <h1 style="font-size:104px">Looking forward<br>to <span class="mint">2026</span>.</h1>
+    <div class="num" style="font-size:46px;margin-top:26px;color:var(--mutD)">Bob &amp; Sally Jones</div>
+  </div>
+  <div style="position:relative">
+    <div class="rule" style="margin-bottom:22px"></div>
+    <div class="g4">
+      <div><div class="lbl">Prepared for</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">Bob &amp; Sally Jones</div></div>
+      <div><div class="lbl">Planning year</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">2026 — MFJ</div></div>
+      <div><div class="lbl">Prepared by</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">Your Advisor</div></div>
+      <div><div class="lbl">Date</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">August 2026</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:30px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mutD);font-weight:600">
+      <span>Plan for every tomorrow™</span><span>Confidential</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 CONTENTS -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">Tax planning report</span><span class="r">Contents</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:10px;font-size:62px">Two sections, one number that matters.</h2>
+    <p class="lede" style="margin-bottom:34px">Where your 2025 tax came from — and the seven moves that reduce it in 2026.</p>
+    <div class="g2" style="gap:64px">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">01 — 2025 in review</div>
+        <div class="toc-item"><span class="i">01</span><span>The Headline — Seven Moves, $9,770</span></div>
+        <div class="toc-item"><span class="i">02</span><span>Income Composition</span></div>
+        <div class="toc-item"><span class="i">03</span><span>Income to Tax — The Calculation Walk</span></div>
+        <div class="toc-item"><span class="i">04</span><span>Schedule A — Where Deductions Came From</span></div>
+        <div class="toc-item"><span class="i">05</span><span>Marginal &amp; Effective Rate</span></div>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">02 — Seven moves for 2026</div>
+        <div class="toc-item"><span class="i">06</span><span>Opportunity Summary</span></div>
+        <div class="toc-item"><span class="i">07</span><span>CA PTE Election</span></div>
+        <div class="toc-item"><span class="i">08</span><span>Solo 401(k) for Sally</span></div>
+        <div class="toc-item"><span class="i">09</span><span>DAF Bunching &amp; Appreciated Stock</span></div>
+        <div class="toc-item"><span class="i">10</span><span>HSA, Backdoor Roth, Losses, Comp</span></div>
+        <div class="toc-item"><span class="i">11</span><span>Projected Impact &amp; Quarterly Plan</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>02</span></div>
+</section>
+
+<!-- 3 HEADLINE -->
+<section class="slide">
+  <div class="hdr"><span class="l">2026 plan — at a glance</span><span class="r">The headline</span></div>
+  <div class="body">
+    <div class="eyebrow" style="margin-bottom:20px">2025 federal tax — baseline</div>
+    <div style="display:flex;align-items:flex-end;gap:44px">
+      <div class="num" style="font-size:172px;line-height:1.12">$51,505</div>
+
+      <div style="padding-bottom:26px">
+        <div class="num" style="font-size:64px;line-height:1;color:var(--clay)">−$9,770</div>
+        <div class="small" style="margin-top:8px;max-width:26ch">estimated annual reduction if all seven moves land — roughly 19%.</div>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:26px;max-width:74ch">What you paid last year is the starting point we plan against. Every recommendation that follows is grounded in a specific line of your 2025 return.</p>
+    <div class="rule" style="margin:34px 0 26px"></div>
+    <div class="g3" style="gap:44px">
+      <div class="stat"><div class="lbl">Total income · Line 9</div><div class="v">$357,880</div><div class="s">Five separate income streams.</div></div>
+      <div class="stat"><div class="lbl">Taxable income · Line 15</div><div class="v">$262,675</div><div class="s">After $93,221 itemized and QBI.</div></div>
+      <div class="stat"><div class="lbl">Effective rate</div><div class="v">14.4%</div><div class="s">Against a 24% marginal bracket.</div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>03</span></div>
+</section>
+
+<!-- 4 OPPORTUNITY LADDER PREVIEW -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">2026 plan — at a glance</span><span class="r">Seven opportunities</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:12px">Seven moves to cut your 2026 tax bill.</h2>
+    <p class="lede" style="margin-bottom:30px">Five can still be executed before December 31. Two — the PTE election and the charitable bunch — need decisions now so the 2026 return and the 2027 prepayment both land on time.</p>
+    <div class="g2" style="gap:56px">
+      <div>
+        <div class="row" style="grid-template-columns:34px 1fr auto"><span class="num mint" style="font-size:20px">01</span><span class="name">CA PTE election on S-corp income</span><span class="chip in">High impact</span></div>
+        <div class="row" style="grid-template-columns:34px 1fr auto"><span class="num mint" style="font-size:20px">02</span><span class="name">Solo 401(k) for Sally's business</span><span class="chip in">High impact</span></div>
+        <div class="row" style="grid-template-columns:34px 1fr auto"><span class="num mint" style="font-size:20px">03</span><span class="name">Donor-advised fund bunching</span><span class="chip out">Medium</span></div>
+        <div class="row" style="grid-template-columns:34px 1fr auto"><span class="num mint" style="font-size:20px">04</span><span class="name">Family HSA — currently unused</span><span class="chip out">Medium</span></div>
+      </div>
+      <div>
+        <div class="row" style="grid-template-columns:34px 1fr auto"><span class="num mint" style="font-size:20px">05</span><span class="name">Backdoor Roth contributions</span><span class="chip out">Medium</span></div>
+        <div class="row" style="grid-template-columns:34px 1fr auto"><span class="num mint" style="font-size:20px">06</span><span class="name">Capital loss carryover plan</span><span class="chip out">Ongoing</span></div>
+        <div class="row" style="grid-template-columns:34px 1fr auto"><span class="num mint" style="font-size:20px">07</span><span class="name">S-corp reasonable compensation</span><span class="chip out">Review</span></div>
+        <div class="card" style="margin-top:26px;border-left:3px solid var(--gold)">
+          <div class="lbl">Balance due last April</div>
+          <div class="num" style="font-size:40px;margin-top:6px">$8,563</div>
+          <div class="small" style="margin-top:8px">Withholding and estimates fell short. Right-sizing 2026 estimates is part of the plan.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>04</span></div>
+</section>
+
+<!-- 5 SECTION 01 -->
+<section class="slide dark deeper" style="justify-content:space-between">
+  <div class="hdr"><span class="l">wealth.com · tax planning</span><span class="r">Section one</span></div>
+  <div style="display:flex;align-items:flex-end;gap:64px">
+    <div class="sec-num">01</div>
+    <div style="padding-bottom:40px">
+      <h1 style="font-size:92px">2025<br>in review.</h1>
+      <p class="lede" style="margin-top:26px;max-width:52ch">Before we plan forward, we understand where this year's dollars came from and where they went. Five income sources, one home, one business, one rental, one S-corp — and a modest capital loss.</p>
+    </div>
+  </div>
+  <div class="ftr" style="border:none"><span>Plan for every tomorrow™</span><span>05</span></div>
+</section>
+
+<!-- 6 INCOME COMPOSITION -->
+<section class="slide">
+  <div class="hdr"><span class="l">01 — in review</span><span class="r">Income composition</span></div>
+  <div class="body">
+    <div class="g2" style="gap:72px;align-items:center">
+      <div>
+        <h2 style="margin-bottom:16px">Five streams,<br>one household.</h2>
+        <p class="lede">Your household runs on earned wages, a side business, a rental, an S-corp distribution, and investment income. That mix shapes every planning move that follows.</p>
+        <div class="rule" style="margin:28px 0 20px"></div>
+        <div class="lbl">Total income — Form 1040 Line 9</div>
+        <div class="num" style="font-size:64px;margin-top:6px">$360,880</div>
+        <div class="small">pre-loss, before the $3,000 capital loss deduction</div>
+        <div class="bar" style="margin-top:26px">
+          <span style="width:55.4%;background:#0E3330"></span>
+          <span style="width:30.3%;background:#2F6B62"></span>
+          <span style="width:6.9%;background:#31917E"></span>
+          <span style="width:4.2%;background:#B3762B"></span>
+          <span style="width:3.1%;background:#C9674D"></span>
+        </div>
+      </div>
+      <div>
+        <div class="row" style="grid-template-columns:1fr auto"><div><div class="name">Wages (W-2)</div><div class="small">Bob — Toys R Us &amp; Waffle House</div></div><div class="val">$200,000</div></div>
+        <div class="row" style="grid-template-columns:1fr auto"><div><div class="name">Sch E — S-corp &amp; rental</div><div class="small">$100K SCO Side Biz + $9,250 rental</div></div><div class="val">$109,250</div></div>
+        <div class="row" style="grid-template-columns:1fr auto"><div><div class="name">Taxable interest</div><div class="small">E*Trade — drives NIIT exposure</div></div><div class="val">$25,000</div></div>
+        <div class="row" style="grid-template-columns:1fr auto"><div><div class="name">Ordinary dividends</div><div class="small">E*Trade — none qualified</div></div><div class="val">$15,000</div></div>
+        <div class="row" style="grid-template-columns:1fr auto;border-bottom:none"><div><div class="name">Sch C — Stained Glass by Sally</div><div class="small">Sole proprietor — SE tax applies</div></div><div class="val">$11,130</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>06</span></div>
+</section>
+
+<!-- 7 CALC WALK -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">01 — in review</span><span class="r">Calculation walk</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:12px">From $357,880 of income to $51,505 of tax.</h2>
+    <p class="lede" style="margin-bottom:40px">Deductions do most of the work. $10K of SALT, $59,650 of mortgage interest, and $23,571 of charitable gifts bring taxable income to $262,675.</p>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div class="node" style="flex:0 0 auto"><div class="small">Total income</div><div class="v">$357,880</div><div class="small">Line 9</div></div>
+      <div class="conn"></div>
+      <div class="node" style="flex:0 0 auto"><div class="small">SE tax ½ adj.</div><div class="v mint">−$822</div><div class="small">Line 10</div></div>
+      <div class="conn"></div>
+      <div class="node" style="flex:0 0 auto"><div class="small">AGI</div><div class="v">$357,058</div><div class="small">Line 11</div></div>
+      <div class="conn"></div>
+      <div class="node" style="flex:0 0 auto"><div class="small">Itemized</div><div class="v mint">−$93,221</div><div class="small">Line 12</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;margin-top:26px">
+      <div class="node" style="flex:0 0 auto"><div class="small">QBI deduction</div><div class="v mint">−$1,162</div><div class="small">Line 13</div></div>
+      <div class="conn"></div>
+      <div class="node" style="flex:0 0 auto"><div class="small">Taxable income</div><div class="v">$262,675</div><div class="small">Line 15</div></div>
+      <div class="conn"></div>
+      <div class="node" style="flex:0 0 auto;border-left:3px solid var(--gold)"><div class="small">Total tax</div><div class="v gold">$51,505</div><div class="small">Line 24</div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>07</span></div>
+</section>
+
+<!-- 8 SCHEDULE A -->
+<section class="slide">
+  <div class="hdr"><span class="l">01 — in review</span><span class="r">Schedule A</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:30px">Where your $93,221 of deductions came from.</h2>
+    <div class="g2" style="gap:64px;align-items:start">
+      <table class="pad">
+        <thead><tr><th>Category</th><th class="n">Paid</th><th class="n">Deducted</th></tr></thead>
+        <tbody>
+          <tr><td><div class="name">State &amp; local income tax</div><div class="small">Capped at $10K per SALT limit</div></td><td class="n">$50,000</td><td class="n">$10,000</td></tr>
+          <tr><td><div class="name">Real estate tax</div></td><td class="n">$4,500</td><td class="n">—</td></tr>
+          <tr><td><div class="name">Personal property tax</div></td><td class="n">$650</td><td class="n">—</td></tr>
+          <tr><td><div class="name">Mortgage interest</div></td><td class="n">$59,650</td><td class="n">$59,650</td></tr>
+          <tr><td><div class="name">Cash charitable gifts</div><div class="small">Capped at 60% of AGI</div></td><td class="n">$60,000</td><td class="n">$23,571</td></tr>
+          <tr><td><div class="name" style="font-weight:700">Total itemized</div></td><td class="n">$175,450</td><td class="n" style="color:var(--deep)">$93,221</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="card accent">
+          <div class="lbl">SALT gap</div>
+          <div class="num" style="font-size:56px;margin-top:6px">$45,150</div>
+          <div class="small" style="margin-top:10px">of state and local tax paid that never reached your 1040 — limited by the $10,000 cap. The PTE election on your S-corp income recovers a meaningful portion.</div>
+        </div>
+        <div class="card accent" style="margin-top:26px">
+          <div class="lbl">Charitable carryforward</div>
+          <div class="num" style="font-size:56px;margin-top:6px">$36,429</div>
+          <div class="small" style="margin-top:10px">Excess cash contributions carry forward up to five years. Bunching future gifts into a donor-advised fund eliminates this drag.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>08</span></div>
+</section>
+
+<!-- 9 RATES -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">01 — in review</span><span class="r">Marginal &amp; effective rate</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:30px">In the 24% bracket, with $121,225 of headroom.</h2>
+    <div class="g2" style="gap:64px;align-items:start">
+      <div>
+        <div class="stat"><div class="lbl">Effective federal rate</div><div class="v" style="font-size:76px">14.4%</div><div class="s">$51,505 of total tax on $357,880 of income — well below the marginal bracket, thanks to itemized deductions and QBI.</div></div>
+        <div class="stat" style="margin-top:40px"><div class="lbl">24% bracket headroom</div><div class="v" style="font-size:76px">$121,225</div><div class="s">Room remaining before the 32% bracket at $383,900. Roth conversions up to this amount stay at 24%.</div></div>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:14px">2025 MFJ brackets — where your dollars landed</div>
+        <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">10%</span><span class="small">$0 – $23,200</span><span></span></div>
+        <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">12%</span><span class="small">$23,200 – $94,300</span><span></span></div>
+        <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">22%</span><span class="small">$94,300 – $201,050</span><span></span></div>
+        <div class="row" style="grid-template-columns:60px 1fr auto;background:rgba(121,210,192,.10)"><span class="num mint" style="font-size:22px;padding-left:8px">24%</span><span style="font-size:16px;font-weight:600">$201,050 – $383,900</span><span class="chip in">Current</span></div>
+        <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">32%</span><span class="small">$383,900 – $487,450</span><span></span></div>
+        <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">35%</span><span class="small">$487,450 – $731,200</span><span></span></div>
+        <div class="row" style="grid-template-columns:60px 1fr auto;border-bottom:none"><span class="num" style="font-size:20px">37%</span><span class="small">$731,200+</span><span></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>09</span></div>
+</section>
+
+<!-- 10 SECTION 02 -->
+<section class="slide dark deeper" style="justify-content:space-between">
+  <div class="hdr"><span class="l">wealth.com · tax planning</span><span class="r">Section two</span></div>
+  <div style="display:flex;align-items:flex-end;gap:64px">
+    <div class="sec-num">02</div>
+    <div style="padding-bottom:40px">
+      <h1 style="font-size:92px">Seven moves<br>for 2026.</h1>
+      <p class="lede" style="margin-top:26px;max-width:52ch">Each recommendation is grounded in a specific line of the 2025 return and sized for 2026 limits — sequenced from highest leverage (the CA PTE election) to ongoing housekeeping (loss harvesting).</p>
+    </div>
+  </div>
+  <div class="ftr" style="border:none"><span>Plan for every tomorrow™</span><span>10</span></div>
+</section>
+
+<!-- 11 OPPORTUNITY SUMMARY -->
+<section class="slide">
+  <div class="hdr"><span class="l">02 — opportunities</span><span class="r">Summary</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:28px">Seven moves, stacked by impact.</h2>
+    <div class="g3" style="gap:26px">
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">01</span><span class="chip in">High impact</span></div>
+        <h3 style="margin-top:10px;font-size:24px">CA Pass-Through Entity election</h3>
+        <div class="small" style="margin-top:8px">Pay California tax on the $100K S-corp income at the entity level — deducted federally, bypassing the SALT cap.</div>
+        <div class="rule" style="margin:14px 0 10px"></div>
+        <div class="lbl">Est. savings</div><div class="num" style="font-size:30px">~$2,232 <span style="font-size:15px;font-family:Archivo">/yr</span></div>
+      </div>
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">02</span><span class="chip in">High impact</span></div>
+        <h3 style="margin-top:10px;font-size:24px">Solo 401(k) for Sally's Sch C</h3>
+        <div class="small" style="margin-top:8px">$11,130 of net profit with no retirement plan. A Solo 401(k) shelters nearly all of it.</div>
+        <div class="rule" style="margin:14px 0 10px"></div>
+        <div class="lbl">Est. savings</div><div class="num" style="font-size:30px">~$2,640 <span style="font-size:15px;font-family:Archivo">/yr</span></div>
+      </div>
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">03</span><span class="chip out">Medium</span></div>
+        <h3 style="margin-top:10px;font-size:24px">Donor-advised fund bunching</h3>
+        <div class="small" style="margin-top:8px">Bunch two to three years of gifts into one year, then take the standard deduction in off-years.</div>
+        <div class="rule" style="margin:14px 0 10px"></div>
+        <div class="lbl">Est. savings</div><div class="num" style="font-size:30px">~$1,800 <span style="font-size:15px;font-family:Archivo">/yr</span></div>
+      </div>
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">04</span><span class="chip out">Medium</span></div>
+        <h3 style="margin-top:10px;font-size:24px">Family HSA — currently $0</h3>
+        <div class="small" style="margin-top:8px">The 2026 family limit is $8,750. Triple tax advantaged: deductible in, tax-free growth, tax-free medical withdrawals.</div>
+        <div class="rule" style="margin:14px 0 10px"></div>
+        <div class="lbl">Est. savings</div><div class="num" style="font-size:30px">~$2,052 <span style="font-size:15px;font-family:Archivo">/yr</span></div>
+      </div>
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">05</span><span class="chip out">Medium</span></div>
+        <h3 style="margin-top:10px;font-size:24px">Backdoor Roth contributions</h3>
+        <div class="small" style="margin-top:8px">At $357K AGI the traditional IRA deduction is fully phased out. A backdoor Roth for both spouses adds $14,000 annually.</div>
+        <div class="rule" style="margin:14px 0 10px"></div>
+        <div class="lbl">Long-term</div><div class="num" style="font-size:30px">$14K <span style="font-size:15px;font-family:Archivo">/yr tax-free</span></div>
+      </div>
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">06 · 07</span><span class="chip out">Ongoing</span></div>
+        <h3 style="margin-top:10px;font-size:24px">Loss carryover &amp; S-corp comp</h3>
+        <div class="small" style="margin-top:8px">$11,200 of capital loss carries forward — aim it at short-term gains. And revisit reasonable compensation on the S-corp.</div>
+        <div class="rule" style="margin:14px 0 10px"></div>
+        <div class="lbl">Est. savings</div><div class="num" style="font-size:30px">~$1,046 <span style="font-size:15px;font-family:Archivo">/yr</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>11</span></div>
+</section>
+
+<!-- 12 OPP 01 -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">02 — opportunity 01 · high impact</span><span class="r">CA PTE election</span></div>
+  <div class="body">
+    <div class="g2" style="gap:72px;align-items:center">
+      <div>
+        <h2 style="margin-bottom:18px">Recover the SALT you're leaving on the table.</h2>
+        <div class="lbl" style="margin-bottom:28px">SALT paid above the cap</div>
+        <div class="num gold" style="font-size:104px;line-height:1">$45,150</div>
+        <p class="lede" style="margin-top:14px">California income tax and property tax paid in 2025 that could not be deducted — limited by the $10,000 cap introduced by TCJA.</p>
+        <div class="rule" style="margin:26px 0 0"></div>
+        <div class="row" style="grid-template-columns:1fr auto"><span class="name">SALT paid</span><span class="val">$55,150</span></div>
+        <div class="row" style="grid-template-columns:1fr auto"><span class="name">Federally deducted</span><span class="val">$10,000</span></div>
+        <div class="row" style="grid-template-columns:1fr auto;border-bottom:none"><span class="name">Lost to SALT cap</span><span class="val gold">$45,150</span></div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:30px">Make the PTE election on SCO Side Biz.</h3>
+        <p class="small" style="margin-top:12px">California permits S-corps and partnerships to pay a 9.3% elective tax at the entity level on qualified income. The entity deducts it federally and shareholders claim a California credit — bypassing the $10K cap on that slice of state tax.</p>
+        <div class="rule" style="margin:20px 0 0"></div>
+        <div class="row" style="grid-template-columns:1fr auto"><span class="name">S-corp K-1 income (2025)</span><span class="val">$100,000</span></div>
+        <div class="row" style="grid-template-columns:1fr auto"><span class="name">PTE tax at 9.3%</span><span class="val">$9,300</span></div>
+        <div class="row" style="grid-template-columns:1fr auto"><span class="name">Federal deduction recovered</span><span class="val">$9,300</span></div>
+        <div class="row" style="grid-template-columns:1fr auto"><span class="name">Federal tax saved @ 24%</span><span class="val mint">$2,232</span></div>
+        <div class="row" style="grid-template-columns:1fr auto;border-bottom:none"><span class="name">Action — 2027 prepayment by</span><span class="val gold">June 15, 2027</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>12</span></div>
+</section>
+
+<!-- 13 OPP 02 -->
+<section class="slide">
+  <div class="hdr"><span class="l">02 — opportunity 02 · high impact</span><span class="r">Solo 401(k)</span></div>
+  <div class="body">
+    <div class="g2" style="gap:72px;align-items:center">
+      <div>
+        <h2 style="margin-bottom:18px">Shelter nearly all of Sally's Schedule C profit.</h2>
+        <div class="lbl">Potential deferral</div>
+        <div class="num" style="font-size:104px;line-height:1">~$11,000</div>
+        <p class="lede" style="margin-top:14px">Between employee elective deferral and employer profit sharing, a Solo 401(k) can absorb nearly all of Stained Glass by Sally's $11,130 of net profit.</p>
+        <div class="rule" style="margin:26px 0 0"></div>
+        <div class="row" style="grid-template-columns:1fr auto"><span class="name">Employee deferral (up to $23,000)</span><span class="val">$9,000</span></div>
+        <div class="row" style="grid-template-columns:1fr auto"><span class="name">Employer share (~20% of SE-adj.)</span><span class="val">$2,000</span></div>
+        <div class="row" style="grid-template-columns:1fr auto;border-bottom:none"><span class="name" style="font-weight:700">Total deferral</span><span class="val">$11,000</span></div>
+      </div>
+      <div>
+        <div class="card accent">
+          <h3 style="font-size:30px">Why this beats a SEP-IRA.</h3>
+          <p class="small" style="margin-top:12px">SEP contributions are employer-only, limited to roughly 20% of SE income. A Solo 401(k) adds a $23,000 employee deferral on top — a dramatically larger shelter for the same profit.</p>
+          <div class="rule" style="margin:20px 0 0"></div>
+          <div class="row" style="grid-template-columns:1fr auto"><span class="name">Sch C net profit (Sally)</span><span class="val">$11,130</span></div>
+          <div class="row" style="grid-template-columns:1fr auto"><span class="name">Est. deferral via Solo 401(k)</span><span class="val">$11,000</span></div>
+          <div class="row" style="grid-template-columns:1fr auto"><span class="name">AGI reduction</span><span class="val">$11,000</span></div>
+          <div class="row" style="grid-template-columns:1fr auto"><span class="name">Federal tax saved @ 24%</span><span class="val" style="color:#12564C">$2,640</span></div>
+          <div class="row" style="grid-template-columns:1fr auto;border-bottom:none"><span class="name">Action — establish plan by</span><span class="val clay">Dec 31, 2026</span></div>
+        </div>
+        <p class="small" style="margin-top:18px"><em>Bonus:</em> a Roth Solo 401(k) option lets some of this go in after-tax for fully tax-free growth — attractive given Sally's lower marginal rate on this income.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>13</span></div>
+</section>
+
+<!-- 14 OPP 03 -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">02 — opportunity 03 · medium impact</span><span class="r">Charitable strategy</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:14px">Bunch your gifts — and give appreciated stock.</h2>
+    <p class="lede" style="margin-bottom:28px">You gave $60,000 in cash in 2025. The 60%-of-AGI limit capped the deduction at $23,571, pushing $36,429 into a carryforward.</p>
+    <div class="g4" style="gap:26px;align-items:start">
+      <div class="stat"><div class="lbl">Two-year DAF bunch</div><div class="v gold">~$3,600</div><div class="s">Estimated two-year benefit versus giving the same amount across two separate years.</div></div>
+      <div class="card"><div class="chip in" style="margin-bottom:10px">Avoid LTCG</div><h3 style="font-size:22px">Gift appreciated stock, not cash.</h3><div class="small" style="margin-top:8px">Your E*Trade gain on Tesla was $48,800 in 2025. Donating shares sidesteps long-term capital gain tax of 15–20% and still takes the full fair-value deduction.</div></div>
+      <div class="card"><div class="chip in" style="margin-bottom:10px">1 year ≥ 2</div><h3 style="font-size:22px">Use a DAF to bunch.</h3><div class="small" style="margin-top:8px">Front-load two years of gifts into a donor-advised fund in 2026 and itemize a large Schedule A; take the standard deduction in 2027 while gifts resume from the DAF.</div></div>
+      <div class="card"><div class="chip out" style="margin-bottom:10px">5 years</div><h3 style="font-size:22px">Work the carryforward.</h3><div class="small" style="margin-top:8px">The $36,429 carryforward is usable through 2030 — model it alongside future bunches so stacked caps don't waste it.</div></div>
+    </div>
+    <div class="rule" style="margin:30px 0 18px"></div>
+    <div class="g3">
+      <div><div class="lbl">Cash gifted</div><div class="num" style="font-size:36px">$60,000</div></div>
+      <div><div class="lbl">Deducted in 2025</div><div class="num" style="font-size:36px">$23,571</div></div>
+      <div><div class="lbl">Carried to 2026–2030</div><div class="num gold" style="font-size:36px">$36,429</div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>14</span></div>
+</section>
+
+<!-- 15 OPPS 04-07 -->
+<section class="slide">
+  <div class="hdr"><span class="l">02 — opportunities 04–07</span><span class="r">The remaining four</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:28px">Four more, smaller but compounding.</h2>
+    <div class="g2" style="gap:40px">
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">04 · Family HSA</span><span class="chip out">Medium</span></div>
+        <div class="num" style="font-size:44px;margin-top:8px">$8,750</div>
+        <div class="small" style="margin-top:6px">2026 family contribution limit, currently unused. Triple tax advantaged — deductible going in, tax-free growth, tax-free withdrawals for medical costs. Confirm HDHP enrollment first. Est. savings ~$2,052/yr.</div>
+      </div>
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">05 · Backdoor Roth</span><span class="chip out">Medium</span></div>
+        <div class="num" style="font-size:44px;margin-top:8px">$14,000</div>
+        <div class="small" style="margin-top:6px">At $357K AGI the traditional IRA deduction is fully phased out. Two non-deductible contributions converted to Roth add $14,000 of tax-free growth each year. Watch the pro-rata rule on existing IRA balances.</div>
+      </div>
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">06 · Loss carryover</span><span class="chip out">Ongoing</span></div>
+        <div class="num" style="font-size:44px;margin-top:8px">$11,200</div>
+        <div class="small" style="margin-top:6px">Capital loss carried forward from 2025. Plan 2026 realizations so it offsets short-term gains taxed at 24% rather than long-term gains taxed at 0/15/20%. Est. savings ~$1,046/yr.</div>
+      </div>
+      <div class="card accent">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-size:22px">07 · S-corp comp</span><span class="chip out">Review</span></div>
+        <div class="num" style="font-size:44px;margin-top:8px">$100,000</div>
+        <div class="small" style="margin-top:6px">Of K-1 income from SCO Side Biz. Reasonable compensation must be defensible: too low invites IRS scrutiny, too high wastes payroll tax. A documented review protects the structure.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>15</span></div>
+</section>
+
+<!-- 16 PROJECTED IMPACT -->
+<section class="slide dark deeper">
+  <div class="hdr"><span class="l">02 — projected impact</span><span class="r">If all seven land</span></div>
+  <div class="body">
+    <div class="g2" style="gap:72px;align-items:center">
+      <div>
+        <div class="eyebrow" style="margin-bottom:36px">Projected annual saving</div>
+        <div class="num mint" style="font-size:150px;line-height:.9">$9,770</div>
+        <div class="lede" style="margin-top:10px">≈ 19% reduction against your 2025 total tax of $51,505, with a realistic range of $7K–$12K.</div>
+        <div class="rule" style="margin:28px 0 18px"></div>
+        <p class="small">These estimates assume your 2025 income mix continues and your marginal rate stays at 24%. We'll refine each figure with you before implementation.</p>
+      </div>
+      <div>
+        <table class="pad">
+          <thead><tr><th>Strategy</th><th class="n">Annual saving</th></tr></thead>
+          <tbody>
+            <tr><td>CA PTE election — S-corp SALT workaround</td><td class="n">$2,232</td></tr>
+            <tr><td>Solo 401(k) for Sally</td><td class="n">$2,640</td></tr>
+            <tr><td>Family HSA contribution</td><td class="n">$2,052</td></tr>
+            <tr><td>DAF bunching (annualized)</td><td class="n">$1,800</td></tr>
+            <tr><td>Capital loss harvesting strategy</td><td class="n">$1,046</td></tr>
+            <tr><td style="font-weight:700">Projected annual total</td><td class="n mint">$9,770</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>16</span></div>
+</section>
+
+<!-- 17 SEQUENCING -->
+<section class="slide">
+  <div class="hdr"><span class="l">02 — sequencing</span><span class="r">Your 2026 calendar</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:28px">Your 2026 action plan — by quarter.</h2>
+    <div class="g4" style="gap:26px;align-items:start">
+      <div class="card accent">
+        <div class="lbl" style="color:var(--clay)">Q3 2026 · now</div>
+        <h3 style="margin-top:8px;font-size:24px">Lock the PTE mechanics.</h3>
+        <div class="small" style="margin-top:12px;line-height:1.9">Confirm SCO Side Biz PTE tax is fully paid for 2026.<br>Calendar the $1,000 prepayment for the 2027 election.<br>Open a Solo 401(k) with E*Trade.<br>Confirm HDHP enrollment for HSA eligibility.</div>
+      </div>
+      <div class="card accent">
+        <div class="lbl">Q4 2026</div>
+        <h3 style="margin-top:8px;font-size:24px">Fund and harvest.</h3>
+        <div class="small" style="margin-top:12px;line-height:1.9">Max the family HSA — $8,750.<br>Sally defers $9,000 into the Solo 401(k).<br>Realize up to $14,200 of short-term gains to absorb the carryover.<br>Fund the DAF with ~$60K of appreciated stock.</div>
+      </div>
+      <div class="card accent">
+        <div class="lbl">Q1 2027</div>
+        <h3 style="margin-top:8px;font-size:24px">File and claim.</h3>
+        <div class="small" style="margin-top:12px;line-height:1.9">File the 2026 return with the PTE credit claimed.<br>Complete the employer Solo 401(k) contribution.<br>Execute two backdoor Roth conversions ($7.5K × 2).<br>Compare realized savings to projections.</div>
+      </div>
+      <div class="card accent">
+        <div class="lbl">Q2 2027</div>
+        <h3 style="margin-top:8px;font-size:24px">Reset for 2027.</h3>
+        <div class="small" style="margin-top:12px;line-height:1.9">Prepay the 2027 PTE tax by June 15.<br>Review S-corp reasonable compensation.<br>Update the multi-year charitable bunch plan.<br>Re-run this report against 2026 actuals.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>17</span></div>
+</section>
+
+<!-- 18 NEXT STEPS -->
+<section class="slide dark deeper">
+  <div class="hdr"><span class="l">wealth.com · tax planning</span><span class="r">Next steps</span></div>
+  <div class="body">
+    <div class="eyebrow" style="margin-bottom:20px">Let's begin</div>
+    <h1 style="font-size:82px">Ready when you are,<br>Bob &amp; Sally.</h1>
+    <p class="lede" style="margin-top:22px;max-width:70ch">The simplest place to start is the Solo 401(k) — it must be established by December 31 to count for 2026. Reply to schedule thirty minutes and we'll walk through the rest together.</p>
+    <div class="rule" style="margin:40px 0 26px"></div>
+    <div class="g3" style="gap:44px">
+      <div class="stat"><div class="lbl">01</div><div class="v" style="font-size:34px">Review &amp; annotate.</div><div class="s">Share questions or concerns on any of the seven recommendations before our call.</div></div>
+      <div class="stat"><div class="lbl">02</div><div class="v" style="font-size:34px">Thirty-minute call.</div><div class="s">We sequence the first three moves and agree on who owns each step.</div></div>
+      <div class="stat"><div class="lbl">03</div><div class="v" style="font-size:34px">Implement &amp; measure.</div><div class="s">Every recommendation has a dollar target — we track them into next year's return.</div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Plan for every tomorrow™ · wealth.com</span><span>18</span></div>
+</section>
+
+</body>
+</html>

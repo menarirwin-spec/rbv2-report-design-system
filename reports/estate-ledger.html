@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#0E3330;
+  --deeper:#06201E;
+  --ink:#0A2422;
+  --cream:#F4F0E7;
+  --paper:#FBF9F4;
+  --mint:#31917E;
+  --gold:#B3762B;
+  --clay:#C9674D;
+  --line:rgba(10,36,34,.14);
+  --lineD:rgba(244,240,231,.18);
+  --mut:#5E7370;
+  --mutD:rgba(244,240,231,.78);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialiased}
+.slide{
+  width:1600px;height:900px;position:relative;overflow:hidden;
+  background:var(--paper);color:var(--ink);
+  padding:56px 88px 52px;display:flex;flex-direction:column;
+  page-break-after:always;break-after:page;
+}
+.slide.dark,.ondark{--mut:var(--mutD)}
+.slide.dark{background:var(--deep);color:var(--cream)}
+.slide.dark .rule{background:var(--lineD)}
+.slide.deeper{background:var(--deeper)}
+.rule{height:1px;background:var(--line);width:100%}
+
+/* header / footer */
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.dark .hdr{border-color:var(--lineD)}
+.hdr .l{color:var(--mut)}.dark .hdr .l{color:var(--mutD)}
+.hdr .r{color:var(--deep)}.dark .hdr .r{color:var(--mint)}
+.ftr{position:absolute;left:88px;right:88px;bottom:34px;display:flex;justify-content:space-between;
+  font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;
+  border-top:1px solid var(--line);padding-top:12px}
+.dark .ftr{color:var(--mutD);border-color:var(--lineD)}
+.body{flex:1;padding-top:34px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:center}
+
+/* type */
+h1{font-family:var(--dk-serif);font-weight:300;font-size:82px;line-height:1.02;letter-spacing:-.02em}
+h2{font-family:var(--dk-serif);font-weight:300;font-size:54px;line-height:1.06;letter-spacing:-.015em}
+h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
+.eyebrow{margin-bottom:20px;font-size:13px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--deep)}
+.dark .eyebrow{color:color-mix(in srgb,var(--mint) 62%,var(--cream))}
+.lede{font-size:20px;line-height:1.5;color:var(--mut);max-width:62ch;font-weight:400}
+.dark .lede{color:var(--mutD)}
+.small{font-size:14.5px;line-height:1.5;color:var(--mut)}
+.dark .small{color:var(--mutD)}
+.lbl{margin-bottom:8px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.dark .lbl{color:var(--mutD)}
+.num{line-height:1.14;font-family:var(--dk-serif);font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:var(--clay)}
+em{font-style:italic}
+
+/* cover */
+.cover-mark{position:absolute;right:-260px;top:-220px;width:1100px;height:1100px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, rgba(121,210,192,.20), rgba(121,210,192,0) 62%)}
+.cover-rings{position:absolute;right:80px;top:90px;width:720px;height:720px}
+.cover-rings div{position:absolute;border:1px solid rgba(244,240,231,.13);border-radius:50%;inset:0}
+
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+
+/* stat block */
+.stat{border-top:2px solid var(--deep);padding-top:16px}
+.dark .stat{border-color:var(--mint)}
+.stat .v{font-family:var(--dk-serif);font-weight:300;font-size:52px;line-height:1;letter-spacing:-.02em;margin-top:12px;font-variant-numeric:tabular-nums}
+.stat .s{font-size:13.5px;color:var(--mut);margin-top:10px}
+.dark .stat .s{color:var(--mutD)}
+
+/* bars */
+.bar{height:26px;display:flex;overflow:hidden;border-radius:2px}
+.bar > span{display:block;height:100%}
+.track{height:8px;background:rgba(10,36,34,.10);border-radius:99px;overflow:hidden}
+.dark .track{background:rgba(244,240,231,.14)}
+.track > i{display:block;height:100%;background:var(--deep);border-radius:99px}
+.dark .track > i{background:var(--mint)}
+
+/* rows */
+.row{display:grid;align-items:center;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}
+.dark .row{border-color:var(--lineD)}
+.row .name{font-size:17px;font-weight:500}
+.row .val{font-family:var(--dk-serif);font-size:24px;font-weight:400;text-align:right;font-variant-numeric:tabular-nums}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);font-weight:700;text-align:left;padding:0 14px 12px 0;border-bottom:1px solid var(--line)}
+td{padding:15px 14px 15px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.dark th,.dark td{border-color:var(--lineD)}
+.dark th{color:var(--mutD)}
+td.n{text-align:right;font-family:var(--dk-serif);font-size:20px;font-variant-numeric:tabular-nums;padding-right:0}
+th.n{text-align:right;padding-right:0}
+.pad td.n,.pad th.n{padding-right:34px}
+
+/* card */
+.card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:24px 26px}
+.dark .card{background:rgba(244,240,231,.05);border-color:var(--lineD)}
+.card.accent{border-left:3px solid var(--gold)}
+
+/* flow */
+.node{border:1px solid var(--line);border-radius:3px;padding:16px 20px;background:#fff;color:var(--ink)}
+.node .mint{color:#12564C}
+.node .small{color:var(--mut)}
+.dark .node{background:rgba(244,240,231,.06);border-color:var(--lineD);color:var(--cream)}
+.dark .node .mint{color:var(--mint)}
+.dark .node .small{color:var(--mutD)}
+.node .t{font-size:16px;font-weight:600}
+.node .v{font-family:var(--dk-serif);font-size:22px;margin-top:4px}
+.conn{flex:1;height:1px;background:var(--line);position:relative}
+.dark .conn{background:var(--lineD)}
+.conn::after{content:'';position:absolute;right:0;top:-3px;border-left:7px solid var(--deep);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+.dark .conn::after{border-left-color:var(--mint)}
+
+/* section divider */
+.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:rgba(121,210,192,.16);letter-spacing:-.04em}
+.toc-item{display:flex;gap:20px;padding:17px 0;border-bottom:1px solid var(--lineD);font-size:20px}
+.toc-item .i{font-family:var(--dk-serif);color:var(--mint);width:34px;font-size:18px}
+.chip{display:inline-block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:99px}
+.chip.in{background:rgba(121,210,192,.18);color:#12564C}
+.chip.out{background:rgba(192,86,58,.13);color:var(--clay)}
+.dark .chip.in{background:rgba(121,210,192,.2);color:var(--mint)}
+.dark .chip.out{background:rgba(217,162,95,.2);color:var(--gold)}
+.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);background:#fff}
+.dark .avatar{background:rgba(244,240,231,.07);border-color:var(--lineD)}
+</style>
+<style id="ds-themes">
+html{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:3px}
+html[data-theme="editorial"]{--deep:#0E3330;--deeper:#06201E;--ink:#0A2422;--cream:#F4F0E7;--paper:#FBF9F4;--mint:#31917E;--gold:#B3762B;--clay:#C9674D;--line:rgba(10,36,34,.14);--lineD:rgba(244,240,231,.18);--mut:#5E7370;--mutD:rgba(244,240,231,.78)}
+html[data-theme="bone"]{--dk-serif:'Instrument Serif',Georgia,serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#14120F;--deeper:#000000;--ink:#14120F;--cream:#F7F5F0;--paper:#F7F5F0;--mint:#B65E2D;--gold:#C94F2A;--clay:#C94F2A;
+  --line:rgba(20,18,15,.16);--lineD:rgba(247,245,240,.2);--mut:#6D675D;--mutD:rgba(247,245,240,.78)}
+html[data-theme="midnight"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:2px;
+  --deep:#060B16;--deeper:#03060D;--ink:#E8ECF5;--cream:#E8ECF5;--paper:#0B1120;--mint:#6FD3C7;--gold:#C9A84C;--clay:#E07A5F;
+  --line:rgba(232,236,245,.16);--lineD:rgba(232,236,245,.14);--mut:#8D9BB8;--mutD:rgba(232,236,245,.78)}
+html[data-theme="slate"]{--dk-serif:'Work Sans',system-ui,sans-serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:10px;
+  --deep:#0F1B2D;--deeper:#0A1220;--ink:#0F1B2D;--cream:#F8FAFC;--paper:#FFFFFF;--mint:#0F77F7;--gold:#AE7007;--clay:#E14242;
+  --line:rgba(15,27,45,.12);--lineD:rgba(248,250,252,.16);--mut:#5B6B82;--mutD:rgba(248,250,252,.78)}
+html[data-theme="goldman"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Libre Franklin',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#002849;--deeper:#001A2E;--ink:#0B1C2C;--cream:#F4F6F9;--paper:#FFFFFF;--mint:#5684BA;--gold:#9C7C49;--clay:#D15E4D;
+  --line:rgba(0,40,73,.16);--lineD:rgba(244,246,249,.18);--mut:#5A6B7D;--mutD:rgba(244,246,249,.78)}
+html[data-theme="goldman"] h1,html[data-theme="goldman"] h2,html[data-theme="goldman"] h3,html[data-theme="goldman"] .num{font-weight:400;letter-spacing:-.015em}
+html[data-theme="schwab"]{--dk-serif:'Source Sans 3',system-ui,sans-serif;--dk-sans:'Source Sans 3',system-ui,sans-serif;--dk-radius:6px;
+  --deep:#2E3D49;--deeper:#1C2833;--ink:#1C2833;--cream:#F2F5F7;--paper:#FFFFFF;--mint:#0096D1;--gold:#D67212;--clay:#EE5D37;
+  --line:rgba(28,40,51,.14);--lineD:rgba(242,245,247,.2);--mut:#5B6A76;--mutD:rgba(242,245,247,.78)}
+html[data-theme="schwab"] h1,html[data-theme="schwab"] h2,html[data-theme="schwab"] h3,html[data-theme="schwab"] .num{font-weight:600;letter-spacing:-.02em}
+html[data-theme="schwab"] .card,html[data-theme="schwab"] .node,html[data-theme="schwab"] .box{border-radius:var(--dk-radius)}
+html[data-theme="schwab"] .r-dark .mint,html[data-theme="schwab"] .ondark .mint{color:#4FC3F2}
+/* midnight: light slides are dark, so accent text needs the light ink */
+html[data-theme="midnight"] .hdr .r{color:var(--gold)}
+/* midnight: base slides render on dark paper — mirror the .dark treatments */
+html[data-theme="midnight"] .card,html[data-theme="midnight"] .node,html[data-theme="midnight"] .avatar{background:rgba(232,236,245,.05);border-color:var(--lineD);color:var(--cream)}
+html[data-theme="midnight"] .eyebrow,html[data-theme="midnight"] .node .mint{color:var(--mint)}
+html[data-theme="midnight"] .track{background:rgba(232,236,245,.14)}
+html[data-theme="midnight"] .track > i,html[data-theme="midnight"] .sm .c > i,html[data-theme="midnight"] .bar > span:first-child{background:var(--mint)}
+html[data-theme="midnight"] .conn::after{border-left-color:var(--mint)}
+html[data-theme="midnight"] .chip.in{background:rgba(111,211,199,.2);color:var(--mint)}
+html[data-theme="midnight"] .keyline .sw[style*="--deep"]{background:var(--mint)!important}
+html[data-theme="slate"] .card,html[data-theme="slate"] .node,html[data-theme="slate"] .box{border-radius:var(--dk-radius)}
+html[data-theme="bone"] h1,html[data-theme="bone"] h2,html[data-theme="bone"] h3,html[data-theme="bone"] .num{font-weight:400}
+html[data-theme="slate"] h1,html[data-theme="slate"] h2,html[data-theme="slate"] h3,html[data-theme="slate"] .num{font-weight:500;letter-spacing:-.02em}
+body{background:transparent!important}
+.slide{margin:0 auto 28px}
+html{background:#111}
+</style>
+<script>
+document.documentElement.setAttribute('data-theme','editorial');
+addEventListener('message',function(e){
+  var d=e.data||{};
+  if(d.type==='ds-theme'&&typeof d.theme==='string')document.documentElement.setAttribute('data-theme',d.theme);
+  if(d.type==='ds-ping')announce();
+  if(d.type==='ds-goto'&&typeof d.index==='number'){
+    var s=document.querySelectorAll('.slide');
+    if(s[d.index])s[d.index].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+function announce(){parent.postMessage({type:'ds-ready',count:document.querySelectorAll('.slide').length},'*');}
+addEventListener('DOMContentLoaded',announce);
+addEventListener('load',announce);
+</script>
+<style id="ledger">
+/* ---- LEDGER MODE: dense, table-forward, one page = one worksheet ---- */
+.slide.led{padding:40px 88px 40px 88px}
+.led .body{padding-top:22px;padding-bottom:22px;justify-content:center}
+.led .ftr{left:88px;right:88px;bottom:26px;padding-top:10px;font-size:11px}
+.led h2{font-size:42px}
+.led .eyebrow{font-size:11.5px;letter-spacing:.24em;margin-bottom:12px}
+.led .hdr{font-size:12px;padding-bottom:10px}
+
+/* three scenario columns with hairline gutters */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cols > div{padding:0 26px;border-left:1px solid var(--line)}
+.cols > div:first-child{padding-left:0;border-left:0}
+.cols > div:last-child{padding-right:0}
+
+.scen{min-height:104px;padding-bottom:12px;border-bottom:2px solid var(--deep);margin-bottom:14px}
+.scen .n{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.scen .t{font-family:var(--dk-serif);font-size:23px;margin-top:6px;line-height:1.15}
+.scen .m{font-size:12.5px;color:var(--mut);margin-top:6px;line-height:1.45}
+.scen.a{border-color:var(--mint)}
+.scen.b{border-color:var(--gold)}
+
+/* ledger rows: label left, tabular figure right */
+.led-rows{width:100%}
+.lr{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    padding:11px 0;border-bottom:1px solid var(--line)}
+.lr:last-child{border-bottom:0}
+.lr .k{font-size:15px;color:var(--mut)}
+.lr .v{font-family:var(--dk-serif);font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.lr.tot{border-top:1.5px solid var(--deep);border-bottom:0;margin-top:6px;padding-top:11px}
+/* the dark total rule replaces the hairline above it */
+.lr:has(+ .lr.tot){border-bottom:0}
+.lr.tot .k{color:var(--ink);font-weight:600;font-size:14.5px}
+.lr.tot .v{font-size:29px}
+.lr.sub .k{padding-left:14px;font-size:13.5px}
+.lr.zero .v{color:var(--mut)}
+
+.hero-fig{font-family:var(--dk-serif);font-weight:300;font-size:64px;line-height:1;letter-spacing:-.025em;
+  font-variant-numeric:tabular-nums;margin-top:4px}
+.delta{font-size:13px;font-weight:600;letter-spacing:.02em;margin-top:8px}
+.up{color:var(--clay)}.down{color:var(--mint)}
+
+/* dense table variant */
+table.dense{font-size:14.5px}
+table.dense th{font-size:11px;padding:0 10px 10px 0;letter-spacing:.16em}
+table.dense td{padding:12px 10px 12px 0;font-size:14.5px}
+table.dense td.n{font-size:17px}
+table.dense tr.total td{border-bottom:0;border-top:1.5px solid var(--deep);font-weight:600}
+table.dense tr:has(+ tr.total) td{border-bottom:0}
+table.dense tr.hi td{background:color-mix(in srgb,var(--mint) 12%,transparent)}
+
+/* bracket fill meter */
+.meter{display:flex;height:20px;border-radius:2px;overflow:hidden;border:1px solid var(--line)}
+.meter i{display:block;height:100%}
+.meter .room{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line) 5px 6px)}
+.mscale{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mut);font-weight:700;margin-top:6px}
+
+/* small-multiple column chart */
+.sm{display:flex;align-items:flex-end;gap:14px;height:150px;border-bottom:1px solid var(--line);padding-bottom:0}
+.sm .c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.sm .c i{display:block;width:100%;background:var(--deep);border-radius:2px 2px 0 0}
+.sm .c .v{font-family:var(--dk-serif);font-size:14px;margin-bottom:5px;font-variant-numeric:tabular-nums}
+.smlbl{display:flex;gap:14px;margin-top:8px}
+.smlbl span{flex:1;text-align:center;font-size:11px;color:var(--mut);line-height:1.3}
+
+/* stacked column */
+.stack{width:78px;display:flex;flex-direction:column-reverse;border-radius:2px;overflow:hidden}
+.stack i{display:block;width:100%}
+
+.keyline{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--mut)}
+.sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+.note{font-size:11.5px;line-height:1.5;color:var(--mut)}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  padding:4px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+
+/* worksheet math rows */
+.wk .lr .k{font-size:14px}
+.wk .lr .v{font-size:19px}
+.wk .lr.op{border-bottom:0;padding-bottom:2px}
+.wk .lr.op .k{color:var(--mut);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lesser{border:1px solid var(--line);border-radius:2px;padding:12px 14px;margin-top:12px;
+  display:flex;justify-content:space-between;align-items:baseline}
+.dark .lesser{border-color:var(--lineD)}
+
+/* status chips for phase-out matrix */
+.chip.watch{background:color-mix(in srgb,var(--gold) 20%,transparent);color:#7A4E12}
+.dark .chip.watch,html[data-theme="midnight"] .chip.watch{color:var(--gold)}
+.chip.na{background:color-mix(in srgb,var(--mut) 16%,transparent);color:var(--mut)}
+td .chip{white-space:nowrap}
+
+/* observation cards */
+.obs{border-top:2px solid var(--line);padding-top:12px}
+.dark .obs{border-color:var(--lineD)}
+.obs.op{border-color:var(--mint)}
+.obs.wa{border-color:var(--gold)}
+.obs h4{font-family:var(--dk-serif);font-size:19px;font-weight:400;line-height:1.2;margin:9px 0 6px}
+.obs p{font-size:12.5px;line-height:1.5;color:var(--mut)}
+.led.tight .lr{padding:7px 0}
+.led.tight .lesser{padding:9px 14px;margin-top:9px}
+</style>
+
+<style id="estate">
+/* ---- ESTATE LEDGER extras ---- */
+.vconn{width:1px;height:20px;background:var(--line);margin:0 auto}
+.dark .vconn{background:var(--lineD)}
+html[data-theme="midnight"] .vconn,html[data-theme="midnight"] .hconn{background:var(--lineD)}
+.hconn{height:1px;background:var(--line);width:100%}
+.dark .hconn{background:var(--lineD)}
+.node.sm{padding:10px 13px}
+.node.sm .t{font-size:13.5px}
+.node.sm .v{font-size:17px;margin-top:2px}
+.node .r{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--mut);margin-bottom:4px}
+.dark .node .r{color:var(--mutD)}
+.tlrow{display:grid;gap:0;border-top:2px solid var(--deep);margin-top:10px}
+.dark .tlrow{border-color:var(--mint)}
+.tlrow > div{padding:18px 20px 0;border-left:1px solid var(--line);position:relative}
+.dark .tlrow > div{border-color:var(--lineD)}
+.tlrow > div:first-child{padding-left:0;border-left:0}
+.tlrow > div::before{content:'';position:absolute;top:-6px;left:0;width:9px;height:9px;border-radius:50%;background:var(--deep)}
+.dark .tlrow > div::before{background:var(--mint)}
+.tlrow > div:first-child::before{left:0}
+.when{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.dark .when{color:var(--mutD)}
+.what{font-family:var(--dk-serif);font-size:19px;line-height:1.2;margin-top:7px}
+.doc{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.dark .doc{border-color:var(--lineD)}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.dot.ok{background:var(--mint)}.dot.no{background:var(--clay)}.dot.wait{background:var(--gold)}
+.pct{font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums}
+.dark .pct{color:var(--mutD)}
+.ownlbl{font-family:var(--dk-serif);font-size:15px;color:var(--mut);text-align:center;padding:4px 0}
+.dark .ownlbl{color:var(--mutD)}
+</style>
+</head>
+<body>
+
+<!-- 1 COVER -->
+<section class="slide dark deeper" style="justify-content:space-between">
+  <div class="cover-mark"></div>
+  <div class="cover-rings">
+    <div style="inset:0"></div><div style="inset:90px"></div><div style="inset:180px"></div><div style="inset:270px"></div>
+  </div>
+  <div class="hdr" style="position:relative"><span class="l" style="font-family:Newsreader,serif;text-transform:none;letter-spacing:0;font-size:22px;color:var(--cream)">wealth.com</span><span class="r">Estate report · Ledger mode</span></div>
+  <div style="position:relative">
+    <div class="eyebrow" style="margin-bottom:26px">Confidential estate plan</div>
+    <h1 style="font-size:104px">Every asset,<br>every <span class="mint">beneficiary</span>.</h1>
+    <div class="num" style="font-size:46px;margin-top:26px;color:var(--mutD)">John &amp; Jane Doe</div>
+  </div>
+  <div style="position:relative">
+    <div class="rule" style="margin-bottom:22px"></div>
+    <div class="g4">
+      <div><div class="lbl">Prepared for</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">John &amp; Jane Doe</div></div>
+      <div><div class="lbl">Estimated total estate</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">$491,783,231</div></div>
+      <div><div class="lbl">Prepared by</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">Your Advisor</div></div>
+      <div><div class="lbl">Date</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">August 2026</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:30px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mutD);font-weight:600">
+      <span>Plan for every tomorrow&trade;</span><span>Confidential</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 TABLE OF CONTENTS -->
+<section class="slide led dark">
+  <div class="hdr"><span class="l">John &amp; Jane Doe</span><span class="r">Contents</span></div>
+  <div class="body">
+    <div class="eyebrow">Six sections, twenty-four exhibits</div>
+    <h2 style="margin-bottom:22px">Table of contents</h2>
+    <div class="g3" style="gap:44px">
+      <div>
+        <div class="lbl mint">Core</div>
+        <div class="toc-item"><span class="i">01</span><span>Estate overview</span><span style="margin-left:auto;color:var(--mutD)">01</span></div>
+        <div class="toc-item"><span class="i">02</span><span>Family tree</span><span style="margin-left:auto;color:var(--mutD)">02</span></div>
+        <div class="toc-item"><span class="i">03</span><span>Decision makers · trusts</span><span style="margin-left:auto;color:var(--mutD)">03</span></div>
+        <div class="toc-item"><span class="i">04</span><span>Decision makers · wills &amp; directives</span><span style="margin-left:auto;color:var(--mutD)">04</span></div>
+        <div class="toc-item"><span class="i">05</span><span>Vault summary</span><span style="margin-left:auto;color:var(--mutD)">05</span></div>
+        <div class="toc-item" style="border-bottom:0"><span class="i">06</span><span>Entity structure chart</span><span style="margin-left:auto;color:var(--mutD)">06</span></div>
+        <div class="lbl mint" style="margin-top:26px">Financial</div>
+        <div class="toc-item"><span class="i">07</span><span>Estimated estate overview</span><span style="margin-left:auto;color:var(--mutD)">07</span></div>
+        <div class="toc-item" style="border-bottom:0"><span class="i">08</span><span>Estate summary</span><span style="margin-left:auto;color:var(--mutD)">08</span></div>
+      </div>
+      <div>
+        <div class="toc-item" style="padding-top:0"><span class="i">09</span><span>Balance sheet overview</span><span style="margin-left:auto;color:var(--mutD)">09</span></div>
+        <div class="toc-item" style="border-bottom:0"><span class="i">10</span><span>Balance sheet breakdown</span><span style="margin-left:auto;color:var(--mutD)">10</span></div>
+        <div class="lbl mint" style="margin-top:26px">Distributions</div>
+        <div class="toc-item"><span class="i">11</span><span>Distribution summary</span><span style="margin-left:auto;color:var(--mutD)">11</span></div>
+        <div class="toc-item"><span class="i">12</span><span>EstateFlow detailed · John first</span><span style="margin-left:auto;color:var(--mutD)">12</span></div>
+        <div class="toc-item"><span class="i">13</span><span>EstateFlow detailed · Jane first</span><span style="margin-left:auto;color:var(--mutD)">13</span></div>
+        <div class="toc-item" style="border-bottom:0"><span class="i">14</span><span>Estate timeline</span><span style="margin-left:auto;color:var(--mutD)">14</span></div>
+        <div class="lbl mint" style="margin-top:26px">Calculators</div>
+        <div class="toc-item"><span class="i">15</span><span>GRAT calculator</span><span style="margin-left:auto;color:var(--mutD)">15</span></div>
+        <div class="toc-item"><span class="i">16</span><span>CLAT calculator</span><span style="margin-left:auto;color:var(--mutD)">16</span></div>
+        <div class="toc-item" style="border-bottom:0"><span class="i">17</span><span>QPRT calculator</span><span style="margin-left:auto;color:var(--mutD)">17</span></div>
+      </div>
+      <div>
+        <div class="toc-item" style="padding-top:0;border-bottom:0"><span class="i">18</span><span>State estate tax calculator</span><span style="margin-left:auto;color:var(--mutD)">18</span></div>
+        <div class="lbl mint" style="margin-top:26px">Educational</div>
+        <div class="toc-item"><span class="i">19</span><span>Irrevocable vehicles at a glance</span><span style="margin-left:auto;color:var(--mutD)">19</span></div>
+        <div class="toc-item"><span class="i">20</span><span>Charitable vehicles · CRAT, CRUT, CLAT</span><span style="margin-left:auto;color:var(--mutD)">20</span></div>
+        <div class="toc-item"><span class="i">21</span><span>Will vs revocable trust · POA · directive</span><span style="margin-left:auto;color:var(--mutD)">21</span></div>
+        <div class="toc-item"><span class="i">22</span><span>State estate tax planning</span><span style="margin-left:auto;color:var(--mutD)">22</span></div>
+        <div class="toc-item" style="border-bottom:0"><span class="i">23</span><span>Glossary</span><span style="margin-left:auto;color:var(--mutD)">23</span></div>
+        <div class="lbl mint" style="margin-top:26px">Disclaimers</div>
+        <div class="toc-item" style="border-bottom:0"><span class="i">24</span><span>Disclaimer</span><span style="margin-left:auto;color:var(--mutD)">24</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · refer to your original documents</span><span>Estate report · August 2026</span></div>
+</section>
+
+<!-- 3 ESTATE OVERVIEW -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">01 — Estate overview</span></div>
+  <div class="body">
+    <div class="eyebrow">Every document, vehicle and figure on one page</div>
+    <h2 style="margin-bottom:20px">Estate overview</h2>
+    <div class="cols">
+      <div>
+        <div class="scen"><div class="n">The estate</div><div class="t">What is held</div><div class="m">Values as of July 31, 2026, from documents in the vault.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Inside taxable estate</span><span class="v">$334,211,600</span></div>
+          <div class="lr"><span class="k">Outside taxable estate</span><span class="v">$157,571,631</span></div>
+          <div class="lr sub"><span class="k">Held through entities</span><span class="v">$28,100,000</span></div>
+          <div class="lr sub"><span class="k">Liabilities</span><span class="v">($11,300,000)</span></div>
+          <div class="lr tot"><span class="k">Estimated total estate</span><span class="v">$491,783,231</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">The exposure</div><div class="t">What is owed</div><div class="m">At second death, under 2026 law and current funding.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Federal estate tax</span><span class="v">$126,472,640</span></div>
+          <div class="lr"><span class="k">State estate tax</span><span class="v">$4,580,000</span></div>
+          <div class="lr"><span class="k">Combined exemption remaining</span><span class="v mint">$3,820,000</span></div>
+          <div class="lr"><span class="k">GST exemption remaining</span><span class="v mint">$7,880,000</span></div>
+          <div class="lr tot"><span class="k">Estimated total transfer tax</span><span class="v clay">$131,052,640</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">The structure</div><div class="t">What is in place</div><div class="m">Documents on file across both spouses.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Trusts</span><span class="v">8</span></div>
+          <div class="lr"><span class="k">Wills</span><span class="v">2</span></div>
+          <div class="lr"><span class="k">Powers of attorney</span><span class="v">2</span></div>
+          <div class="lr"><span class="k">Healthcare directives</span><span class="v">2</span></div>
+          <div class="lr"><span class="k">Operating entities</span><span class="v">4</span></div>
+          <div class="lr tot"><span class="k">Documents collected</span><span class="v">10 <span style="font-size:15px;color:var(--mut)">of 13</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="rule" style="margin:24px 0 18px"></div>
+    <div class="g4" style="gap:26px">
+      <div><div class="lbl">Inside the taxable estate</div><div class="num" style="font-size:32px">68%</div><div class="meter" style="margin-top:10px"><i style="width:68%;background:var(--deep)"></i><i style="width:32%;background:var(--mint)"></i></div></div>
+      <div><div class="lbl">Effective transfer tax rate</div><div class="num" style="font-size:32px">39.2%</div><p class="note" style="margin-top:6px">Of the inside-estate value at second death.</p></div>
+      <div><div class="lbl">Largest single vehicle</div><div class="num" style="font-size:32px">$293.7M</div><p class="note" style="margin-top:6px">Doe Family Trust · 60% of the whole estate.</p></div>
+      <div><div class="lbl">Passing to family</div><div class="num" style="font-size:32px">$266.9M</div><p class="note" style="margin-top:6px">Four descendants, all in trust.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · refer to your original documents</span><span>01</span></div>
+</section>
+
+<!-- 4 FAMILY TREE -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">02 — Family tree</span></div>
+  <div class="body">
+    <div class="eyebrow">Three generations, and what each one receives</div>
+    <h2 style="margin-bottom:6px">Family tree</h2>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:14px">
+      <div style="display:flex;gap:20px;align-items:center">
+        <div class="node" style="min-width:230px"><div class="r">Member</div><div class="t">John Doe</div><div class="small">b. 1954 · California</div></div>
+        <div style="width:56px;height:1px;background:var(--line)"></div>
+        <div class="node" style="min-width:230px"><div class="r">Spouse</div><div class="t">Jane Doe</div><div class="small">b. 1957 · California</div></div>
+      </div>
+      <div class="vconn" style="height:26px"></div>
+      <div style="width:1040px;height:1px;background:var(--line)"></div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:40px;width:1040px;margin-top:0">
+        <div style="display:flex;flex-direction:column;align-items:center"><div class="vconn"></div>
+          <div class="node sm" style="width:100%"><div class="r">Child · Son</div><div class="t">Daniel Doe</div><div class="v mint">$119,182,325</div><div class="small">In trust · Daniel Doe Separate Trust</div></div>
+          <div class="vconn"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%">
+            <div class="node sm"><div class="r">Grandchild</div><div class="t">Joseph Doe</div><div class="v">$14,250,000</div></div>
+            <div class="node sm"><div class="r">Grandchild</div><div class="t">Kevin Doe</div><div class="v">$14,250,000</div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center"><div class="vconn"></div>
+          <div class="node sm" style="width:100%"><div class="r">Child · Son</div><div class="t">Andrew Doe</div><div class="v mint">$119,182,325</div><div class="small">In trust · Andrew Doe Separate Trust</div></div>
+          <div class="vconn"></div>
+          <div style="display:grid;grid-template-columns:1fr;gap:16px;width:100%">
+            <div class="node sm"><div class="r">Grandchildren</div><div class="t">None recorded</div><div class="small">Dynasty trust share held for future issue</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rule" style="margin:22px 0 14px"></div>
+    <div class="g4" style="gap:26px">
+      <div><div class="lbl">Descendants named</div><div class="num" style="font-size:30px">4</div></div>
+      <div><div class="lbl">Passing outright</div><div class="num" style="font-size:30px">$0</div><p class="note" style="margin-top:6px">Every family share is held in trust.</p></div>
+      <div><div class="lbl">Per-branch split</div><div class="num" style="font-size:30px">50 / 50</div><p class="note" style="margin-top:6px">Residuary shares are equal by branch.</p></div>
+      <div><div class="lbl">Grandchildren&rsquo;s trust</div><div class="num" style="font-size:30px">$28.5M</div><p class="note" style="margin-top:6px">GST-exempt dynasty trust.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Relationships as recorded in the vault</span><span>02</span></div>
+</section>
+
+<!-- 5 DECISION MAKERS · TRUSTS -->
+<section class="slide led tight">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">03 — Decision makers</span></div>
+  <div class="body">
+    <div class="eyebrow">Who holds the pen on each vehicle</div>
+    <h2 style="margin-bottom:16px">Key people · trusts</h2>
+    <table class="dense">
+      <thead><tr><th style="width:26%">Vehicle</th><th>Trustor</th><th>Current trustee</th><th>Successor</th><th>Second successor</th><th style="text-align:right">Third successor</th></tr></thead>
+      <tbody>
+        <tr><td>Doe Family Trust</td><td>John Doe · Jane Doe</td><td>John Doe · Jane Doe</td><td>Donald Martin</td><td>Katherine Jones</td><td style="text-align:right">Chris Newsom</td></tr>
+        <tr><td>Doe 2020-A GRAT</td><td>John Doe</td><td>Chris Newsom</td><td>Bryn Mawr Trust Co. of DE</td><td>James Carlson</td><td style="text-align:right">&mdash;</td></tr>
+        <tr><td>Doe 2020-B GRAT</td><td>Jane Doe</td><td>Chris Newsom</td><td>Bryn Mawr Trust Co. of DE</td><td>James Carlson</td><td style="text-align:right">&mdash;</td></tr>
+        <tr><td>Doe 2018 CLAT</td><td>John Doe</td><td>Chris Newsom</td><td>Bryn Mawr Trust Co. of DE</td><td>James Carlson</td><td style="text-align:right">&mdash;</td></tr>
+        <tr><td>Doe 2018 Irrevocable Trust</td><td>John Doe · Jane Doe</td><td>James Carlson</td><td>Sam Kahn</td><td>&mdash;</td><td style="text-align:right">&mdash;</td></tr>
+        <tr><td>The Daniel Doe Irrevocable Trust dtd 4/1/2018</td><td>John Doe · Jane Doe</td><td>James Carlson</td><td>Sam Kahn</td><td>&mdash;</td><td style="text-align:right">&mdash;</td></tr>
+        <tr><td>The Andrew Doe Irrevocable Trust dtd 4/1/2018</td><td>John Doe · Jane Doe</td><td>James Carlson</td><td>Sam Kahn</td><td>&mdash;</td><td style="text-align:right">&mdash;</td></tr>
+        <tr><td>Doe Grandchildren&rsquo;s Gift Trust</td><td>John Doe · Jane Doe</td><td>Bryn Mawr Trust Co. of DE</td><td>James Carlson</td><td>Sam Kahn</td><td style="text-align:right">&mdash;</td></tr>
+      </tbody>
+    </table>
+    <div class="g3" style="gap:32px;margin-top:22px">
+      <div><div class="lbl">People carrying a fiduciary role</div><div class="num" style="font-size:32px">7</div><p class="note" style="margin-top:6px">Plus one corporate trustee.</p></div>
+      <div><div class="lbl">Most frequently named</div><div class="num" style="font-size:32px">Chris Newsom</div><p class="note" style="margin-top:6px">Current trustee of three vehicles.</p></div>
+      <div><div class="lbl">Vehicles with no second successor</div><div class="num clay" style="font-size:32px">4</div><p class="note" style="margin-top:6px">Consider naming a further backstop.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Roles as designated in each governing document</span><span>03</span></div>
+</section>
+
+<!-- 6 DECISION MAKERS · WILLS & DIRECTIVES -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">04 — Decision makers</span></div>
+  <div class="body">
+    <div class="eyebrow">Named agents mirror across both spouses</div>
+    <h2 style="margin-bottom:18px">Key people · wills, powers &amp; directives</h2>
+    <div class="g2" style="gap:56px;align-items:start">
+      <div>
+        <div class="lbl">John Doe</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Executor · Last Will &amp; Testament</span><span class="v" style="font-size:17px">Donald Martin</span></div>
+          <div class="lr"><span class="k">Guardian</span><span class="v" style="font-size:17px">Katherine Jones</span></div>
+          <div class="lr"><span class="k">Alternate guardian</span><span class="v" style="font-size:17px">Charlotte Garland</span></div>
+          <div class="lr"><span class="k">Financial POA · primary agent</span><span class="v" style="font-size:17px">Jane Doe</span></div>
+          <div class="lr"><span class="k">Financial POA · alternate</span><span class="v" style="font-size:17px">Katherine Jones</span></div>
+          <div class="lr"><span class="k">Healthcare directive · primary</span><span class="v" style="font-size:17px">Jane Doe</span></div>
+          <div class="lr"><span class="k">Healthcare directive · alternate</span><span class="v" style="font-size:17px">Katherine Jones</span></div>
+          <div class="lr tot"><span class="k">Documents executed</span><span class="v">3 of 3</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Jane Doe</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Executor · Last Will &amp; Testament</span><span class="v" style="font-size:17px">Donald Martin</span></div>
+          <div class="lr"><span class="k">Guardian</span><span class="v" style="font-size:17px">Katherine Jones</span></div>
+          <div class="lr"><span class="k">Alternate guardian</span><span class="v" style="font-size:17px">Charlotte Garland</span></div>
+          <div class="lr"><span class="k">Financial POA · primary agent</span><span class="v" style="font-size:17px">John Doe</span></div>
+          <div class="lr"><span class="k">Financial POA · alternate</span><span class="v" style="font-size:17px">Katherine Jones</span></div>
+          <div class="lr"><span class="k">Healthcare directive · primary</span><span class="v" style="font-size:17px">John Doe</span></div>
+          <div class="lr"><span class="k">Healthcare directive · alternate</span><span class="v" style="font-size:17px">Katherine Jones</span></div>
+          <div class="lr tot"><span class="k">Documents executed</span><span class="v">3 of 3</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:22px;max-width:104ch">Both spouses name each other first and Katherine Jones second on every incapacity document, which keeps the chain simple but concentrates it: if a single event affects both spouses, every financial and medical decision falls to one person. Naming a distinct alternate on one side would remove that single point of failure.</p>
+  </div>
+  <div class="ftr"><span>Roles as designated in each governing document</span><span>04</span></div>
+</section>
+
+<!-- 7 VAULT SUMMARY -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">05 — Vault summary</span></div>
+  <div class="body">
+    <div class="eyebrow">Ten of thirteen documents collected</div>
+    <h2 style="margin-bottom:18px">Vault summary</h2>
+    <div class="g4" style="gap:34px;align-items:start">
+      <div>
+        <div class="lbl">Core estate documents</div>
+        <div class="doc"><i class="dot ok"></i><span>Doe Family Trust</span><span style="margin-left:auto" class="pct">2016</span></div>
+        <div class="doc"><i class="dot ok"></i><span>Will · John Doe</span><span style="margin-left:auto" class="pct">2016</span></div>
+        <div class="doc"><i class="dot ok"></i><span>Will · Jane Doe</span><span style="margin-left:auto" class="pct">2016</span></div>
+        <div class="doc"><i class="dot wait"></i><span>Trust amendment no. 2</span><span style="margin-left:auto" class="pct">Requested</span></div>
+      </div>
+      <div>
+        <div class="lbl">Irrevocable vehicles</div>
+        <div class="doc"><i class="dot ok"></i><span>Doe 2018 CLAT</span><span style="margin-left:auto" class="pct">2018</span></div>
+        <div class="doc"><i class="dot ok"></i><span>Daniel Doe Irrev. Trust</span><span style="margin-left:auto" class="pct">2018</span></div>
+        <div class="doc"><i class="dot ok"></i><span>Andrew Doe Irrev. Trust</span><span style="margin-left:auto" class="pct">2018</span></div>
+        <div class="doc"><i class="dot ok"></i><span>Grandchildren&rsquo;s Gift Trust</span><span style="margin-left:auto" class="pct">2019</span></div>
+        <div class="doc"><i class="dot no"></i><span>Doe 2020-B GRAT</span><span style="margin-left:auto" class="pct">Missing</span></div>
+      </div>
+      <div>
+        <div class="lbl">Incapacity</div>
+        <div class="doc"><i class="dot ok"></i><span>Financial POA · John</span><span style="margin-left:auto" class="pct">2016</span></div>
+        <div class="doc"><i class="dot ok"></i><span>Financial POA · Jane</span><span style="margin-left:auto" class="pct">2016</span></div>
+        <div class="doc"><i class="dot no"></i><span>Healthcare directive · Jane</span><span style="margin-left:auto" class="pct">Missing</span></div>
+      </div>
+      <div>
+        <div class="lbl">Entity &amp; supporting</div>
+        <div class="doc"><i class="dot ok"></i><span>Nevis LLC operating agr.</span><span style="margin-left:auto" class="pct">2017</span></div>
+        <div class="doc"><i class="dot wait"></i><span>Milei Atlas LLC operating agr.</span><span style="margin-left:auto" class="pct">Requested</span></div>
+        <div class="doc"><i class="dot ok"></i><span>Gift tax returns · 709</span><span style="margin-left:auto" class="pct">2018&ndash;2025</span></div>
+      </div>
+    </div>
+    <div class="rule" style="margin:24px 0 18px"></div>
+    <div class="g4" style="gap:26px">
+      <div><div class="lbl">Collected</div><div class="num mint" style="font-size:34px">10</div></div>
+      <div><div class="lbl">Requested</div><div class="num gold" style="font-size:34px">2</div></div>
+      <div><div class="lbl">Missing</div><div class="num clay" style="font-size:34px">2</div><p class="note" style="margin-top:6px">Jane&rsquo;s healthcare directive is the priority gap.</p></div>
+      <div><div class="lbl">Oldest core document</div><div class="num" style="font-size:34px">2016</div><p class="note" style="margin-top:6px">Ten years old · review recommended.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Document status as of August 4, 2026</span><span>05</span></div>
+</section>
+
+<!-- 8 ENTITY STRUCTURE CHART -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">06 — Entity structure</span></div>
+  <div class="body">
+    <div class="eyebrow">Who owns which operating company, and in what share</div>
+    <h2 style="margin-bottom:16px">Entity structure chart</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+      <div class="node sm"><div class="r">Irrevocable trust</div><div class="t">The Daniel Doe Irrevocable Trust dtd 4/1/2018</div><div class="v">$18,602,845</div></div>
+      <div class="node sm"><div class="r">Irrevocable trust</div><div class="t">The Andrew Doe Irrevocable Trust dtd 4/1/2018</div><div class="v">$18,748,786</div></div>
+      <div class="node sm"><div class="r">Irrevocable trust</div><div class="t">Doe 2018 Irrevocable Trust</div><div class="v">$46,530,000</div></div>
+      <div class="node sm"><div class="r">Revocable trust</div><div class="t">Doe Family Trust</div><div class="v">$293,736,500</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+      <div class="ownlbl">40%<div class="vconn"></div></div>
+      <div class="ownlbl">60%<div class="vconn"></div></div>
+      <div class="ownlbl">50%<div class="vconn"></div></div>
+      <div class="ownlbl">50%<div class="vconn"></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+      <div class="node sm"><div class="r">Operating entity</div><div class="t">Ace Studios LLC</div><div class="v">$4,200,000</div><div class="small">40% Daniel trust · 60% Andrew trust</div></div>
+      <div></div>
+      <div class="node sm"><div class="r">Operating entity</div><div class="t">Nevis LLC</div><div class="v">$2,100,000</div><div class="small">50 / 50 with Doe Family Trust</div></div>
+      <div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:6px">
+      <div></div><div></div>
+      <div class="ownlbl"><div class="vconn"></div>100%</div>
+      <div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+      <div></div><div></div>
+      <div class="node sm"><div class="r">Subsidiary</div><div class="t">Milei LLC</div><div class="v">$5,300,000</div><div class="small">Wholly owned by Nevis LLC</div></div>
+      <div class="node sm"><div class="r">Subsidiary</div><div class="t">Milei Atlas LLC</div><div class="v">$3,300,000</div><div class="small">Wholly owned by Milei LLC</div></div>
+    </div>
+    <div class="rule" style="margin:22px 0 16px"></div>
+    <div class="g4" style="gap:26px">
+      <div><div class="lbl">Entities in the structure</div><div class="num" style="font-size:30px">4</div></div>
+      <div><div class="lbl">Entity value inside the estate</div><div class="num" style="font-size:30px">$11.5M</div></div>
+      <div><div class="lbl">Entity value outside</div><div class="num" style="font-size:30px">$16.6M</div></div>
+      <div><div class="lbl">Deepest ownership chain</div><div class="num" style="font-size:30px">3 tiers</div><p class="note" style="margin-top:6px">Doe Family Trust &rarr; Nevis &rarr; Milei &rarr; Milei Atlas.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Ownership percentages from operating agreements</span><span>06</span></div>
+</section>
+
+<!-- 9 ESTIMATED ESTATE OVERVIEW -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">07 — Estimated estate</span></div>
+  <div class="body">
+    <div class="eyebrow">Two spouses, two exemptions, one bill</div>
+    <h2 style="margin-bottom:18px">Estimated estate overview</h2>
+    <table class="dense">
+      <thead><tr><th style="width:34%">Transfer tax computation · at second death</th><th style="text-align:right">John Doe</th><th style="text-align:right">Jane Doe</th><th style="text-align:right">Combined</th></tr></thead>
+      <tbody>
+        <tr><td>Gross estate, inside the taxable estate</td><td style="text-align:right">$167,105,800</td><td style="text-align:right">$167,105,800</td><td style="text-align:right">$334,211,600</td></tr>
+        <tr><td>Less liabilities and settlement costs</td><td style="text-align:right">($5,650,000)</td><td style="text-align:right">($5,650,000)</td><td style="text-align:right">($11,300,000)</td></tr>
+        <tr><td>Less charitable transfers</td><td style="text-align:right">($4,265,000)</td><td style="text-align:right">($4,265,000)</td><td style="text-align:right">($8,530,000)</td></tr>
+        <tr class="total"><td>Taxable estate</td><td style="text-align:right">$157,190,800</td><td style="text-align:right">$157,190,800</td><td style="text-align:right">$314,381,600</td></tr>
+        <tr><td>Applicable exclusion, 2026</td><td style="text-align:right">$15,000,000</td><td style="text-align:right">$15,000,000</td><td style="text-align:right">$30,000,000</td></tr>
+        <tr><td>Less lifetime gifts already reported</td><td style="text-align:right">($13,090,000)</td><td style="text-align:right">($13,090,000)</td><td style="text-align:right">($26,180,000)</td></tr>
+        <tr><td>Exclusion remaining at death</td><td style="text-align:right">$1,910,000</td><td style="text-align:right">$1,910,000</td><td style="text-align:right">$3,820,000</td></tr>
+        <tr class="total"><td>Amount subject to tax</td><td style="text-align:right">$155,280,800</td><td style="text-align:right">$155,280,800</td><td style="text-align:right">$310,561,600</td></tr>
+        <tr><td>Federal estate tax at 40%</td><td style="text-align:right">$63,236,320</td><td style="text-align:right">$63,236,320</td><td style="text-align:right">$126,472,640</td></tr>
+        <tr><td>State estate tax, situs assets</td><td style="text-align:right">$2,290,000</td><td style="text-align:right">$2,290,000</td><td style="text-align:right">$4,580,000</td></tr>
+        <tr class="total"><td>Estimated transfer tax due</td><td style="text-align:right">$65,526,320</td><td style="text-align:right">$65,526,320</td><td style="text-align:right">$131,052,640</td></tr>
+      </tbody>
+    </table>
+    <div class="g4" style="gap:26px;margin-top:22px">
+      <div><div class="lbl">Effective rate on the taxable estate</div><div class="num" style="font-size:30px">41.7%</div></div>
+      <div><div class="lbl">Liquid assets available</div><div class="num" style="font-size:30px">$146.4M</div><p class="note" style="margin-top:6px">Cash plus marketable investments inside the estate.</p></div>
+      <div><div class="lbl">Liquidity shortfall</div><div class="num clay" style="font-size:30px">$0</div><p class="note" style="margin-top:6px">Covered, but only by selling most of the portfolio.</p></div>
+      <div><div class="lbl">Every $1M gifted now saves</div><div class="num mint" style="font-size:30px">$400,000</div><p class="note" style="margin-top:6px">Plus all future appreciation on that dollar.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>2026 law · $15.0M exclusion per spouse · 40% top rate</span><span>07</span></div>
+</section>
+
+<!-- 10 ESTATE SUMMARY -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">08 — Estate summary</span></div>
+  <div class="body">
+    <div class="eyebrow">Where the estate sits relative to the taxable line</div>
+    <h2 style="margin-bottom:18px">Estate summary</h2>
+    <div class="cols" style="grid-template-columns:1.15fr 1fr 1fr">
+      <div>
+        <div class="scen"><div class="n">Composition</div><div class="t">Inside vs outside</div><div class="m">Assets already removed from the taxable estate are shown in mint.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Doe Family Trust · revocable</span><span class="v">$293,736,500</span></div>
+          <div class="lr"><span class="k">Jointly held &amp; individually titled</span><span class="v">$28,975,100</span></div>
+          <div class="lr"><span class="k">Retirement accounts</span><span class="v">$6,400,000</span></div>
+          <div class="lr sub"><span class="k">Liabilities</span><span class="v">($11,300,000)</span></div>
+          <div class="lr sub" style="border-bottom:0"><span class="k">Entity interests, inside</span><span class="v">$16,400,000</span></div>
+          <div class="lr tot"><span class="k">Inside the taxable estate</span><span class="v">$334,211,600</span></div>
+        </div>
+        <div class="led-rows" style="margin-top:14px">
+          <div class="lr"><span class="k">Doe 2018 CLAT</span><span class="v mint">$38,660,147</span></div>
+          <div class="lr"><span class="k">Doe 2018 Irrevocable Trust</span><span class="v mint">$46,530,000</span></div>
+          <div class="lr"><span class="k">Daniel &amp; Andrew irrevocable trusts</span><span class="v mint">$37,351,631</span></div>
+          <div class="lr"><span class="k">Grandchildren&rsquo;s Gift Trust</span><span class="v mint">$28,500,000</span></div>
+          <div class="lr" style="border-bottom:0"><span class="k">Entity interests, outside</span><span class="v mint">$6,529,853</span></div>
+          <div class="lr tot"><span class="k">Outside the taxable estate</span><span class="v mint">$157,571,631</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Split</div><div class="t">68 / 32</div><div class="m">Two thirds of the estate is still exposed to transfer tax.</div></div>
+        <div class="lbl" style="margin-top:18px">Inside vs outside the taxable estate</div>
+        <div class="meter" style="height:16px"><i style="width:68%;background:var(--deep)"></i><i style="width:32%;background:var(--mint)"></i></div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px"><span class="pct">Inside · $334.2M</span><span class="pct">Outside · $157.6M</span></div>
+        <div class="lbl" style="margin-top:26px">Exclusion consumed to date</div>
+        <div class="meter" style="height:16px"><i style="width:87.3%;background:var(--gold)"></i></div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px"><span class="pct">Used · $26.18M</span><span class="pct">Left · $3.82M</span></div>
+        <div class="lbl" style="margin-top:26px">GST exclusion consumed</div>
+        <div class="meter" style="height:16px"><i style="width:73.7%;background:var(--gold)"></i></div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px"><span class="pct">Used · $22.12M</span><span class="pct">Left · $7.88M</span></div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Outcome</div><div class="t">Who receives what</div><div class="m">After tax and settlement costs, at second death.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">To family, in trust</span><span class="v">$266,864,650</span></div>
+          <div class="lr"><span class="k">To charity</span><span class="v">$8,530,000</span></div>
+          <div class="lr"><span class="k">Retained in existing trusts</span><span class="v">$85,190,147</span></div>
+          <div class="lr"><span class="k">To federal &amp; state government</span><span class="v clay">$131,052,640</span></div>
+          <div class="lr tot"><span class="k">Total distributed</span><span class="v">$491,637,437</span></div>
+        </div>
+        <p class="note" style="margin-top:16px">For every dollar reaching a descendant today, roughly forty-nine cents reaches a taxing authority. Nothing else on this page moves that ratio as much as gifting appreciating assets early.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · refer to your original documents</span><span>08</span></div>
+</section>
+
+<!-- 11 BALANCE SHEET OVERVIEW -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">09 — Balance sheet</span></div>
+  <div class="body">
+    <div class="eyebrow">By asset class, inside and outside the estate</div>
+    <h2 style="margin-bottom:18px">Balance sheet overview</h2>
+    <table class="dense">
+      <thead><tr><th style="width:26%">Asset class</th><th style="text-align:right">Inside estate</th><th style="text-align:right">Outside estate</th><th style="text-align:right">Total</th><th style="text-align:right">Share</th><th style="width:22%">Distribution</th></tr></thead>
+      <tbody>
+        <tr><td>Alternatives &amp; private holdings</td><td style="text-align:right">$148,000,000</td><td style="text-align:right">$57,700,000</td><td style="text-align:right">$205,700,000</td><td style="text-align:right">41.8%</td><td><div class="meter"><i style="width:100%;background:var(--deep)"></i></div></td></tr>
+        <tr><td>Marketable investments</td><td style="text-align:right">$128,600,000</td><td style="text-align:right">$81,400,000</td><td style="text-align:right">$210,000,000</td><td style="text-align:right">42.7%</td><td><div class="meter"><i style="width:100%;background:var(--deep)"></i></div></td></tr>
+        <tr><td>Real estate</td><td style="text-align:right">$33,200,000</td><td style="text-align:right">$1,900,000</td><td style="text-align:right">$35,100,000</td><td style="text-align:right">7.1%</td><td><div class="meter"><i style="width:17%;background:var(--mint)"></i></div></td></tr>
+        <tr><td>Cash &amp; equivalents</td><td style="text-align:right">$17,811,600</td><td style="text-align:right">$0</td><td style="text-align:right">$17,811,600</td><td style="text-align:right">3.6%</td><td><div class="meter"><i style="width:9%;background:var(--mint)"></i></div></td></tr>
+        <tr><td>Operating entity interests</td><td style="text-align:right">$11,500,000</td><td style="text-align:right">$16,571,631</td><td style="text-align:right">$28,071,631</td><td style="text-align:right">5.7%</td><td><div class="meter"><i style="width:14%;background:var(--mint)"></i></div></td></tr>
+        <tr><td>Retirement accounts</td><td style="text-align:right">$6,400,000</td><td style="text-align:right">$0</td><td style="text-align:right">$6,400,000</td><td style="text-align:right">1.3%</td><td><div class="meter"><i style="width:3%;background:var(--mint)"></i></div></td></tr>
+        <tr><td>Liabilities</td><td style="text-align:right">($11,300,000)</td><td style="text-align:right">$0</td><td style="text-align:right">($11,300,000)</td><td style="text-align:right">&mdash;</td><td><div class="meter"><i style="width:5%;background:var(--clay)"></i></div></td></tr>
+        <tr class="total"><td>Total</td><td style="text-align:right">$334,211,600</td><td style="text-align:right">$157,571,631</td><td style="text-align:right">$491,783,231</td><td style="text-align:right">100%</td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="g4" style="gap:26px;margin-top:22px">
+      <div><div class="lbl">Illiquid share of the estate</div><div class="num" style="font-size:30px">54.6%</div><p class="note" style="margin-top:6px">Alternatives, real estate and entity interests.</p></div>
+      <div><div class="lbl">Cash on hand vs tax due</div><div class="num clay" style="font-size:30px">14%</div><p class="note" style="margin-top:6px">Cash covers only a seventh of the estimated bill.</p></div>
+      <div><div class="lbl">Largest class</div><div class="num" style="font-size:30px">$210.0M</div><p class="note" style="margin-top:6px">Marketable investments, across both sides.</p></div>
+      <div><div class="lbl">Debt to assets</div><div class="num" style="font-size:30px">2.3%</div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Values as of July 31, 2026</span><span>09</span></div>
+</section>
+
+<!-- 12 BALANCE SHEET BREAKDOWN -->
+<section class="slide led tight">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">10 — Balance sheet</span></div>
+  <div class="body">
+    <div class="eyebrow">Line by line, with owner and situs</div>
+    <h2 style="margin-bottom:16px">Balance sheet breakdown</h2>
+    <table class="dense">
+      <thead><tr><th style="width:30%">Holding</th><th>Class</th><th>Owner of record</th><th>Situs</th><th style="text-align:right">Value</th><th style="text-align:right">In estate</th></tr></thead>
+      <tbody>
+        <tr><td>Fidelity taxable brokerage &mdash; 4412</td><td>Marketable</td><td>Doe Family Trust</td><td>CA</td><td style="text-align:right">$96,400,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Meridian Growth Partners VII, L.P.</td><td>Alternatives</td><td>Doe Family Trust</td><td>DE</td><td style="text-align:right">$88,300,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Ridgeline Credit Opportunities II</td><td>Alternatives</td><td>Doe Family Trust</td><td>DE</td><td style="text-align:right">$59,700,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Northgate Capital separate account</td><td>Marketable</td><td>John Doe, individually</td><td>CA</td><td style="text-align:right">$32,200,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Primary residence &mdash; Atherton, CA</td><td>Real estate</td><td>Doe Family Trust</td><td>CA</td><td style="text-align:right">$18,400,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Ranch &mdash; Bloomington, IL</td><td>Real estate</td><td>Joint, husband &amp; wife</td><td>IL</td><td style="text-align:right">$9,600,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Cash &amp; treasuries, three institutions</td><td>Cash</td><td>Doe Family Trust</td><td>CA</td><td style="text-align:right">$17,811,600</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Milei LLC · Milei Atlas LLC · Nevis LLC</td><td>Entity</td><td>Doe Family Trust, 50%</td><td>IL</td><td style="text-align:right">$11,500,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Vacation home &mdash; Sun Valley, ID</td><td>Real estate</td><td>Jane Doe, individually</td><td>ID</td><td style="text-align:right">$5,200,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>401(k) and rollover IRAs</td><td>Retirement</td><td>John &amp; Jane Doe</td><td>CA</td><td style="text-align:right">$6,400,000</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Mortgage &amp; margin balances</td><td>Liability</td><td>Doe Family Trust</td><td>CA</td><td style="text-align:right">($11,300,000)</td><td style="text-align:right">Yes</td></tr>
+        <tr><td>Assets held in irrevocable trusts</td><td>Mixed</td><td>Five irrevocable trusts</td><td>DE</td><td style="text-align:right">$141,000,000</td><td style="text-align:right">No</td></tr>
+        <tr><td>Ace Studios LLC and other entity interests</td><td>Entity</td><td>Descendants&rsquo; trusts</td><td>IL</td><td style="text-align:right">$16,571,631</td><td style="text-align:right">No</td></tr>
+        <tr class="total"><td>Total</td><td></td><td></td><td></td><td style="text-align:right">$491,783,231</td><td style="text-align:right">68% in</td></tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:18px;max-width:110ch">Two Illinois-situs holdings &mdash; the Bloomington ranch and the entity interests &mdash; are what create the state estate tax exposure on page 18. Everything else sits in states with no separate estate tax.</p>
+  </div>
+  <div class="ftr"><span>Values as of July 31, 2026</span><span>10</span></div>
+</section>
+
+<!-- 13 DISTRIBUTION SUMMARY -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">11 — Distributions</span></div>
+  <div class="body">
+    <div class="eyebrow">Every dollar, and the door it leaves through</div>
+    <h2 style="margin-bottom:18px">Distribution summary</h2>
+    <div class="cols" style="grid-template-columns:1.2fr 1fr 1fr">
+      <div>
+        <div class="lbl">To people</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Daniel Doe · separate trust</span><span class="v">$119,182,325</span></div>
+          <div class="lr"><span class="k">Andrew Doe · separate trust</span><span class="v">$119,182,325</span></div>
+          <div class="lr"><span class="k">Joseph Doe · dynasty share</span><span class="v">$14,250,000</span></div>
+          <div class="lr"><span class="k">Kevin Doe · dynasty share</span><span class="v">$14,250,000</span></div>
+          <div class="lr tot"><span class="k">To family</span><span class="v">$266,864,650</span></div>
+        </div>
+        <div class="lbl" style="margin-top:22px">To charity</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Doe Family Fund · DAF</span><span class="v">$6,530,000</span></div>
+          <div class="lr"><span class="k">Boys &amp; Girls Club of the Peninsula</span><span class="v">$2,000,000</span></div>
+          <div class="lr tot"><span class="k">To charity</span><span class="v">$8,530,000</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Retained in existing trusts</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Doe 2018 CLAT · remainder</span><span class="v">$38,660,147</span></div>
+          <div class="lr"><span class="k">Doe 2018 Irrevocable Trust</span><span class="v">$46,530,000</span></div>
+          <div class="lr tot"><span class="k">Retained</span><span class="v">$85,190,147</span></div>
+        </div>
+        <div class="lbl" style="margin-top:22px">To taxing authorities</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Federal estate tax</span><span class="v clay">$126,472,640</span></div>
+          <div class="lr"><span class="k">State estate tax</span><span class="v clay">$4,580,000</span></div>
+          <div class="lr tot"><span class="k">Total tax</span><span class="v clay">$131,052,640</span></div>
+        </div>
+        <p class="note" style="margin-top:16px">Each descendant&rsquo;s share stays in trust for life, with an independent co-trustee required for discretionary distributions above $500,000.</p>
+      </div>
+      <div>
+        <div class="lbl">Share of the estate by destination</div>
+        <div class="led-rows" style="margin-top:6px">
+          <div class="lr"><span class="k">Family</span><span class="v">54.3%</span></div>
+          <div class="lr sub"><span class="k" style="grid-column:1 / -1"><div class="meter"><i style="width:54.3%;background:var(--deep)"></i></div></span></div>
+          <div class="lr"><span class="k">Taxing authorities</span><span class="v">26.7%</span></div>
+          <div class="lr sub"><span class="k" style="grid-column:1 / -1"><div class="meter"><i style="width:26.7%;background:var(--clay)"></i></div></span></div>
+          <div class="lr"><span class="k">Existing trusts</span><span class="v">17.3%</span></div>
+          <div class="lr sub"><span class="k" style="grid-column:1 / -1"><div class="meter"><i style="width:17.3%;background:var(--mint)"></i></div></span></div>
+          <div class="lr" style="border-bottom:0"><span class="k">Charity</span><span class="v">1.7%</span></div>
+          <div class="lr sub" style="border-bottom:0"><span class="k" style="grid-column:1 / -1"><div class="meter"><i style="width:1.7%;background:var(--gold)"></i></div></span></div>
+        </div>
+        <div class="scen a" style="margin-top:20px"><div class="n">The lever</div><div class="t">1.7% to charity</div><div class="m">Raising the charitable share to 10% would cut federal tax by roughly $10.5M and cost the family about $6.3M net.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · refer to your original documents</span><span>11</span></div>
+</section>
+
+<!-- 14 ESTATEFLOW · JOHN FIRST -->
+<section class="slide led tight">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">12 — EstateFlow detailed</span></div>
+  <div class="body">
+    <div class="eyebrow">Member first to die · John Doe</div>
+    <h2 style="margin-bottom:16px">EstateFlow detailed</h2>
+    <table class="dense">
+      <thead><tr><th style="width:22%">Step</th><th style="width:24%">From</th><th style="width:24%">To</th><th style="text-align:right">Amount</th><th style="text-align:right">Tax at this step</th></tr></thead>
+      <tbody>
+        <tr><td>1 · First death</td><td>John&rsquo;s half of the Doe Family Trust</td><td>Survivor&rsquo;s Trust, for Jane</td><td style="text-align:right">$1,910,000</td><td style="text-align:right">$0</td></tr>
+        <tr><td>2 · Exemption trust</td><td>John&rsquo;s half</td><td>Exemption Trust, GST-exempt</td><td style="text-align:right">$1,910,000</td><td style="text-align:right">$0</td></tr>
+        <tr><td>3 · Marital deduction</td><td>John&rsquo;s remaining half</td><td>Marital Trust · QTIP</td><td style="text-align:right">$165,195,800</td><td style="text-align:right">$0</td></tr>
+        <tr><td>4 · Charitable bequest</td><td>John&rsquo;s half</td><td>Doe Family Fund · DAF</td><td style="text-align:right">$4,265,000</td><td style="text-align:right">$0</td></tr>
+        <tr class="total"><td>First death subtotal</td><td></td><td></td><td style="text-align:right">$167,105,800</td><td style="text-align:right">$0</td></tr>
+        <tr><td>5 · Second death</td><td>Survivor&rsquo;s + Marital + Jane&rsquo;s half</td><td>Taxable estate of Jane</td><td style="text-align:right">$314,381,600</td><td style="text-align:right">$131,052,640</td></tr>
+        <tr><td>6 · Residuary split</td><td>After tax and costs</td><td>Daniel &amp; Andrew separate trusts</td><td style="text-align:right">$238,364,650</td><td style="text-align:right">$0</td></tr>
+        <tr><td>7 · Skip-person share</td><td>Exemption Trust</td><td>Grandchildren&rsquo;s Gift Trust</td><td style="text-align:right">$28,500,000</td><td style="text-align:right">$0</td></tr>
+        <tr class="total"><td>Reaching the family</td><td></td><td></td><td style="text-align:right">$266,864,650</td><td style="text-align:right">$131,052,640</td></tr>
+      </tbody>
+    </table>
+    <div class="g4" style="gap:26px;margin-top:20px">
+      <div><div class="lbl">Tax at first death</div><div class="num mint" style="font-size:30px">$0</div><p class="note" style="margin-top:6px">Marital deduction defers everything.</p></div>
+      <div><div class="lbl">Tax at second death</div><div class="num clay" style="font-size:30px">$131.1M</div></div>
+      <div><div class="lbl">Exemption trust funded</div><div class="num" style="font-size:30px">$1.91M</div><p class="note" style="margin-top:6px">Only what remains of John&rsquo;s exclusion.</p></div>
+      <div><div class="lbl">Years of deferral</div><div class="num" style="font-size:30px">~14</div><p class="note" style="margin-top:6px">Based on Jane&rsquo;s life expectancy.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Assumes no further gifting and no change in law</span><span>12</span></div>
+</section>
+
+<!-- 15 ESTATEFLOW · JANE FIRST -->
+<section class="slide led tight">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">13 — EstateFlow detailed</span></div>
+  <div class="body">
+    <div class="eyebrow">Spouse first to die · Jane Doe</div>
+    <h2 style="margin-bottom:16px">EstateFlow detailed · spouse first</h2>
+    <table class="dense">
+      <thead><tr><th style="width:22%">Step</th><th style="width:24%">From</th><th style="width:24%">To</th><th style="text-align:right">Amount</th><th style="text-align:right">Tax at this step</th></tr></thead>
+      <tbody>
+        <tr><td>1 · First death</td><td>Jane&rsquo;s half of the Doe Family Trust</td><td>Survivor&rsquo;s Trust, for John</td><td style="text-align:right">$1,910,000</td><td style="text-align:right">$0</td></tr>
+        <tr><td>2 · Exemption trust</td><td>Jane&rsquo;s half</td><td>Exemption Trust, GST-exempt</td><td style="text-align:right">$1,910,000</td><td style="text-align:right">$0</td></tr>
+        <tr><td>3 · Marital deduction</td><td>Jane&rsquo;s remaining half</td><td>Marital Trust · QTIP</td><td style="text-align:right">$165,195,800</td><td style="text-align:right">$0</td></tr>
+        <tr><td>4 · Idaho residence</td><td>Jane, individually</td><td>Survivor&rsquo;s Trust</td><td style="text-align:right">$5,200,000</td><td style="text-align:right">$0</td></tr>
+        <tr class="total"><td>First death subtotal</td><td></td><td></td><td style="text-align:right">$167,105,800</td><td style="text-align:right">$0</td></tr>
+        <tr><td>5 · Second death</td><td>Survivor&rsquo;s + Marital + John&rsquo;s half</td><td>Taxable estate of John</td><td style="text-align:right">$314,381,600</td><td style="text-align:right">$131,052,640</td></tr>
+        <tr><td>6 · Residuary split</td><td>After tax and costs</td><td>Daniel &amp; Andrew separate trusts</td><td style="text-align:right">$238,364,650</td><td style="text-align:right">$0</td></tr>
+        <tr><td>7 · Skip-person share</td><td>Exemption Trust</td><td>Grandchildren&rsquo;s Gift Trust</td><td style="text-align:right">$28,500,000</td><td style="text-align:right">$0</td></tr>
+        <tr class="total"><td>Reaching the family</td><td></td><td></td><td style="text-align:right">$266,864,650</td><td style="text-align:right">$131,052,640</td></tr>
+      </tbody>
+    </table>
+    <div class="g3" style="gap:32px;margin-top:20px">
+      <div><div class="lbl">Difference in total tax</div><div class="num" style="font-size:30px">$0</div><p class="note" style="margin-top:6px">The plan is symmetrical: order of death does not change the bill.</p></div>
+      <div><div class="lbl">What does change</div><div class="num" style="font-size:30px">Situs</div><p class="note" style="margin-top:6px">If Jane dies first, the Idaho residence passes through her estate and out of Illinois reach.</p></div>
+      <div><div class="lbl">Practical implication</div><div class="num" style="font-size:30px">Fund fully</div><p class="note" style="margin-top:6px">Whoever dies first, the exemption trust should be funded to the last available dollar.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Assumes no further gifting and no change in law</span><span>13</span></div>
+</section>
+
+<!-- 16 ESTATE TIMELINE -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">14 — Timeline</span></div>
+  <div class="body">
+    <div class="eyebrow">What has happened, and what comes due</div>
+    <h2 style="margin-bottom:10px">Estate timeline</h2>
+    <div class="lbl" style="margin-top:22px">Completed</div>
+    <div class="tlrow" style="grid-template-columns:repeat(4,1fr)">
+      <div><div class="when">2016</div><div class="what">Doe Family Trust, wills, POAs and directives executed</div><p class="note" style="margin-top:8px">Core plan established in California.</p></div>
+      <div><div class="when">April 2018</div><div class="what">Descendants&rsquo; irrevocable trusts funded</div><p class="note" style="margin-top:8px">$18.0M split between Daniel and Andrew.</p></div>
+      <div><div class="when">Dec 2018</div><div class="what">Doe 2018 CLAT funded</div><p class="note" style="margin-top:8px">$38.66M, ten-year annuity to charity.</p></div>
+      <div><div class="when">Oct 2020 &ndash; 2022</div><div class="what">Two-year GRATs funded and terminated</div><p class="note" style="margin-top:8px">$4.46M of remainder transferred gift-tax-free.</p></div>
+    </div>
+    <div class="lbl" style="margin-top:34px">Ahead</div>
+    <div class="tlrow" style="grid-template-columns:repeat(4,1fr)">
+      <div><div class="when">Q4 2026 · now</div><div class="what">Close the two vault gaps and refresh 2016 documents</div><p class="note" style="margin-top:8px">Jane&rsquo;s healthcare directive is the priority.</p></div>
+      <div><div class="when">Dec 2028</div><div class="what">CLAT annuity term ends</div><p class="note" style="margin-top:8px">$34.3M projected remainder to the family trust.</p></div>
+      <div><div class="when">First death</div><div class="what">Fund the exemption trust to the last dollar</div><p class="note" style="margin-top:8px">706 due nine months after; portability elected if unused.</p></div>
+      <div><div class="when">Second death</div><div class="what">$131.1M of transfer tax comes due in nine months</div><p class="note" style="margin-top:8px">Cash on hand covers 14% of it today.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Dates from executed documents · forward dates are estimates</span><span>14</span></div>
+</section>
+
+<!-- 17 GRAT CALCULATOR -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">15 — GRAT calculator</span></div>
+  <div class="body">
+    <div class="eyebrow">Two rolling GRATs, funded October 2020</div>
+    <h2 style="margin-bottom:18px">GRAT calculator</h2>
+    <div class="cols" style="grid-template-columns:1fr 1fr 1fr">
+      <div>
+        <div class="scen"><div class="n">Inputs</div><div class="t">Doe 2020-A</div><div class="m">Zeroed-out, two-year term.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Funding date</span><span class="v" style="font-size:17px">Oct 1, 2020</span></div>
+          <div class="lr"><span class="k">Assets contributed</span><span class="v">$12,500,000</span></div>
+          <div class="lr"><span class="k">Term</span><span class="v">2 years</span></div>
+          <div class="lr"><span class="k">§7520 rate at funding</span><span class="v">0.4%</span></div>
+          <div class="lr"><span class="k">Annuity growth factor</span><span class="v">120%</span></div>
+          <div class="lr tot"><span class="k">Taxable gift on funding</span><span class="v mint">$0</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Annuity</div><div class="t">Payments back to grantor</div><div class="m">Paid in kind from trust assets.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Year 1 annuity</span><span class="v">$5,731,707</span></div>
+          <div class="lr"><span class="k">Year 2 annuity</span><span class="v">$6,878,048</span></div>
+          <div class="lr sub"><span class="k">Total returned to grantor</span><span class="v">$12,609,755</span></div>
+          <div class="lr"><span class="k">Actual growth over term</span><span class="v">36.5%</span></div>
+          <div class="lr"><span class="k">Trust value at term end</span><span class="v">$17,064,863</span></div>
+          <div class="lr tot"><span class="k">Remainder to family</span><span class="v mint">$4,455,108</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Result</div><div class="t">Both GRATs</div><div class="m">2020-A and 2020-B combined, terminated 2022.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Total contributed</span><span class="v">$25,000,000</span></div>
+          <div class="lr"><span class="k">Total remainder transferred</span><span class="v mint">$8,910,216</span></div>
+          <div class="lr"><span class="k">Exclusion consumed</span><span class="v">$0</span></div>
+          <div class="lr"><span class="k">Estate tax avoided at 40%</span><span class="v mint">$3,564,086</span></div>
+          <div class="lr tot"><span class="k">Value today, grown at 7%</span><span class="v mint">$11,682,000</span></div>
+        </div>
+        <p class="note" style="margin-top:16px">With the §7520 rate now near 5%, a new GRAT has a materially higher hurdle. Concentrated, volatile positions remain the best candidates.</p>
+      </div>
+    </div>
+    <div class="rule" style="margin:22px 0 16px"></div>
+    <div class="g4" style="gap:26px">
+      <div><div class="lbl">Hurdle rate cleared by</div><div class="num mint" style="font-size:30px">36.1 pts</div></div>
+      <div><div class="lbl">Gift tax cost</div><div class="num" style="font-size:30px">$0</div></div>
+      <div><div class="lbl">Mortality risk</div><div class="num" style="font-size:30px">Low</div><p class="note" style="margin-top:6px">Short terms limit the downside to a failed rollover.</p></div>
+      <div><div class="lbl">Recommended next step</div><div class="num" style="font-size:30px">Re-roll</div><p class="note" style="margin-top:6px">Fund a new two-year GRAT with the concentrated position.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative calculation · §7520 rate as published</span><span>15</span></div>
+</section>
+
+<!-- 18 CLAT CALCULATOR -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">16 — CLAT calculator</span></div>
+  <div class="body">
+    <div class="eyebrow">Charity first for ten years, family after</div>
+    <h2 style="margin-bottom:18px">CLAT calculator</h2>
+    <div class="cols" style="grid-template-columns:1fr 1fr 1fr">
+      <div>
+        <div class="scen"><div class="n">Inputs</div><div class="t">Doe 2018 CLAT</div><div class="m">Non-grantor, ten-year term.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Funding date</span><span class="v" style="font-size:17px">Dec 20, 2018</span></div>
+          <div class="lr"><span class="k">Assets contributed</span><span class="v">$38,660,147</span></div>
+          <div class="lr"><span class="k">Term</span><span class="v">10 years</span></div>
+          <div class="lr"><span class="k">§7520 rate at funding</span><span class="v">3.6%</span></div>
+          <div class="lr"><span class="k">Annual annuity to charity</span><span class="v">$4,600,000</span></div>
+          <div class="lr tot"><span class="k">Charitable deduction taken</span><span class="v mint">$38,404,900</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Progress</div><div class="t">Eight of ten years paid</div><div class="m">Through December 2026.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Payments made to date</span><span class="v">$36,800,000</span></div>
+          <div class="lr"><span class="k">Payments remaining</span><span class="v">$9,200,000</span></div>
+          <div class="lr"><span class="k">Assumed growth on trust assets</span><span class="v">7.0%</span></div>
+          <div class="lr"><span class="k">Current trust value</span><span class="v">$38,660,147</span></div>
+          <div class="lr tot"><span class="k">Projected remainder, Dec 2028</span><span class="v mint">$34,349,729</span></div>
+        </div>
+        <div class="lbl" style="margin-top:18px">Term elapsed</div>
+        <div class="meter" style="height:14px"><i style="width:80%;background:var(--gold)"></i></div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Result</div><div class="t">Who gets what</div><div class="m">Over the full ten-year term.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Total to charity</span><span class="v">$46,000,000</span></div>
+          <div class="lr"><span class="k">Remainder to Doe Family Trust</span><span class="v mint">$34,349,729</span></div>
+          <div class="lr"><span class="k">Taxable gift on funding</span><span class="v">$255,247</span></div>
+          <div class="lr"><span class="k">Estate tax avoided at 40%</span><span class="v mint">$13,739,892</span></div>
+          <div class="lr tot"><span class="k">Family benefit per gift dollar</span><span class="v mint">134&times;</span></div>
+        </div>
+        <p class="note" style="margin-top:16px">Because the remainder passes outside the taxable estate, the CLAT is the single largest tax-efficient transfer in the plan.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative calculation · assumes 7% return through term end</span><span>16</span></div>
+</section>
+
+<!-- 19 QPRT CALCULATOR -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">17 — QPRT calculator</span></div>
+  <div class="body">
+    <div class="eyebrow">Proposed · not yet executed</div>
+    <h2 style="margin-bottom:18px">QPRT calculator</h2>
+    <div class="cols" style="grid-template-columns:1fr 1fr 1fr">
+      <div>
+        <div class="scen"><div class="n">Inputs</div><div class="t">Atherton residence</div><div class="m">Ten-year retained term for John, age 72.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Residence value today</span><span class="v">$18,400,000</span></div>
+          <div class="lr"><span class="k">Interest transferred</span><span class="v">50%</span></div>
+          <div class="lr"><span class="k">Value transferred</span><span class="v">$9,200,000</span></div>
+          <div class="lr"><span class="k">Retained term</span><span class="v">10 years</span></div>
+          <div class="lr"><span class="k">§7520 rate, August 2026</span><span class="v">5.0%</span></div>
+          <div class="lr tot"><span class="k">Retained interest value</span><span class="v">$6,320,000</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Gift</div><div class="t">What it costs today</div><div class="m">Reported on a 2026 Form 709.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Value transferred</span><span class="v">$9,200,000</span></div>
+          <div class="lr"><span class="k">Less retained interest</span><span class="v">($6,320,000)</span></div>
+          <div class="lr sub"><span class="k">Taxable gift</span><span class="v">$2,880,000</span></div>
+          <div class="lr"><span class="k">Exclusion available</span><span class="v">$3,820,000</span></div>
+          <div class="lr"><span class="k">Exclusion remaining after</span><span class="v">$940,000</span></div>
+          <div class="lr tot"><span class="k">Gift tax payable</span><span class="v mint">$0</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Result</div><div class="t">What it saves</div><div class="m">At 4% annual appreciation through 2036.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Residence value in 2036</span><span class="v">$27,236,000</span></div>
+          <div class="lr"><span class="k">Half interest removed</span><span class="v">$13,618,000</span></div>
+          <div class="lr"><span class="k">Exclusion consumed</span><span class="v">$2,880,000</span></div>
+          <div class="lr"><span class="k">Net removed from estate</span><span class="v mint">$10,738,000</span></div>
+          <div class="lr tot"><span class="k">Estate tax avoided at 40%</span><span class="v mint">$4,295,200</span></div>
+        </div>
+        <p class="note" style="margin-top:16px">If John does not survive the ten-year term, the residence returns to the estate and the plan is no worse off than doing nothing &mdash; only the transaction costs are lost.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative calculation · confirm valuation by appraisal</span><span>17</span></div>
+</section>
+
+<!-- 20 STATE ESTATE TAX CALCULATOR -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">18 — State estate tax</span></div>
+  <div class="body">
+    <div class="eyebrow">California has no estate tax · Illinois does</div>
+    <h2 style="margin-bottom:18px">State estate tax calculator</h2>
+    <div class="cols" style="grid-template-columns:1.15fr 1fr 1fr">
+      <div>
+        <div class="lbl">Illinois-situs computation, second death</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Bloomington ranch</span><span class="v">$9,600,000</span></div>
+          <div class="lr"><span class="k">Illinois entity interests</span><span class="v">$18,800,000</span></div>
+          <div class="lr sub"><span class="k">Illinois gross situs estate</span><span class="v">$28,400,000</span></div>
+          <div class="lr"><span class="k">Illinois exclusion</span><span class="v">($4,000,000)</span></div>
+          <div class="lr sub"><span class="k">Illinois taxable estate</span><span class="v">$24,400,000</span></div>
+          <div class="lr"><span class="k">Tentative tax, graduated schedule</span><span class="v">$4,580,000</span></div>
+          <div class="lr tot"><span class="k">Illinois estate tax due</span><span class="v clay">$4,580,000</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Where the assets sit</div>
+        <table class="dense" style="margin-top:8px">
+          <thead><tr><th>State</th><th style="text-align:right">Value</th><th style="text-align:right">Estate tax</th></tr></thead>
+          <tbody>
+            <tr><td>California</td><td style="text-align:right">$309,011,600</td><td style="text-align:right">None</td></tr>
+            <tr><td>Illinois</td><td style="text-align:right">$28,400,000</td><td style="text-align:right">16.0% top</td></tr>
+            <tr><td>Idaho</td><td style="text-align:right">$5,200,000</td><td style="text-align:right">None</td></tr>
+            <tr><td>Delaware · trust situs</td><td style="text-align:right">$149,171,631</td><td style="text-align:right">None</td></tr>
+            <tr class="total"><td>Total</td><td style="text-align:right">$491,783,231</td><td style="text-align:right">$4,580,000</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:14px">Illinois taxes real property and closely-held business interests located in the state, regardless of where the owner is domiciled.</p>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">The fix</div><div class="t">Two options</div><div class="m">Both remove Illinois situs without changing who owns the ranch economically.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Contribute the ranch to an LLC</span><span class="v mint">Removes $9.6M</span></div>
+          <div class="lr"><span class="k">Gift entity units to the 2018 trust</span><span class="v mint">Removes $18.8M</span></div>
+          <div class="lr"><span class="k">Exclusion required</span><span class="v">$2,850,000</span></div>
+          <div class="lr tot"><span class="k">Illinois tax after both steps</span><span class="v mint">$0</span></div>
+        </div>
+        <p class="note" style="margin-top:16px">Sequencing matters: the entity must be respected as a business, formed well before death, with real operations and separate books.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative calculation · confirm with Illinois counsel</span><span>18</span></div>
+</section>
+
+<!-- 21 EDUCATIONAL · IRREVOCABLE VEHICLES -->
+<section class="slide led tight">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">19 — Educational</span></div>
+  <div class="body">
+    <div class="eyebrow">One page instead of seven</div>
+    <h2 style="margin-bottom:16px">Irrevocable vehicles at a glance</h2>
+    <table class="dense">
+      <thead><tr><th style="width:16%">Vehicle</th><th style="width:26%">What it does</th><th>Best when</th><th>Main trade-off</th><th style="text-align:right">In your plan</th></tr></thead>
+      <tbody>
+        <tr><td>GRAT</td><td>Freezes an asset&rsquo;s value; growth above the §7520 rate passes free of gift tax.</td><td>Volatile or concentrated positions, low rates.</td><td>Grantor must survive the term.</td><td style="text-align:right">Two, both terminated</td></tr>
+        <tr><td>QPRT</td><td>Transfers a residence at a discount while you keep living in it for a set term.</td><td>Appreciating home, higher §7520 rates.</td><td>Rent must be paid after the term ends.</td><td style="text-align:right">Proposed · page 17</td></tr>
+        <tr><td>SLAT</td><td>Gift to a trust for your spouse&rsquo;s benefit; assets leave your estate but stay reachable.</td><td>Using exclusion before a sunset.</td><td>Divorce or death of spouse cuts off access.</td><td style="text-align:right">Not in place</td></tr>
+        <tr><td>ILIT</td><td>Owns life insurance so the death benefit is not taxed in your estate.</td><td>Liquidity is needed to pay estate tax.</td><td>Premiums require annual gifting discipline.</td><td style="text-align:right">Recommended</td></tr>
+        <tr><td>Dynasty trust</td><td>Holds assets for multiple generations, sheltered by GST exclusion.</td><td>Long horizons, favorable trust situs.</td><td>Irreversible; governance must be durable.</td><td style="text-align:right">Grandchildren&rsquo;s trust</td></tr>
+        <tr><td>Revocable trust</td><td>Avoids probate and centralizes administration; no tax effect while you live.</td><td>Assets in multiple states.</td><td>Offers no estate tax savings at all.</td><td style="text-align:right">Doe Family Trust</td></tr>
+      </tbody>
+    </table>
+    <div class="g3" style="gap:32px;margin-top:22px">
+      <div><div class="lbl">Vehicles in place today</div><div class="num" style="font-size:30px">4 of 6</div></div>
+      <div><div class="lbl">Largest gap</div><div class="num clay" style="font-size:30px">Liquidity</div><p class="note" style="margin-top:6px">No ILIT holds insurance against a $131.1M bill.</p></div>
+      <div><div class="lbl">Time-sensitive</div><div class="num gold" style="font-size:30px">SLAT</div><p class="note" style="margin-top:6px">Only $3.82M of exclusion remains to deploy.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>General education · not advice on any specific vehicle</span><span>19</span></div>
+</section>
+
+<!-- 22 EDUCATIONAL · CHARITABLE -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">20 — Educational</span></div>
+  <div class="body">
+    <div class="eyebrow">Three ways to split a gift between charity and family</div>
+    <h2 style="margin-bottom:18px">Charitable vehicles · CRAT, CRUT, CLAT</h2>
+    <div class="cols">
+      <div>
+        <div class="scen"><div class="n">CRAT</div><div class="t">Charitable remainder annuity trust</div><div class="m">You receive a fixed dollar amount each year; charity receives what is left.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Payout</span><span class="v" style="font-size:16px">Fixed, set at funding</span></div>
+          <div class="lr"><span class="k">Additional contributions</span><span class="v" style="font-size:16px">Not permitted</span></div>
+          <div class="lr"><span class="k">Income tax deduction</span><span class="v" style="font-size:16px">At funding</span></div>
+          <div class="lr"><span class="k">Best when</span><span class="v" style="font-size:16px">You want certainty</span></div>
+          <div class="lr tot"><span class="k">Who benefits first</span><span class="v">You</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">CRUT</div><div class="t">Charitable remainder unitrust</div><div class="m">You receive a fixed percentage of the trust&rsquo;s value, revalued annually.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Payout</span><span class="v" style="font-size:16px">% of value, floats</span></div>
+          <div class="lr"><span class="k">Additional contributions</span><span class="v" style="font-size:16px">Permitted</span></div>
+          <div class="lr"><span class="k">Income tax deduction</span><span class="v" style="font-size:16px">At each funding</span></div>
+          <div class="lr"><span class="k">Best when</span><span class="v" style="font-size:16px">You want inflation cover</span></div>
+          <div class="lr tot"><span class="k">Who benefits first</span><span class="v">You</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">CLAT</div><div class="t">Charitable lead annuity trust</div><div class="m">Charity receives a fixed annuity for a term; family receives the remainder.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Payout</span><span class="v" style="font-size:16px">Fixed, to charity</span></div>
+          <div class="lr"><span class="k">Additional contributions</span><span class="v" style="font-size:16px">Not permitted</span></div>
+          <div class="lr"><span class="k">Income tax deduction</span><span class="v" style="font-size:16px">Grantor version only</span></div>
+          <div class="lr"><span class="k">Best when</span><span class="v" style="font-size:16px">Rates are low</span></div>
+          <div class="lr tot"><span class="k">Who benefits first</span><span class="v mint">Charity</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="rule" style="margin:24px 0 16px"></div>
+    <p class="note" style="max-width:112ch">Your plan uses the third of these. The Doe 2018 CLAT pays charity first for ten years and delivers a projected $34.3M remainder to the family trust in December 2028 &mdash; outside the taxable estate. A CRAT or CRUT would do the reverse: pay you first and leave the remainder to charity, which suits a family that needs income more than it needs a transfer.</p>
+  </div>
+  <div class="ftr"><span>General education · not advice on any specific vehicle</span><span>20</span></div>
+</section>
+
+<!-- 23 EDUCATIONAL · WILL VS TRUST -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">21 — Educational</span></div>
+  <div class="body">
+    <div class="eyebrow">The four documents everyone needs</div>
+    <h2 style="margin-bottom:18px">Will vs revocable trust · powers · directives</h2>
+    <div class="g2" style="gap:56px;align-items:start">
+      <div>
+        <table class="dense">
+          <thead><tr><th style="width:34%"></th><th>Last will &amp; testament</th><th>Revocable living trust</th></tr></thead>
+          <tbody>
+            <tr><td>Takes effect</td><td>Only at death</td><td>Immediately on signing</td></tr>
+            <tr><td>Probate</td><td>Required</td><td>Avoided for funded assets</td></tr>
+            <tr><td>Public record</td><td>Yes</td><td>No</td></tr>
+            <tr><td>Covers incapacity</td><td>No</td><td>Yes, successor trustee steps in</td></tr>
+            <tr><td>Names guardians</td><td>Yes &mdash; only a will can</td><td>No</td></tr>
+            <tr><td>Estate tax savings</td><td>None by itself</td><td>None by itself</td></tr>
+            <tr class="total"><td>In your plan</td><td>Two, executed 2016</td><td>Doe Family Trust, 2016</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:16px">The two work together: a pour-over will catches anything never retitled into the trust and directs it there. It is a safety net, not a substitute for funding.</p>
+      </div>
+      <div>
+        <div class="scen"><div class="n">Financial power of attorney</div><div class="t">Someone can act on money matters if you cannot</div><div class="m">Durable, so it survives incapacity. Without it, a court conservatorship is the alternative &mdash; slow, public and expensive.</div></div>
+        <div class="scen a" style="margin-top:16px"><div class="n">Healthcare directive</div><div class="t">Someone can speak for your medical care</div><div class="m">Names an agent and records your wishes on life-sustaining treatment. Jane&rsquo;s is the one document missing from the vault.</div></div>
+        <div class="led-rows" style="margin-top:18px">
+          <div class="lr"><span class="k">Wills on file</span><span class="v mint">2 of 2</span></div>
+          <div class="lr"><span class="k">Revocable trust funded</span><span class="v mint">Yes</span></div>
+          <div class="lr"><span class="k">Financial POAs on file</span><span class="v mint">2 of 2</span></div>
+          <div class="lr tot"><span class="k">Healthcare directives on file</span><span class="v clay">1 of 2</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>General education · not advice on any specific document</span><span>21</span></div>
+</section>
+
+<!-- 24 STATE ESTATE TAX PLANNING -->
+<section class="slide led">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">22 — Educational</span></div>
+  <div class="body">
+    <div class="eyebrow">Domicile is one question · situs is another</div>
+    <h2 style="margin-bottom:18px">State estate tax planning</h2>
+    <div class="cols" style="grid-template-columns:1fr 1fr 1fr">
+      <div>
+        <div class="scen"><div class="n">Domicile</div><div class="t">Where you live</div><div class="m">A domicile state taxes your whole estate. California does not impose one; twelve states and D.C. do.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Your domicile</span><span class="v" style="font-size:17px">California</span></div>
+          <div class="lr"><span class="k">State estate tax there</span><span class="v mint" style="font-size:17px">None</span></div>
+          <div class="lr tot"><span class="k">Domicile exposure</span><span class="v mint">$0</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Situs</div><div class="t">Where the asset is</div><div class="m">Real property and closely-held interests are taxed by the state they sit in, no matter where you live.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Illinois situs assets</span><span class="v">$28,400,000</span></div>
+          <div class="lr"><span class="k">Illinois exclusion</span><span class="v">$4,000,000</span></div>
+          <div class="lr tot"><span class="k">Situs exposure</span><span class="v clay">$4,580,000</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Levers</div><div class="t">What actually works</div><div class="m">In rough order of how reliably each one holds up.</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Hold property in an LLC</span><span class="v mint" style="font-size:16px">Strong</span></div>
+          <div class="lr"><span class="k">Gift situs assets during life</span><span class="v mint" style="font-size:16px">Strong</span></div>
+          <div class="lr"><span class="k">Move trust situs to Delaware</span><span class="v" style="font-size:16px">Moderate</span></div>
+          <div class="lr"><span class="k">Change domicile</span><span class="v" style="font-size:16px">No effect here</span></div>
+          <div class="lr tot"><span class="k">Recommended</span><span class="v">First two</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="rule" style="margin:24px 0 16px"></div>
+    <p class="note" style="max-width:112ch">The trap is doing this late. An entity formed shortly before death, with no operations and no separate books, invites the state to disregard it. Form it while the property is genuinely being managed as a business, keep the paperwork real, and the situs argument holds.</p>
+  </div>
+  <div class="ftr"><span>General education · confirm with counsel in each state</span><span>22</span></div>
+</section>
+
+<!-- 25 GLOSSARY -->
+<section class="slide led tight">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">23 — Glossary</span></div>
+  <div class="body">
+    <div class="eyebrow">Every term used in this report</div>
+    <h2 style="margin-bottom:16px">Glossary</h2>
+    <div class="g3" style="gap:44px">
+      <div>
+        <div class="led-rows">
+          <div class="lr"><span class="k" style="font-weight:600">Applicable exclusion</span></div>
+          <div class="lr sub"><span class="k">The amount you can transfer free of gift and estate tax. $15.0M per person in 2026.</span></div>
+          <div class="lr"><span class="k" style="font-weight:600">Basis step-up</span></div>
+          <div class="lr sub"><span class="k">Assets in a taxable estate are revalued at death, erasing built-in capital gain.</span></div>
+          <div class="lr"><span class="k" style="font-weight:600">Domicile</span></div>
+          <div class="lr sub"><span class="k">Your permanent legal home. Determines which state can tax your whole estate.</span></div>
+          <div class="lr" style="border-bottom:0"><span class="k" style="font-weight:600">Fiduciary</span></div>
+          <div class="lr sub" style="border-bottom:0"><span class="k">Anyone acting for someone else&rsquo;s benefit: trustee, executor, agent under a power.</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="led-rows">
+          <div class="lr"><span class="k" style="font-weight:600">GST tax</span></div>
+          <div class="lr sub"><span class="k">A second 40% tax on transfers that skip a generation. Has its own exclusion.</span></div>
+          <div class="lr"><span class="k" style="font-weight:600">Marital deduction</span></div>
+          <div class="lr sub"><span class="k">Unlimited deduction for transfers to a citizen spouse. Defers tax, never erases it.</span></div>
+          <div class="lr"><span class="k" style="font-weight:600">Portability</span></div>
+          <div class="lr sub"><span class="k">Lets a surviving spouse use the deceased spouse&rsquo;s unused exclusion. Must be elected on Form 706.</span></div>
+          <div class="lr" style="border-bottom:0"><span class="k" style="font-weight:600">QTIP</span></div>
+          <div class="lr sub" style="border-bottom:0"><span class="k">A marital trust that pays income to the spouse while you control who receives it after.</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="led-rows">
+          <div class="lr"><span class="k" style="font-weight:600">§7520 rate</span></div>
+          <div class="lr sub"><span class="k">The IRS discount rate used to value split-interest gifts. Published monthly.</span></div>
+          <div class="lr"><span class="k" style="font-weight:600">Situs</span></div>
+          <div class="lr sub"><span class="k">Where an asset is legally located. Real property is taxed by its situs state.</span></div>
+          <div class="lr"><span class="k" style="font-weight:600">Skip person</span></div>
+          <div class="lr sub"><span class="k">A grandchild or anyone two or more generations below you.</span></div>
+          <div class="lr" style="border-bottom:0"><span class="k" style="font-weight:600">Zeroed-out</span></div>
+          <div class="lr sub" style="border-bottom:0"><span class="k">A GRAT structured so the reported taxable gift is effectively nil.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>General education · definitions simplified for readability</span><span>23</span></div>
+</section>
+
+<!-- 26 DISCLAIMER -->
+<section class="slide led dark">
+  <div class="hdr"><span class="l">John &amp; Jane Doe · Estate</span><span class="r">24 — Disclaimer</span></div>
+  <div class="body">
+    <div class="eyebrow">Read this before you rely on any figure above</div>
+    <h2 style="margin-bottom:22px">Assumptions &amp; disclaimer</h2>
+    <div class="g2" style="gap:56px">
+      <div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Valuation date</span><span class="v" style="font-size:16px">July 31, 2026</span></div>
+          <div class="lr"><span class="k">Document source</span><span class="v" style="font-size:16px">Vault, as collected</span></div>
+          <div class="lr"><span class="k">Federal exclusion</span><span class="v" style="font-size:16px">$15.0M per person</span></div>
+          <div class="lr"><span class="k">Top federal rate</span><span class="v" style="font-size:16px">40%</span></div>
+          <div class="lr"><span class="k">Growth assumption</span><span class="v" style="font-size:16px">7% nominal</span></div>
+          <div class="lr"><span class="k">§7520 rate</span><span class="v" style="font-size:16px">5.0%, August 2026</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="lede" style="font-size:17px;margin-bottom:18px">Figures are estimates prepared from the documents and statements provided. They are not appraisals, tax returns, or legal opinions, and they will change as values, family circumstances and law change.</p>
+        <p class="small">Estate tax projections assume current law remains in effect and that no further gifts are made. Two documents remain outstanding; conclusions may shift once they are reviewed. Trust and entity values reflect reported statement values without discounts for lack of marketability or control, which a qualified appraiser may apply. This report is prepared for discussion with your attorney and CPA and is not tax, legal, or investment advice.</p>
+        <div class="rule" style="margin:22px 0"></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--mutD)">
+          <span>Plan for every tomorrow&trade;</span><span>Confidential · August 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>wealth.com</span><span>24</span></div>
+</section>
+
+</body>
+</html>

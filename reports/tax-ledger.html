@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#0E3330;
+  --deeper:#06201E;
+  --ink:#0A2422;
+  --cream:#F4F0E7;
+  --paper:#FBF9F4;
+  --mint:#31917E;
+  --gold:#B3762B;
+  --clay:#C9674D;
+  --line:rgba(10,36,34,.14);
+  --lineD:rgba(244,240,231,.18);
+  --mut:#5E7370;
+  --mutD:rgba(244,240,231,.78);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialiased}
+.slide{
+  width:1600px;height:900px;position:relative;overflow:hidden;
+  background:var(--paper);color:var(--ink);
+  padding:56px 88px 52px;display:flex;flex-direction:column;
+  page-break-after:always;break-after:page;
+}
+.slide.dark,.ondark{--mut:var(--mutD)}
+.slide.dark{background:var(--deep);color:var(--cream)}
+.slide.dark .rule{background:var(--lineD)}
+.slide.deeper{background:var(--deeper)}
+.rule{height:1px;background:var(--line);width:100%}
+
+/* header / footer */
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.dark .hdr{border-color:var(--lineD)}
+.hdr .l{color:var(--mut)}.dark .hdr .l{color:var(--mutD)}
+.hdr .r{color:var(--deep)}.dark .hdr .r{color:var(--mint)}
+.ftr{position:absolute;left:88px;right:88px;bottom:34px;display:flex;justify-content:space-between;
+  font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;
+  border-top:1px solid var(--line);padding-top:12px}
+.dark .ftr{color:var(--mutD);border-color:var(--lineD)}
+.body{flex:1;padding-top:34px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:center}
+
+/* type */
+h1{font-family:var(--dk-serif);font-weight:300;font-size:82px;line-height:1.02;letter-spacing:-.02em}
+h2{font-family:var(--dk-serif);font-weight:300;font-size:54px;line-height:1.06;letter-spacing:-.015em}
+h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
+.eyebrow{margin-bottom:20px;font-size:13px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--deep)}
+.dark .eyebrow{color:color-mix(in srgb,var(--mint) 62%,var(--cream))}
+.lede{font-size:20px;line-height:1.5;color:var(--mut);max-width:62ch;font-weight:400}
+.dark .lede{color:var(--mutD)}
+.small{font-size:14.5px;line-height:1.5;color:var(--mut)}
+.dark .small{color:var(--mutD)}
+.lbl{margin-bottom:8px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.dark .lbl{color:var(--mutD)}
+.num{line-height:1.14;font-family:var(--dk-serif);font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:var(--clay)}
+em{font-style:italic}
+
+/* cover */
+.cover-mark{position:absolute;right:-260px;top:-220px;width:1100px;height:1100px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, rgba(121,210,192,.20), rgba(121,210,192,0) 62%)}
+.cover-rings{position:absolute;right:80px;top:90px;width:720px;height:720px}
+.cover-rings div{position:absolute;border:1px solid rgba(244,240,231,.13);border-radius:50%;inset:0}
+
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+
+/* stat block */
+.stat{border-top:2px solid var(--deep);padding-top:16px}
+.dark .stat{border-color:var(--mint)}
+.stat .v{font-family:var(--dk-serif);font-weight:300;font-size:52px;line-height:1;letter-spacing:-.02em;margin-top:12px;font-variant-numeric:tabular-nums}
+.stat .s{font-size:13.5px;color:var(--mut);margin-top:10px}
+.dark .stat .s{color:var(--mutD)}
+
+/* bars */
+.bar{height:26px;display:flex;overflow:hidden;border-radius:2px}
+.bar > span{display:block;height:100%}
+.track{height:8px;background:rgba(10,36,34,.10);border-radius:99px;overflow:hidden}
+.dark .track{background:rgba(244,240,231,.14)}
+.track > i{display:block;height:100%;background:var(--deep);border-radius:99px}
+.dark .track > i{background:var(--mint)}
+
+/* rows */
+.row{display:grid;align-items:center;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}
+.dark .row{border-color:var(--lineD)}
+.row .name{font-size:17px;font-weight:500}
+.row .val{font-family:var(--dk-serif);font-size:24px;font-weight:400;text-align:right;font-variant-numeric:tabular-nums}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);font-weight:700;text-align:left;padding:0 14px 12px 0;border-bottom:1px solid var(--line)}
+td{padding:15px 14px 15px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.dark th,.dark td{border-color:var(--lineD)}
+.dark th{color:var(--mutD)}
+td.n{text-align:right;font-family:var(--dk-serif);font-size:20px;font-variant-numeric:tabular-nums;padding-right:0}
+th.n{text-align:right;padding-right:0}
+.pad td.n,.pad th.n{padding-right:34px}
+
+/* card */
+.card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:24px 26px}
+.dark .card{background:rgba(244,240,231,.05);border-color:var(--lineD)}
+.card.accent{border-left:3px solid var(--gold)}
+
+/* flow */
+.node{border:1px solid var(--line);border-radius:3px;padding:16px 20px;background:#fff;color:var(--ink)}
+.node .mint{color:#12564C}
+.node .small{color:var(--mut)}
+.dark .node{background:rgba(244,240,231,.06);border-color:var(--lineD);color:var(--cream)}
+.dark .node .mint{color:var(--mint)}
+.dark .node .small{color:var(--mutD)}
+.node .t{font-size:16px;font-weight:600}
+.node .v{font-family:var(--dk-serif);font-size:22px;margin-top:4px}
+.conn{flex:1;height:1px;background:var(--line);position:relative}
+.dark .conn{background:var(--lineD)}
+.conn::after{content:'';position:absolute;right:0;top:-3px;border-left:7px solid var(--deep);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+.dark .conn::after{border-left-color:var(--mint)}
+
+/* section divider */
+.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:rgba(121,210,192,.16);letter-spacing:-.04em}
+.toc-item{display:flex;gap:20px;padding:17px 0;border-bottom:1px solid var(--lineD);font-size:20px}
+.toc-item .i{font-family:var(--dk-serif);color:var(--mint);width:34px;font-size:18px}
+.chip{display:inline-block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:99px}
+.chip.in{background:rgba(121,210,192,.18);color:#12564C}
+.chip.out{background:rgba(192,86,58,.13);color:var(--clay)}
+.dark .chip.in{background:rgba(121,210,192,.2);color:var(--mint)}
+.dark .chip.out{background:rgba(217,162,95,.2);color:var(--gold)}
+.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);background:#fff}
+.dark .avatar{background:rgba(244,240,231,.07);border-color:var(--lineD)}
+</style>
+<style id="ds-themes">
+html{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:3px}
+html[data-theme="editorial"]{--deep:#0E3330;--deeper:#06201E;--ink:#0A2422;--cream:#F4F0E7;--paper:#FBF9F4;--mint:#31917E;--gold:#B3762B;--clay:#C9674D;--line:rgba(10,36,34,.14);--lineD:rgba(244,240,231,.18);--mut:#5E7370;--mutD:rgba(244,240,231,.78)}
+html[data-theme="bone"]{--dk-serif:'Instrument Serif',Georgia,serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#14120F;--deeper:#000000;--ink:#14120F;--cream:#F7F5F0;--paper:#F7F5F0;--mint:#B65E2D;--gold:#C94F2A;--clay:#C94F2A;
+  --line:rgba(20,18,15,.16);--lineD:rgba(247,245,240,.2);--mut:#6D675D;--mutD:rgba(247,245,240,.78)}
+html[data-theme="midnight"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:2px;
+  --deep:#060B16;--deeper:#03060D;--ink:#E8ECF5;--cream:#E8ECF5;--paper:#0B1120;--mint:#6FD3C7;--gold:#C9A84C;--clay:#E07A5F;
+  --line:rgba(232,236,245,.16);--lineD:rgba(232,236,245,.14);--mut:#8D9BB8;--mutD:rgba(232,236,245,.78)}
+html[data-theme="slate"]{--dk-serif:'Work Sans',system-ui,sans-serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:10px;
+  --deep:#0F1B2D;--deeper:#0A1220;--ink:#0F1B2D;--cream:#F8FAFC;--paper:#FFFFFF;--mint:#0F77F7;--gold:#AE7007;--clay:#E14242;
+  --line:rgba(15,27,45,.12);--lineD:rgba(248,250,252,.16);--mut:#5B6B82;--mutD:rgba(248,250,252,.78)}
+html[data-theme="goldman"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Libre Franklin',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#002849;--deeper:#001A2E;--ink:#0B1C2C;--cream:#F4F6F9;--paper:#FFFFFF;--mint:#5684BA;--gold:#9C7C49;--clay:#D15E4D;
+  --line:rgba(0,40,73,.16);--lineD:rgba(244,246,249,.18);--mut:#5A6B7D;--mutD:rgba(244,246,249,.78)}
+html[data-theme="goldman"] h1,html[data-theme="goldman"] h2,html[data-theme="goldman"] h3,html[data-theme="goldman"] .num{font-weight:400;letter-spacing:-.015em}
+html[data-theme="schwab"]{--dk-serif:'Source Sans 3',system-ui,sans-serif;--dk-sans:'Source Sans 3',system-ui,sans-serif;--dk-radius:6px;
+  --deep:#2E3D49;--deeper:#1C2833;--ink:#1C2833;--cream:#F2F5F7;--paper:#FFFFFF;--mint:#0096D1;--gold:#D67212;--clay:#EE5D37;
+  --line:rgba(28,40,51,.14);--lineD:rgba(242,245,247,.2);--mut:#5B6A76;--mutD:rgba(242,245,247,.78)}
+html[data-theme="schwab"] h1,html[data-theme="schwab"] h2,html[data-theme="schwab"] h3,html[data-theme="schwab"] .num{font-weight:600;letter-spacing:-.02em}
+html[data-theme="schwab"] .card,html[data-theme="schwab"] .node,html[data-theme="schwab"] .box{border-radius:var(--dk-radius)}
+html[data-theme="schwab"] .r-dark .mint,html[data-theme="schwab"] .ondark .mint{color:#4FC3F2}
+/* midnight: light slides are dark, so accent text needs the light ink */
+html[data-theme="midnight"] .hdr .r{color:var(--gold)}
+/* midnight: base slides render on dark paper — mirror the .dark treatments */
+html[data-theme="midnight"] .card,html[data-theme="midnight"] .node,html[data-theme="midnight"] .avatar{background:rgba(232,236,245,.05);border-color:var(--lineD);color:var(--cream)}
+html[data-theme="midnight"] .eyebrow,html[data-theme="midnight"] .node .mint{color:var(--mint)}
+html[data-theme="midnight"] .track{background:rgba(232,236,245,.14)}
+html[data-theme="midnight"] .track > i,html[data-theme="midnight"] .sm .c > i,html[data-theme="midnight"] .bar > span:first-child{background:var(--mint)}
+html[data-theme="midnight"] .conn::after{border-left-color:var(--mint)}
+html[data-theme="midnight"] .chip.in{background:rgba(111,211,199,.2);color:var(--mint)}
+html[data-theme="midnight"] .keyline .sw[style*="--deep"]{background:var(--mint)!important}
+html[data-theme="slate"] .card,html[data-theme="slate"] .node,html[data-theme="slate"] .box{border-radius:var(--dk-radius)}
+html[data-theme="bone"] h1,html[data-theme="bone"] h2,html[data-theme="bone"] h3,html[data-theme="bone"] .num{font-weight:400}
+html[data-theme="slate"] h1,html[data-theme="slate"] h2,html[data-theme="slate"] h3,html[data-theme="slate"] .num{font-weight:500;letter-spacing:-.02em}
+body{background:transparent!important}
+.slide{margin:0 auto 28px}
+html{background:#111}
+</style>
+<script>
+document.documentElement.setAttribute('data-theme','editorial');
+addEventListener('message',function(e){
+  var d=e.data||{};
+  if(d.type==='ds-theme'&&typeof d.theme==='string')document.documentElement.setAttribute('data-theme',d.theme);
+  if(d.type==='ds-ping')announce();
+  if(d.type==='ds-goto'&&typeof d.index==='number'){
+    var s=document.querySelectorAll('.slide');
+    if(s[d.index])s[d.index].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+function announce(){parent.postMessage({type:'ds-ready',count:document.querySelectorAll('.slide').length},'*');}
+addEventListener('DOMContentLoaded',announce);
+addEventListener('load',announce);
+</script>
+<style id="ledger">
+/* ---- LEDGER MODE: dense, table-forward, one page = one worksheet ---- */
+.slide.led{padding:40px 88px 40px 88px}
+.led .body{padding-top:22px;padding-bottom:22px;justify-content:center}
+.led .ftr{left:88px;right:88px;bottom:26px;padding-top:10px;font-size:11px}
+.led h2{font-size:42px}
+.led .eyebrow{font-size:11.5px;letter-spacing:.24em;margin-bottom:12px}
+.led .hdr{font-size:12px;padding-bottom:10px}
+
+/* three scenario columns with hairline gutters */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cols > div{padding:0 26px;border-left:1px solid var(--line)}
+.cols > div:first-child{padding-left:0;border-left:0}
+.cols > div:last-child{padding-right:0}
+
+.scen{min-height:104px;padding-bottom:12px;border-bottom:2px solid var(--deep);margin-bottom:14px}
+.scen .n{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.scen .t{font-family:var(--dk-serif);font-size:23px;margin-top:6px;line-height:1.15}
+.scen .m{font-size:12.5px;color:var(--mut);margin-top:6px;line-height:1.45}
+.scen.a{border-color:var(--mint)}
+.scen.b{border-color:var(--gold)}
+
+/* ledger rows: label left, tabular figure right */
+.led-rows{width:100%}
+.lr{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    padding:11px 0;border-bottom:1px solid var(--line)}
+.lr:last-child{border-bottom:0}
+.lr .k{font-size:15px;color:var(--mut)}
+.lr .v{font-family:var(--dk-serif);font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.lr.tot{border-top:1.5px solid var(--deep);border-bottom:0;margin-top:6px;padding-top:11px}
+/* the dark total rule replaces the hairline above it */
+.lr:has(+ .lr.tot){border-bottom:0}
+.lr.tot .k{color:var(--ink);font-weight:600;font-size:14.5px}
+.lr.tot .v{font-size:29px}
+.lr.sub .k{padding-left:14px;font-size:13.5px}
+.lr.zero .v{color:var(--mut)}
+
+.hero-fig{font-family:var(--dk-serif);font-weight:300;font-size:64px;line-height:1;letter-spacing:-.025em;
+  font-variant-numeric:tabular-nums;margin-top:4px}
+.delta{font-size:13px;font-weight:600;letter-spacing:.02em;margin-top:8px}
+.up{color:var(--clay)}.down{color:var(--mint)}
+
+/* dense table variant */
+table.dense{font-size:14.5px}
+table.dense th{font-size:11px;padding:0 10px 10px 0;letter-spacing:.16em}
+table.dense td{padding:12px 10px 12px 0;font-size:14.5px}
+table.dense td.n{font-size:17px}
+table.dense tr.total td{border-bottom:0;border-top:1.5px solid var(--deep);font-weight:600}
+table.dense tr:has(+ tr.total) td{border-bottom:0}
+table.dense tr.hi td{background:color-mix(in srgb,var(--mint) 12%,transparent)}
+
+/* bracket fill meter */
+.meter{display:flex;height:20px;border-radius:2px;overflow:hidden;border:1px solid var(--line)}
+.meter i{display:block;height:100%}
+.meter .room{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line) 5px 6px)}
+.mscale{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mut);font-weight:700;margin-top:6px}
+
+/* small-multiple column chart */
+.sm{display:flex;align-items:flex-end;gap:14px;height:150px;border-bottom:1px solid var(--line);padding-bottom:0}
+.sm .c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.sm .c i{display:block;width:100%;background:var(--deep);border-radius:2px 2px 0 0}
+.sm .c .v{font-family:var(--dk-serif);font-size:14px;margin-bottom:5px;font-variant-numeric:tabular-nums}
+.smlbl{display:flex;gap:14px;margin-top:8px}
+.smlbl span{flex:1;text-align:center;font-size:11px;color:var(--mut);line-height:1.3}
+
+/* stacked column */
+.stack{width:78px;display:flex;flex-direction:column-reverse;border-radius:2px;overflow:hidden}
+.stack i{display:block;width:100%}
+
+.keyline{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--mut)}
+.sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+.note{font-size:11.5px;line-height:1.5;color:var(--mut)}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  padding:4px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+
+/* worksheet math rows */
+.wk .lr .k{font-size:14px}
+.wk .lr .v{font-size:19px}
+.wk .lr.op{border-bottom:0;padding-bottom:2px}
+.wk .lr.op .k{color:var(--mut);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lesser{border:1px solid var(--line);border-radius:2px;padding:12px 14px;margin-top:12px;
+  display:flex;justify-content:space-between;align-items:baseline}
+.dark .lesser{border-color:var(--lineD)}
+
+/* status chips for phase-out matrix */
+.chip.watch{background:color-mix(in srgb,var(--gold) 20%,transparent);color:#7A4E12}
+.dark .chip.watch,html[data-theme="midnight"] .chip.watch{color:var(--gold)}
+.chip.na{background:color-mix(in srgb,var(--mut) 16%,transparent);color:var(--mut)}
+td .chip{white-space:nowrap}
+
+/* observation cards */
+.obs{border-top:2px solid var(--line);padding-top:12px}
+.dark .obs{border-color:var(--lineD)}
+.obs.op{border-color:var(--mint)}
+.obs.wa{border-color:var(--gold)}
+.obs h4{font-family:var(--dk-serif);font-size:19px;font-weight:400;line-height:1.2;margin:9px 0 6px}
+.obs p{font-size:12.5px;line-height:1.5;color:var(--mut)}
+.led.tight .lr{padding:7px 0}
+.led.tight .lesser{padding:9px 14px;margin-top:9px}
+</style>
+
+</head>
+<body>
+
+<!-- 1 COVER -->
+<section class="slide dark deeper" style="justify-content:space-between">
+  <div class="cover-mark"></div>
+  <div class="cover-rings">
+    <div style="inset:0"></div><div style="inset:90px"></div><div style="inset:180px"></div><div style="inset:270px"></div>
+  </div>
+  <div class="hdr" style="position:relative"><span class="l" style="font-family:Newsreader,serif;text-transform:none;letter-spacing:0;font-size:22px;color:var(--cream)">wealth.com</span><span class="r">Tax Planning · Ledger mode</span></div>
+  <div style="position:relative">
+    <div class="eyebrow" style="margin-bottom:26px">Confidential tax plan</div>
+    <h1 style="font-size:104px">Every line,<br>on <span class="mint">one page</span>.</h1>
+    <div class="num" style="font-size:46px;margin-top:26px;color:var(--mutD)">Bob &amp; Sally Jones</div>
+  </div>
+  <div style="position:relative">
+    <div class="rule" style="margin-bottom:22px"></div>
+    <div class="g4">
+      <div><div class="lbl">Prepared for</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">Bob &amp; Sally Jones</div></div>
+      <div><div class="lbl">Filing status</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">2025 baseline — MFJ</div></div>
+      <div><div class="lbl">Prepared by</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">Your Advisor</div></div>
+      <div><div class="lbl">Date</div><div style="font-family:Newsreader,serif;font-size:26px;margin-top:8px">August 2026</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:30px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mutD);font-weight:600">
+      <span>Plan for every tomorrow™</span><span>Confidential</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- 2 TAX IMPACT SUMMARY -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">01 — Tax impact summary</span></div>
+  <div class="body">
+    <div class="eyebrow">Baseline against two scenarios</div>
+    <h2 style="margin-bottom:6px">Tax impact summary</h2>
+    <p class="small" style="max-width:78ch;margin-bottom:24px">Scenario 1 relocates residency, maximises the workplace plan and re-times mortgage interest. Scenario 2 layers equity-compensation timing and a Roth conversion on top — it raises this year's tax on purpose.</p>
+
+    <div class="cols">
+      <div>
+        <div class="scen"><div class="n">Baseline · 2025</div><div class="t">As filed, no optimisation</div><div class="m">Return as prepared, California residency.</div></div>
+        <div class="lbl">Total tax liability</div>
+        <div class="hero-fig">$58,177</div>
+        <div class="delta" style="color:var(--mut)">Reference case</div>
+        <div class="led-rows" style="margin-top:22px">
+          <div class="lr"><span class="k">Effective rate</span><span class="v">19.6%</span></div>
+          <div class="lr"><span class="k">Marginal bracket</span><span class="v">24%</span></div>
+          <div class="lr"><span class="k">Lifetime benefit</span><span class="v" style="color:var(--mut)">$0</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Scenario 1 · 2026</div><div class="t">Residency &amp; deferral</div><div class="m">State relocation · maximise workplace plan · adjust mortgage interest.</div></div>
+        <div class="lbl">Total tax liability</div>
+        <div class="hero-fig mint">$35,284</div>
+        <div class="delta down">▼ $22,893 · 39.4% lower than baseline</div>
+        <div class="led-rows" style="margin-top:22px">
+          <div class="lr"><span class="k">Effective rate</span><span class="v">18.3% <span style="font-size:13px;color:var(--mut)">vs 19.6%</span></span></div>
+          <div class="lr"><span class="k">Marginal bracket</span><span class="v">22% <span style="font-size:13px;color:var(--mut)">vs 24%</span></span></div>
+          <div class="lr"><span class="k">Lifetime benefit</span><span class="v" style="color:var(--mut)">$0</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Scenario 2 · 2026</div><div class="t">Accelerate, then compound</div><div class="m">Scenario 1 plus equity-compensation optimisation and a Roth conversion against future RMDs.</div></div>
+        <div class="lbl">Total tax liability</div>
+        <div class="hero-fig gold">$105,524</div>
+        <div class="delta up">▲ $47,347 · 81.4% higher this year</div>
+        <div class="led-rows" style="margin-top:22px">
+          <div class="lr"><span class="k">Effective rate</span><span class="v">22.7% <span style="font-size:13px;color:var(--mut)">vs 19.6%</span></span></div>
+          <div class="lr"><span class="k">Marginal bracket</span><span class="v">32% <span style="font-size:13px;color:var(--mut)">vs 24%</span></span></div>
+          <div class="lr"><span class="k">Lifetime benefit</span><span class="v mint">$893,000</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:24px;max-width:104ch">Read Scenario 2 as an investment, not a cost: the additional $47,347 paid in 2026 is the price of moving deferred balances into a tax-free wrapper ahead of required distributions. The lifetime figure nets that payment against projected future tax.</p>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>01</span></div>
+</section>
+
+<!-- 3 KEY FIGURES -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">02 — Key figures</span></div>
+  <div class="body">
+    <div class="eyebrow">The return, line by line</div>
+    <h2 style="margin-bottom:22px">Key figures</h2>
+    <div class="cols">
+      <div>
+        <div class="scen"><div class="n">Baseline · 2025</div><div class="t">As filed</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Total income</span><span class="v">$357,880</span></div>
+          <div class="lr"><span class="k">Adjusted gross income</span><span class="v">$357,058</span></div>
+          <div class="lr"><span class="k">Deductions</span><span class="v">$124,383</span></div>
+          <div class="lr"><span class="k">Taxable income</span><span class="v">$232,675</span></div>
+          <div class="lr"><span class="k">Qualified dividends</span><span class="v">$2,904</span></div>
+          <div class="lr"><span class="k">Credits claimed</span><span class="v">$290</span></div>
+
+          <div class="lr tot"><span class="k">Total tax</span><span class="v">$58,177</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Scenario 1 · 2026</div><div class="t">Residency &amp; deferral</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Total income</span><span class="v">$334,380</span></div>
+          <div class="lr"><span class="k">Adjusted gross income</span><span class="v">$333,558</span></div>
+          <div class="lr"><span class="k">Deductions</span><span class="v">$141,145</span></div>
+          <div class="lr"><span class="k">Taxable income</span><span class="v">$192,413</span></div>
+          <div class="lr"><span class="k">Qualified dividends</span><span class="v">$2,904</span></div>
+          <div class="lr"><span class="k">Credits claimed</span><span class="v">$290</span></div>
+          <div class="lr tot"><span class="k">Total tax</span><span class="v mint">$35,284</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Scenario 2 · 2026</div><div class="t">Accelerate, then compound</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Total income</span><span class="v">$555,639</span></div>
+          <div class="lr"><span class="k">Adjusted gross income</span><span class="v">$554,900</span></div>
+          <div class="lr"><span class="k">Deductions</span><span class="v">$89,850</span></div>
+          <div class="lr"><span class="k">Taxable income</span><span class="v">$465,050</span></div>
+          <div class="lr"><span class="k">Qualified dividends</span><span class="v">$2,904</span></div>
+          <div class="lr"><span class="k">Credits claimed</span><span class="v">$290</span></div>
+          <div class="lr tot"><span class="k">Total tax</span><span class="v gold">$105,524</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule" style="margin:26px 0 18px"></div>
+    <div class="g3" style="gap:26px">
+      <div>
+        <div class="lbl">Income moved</div>
+        <div class="num" style="font-size:30px">−$23,500</div>
+        <p class="note" style="margin-top:6px">Scenario 1 income falls with deferral into the workplace plan.</p>
+      </div>
+      <div>
+        <div class="lbl">Deduction swing</div>
+        <div class="num" style="font-size:30px">$89,850 – $141,145</div>
+        <p class="note" style="margin-top:6px">Mortgage-interest timing and the loss of the state deduction after relocation.</p>
+      </div>
+      <div>
+        <div class="lbl">Taxable income range</div>
+        <div class="num" style="font-size:30px">$192,413 – $465,050</div>
+        <p class="note" style="margin-top:6px">The conversion is what carries Scenario 2 into the 32% bracket.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Figures from your filed return and modelled scenarios</span><span>02</span></div>
+</section>
+
+<!-- 4 TAX LIABILITY COMPOSITION -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">03 — Liability composition</span></div>
+  <div class="body">
+    <div class="eyebrow">What the total is actually made of</div>
+    <h2 style="margin-bottom:20px">Tax liability composition</h2>
+    <div class="cols">
+      <div>
+        <div class="scen"><div class="n">Baseline · 2025</div><div class="t">$58,177 total</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Federal income tax</span><span class="v">$41,376</span></div>
+          <div class="lr zero"><span class="k">Alternative minimum tax</span><span class="v">$0</span></div>
+          <div class="lr"><span class="k">Net investment income tax</span><span class="v">$1,735</span></div>
+          <div class="lr"><span class="k">Self-employment tax</span><span class="v">$1,643</span></div>
+          <div class="lr zero"><span class="k">Capital gains tax</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">Additional Medicare tax</span><span class="v">$0</span></div>
+          <div class="lr"><span class="k">State income tax — CA</span><span class="v">$13,423</span></div>
+          <div class="lr tot"><span class="k">Total liability</span><span class="v">$58,177</span></div>
+        </div>
+        <div class="meter" style="margin-top:16px">
+          <i style="width:71.1%;background:var(--deep)"></i><i style="width:3.0%;background:var(--mint)"></i><i style="width:2.8%;background:var(--gold)"></i><i style="width:23.1%;background:var(--clay)"></i>
+        </div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Scenario 1 · 2026</div><div class="t">$35,284 total</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Federal income tax</span><span class="v">$31,907</span></div>
+          <div class="lr zero"><span class="k">Alternative minimum tax</span><span class="v">$0</span></div>
+          <div class="lr"><span class="k">Net investment income tax</span><span class="v">$1,734</span></div>
+          <div class="lr"><span class="k">Self-employment tax</span><span class="v">$1,643</span></div>
+          <div class="lr zero"><span class="k">Capital gains tax</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">Additional Medicare tax</span><span class="v">$0</span></div>
+          <div class="lr"><span class="k">State income tax — FL</span><span class="v mint">$0</span></div>
+          <div class="lr tot"><span class="k">Total liability</span><span class="v mint">$35,284</span></div>
+        </div>
+        <div class="meter" style="margin-top:16px">
+          <i style="width:90.4%;background:var(--deep)"></i><i style="width:4.9%;background:var(--mint)"></i><i style="width:4.7%;background:var(--gold)"></i>
+        </div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Scenario 2 · 2026</div><div class="t">$105,524 total</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Federal income tax</span><span class="v">$98,896</span></div>
+          <div class="lr"><span class="k">Alternative minimum tax</span><span class="v">$299</span></div>
+          <div class="lr"><span class="k">Net investment income tax</span><span class="v">$3,957</span></div>
+          <div class="lr"><span class="k">Self-employment tax</span><span class="v">$1,586</span></div>
+          <div class="lr"><span class="k">Capital gains tax <span style="font-size:11.5px;color:var(--mut)">within federal</span></span><span class="v" style="color:var(--mut)">$5,757</span></div>
+          <div class="lr"><span class="k">Additional Medicare tax</span><span class="v">$786</span></div>
+          <div class="lr"><span class="k">State income tax — FL</span><span class="v mint">$0</span></div>
+          <div class="lr tot"><span class="k">Total liability</span><span class="v gold">$105,524</span></div>
+        </div>
+        <div class="meter" style="margin-top:16px">
+          <i style="width:93.7%;background:var(--deep)"></i><i style="width:3.7%;background:var(--mint)"></i><i style="width:1.5%;background:var(--gold)"></i><i style="width:1.1%;background:var(--clay)"></i>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:26px;margin-top:18px;flex-wrap:wrap">
+      <span class="keyline"><i class="sw" style="background:var(--deep)"></i>Federal income tax</span>
+      <span class="keyline"><i class="sw" style="background:var(--mint)"></i>Net investment income tax</span>
+      <span class="keyline"><i class="sw" style="background:var(--gold)"></i>Self-employment · AMT · Medicare</span>
+      <span class="keyline"><i class="sw" style="background:var(--clay)"></i>State income tax</span>
+    </div>
+    <p class="note" style="margin-top:16px;max-width:106ch">State tax is 23.1% of the baseline bill and the single largest line you can remove outright. Everything else is a question of timing rather than location.</p>
+  </div>
+  <div class="ftr"><span>Additional Medicare 0.9% · NIIT 3.8% above threshold</span><span>03</span></div>
+</section>
+
+<!-- 5 FEDERAL BRACKET DISTRIBUTION -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">04 — Bracket distribution</span></div>
+  <div class="body">
+    <div class="eyebrow">Baseline 2025 · taxable income $232,675</div>
+    <h2 style="margin-bottom:18px">Federal bracket distribution</h2>
+    <div class="g2" style="gap:48px;align-items:start">
+      <div>
+        <table class="dense">
+          <thead><tr><th>Bracket</th><th class="n">Income taxed</th><th class="n">Rate</th><th class="n">Tax</th></tr></thead>
+          <tbody>
+            <tr><td>$0 – $23,200</td><td class="n">$23,200</td><td class="n">10%</td><td class="n">$2,320</td></tr>
+            <tr><td>$23,200 – $94,300</td><td class="n">$71,100</td><td class="n">12%</td><td class="n">$8,532</td></tr>
+            <tr><td>$94,300 – $201,050</td><td class="n">$106,750</td><td class="n">22%</td><td class="n">$23,485</td></tr>
+            <tr class="hi"><td>$201,050 – $383,900</td><td class="n">$31,625</td><td class="n">24%</td><td class="n">$7,590</td></tr>
+            <tr><td>$383,900 and above</td><td class="n">$0</td><td class="n">32%+</td><td class="n">$0</td></tr>
+            <tr class="total"><td>Ordinary income tax</td><td class="n">$232,675</td><td class="n">—</td><td class="n">$41,927</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:12px">Reconciliation: $2,904 of qualified dividends is lifted out of the ordinary schedule, leaving $229,771 taxed at ordinary rates for $41,230. Add $436 of preferential-rate tax and deduct the $290 foreign tax credit to reach the $41,376 of federal income tax reported on page 03.</p>
+      </div>
+      <div>
+        <div class="lbl">Room remaining in the 24% bracket</div>
+        <div class="num" style="font-size:52px">$151,225</div>
+        <p class="small" style="margin-top:8px;max-width:44ch">Income you could recognise in 2026 before the next rate step — the capacity Scenario 2 deliberately spends.</p>
+
+        <div style="margin-top:26px">
+          <div class="meter" style="height:26px">
+            <i style="width:10.0%;background:color-mix(in srgb,var(--deep) 30%,var(--paper))"></i>
+            <i style="width:18.5%;background:color-mix(in srgb,var(--deep) 50%,var(--paper))"></i>
+            <i style="width:27.8%;background:color-mix(in srgb,var(--deep) 75%,var(--paper))"></i>
+            <i style="width:8.2%;background:var(--deep)"></i>
+            <i class="room" style="width:35.5%"></i>
+          </div>
+          <div class="mscale"><span>10%</span><span>12%</span><span>22%</span><span>24%</span><span>Room</span></div>
+        </div>
+
+        <div class="rule" style="margin:26px 0 18px"></div>
+        <div class="lbl">Where each scenario lands</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Baseline · 2025</span><span class="v">24% <span style="font-size:13px;color:var(--mut)">· $232,675 taxable</span></span></div>
+          <div class="lr"><span class="k">Scenario 1 · 2026</span><span class="v mint">22% <span style="font-size:13px;color:var(--mut)">· $192,413 taxable</span></span></div>
+          <div class="lr"><span class="k">Scenario 2 · 2026</span><span class="v gold">32% <span style="font-size:13px;color:var(--mut)">· $465,050 taxable</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>2025 married-filing-jointly ordinary brackets</span><span>04</span></div>
+</section>
+
+<!-- 6 SCHEDULE A -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">05 — Schedule A</span></div>
+  <div class="body">
+    <div class="eyebrow">Itemised deduction detail</div>
+    <h2 style="margin-bottom:18px">Schedule A — where the deduction came from</h2>
+    <div class="g2" style="gap:48px;align-items:start">
+      <div>
+        <table class="dense">
+          <thead><tr><th>Deduction</th><th class="n">Claimed</th><th class="n">Share</th></tr></thead>
+          <tbody>
+            <tr><td>Medical &amp; dental <span style="font-size:11.5px;color:var(--mut)">after 7.5% AGI floor</span></td><td class="n">$0</td><td class="n">—</td></tr>
+            <tr><td>State &amp; local taxes (capped)</td><td class="n">$10,000</td><td class="n">8.0%</td></tr>
+            <tr><td>Mortgage &amp; investment interest</td><td class="n">$19,000</td><td class="n">15.3%</td></tr>
+            <tr class="hi"><td>Gifts to charity <span style="font-size:11.5px;color:var(--mut)">incl. $88,383 donor-advised fund</span></td><td class="n">$95,383</td><td class="n">76.7%</td></tr>
+            <tr><td>Casualty &amp; theft</td><td class="n">$0</td><td class="n">—</td></tr>
+            <tr><td>Other itemised</td><td class="n">$0</td><td class="n">—</td></tr>
+            <tr class="total"><td>Total itemised</td><td class="n">$124,383</td><td class="n">100%</td></tr>
+          </tbody>
+        </table>
+        <div class="tagrow">
+          <span class="tag">Itemised beat standard by $94,383</span>
+          <span class="tag">SALT capped — $13,423 paid, $10,000 claimed</span>
+          <span class="tag">Charity 26.7% of AGI — under the 60% ceiling</span>
+        </div>
+        <p class="note" style="margin-top:14px;max-width:52ch">The donor-advised fund gift is what makes 2025 an itemising year at all. The state-tax line is the clearest inefficiency: you paid $13,423 and deducted $10,000 of it — relocation removes both the payment and the cap problem at once.</p>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:14px">Itemised vs standard deduction</div>
+        <div style="display:flex;gap:56px;align-items:flex-end;height:280px;border-bottom:1px solid var(--line)">
+          <div style="text-align:center">
+            <div class="num" style="font-size:20px;margin-bottom:8px">$124,383</div>
+            <div class="stack" style="height:232px">
+              <i style="height:8.0%;background:var(--deep)" title="SALT"></i>
+              <i style="height:15.3%;background:var(--mint)" title="Interest"></i>
+              <i style="height:76.7%;background:var(--gold)" title="Charity"></i>
+            </div>
+          </div>
+          <div style="text-align:center">
+            <div class="num" style="font-size:20px;margin-bottom:8px">$30,000</div>
+            <div class="stack" style="height:56px">
+              <i style="height:100%;background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line) 5px 6px);border:1px solid var(--line)"></i>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:56px;margin-top:8px">
+          <span class="note" style="width:78px;text-align:center">Itemised</span>
+          <span class="note" style="width:78px;text-align:center">Standard</span>
+        </div>
+        <div style="display:flex;gap:22px;margin-top:18px;flex-wrap:wrap">
+          <span class="keyline"><i class="sw" style="background:var(--deep)"></i>State &amp; local</span>
+          <span class="keyline"><i class="sw" style="background:var(--mint)"></i>Mortgage interest</span>
+          <span class="keyline"><i class="sw" style="background:var(--gold)"></i>Charitable</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Schedule A as filed</span><span>05</span></div>
+</section>
+
+<!-- 7 SCHEDULE D + INVESTMENT INCOME -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">06 — Capital &amp; investment income</span></div>
+  <div class="body">
+    <div class="eyebrow">Schedule D and the efficiency of investment income</div>
+    <h2 style="margin-bottom:18px">Capital gains, losses and carryforward</h2>
+    <div class="g2" style="gap:48px;align-items:start">
+      <div>
+        <div class="g2" style="gap:32px">
+          <div>
+            <div class="lbl">Short term</div>
+            <div class="led-rows">
+              <div class="lr"><span class="k">Gain / loss for 2025</span><span class="v">$4,000</span></div>
+              <div class="lr tot"><span class="k">Total short term</span><span class="v">$4,000</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="lbl">Long term</div>
+            <div class="led-rows">
+              <div class="lr"><span class="k">Gain / loss for 2025</span><span class="v clay">($30,000)</span></div>
+              <div class="lr tot"><span class="k">Total long term</span><span class="v clay">($30,000)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:22px">
+          <div class="lbl">Net position</div>
+          <div class="num" style="font-size:38px">($26,000)</div>
+          <div class="rule" style="margin:16px 0"></div>
+          <div class="lbl">Carried forward to 2026</div>
+          <div class="led-rows">
+            <div class="lr"><span class="k">Short-term loss</span><span class="v" style="color:var(--mut)">$0</span></div>
+            <div class="lr"><span class="k">Long-term loss</span><span class="v">$23,000</span></div>
+          </div>
+          <p class="note" style="margin-top:12px">$3,000 of the net loss offsets ordinary income this year; the remaining $23,000 is available against 2026 gains — including any recognised when equity compensation is exercised.</p>
+        </div>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:14px">Investment income by tax treatment</div>
+        <div class="g3" style="gap:26px">
+          <div>
+            <div class="sm">
+              <div class="c"><span class="v">$6,900</span><i style="height:100%"></i></div>
+              <div class="c"><span class="v">$2,904</span><i style="height:42%;background:var(--mint)"></i></div>
+            </div>
+            <div class="smlbl"><span>Non-qualified</span><span>Qualified</span></div>
+            <div class="lbl" style="margin-top:8px">Dividends</div>
+          </div>
+          <div>
+            <div class="sm">
+              <div class="c"><span class="v">$14,100</span><i style="height:100%"></i></div>
+              <div class="c"><span class="v">$6,000</span><i style="height:42%;background:var(--mint)"></i></div>
+            </div>
+            <div class="smlbl"><span>Taxable</span><span>Tax-exempt</span></div>
+            <div class="lbl" style="margin-top:8px">Interest</div>
+          </div>
+          <div>
+            <div class="sm" style="align-items:flex-start">
+              <div class="c" style="justify-content:flex-start"><i style="height:12%;background:var(--mint)"></i><span class="v" style="margin:5px 0 0">$4,000</span></div>
+              <div class="c" style="justify-content:flex-start"><i style="height:90%;background:var(--clay)"></i><span class="v" style="margin:5px 0 0">($30,000)</span></div>
+            </div>
+            <div class="smlbl"><span>Short term</span><span>Long term</span></div>
+            <div class="lbl" style="margin-top:8px">Capital gains</div>
+          </div>
+        </div>
+        <p class="note" style="margin-top:22px;max-width:56ch">Only $2,904 of $9,804 in dividends — 29.6% — arrives qualified. Non-qualified dividends and short-term gains are taxed as ordinary income at 24% plus 3.8% NIIT; qualified dividends and long-term gains sit at 15%. Shifting the $6,900 non-qualified stream into qualified or municipal exposure is worth roughly $620 a year — small, but permanent and repeating.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Schedule D as filed · investment income summary</span><span>06</span></div>
+</section>
+
+<!-- 8 PREFERENTIAL RATES -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">07 — Preferential rates</span></div>
+  <div class="body">
+    <div class="eyebrow">Long-term gains and qualified dividends stack on top of ordinary income</div>
+    <h2 style="margin-bottom:18px">The second bracket schedule</h2>
+    <div class="g2" style="gap:48px;align-items:start">
+      <div>
+        <table class="dense">
+          <thead><tr><th>Preferential bracket · MFJ</th><th class="n">Taxable income</th><th class="n">Rate</th><th class="n">Your income here</th></tr></thead>
+          <tbody>
+            <tr><td>0% band</td><td class="n">$0 – $96,700</td><td class="n">0%</td><td class="n">$0</td></tr>
+            <tr class="hi"><td>15% band</td><td class="n">$96,700 – $600,050</td><td class="n">15%</td><td class="n">$2,904</td></tr>
+            <tr><td>20% band</td><td class="n">$600,050 and above</td><td class="n">20%</td><td class="n">$0</td></tr>
+            <tr class="total"><td>Tax at preferential rates</td><td class="n">—</td><td class="n">15%</td><td class="n">$436</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:26px">
+          <div class="lbl">Where the preferential layer sits · baseline</div>
+          <div class="meter" style="height:26px">
+            <i style="width:41.5%;background:color-mix(in srgb,var(--deep) 55%,var(--paper))"></i>
+            <i style="width:57.2%;background:var(--deep)"></i>
+            <i style="width:1.3%;background:var(--gold)"></i>
+          </div>
+          <div class="mscale"><span>$0</span><span>0% band ends $96,700</span><span>$232,675</span></div>
+          <div style="display:flex;gap:22px;margin-top:14px;flex-wrap:wrap">
+            <span class="keyline"><i class="sw" style="background:color-mix(in srgb,var(--deep) 55%,var(--paper))"></i>Ordinary income inside the 0% band</span>
+            <span class="keyline"><i class="sw" style="background:var(--deep)"></i>Ordinary income above it</span>
+            <span class="keyline"><i class="sw" style="background:var(--gold)"></i>Qualified dividends · taxed at 15%</span>
+          </div>
+        </div>
+        <p class="note" style="margin-top:16px;max-width:60ch">Ordinary income fills the preferential schedule first. At $229,771 of ordinary taxable income there is no 0% room left, so every dollar of qualified dividend and long-term gain is taxed at 15% — and, above the NIIT threshold, at 18.8% all-in.</p>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:12px">Preferential income by scenario</div>
+        <table class="dense">
+          <thead><tr><th>Line</th><th class="n">Baseline 2025</th><th class="n">S1 · 2026</th><th class="n">S2 · 2026</th></tr></thead>
+          <tbody>
+            <tr><td>Qualified dividends</td><td class="n">$2,904</td><td class="n">$2,904</td><td class="n">$2,904</td></tr>
+            <tr><td>Net long-term gain realised</td><td class="n">$0</td><td class="n">$0</td><td class="n">$58,474</td></tr>
+            <tr><td>Loss carryforward applied</td><td class="n">$0</td><td class="n">$0</td><td class="n">($23,000)</td></tr>
+            <tr class="total"><td>Preferential income taxed</td><td class="n">$2,904</td><td class="n">$2,904</td><td class="n">$38,378</td></tr>
+            <tr><td>Rate applied</td><td class="n">15%</td><td class="n">15%</td><td class="n">15%</td></tr>
+            <tr><td>Tax at preferential rates</td><td class="n">$436</td><td class="n">$436</td><td class="n">$5,757</td></tr>
+            <tr><td>NIIT on the same layer</td><td class="n">$110</td><td class="n">$110</td><td class="n">$1,458</td></tr>
+            <tr class="total"><td>All-in cost of the layer</td><td class="n">$546</td><td class="n">$546</td><td class="n">$7,215</td></tr>
+          </tbody>
+        </table>
+        <div class="card accent" style="margin-top:22px">
+          <div class="lbl">Room before the 20% band</div>
+          <div class="num" style="font-size:36px">$134,996</div>
+          <p class="note" style="margin-top:8px">Scenario 2 lands at $465,050 of taxable income — still $134,996 below the $600,050 step where long-term gains move from 15% to 20%. Gains recognised beyond that point cost a third more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>2025 MFJ preferential-rate schedule · gains and qualified dividends</span><span>07</span></div>
+</section>
+
+<!-- 9 NIIT AND MEDICARE SURTAX -->
+<section class="slide led tight">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">08 — Surtax worksheet</span></div>
+  <div class="body">
+    <div class="eyebrow">Two separate 250,000 thresholds, two different bases</div>
+    <h2 style="margin-bottom:18px">Net investment income tax &amp; additional Medicare tax</h2>
+    <div class="cols">
+      <div>
+        <div class="scen"><div class="n">Baseline · 2025</div><div class="t">$1,735 of surtax</div></div>
+        <div class="led-rows wk">
+          <div class="lr op"><span class="k">Step 1 · net investment income</span></div>
+          <div class="lr sub"><span class="k">Taxable interest</span><span class="v">$14,100</span></div>
+          <div class="lr sub"><span class="k">Ordinary dividends</span><span class="v">$9,804</span></div>
+          <div class="lr sub"><span class="k">Net capital gain</span><span class="v" style="color:var(--mut)">$0</span></div>
+          <div class="lr sub"><span class="k">Passive rental &amp; K-1</span><span class="v">$21,754</span></div>
+          <div class="lr tot"><span class="k">Total NII</span><span class="v">$45,658</span></div>
+          <div class="lr op" style="margin-top:10px"><span class="k">Step 2 · MAGI over threshold</span></div>
+          <div class="lr sub"><span class="k">MAGI</span><span class="v">$357,058</span></div>
+          <div class="lr sub"><span class="k">Less threshold</span><span class="v">($250,000)</span></div>
+          <div class="lr tot"><span class="k">Excess MAGI</span><span class="v">$107,058</span></div>
+        </div>
+        <div class="lesser"><span class="lbl" style="margin:0">Lesser of the two × 3.8%</span><span class="num" style="font-size:26px">$1,735</span></div>
+      </div>
+      <div>
+        <div class="scen a"><div class="n">Scenario 1 · 2026</div><div class="t">$1,734 of surtax</div></div>
+        <div class="led-rows wk">
+          <div class="lr op"><span class="k">Step 1 · net investment income</span></div>
+          <div class="lr sub"><span class="k">Taxable interest</span><span class="v">$14,100</span></div>
+          <div class="lr sub"><span class="k">Ordinary dividends</span><span class="v">$9,804</span></div>
+          <div class="lr sub"><span class="k">Net capital gain</span><span class="v" style="color:var(--mut)">$0</span></div>
+          <div class="lr sub"><span class="k">Passive rental &amp; K-1</span><span class="v">$21,728</span></div>
+          <div class="lr tot"><span class="k">Total NII</span><span class="v">$45,632</span></div>
+          <div class="lr op" style="margin-top:10px"><span class="k">Step 2 · MAGI over threshold</span></div>
+          <div class="lr sub"><span class="k">MAGI</span><span class="v">$333,558</span></div>
+          <div class="lr sub"><span class="k">Less threshold</span><span class="v">($250,000)</span></div>
+          <div class="lr tot"><span class="k">Excess MAGI</span><span class="v">$83,558</span></div>
+        </div>
+        <div class="lesser"><span class="lbl" style="margin:0">Lesser of the two × 3.8%</span><span class="num mint" style="font-size:26px">$1,734</span></div>
+      </div>
+      <div>
+        <div class="scen b"><div class="n">Scenario 2 · 2026</div><div class="t">$4,743 of surtax</div></div>
+        <div class="led-rows wk">
+          <div class="lr op"><span class="k">Step 1 · net investment income</span></div>
+          <div class="lr sub"><span class="k">Taxable interest</span><span class="v">$14,100</span></div>
+          <div class="lr sub"><span class="k">Ordinary dividends</span><span class="v">$9,804</span></div>
+          <div class="lr sub"><span class="k">Net capital gain</span><span class="v">$58,474</span></div>
+          <div class="lr sub"><span class="k">Passive rental &amp; K-1</span><span class="v">$21,754</span></div>
+          <div class="lr tot"><span class="k">Total NII</span><span class="v">$104,132</span></div>
+          <div class="lr op" style="margin-top:10px"><span class="k">Step 2 · MAGI over threshold</span></div>
+          <div class="lr sub"><span class="k">MAGI</span><span class="v">$554,900</span></div>
+          <div class="lr sub"><span class="k">Less threshold</span><span class="v">($250,000)</span></div>
+          <div class="lr tot"><span class="k">Excess MAGI</span><span class="v">$304,900</span></div>
+        </div>
+        <div class="lesser"><span class="lbl" style="margin:0">Lesser of the two × 3.8%</span><span class="num gold" style="font-size:26px">$3,957</span></div>
+      </div>
+    </div>
+
+    <div class="rule" style="margin:22px 0 16px"></div>
+    <div class="g4" style="gap:26px;align-items:start">
+      <div><div class="lbl">Additional Medicare tax · 0.9%</div><p class="note">Applies to wages and self-employment earnings above $250,000 — a different base from NIIT, and one a Roth conversion never touches.</p></div>
+      <div><div class="lbl">Baseline</div><div class="num" style="font-size:26px">$0</div><p class="note" style="margin-top:6px">$221,628 of wages and SE income — $28,372 below the threshold.</p></div>
+      <div><div class="lbl">Scenario 1</div><div class="num mint" style="font-size:26px">$0</div><p class="note" style="margin-top:6px">Deferral pushes earned income further below the line.</p></div>
+      <div><div class="lbl">Scenario 2</div><div class="num gold" style="font-size:26px">$786</div><p class="note" style="margin-top:6px">NQSO exercise adds W-2 wages: $337,333 earned, $87,333 over the threshold.</p></div>
+    </div>
+    <p class="note" style="margin-top:14px;max-width:110ch">Because the conversion is neither investment income nor earned income, Scenario 2's surtax rise comes almost entirely from the realised gain — not from the $220,000 moved into the Roth. That is the cheapest part of the whole manoeuvre.</p>
+  </div>
+  <div class="ftr"><span>Form 8960 · Form 8959 · thresholds are not indexed</span><span>08</span></div>
+</section>
+
+<!-- 10 ADJUSTMENTS, DEDUCTIONS AND CREDITS -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">09 — Deductions &amp; credits</span></div>
+  <div class="body">
+    <div class="eyebrow">Everything claimed — and everything available but unclaimed</div>
+    <h2 style="margin-bottom:18px">Adjustments, deductions and credits</h2>
+    <div class="g3" style="gap:44px;align-items:start">
+      <div>
+        <div class="lbl">Above-the-line adjustments</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Deductible half of SE tax</span><span class="v">$822</span></div>
+          <div class="lr zero"><span class="k">Health savings account</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">SEP / solo 401(k)</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">Self-employed health insurance</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">Deductible IRA contribution</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">Student loan interest</span><span class="v">$0</span></div>
+          <div class="lr tot"><span class="k">Total adjustments</span><span class="v">$822</span></div>
+        </div>
+        <p class="note" style="margin-top:12px">$357,880 of total income reduced by a single $822 line. Every other adjustment on the form is either unavailable at this income or simply unused.</p>
+      </div>
+      <div>
+        <div class="lbl">Deduction taken</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Itemised total</span><span class="v">$124,383</span></div>
+          <div class="lr"><span class="k">Standard deduction forgone</span><span class="v" style="color:var(--mut)">$30,000</span></div>
+          <div class="lr"><span class="k">Advantage of itemising</span><span class="v mint">$94,383</span></div>
+          <div class="lr zero"><span class="k">Section 199A / QBI</span><span class="v">$0</span></div>
+          <div class="lr tot"><span class="k">Deductions applied</span><span class="v">$124,383</span></div>
+        </div>
+        <div class="lbl" style="margin-top:22px">Credits</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Foreign tax credit</span><span class="v">$290</span></div>
+          <div class="lr zero"><span class="k">Child &amp; dependent credits</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">Education credits</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">Energy &amp; clean vehicle</span><span class="v">$0</span></div>
+          <div class="lr zero"><span class="k">Saver's credit</span><span class="v">$0</span></div>
+          <div class="lr tot"><span class="k">Total credits</span><span class="v">$290</span></div>
+        </div>
+        <p class="note" style="margin-top:12px">The QBI deduction is $0: consulting income is a specified service trade, and income sits above the $483,900 MFJ phase-out ceiling.</p>
+      </div>
+      <div>
+        <div class="lbl">Available but unclaimed · 2026</div>
+        <table class="dense">
+          <thead><tr><th>Item</th><th class="n">Limit</th><th class="n">Tax value</th></tr></thead>
+          <tbody>
+            <tr class="hi"><td>HSA · family, both age 55+</td><td class="n">$9,550</td><td class="n mint">$2,292</td></tr>
+            <tr class="hi"><td>Solo 401(k) on Schedule C</td><td class="n">$2,161</td><td class="n mint">$519</td></tr>
+            <tr><td>Backdoor Roth · two spouses</td><td class="n">$16,000</td><td class="n mint">Deferral</td></tr>
+            <tr><td>Bunched charitable gift</td><td class="n">Elective</td><td class="n mint">24%–32%</td></tr>
+            <tr><td>Clean vehicle credit</td><td class="n">$7,500</td><td class="n" style="color:var(--mut)">MAGI blocked</td></tr>
+            <tr class="total"><td>Immediately claimable</td><td class="n">$11,711</td><td class="n mint">$2,811</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:12px">Tax value uses the 24% federal marginal rate. Under Scenario 2's 32% bracket the same two contributions are worth $3,748.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Schedule 1 · Schedule A · Schedule 3</span><span>09</span></div>
+</section>
+
+<!-- 11 MAGI PHASE-OUT MATRIX -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">10 — MAGI phase-outs</span></div>
+  <div class="body">
+    <div class="eyebrow">One income figure, six definitions, eighteen consequences</div>
+    <h2 style="margin-bottom:16px">What your MAGI switches on and off</h2>
+    <div class="g2" style="gap:44px;align-items:start">
+      <div>
+        <table class="dense">
+          <thead><tr><th>Benefit</th><th class="n">Phase-out · MFJ</th><th style="text-align:right">Status</th></tr></thead>
+          <tbody>
+            <tr><td>Roth IRA contribution</td><td class="n">$236,000 – $246,000</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr><td>Deductible IRA · covered by plan</td><td class="n">$126,000 – $146,000</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr><td>Net investment income tax</td><td class="n">$250,000</td><td style="text-align:right"><span class="chip out">Triggered</span></td></tr>
+            <tr class="hi"><td>Additional Medicare tax</td><td class="n">$250,000 earned</td><td style="text-align:right"><span class="chip in">Below</span></td></tr>
+            <tr><td>Medicare IRMAA · 2027 premiums</td><td class="n">$218,000 first tier</td><td style="text-align:right"><span class="chip out">Tier 4</span></td></tr>
+            <tr><td>American opportunity credit</td><td class="n">$160,000 – $180,000</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr><td>Lifetime learning credit</td><td class="n">$160,000 – $180,000</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr><td>Student loan interest</td><td class="n">$165,000 – $195,000</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr><td>Coverdell ESA</td><td class="n">$190,000 – $220,000</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table class="dense">
+          <thead><tr><th>Benefit</th><th class="n">Phase-out · MFJ</th><th style="text-align:right">Status</th></tr></thead>
+          <tbody>
+            <tr><td>Child tax credit</td><td class="n">$400,000</td><td style="text-align:right"><span class="chip na">No dependents</span></td></tr>
+            <tr><td>Saver's credit</td><td class="n">$79,000</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr><td>Clean vehicle credit</td><td class="n">$300,000</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr><td>Residential energy credits</td><td class="n">No income test</td><td style="text-align:right"><span class="chip in">Available</span></td></tr>
+            <tr><td>ACA premium tax credit</td><td class="n">Cliff repealed</td><td style="text-align:right"><span class="chip na">Employer plan</span></td></tr>
+            <tr class="hi"><td>0% capital gains band</td><td class="n">$96,700 taxable</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr><td>QBI · specified service phase-out</td><td class="n">$383,900 – $483,900</td><td style="text-align:right"><span class="chip out">Above</span></td></tr>
+            <tr class="hi"><td>Estimated tax safe harbor</td><td class="n">$150,000</td><td style="text-align:right"><span class="chip watch">110% rule</span></td></tr>
+            <tr><td>Social Security taxation</td><td class="n">$44,000</td><td style="text-align:right"><span class="chip na">Not yet claiming</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="rule" style="margin:20px 0 16px"></div>
+    <div class="lbl">The six MAGI figures behind that table</div>
+    <div class="g3" style="gap:26px;margin-top:10px">
+      <div class="led-rows">
+        <div class="lr"><span class="k">Roth &amp; IRA · AGI less conversion income</span><span class="v">$357,058</span></div>
+        <div class="lr"><span class="k">NIIT · AGI plus foreign earned exclusion</span><span class="v">$357,058</span></div>
+      </div>
+      <div class="led-rows">
+        <div class="lr"><span class="k">Education credits · plus 911/931/933</span><span class="v">$357,058</span></div>
+        <div class="lr"><span class="k">IRMAA · AGI plus tax-exempt interest</span><span class="v">$363,058</span></div>
+      </div>
+      <div class="led-rows">
+        <div class="lr"><span class="k">ACA · plus tax-exempt &amp; untaxed SS</span><span class="v">$363,058</span></div>
+        <div class="lr"><span class="k">Student loan interest · plus exclusions</span><span class="v">$357,058</span></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px;max-width:112ch">The $6,000 of municipal interest is invisible to federal tax but fully visible to IRMAA and ACA — the two definitions that add tax-exempt interest back. It is the reason your 2027 Medicare premium tier is set one band higher than the federal return alone would suggest.</p>
+  </div>
+  <div class="ftr"><span>2025 thresholds · MFJ · IRMAA on a two-year lookback</span><span>10</span></div>
+</section>
+
+<!-- 12 INCOME SOURCES -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">11 — Income sources</span></div>
+  <div class="body">
+    <div class="eyebrow">Where $357,880 of total income comes from, and how each dollar is taxed</div>
+    <h2 style="margin-bottom:18px">Income by source and treatment</h2>
+    <div class="g2" style="gap:48px;align-items:start">
+      <div>
+        <table class="dense">
+          <thead><tr><th>Source</th><th class="n">2025</th><th class="n">Share</th><th style="text-align:right">Treatment</th></tr></thead>
+          <tbody>
+            <tr><td>Wages &amp; salaries · both spouses</td><td class="n">$210,000</td><td class="n">58.7%</td><td style="text-align:right"><span class="chip out">Ordinary + FICA</span></td></tr>
+            <tr><td>S-corp K-1 · non-passive</td><td class="n">$93,594</td><td class="n">26.2%</td><td style="text-align:right"><span class="chip out">Ordinary</span></td></tr>
+            <tr><td>Schedule E · rental &amp; passive K-1</td><td class="n">$21,754</td><td class="n">6.1%</td><td style="text-align:right"><span class="chip out">Ordinary + NIIT</span></td></tr>
+            <tr><td>Taxable interest</td><td class="n">$14,100</td><td class="n">3.9%</td><td style="text-align:right"><span class="chip out">Ordinary + NIIT</span></td></tr>
+            <tr><td>Schedule C · consulting net profit</td><td class="n">$11,628</td><td class="n">3.3%</td><td style="text-align:right"><span class="chip out">Ordinary + SE</span></td></tr>
+            <tr><td>Ordinary dividends</td><td class="n">$9,804</td><td class="n">2.7%</td><td style="text-align:right"><span class="chip watch">Mixed</span></td></tr>
+            <tr><td>Capital loss allowed</td><td class="n">($3,000)</td><td class="n">−0.8%</td><td style="text-align:right"><span class="chip in">Offset</span></td></tr>
+            <tr class="total"><td>Total income</td><td class="n">$357,880</td><td class="n">100%</td><td style="text-align:right"></td></tr>
+            <tr><td>Memo · tax-exempt interest</td><td class="n">$6,000</td><td class="n">—</td><td style="text-align:right"><span class="chip in">Excluded</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:12px">Business &amp; entity detail</div>
+        <div class="g2" style="gap:26px">
+          <div class="card">
+            <div class="lbl">Schedule C · consulting</div>
+            <div class="num" style="font-size:30px">$11,628</div>
+            <div class="led-rows" style="margin-top:10px">
+              <div class="lr"><span class="k">Gross receipts</span><span class="v" style="font-size:17px">$19,400</span></div>
+              <div class="lr"><span class="k">Expenses</span><span class="v" style="font-size:17px">$7,772</span></div>
+              <div class="lr"><span class="k">SE tax</span><span class="v" style="font-size:17px">$1,643</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="lbl">S-corp · operating business</div>
+            <div class="num" style="font-size:30px">$93,594</div>
+            <div class="led-rows" style="margin-top:10px">
+              <div class="lr"><span class="k">Reasonable comp in wages</span><span class="v" style="font-size:17px">$120,000</span></div>
+              <div class="lr"><span class="k">Distributions taken</span><span class="v" style="font-size:17px">$78,000</span></div>
+              <div class="lr"><span class="k">Payroll tax on K-1</span><span class="v mint" style="font-size:17px">$0</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:22px">
+          <div class="lbl">Schedule E · rental portfolio</div>
+          <table class="dense" style="margin-top:8px">
+            <thead><tr><th>Property</th><th class="n">Rents</th><th class="n">Expenses</th><th class="n">Depreciation</th><th class="n">Net</th></tr></thead>
+            <tbody>
+              <tr><td>Duplex · Sacramento</td><td class="n">$38,400</td><td class="n">$19,100</td><td class="n">$8,600</td><td class="n">$10,700</td></tr>
+              <tr><td>Condo · Scottsdale</td><td class="n">$27,600</td><td class="n">$14,900</td><td class="n">$6,200</td><td class="n">$6,500</td></tr>
+              <tr><td>Passive K-1 · real estate fund</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$4,554</td></tr>
+              <tr class="total"><td>Schedule E total</td><td class="n">$66,000</td><td class="n">$34,000</td><td class="n">$14,800</td><td class="n">$21,754</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note" style="margin-top:14px;max-width:60ch">$14,800 of depreciation shelters rental income today and accrues as recapture at 25% on sale. All $21,754 of Schedule E income is passive and therefore inside the NIIT base.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Form 1040 pages 1–2 · Schedules C, E and K-1s</span><span>11</span></div>
+</section>
+
+<!-- 13 WITHHOLDING AND SAFE HARBOR -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">12 — Payments &amp; safe harbor</span></div>
+  <div class="body">
+    <div class="eyebrow">Paying the right amount is a separate problem from owing the right amount</div>
+    <h2 style="margin-bottom:18px">Withholding, estimates and the 2026 safe harbor</h2>
+    <div class="g2" style="gap:48px;align-items:start">
+      <div>
+        <div class="lbl">2025 as filed</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Federal tax liability</span><span class="v">$44,754</span></div>
+          <div class="lr sub"><span class="k">Federal withheld</span><span class="v">$42,877</span></div>
+          <div class="lr sub"><span class="k">Federal estimates paid</span><span class="v" style="color:var(--mut)">$0</span></div>
+          <div class="lr tot"><span class="k">Federal balance due</span><span class="v">$1,877</span></div>
+          <div class="lr"><span class="k">California tax liability</span><span class="v">$13,423</span></div>
+          <div class="lr sub"><span class="k">State withheld</span><span class="v">$13,423</span></div>
+          <div class="lr tot"><span class="k">State balance due</span><span class="v mint">$0</span></div>
+        </div>
+        <div class="tagrow">
+          <span class="tag">Withholding covered 95.8% of federal tax</span>
+          <span class="tag">No underpayment penalty</span>
+        </div>
+        <p class="note" style="margin-top:14px;max-width:58ch">Withholding cleared the 90% test with room to spare, so the $1,877 shortfall carried no penalty. That margin disappears in either 2026 scenario unless payments are reset.</p>
+      </div>
+      <div>
+        <div class="lbl">2026 safe harbor · the lower of two tests</div>
+        <table class="dense">
+          <thead><tr><th>Test</th><th class="n">Baseline</th><th class="n">S1 · 2026</th><th class="n">S2 · 2026</th></tr></thead>
+          <tbody>
+            <tr><td>110% of 2025 federal tax</td><td class="n">$49,229</td><td class="n">$49,229</td><td class="n">$49,229</td></tr>
+            <tr><td>90% of current-year federal tax</td><td class="n">$40,279</td><td class="n">$31,756</td><td class="n">$94,972</td></tr>
+            <tr class="total"><td>Required to avoid penalty</td><td class="n">$40,279</td><td class="n mint">$31,756</td><td class="n gold">$49,229</td></tr>
+            <tr><td>Per quarter</td><td class="n">$10,070</td><td class="n">$7,939</td><td class="n">$12,308</td></tr>
+          </tbody>
+        </table>
+        <div class="lbl" style="margin-top:22px">Payment calendar · Scenario 2</div>
+        <div style="display:flex;align-items:stretch;margin-top:8px">
+          <div class="node" style="flex:1"><div class="t">Apr 15, 2026</div><div class="v">$12,308</div><div class="small" style="font-size:11.5px">Q1 estimate</div></div>
+          <div class="conn" style="margin:0 10px;align-self:center"></div>
+          <div class="node" style="flex:1"><div class="t">Jun 15, 2026</div><div class="v">$12,308</div><div class="small" style="font-size:11.5px">Q2 estimate</div></div>
+          <div class="conn" style="margin:0 10px;align-self:center"></div>
+          <div class="node" style="flex:1"><div class="t">Sep 15, 2026</div><div class="v">$12,308</div><div class="small" style="font-size:11.5px">Q3 estimate</div></div>
+          <div class="conn" style="margin:0 10px;align-self:center"></div>
+          <div class="node" style="flex:1"><div class="t">Jan 15, 2027</div><div class="v">$12,308</div><div class="small" style="font-size:11.5px">Q4 estimate</div></div>
+        </div>
+        <p class="note" style="margin-top:16px;max-width:64ch">Scenario 2 owes $105,524 but only has to prepay $49,229 to stay penalty-free — the remaining $56,295 can be settled in April 2027. Better still, withhold the conversion tax directly from a year-end distribution: withholding is treated as paid evenly across the year, which repairs any earlier quarterly shortfall.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Form 2210 · 110% test applies above $150,000 of prior-year AGI</span><span>12</span></div>
+</section>
+
+<!-- 14 OBSERVATIONS -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">13 — Observations</span></div>
+  <div class="body">
+    <div class="eyebrow">What the return says when you read it as a document rather than a bill</div>
+    <h2 style="margin-bottom:22px">Observations from the 2025 return</h2>
+    <div class="g3" style="gap:34px 44px">
+      <div class="obs op">
+        <span class="chip in">Opportunity</span>
+        <h4>Roth is closed at the front door, open at the back</h4>
+        <p>MAGI of $357,058 sits far above the $246,000 contribution ceiling. Neither spouse holds a pre-tax IRA balance, so a $16,000 backdoor contribution is available with no pro-rata cost.</p>
+      </div>
+      <div class="obs op">
+        <span class="chip in">Opportunity</span>
+        <h4>No HSA on a return that should have one</h4>
+        <p>The family plan qualifies and both spouses are over 55. A $9,550 contribution is the only deduction on the form that escapes tax at contribution, growth and withdrawal.</p>
+      </div>
+      <div class="obs wa">
+        <span class="chip watch">Watch</span>
+        <h4>Municipal interest is raising your Medicare premium</h4>
+        <p>$6,000 of tax-exempt interest is added back for IRMAA and lifts 2027 premiums a full tier — roughly $2,900 across two enrollees. Taxable yield may net out ahead.</p>
+      </div>
+      <div class="obs wa">
+        <span class="chip watch">Watch</span>
+        <h4>Only 30% of dividends arrive qualified</h4>
+        <p>$6,900 of the $9,804 dividend total is taxed at 24% plus 3.8% rather than 15%. This is a fund-selection and location question, not a planning one.</p>
+      </div>
+      <div class="obs op">
+        <span class="chip in">Opportunity</span>
+        <h4>2025 was an itemising year; 2026 may not be</h4>
+        <p>Without the $88,383 donor-advised gift, deductions fall to $36,000 against a $30,000 standard. Bunching two years of giving into alternating years preserves the advantage.</p>
+      </div>
+      <div class="obs wa">
+        <span class="chip watch">Watch</span>
+        <h4>$23,000 of capital loss is idle</h4>
+        <p>Carried forward at $3,000 a year it takes eight years to absorb. Paired with the Scenario 2 exercise it is consumed immediately and saves $3,450.</p>
+      </div>
+      <div class="obs op">
+        <span class="chip in">Opportunity</span>
+        <h4>The 24% bracket has $151,225 of unused room</h4>
+        <p>Between today's bracket and the projected RMD rate there is a durable spread. Filling that room annually is worth more than any single large conversion.</p>
+      </div>
+      <div class="obs wa">
+        <span class="chip watch">Watch</span>
+        <h4>SALT cap wastes $3,423 of tax paid</h4>
+        <p>While California residency continues, the S-corp can elect the pass-through entity tax and deduct the state liability at the entity level instead.</p>
+      </div>
+      <div class="obs">
+        <span class="chip na">Clear</span>
+        <h4>No AMT, no additional Medicare tax, no penalty</h4>
+        <p>AMT exposure is $0 with the state deduction already capped, earned income is $28,372 below the surtax threshold, and withholding met the 90% test.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Derived from the return as filed · confirm with your CPA</span><span>13</span></div>
+</section>
+
+<!-- 15 STATE TAX -->
+<section class="slide led dark">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">14 — State detail</span></div>
+  <div class="body">
+    <div class="eyebrow">The state return is a quarter of the bill and none of the planning</div>
+    <h2 style="margin-bottom:20px">State tax detail &amp; residency notes</h2>
+    <div class="g2" style="gap:56px;align-items:start">
+      <div>
+        <div class="lbl">California · current residency</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">State taxable income</span><span class="v">$342,058</span></div>
+          <div class="lr"><span class="k">Marginal state rate</span><span class="v">9.3%</span></div>
+          <div class="lr"><span class="k">Effective state rate</span><span class="v">3.9%</span></div>
+          <div class="lr"><span class="k">State tax</span><span class="v">$13,423</span></div>
+          <div class="lr"><span class="k">Deducted federally</span><span class="v clay">$10,000</span></div>
+          <div class="lr tot"><span class="k">Tax paid with no federal benefit</span><span class="v clay">$3,423</span></div>
+        </div>
+        <div class="tagrow">
+          <span class="tag">No preferential rate for capital gains</span>
+          <span class="tag">No deduction for 529 contributions</span>
+          <span class="tag">1% surcharge above $1M</span>
+          <span class="tag">Does not conform to QBI</span>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Notes that change the arithmetic</div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Pass-through entity tax election</span><span class="v" style="font-size:16px">Worth $3,423 while CA-resident</span></div>
+          <div class="lr"><span class="k">Florida income tax</span><span class="v mint" style="font-size:16px">None — no wage or investment tax</span></div>
+          <div class="lr"><span class="k">Residency test</span><span class="v" style="font-size:16px">Domicile, not the 183-day count alone</span></div>
+          <div class="lr"><span class="k">California source income</span><span class="v" style="font-size:16px">Sacramento rental stays taxable in CA</span></div>
+          <div class="lr"><span class="k">Deferred compensation</span><span class="v" style="font-size:16px">Sourced to CA if earned there</span></div>
+          <div class="lr"><span class="k">Part-year year of move</span><span class="v" style="font-size:16px">Two returns, income split by date</span></div>
+        </div>
+        <p class="small" style="margin-top:18px;max-width:60ch">Relocation removes $13,423 of tax on wages, business and portfolio income, but not on the Sacramento duplex — roughly $995 of California tax survives the move. Substantiate domicile with voter registration, licences, primary-residence filings and where the family actually sleeps; the 183-day count is evidence, not the test.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>State rules summarised · confirm with a state specialist</span><span>14</span></div>
+</section>
+
+<!-- 16 ACTION LEDGER -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">15 — Action ledger</span></div>
+  <div class="body">
+    <div class="eyebrow">What to do, what it is worth, when it must happen</div>
+    <h2 style="margin-bottom:18px">Action ledger</h2>
+    <table class="dense">
+      <thead>
+        <tr><th style="width:26px">#</th><th>Action</th><th>Scenario</th><th>Mechanism</th><th class="n">2026 impact</th><th class="n">Lifetime</th><th style="text-align:right">Deadline</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td>Establish Florida residency</td><td>S1 · S2</td><td>Removes California income tax on wage and investment income</td><td class="n mint">−$13,423</td><td class="n">—</td><td style="text-align:right">183-day count · start now</td></tr>
+        <tr><td>02</td><td>Maximise workplace plan</td><td>S1 · S2</td><td>Elective deferral to the annual limit, plus catch-up</td><td class="n mint">−$7,050</td><td class="n">—</td><td style="text-align:right">Dec 31, 2026 payroll</td></tr>
+        <tr><td>03</td><td>Re-time mortgage interest</td><td>S1 · S2</td><td>Aligns the January payment into the deduction year</td><td class="n mint">−$2,420</td><td class="n">—</td><td style="text-align:right">Dec 31, 2026</td></tr>
+        <tr class="hi"><td>04</td><td>Equity compensation optimisation</td><td>S2</td><td>Exercise into the loss carryforward and the 24% bracket room</td><td class="n">+$18,900</td><td class="n mint">$214,000</td><td style="text-align:right">Q4 2026 window</td></tr>
+        <tr class="hi"><td>05</td><td>Roth conversion ahead of RMDs</td><td>S2</td><td>Fills the 32% bracket now against a higher projected RMD rate</td><td class="n">+$28,447</td><td class="n mint">$679,000</td><td style="text-align:right">Dec 31, 2026</td></tr>
+        <tr><td>06</td><td>Harvest the remaining loss</td><td>S1 · S2</td><td>Applies $23,000 carryforward against realised gains</td><td class="n mint">−$3,450</td><td class="n">—</td><td style="text-align:right">On exercise</td></tr>
+        <tr><td>07</td><td>Shift non-qualified dividend income</td><td>S1 · S2</td><td>Municipal and qualified-dividend exposure in the taxable account</td><td class="n mint">−$620</td><td class="n">—</td><td style="text-align:right">Next rebalance</td></tr>
+      </tbody>
+    </table>
+    <div class="g3" style="gap:32px;margin-top:26px">
+      <div><div class="lbl">If you take 01 – 03, 06, 07</div><div class="num" style="font-size:36px">$35,284</div><p class="note" style="margin-top:6px">2026 tax · $22,893 below baseline</p></div>
+      <div><div class="lbl">If you also take 04 and 05</div><div class="num" style="font-size:36px">$105,524</div><p class="note" style="margin-top:6px">2026 tax · a deliberate $47,347 prepayment</p></div>
+      <div><div class="lbl">Lifetime benefit of that prepayment</div><div class="num mint" style="font-size:36px">$893,000</div><p class="note" style="margin-top:6px">Net of the tax paid in 2026</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Modelled outcomes · confirm with your CPA before acting</span><span>15</span></div>
+</section>
+
+<!-- 17 ASSUMPTIONS -->
+<section class="slide led dark">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">16 — Assumptions</span></div>
+  <div class="body">
+    <div class="eyebrow">Read this before you rely on any figure above</div>
+    <h2 style="margin-bottom:22px">Assumptions &amp; basis of preparation</h2>
+    <div class="g2" style="gap:56px">
+      <div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Baseline source</span><span class="v" style="font-size:16px">2025 return as filed</span></div>
+          <div class="lr"><span class="k">Filing status</span><span class="v" style="font-size:16px">Married filing jointly</span></div>
+          <div class="lr"><span class="k">Scenario year</span><span class="v" style="font-size:16px">2026</span></div>
+          <div class="lr"><span class="k">Bracket schedule</span><span class="v" style="font-size:16px">2025 statutory, held flat</span></div>
+          <div class="lr"><span class="k">Residency change</span><span class="v" style="font-size:16px">CA → FL, full year</span></div>
+          <div class="lr"><span class="k">Lifetime horizon</span><span class="v" style="font-size:16px">To age 90, 5% nominal</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="lede" style="font-size:17px;margin-bottom:18px">Scenario figures are modelled, not filed. They assume the residency change is completed and substantiated, that deferral limits are reached through payroll, and that equity compensation can be exercised inside the stated window.</p>
+        <p class="small">Lifetime benefit compares projected cumulative tax under each scenario against the baseline, discounted at the stated nominal rate. It is sensitive to future rate legislation, to the timing of required distributions, and to actual investment returns. Prepared for illustration and discussion with your advisor; it is not tax, legal or investment advice, and it does not replace the judgement of your CPA.</p>
+        <div class="rule" style="margin:22px 0"></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--mutD)">
+          <span>Plan for every tomorrow™</span><span>Confidential · August 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>wealth.com</span><span>16</span></div>
+</section>
+
+</body>
+</html>
