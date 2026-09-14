@@ -23,19 +23,21 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialiased}
 .slide{
+  --mixbg:var(--paper);
   width:1600px;height:900px;position:relative;overflow:hidden;
   background:var(--paper);color:var(--ink);
   padding:56px 88px 52px;display:flex;flex-direction:column;
   page-break-after:always;break-after:page;
 }
 .slide.dark,.ondark{--mut:var(--mutD)}
-.slide.dark{background:var(--deep);color:var(--cream)}
+.ondark{--mixbg:var(--deep)}
+.slide.dark{background:var(--deep);color:var(--cream);--mixbg:var(--deep)}
 .slide.dark .rule{background:var(--lineD)}
-.slide.deeper{background:var(--deeper)}
+.slide.deeper{background:var(--deeper);--mixbg:var(--deeper)}
 .rule{height:1px;background:var(--line);width:100%}
 
 /* header / footer */
-.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .dark .hdr{border-color:var(--lineD)}
 .hdr .l{color:var(--mut)}.dark .hdr .l{color:var(--mutD)}
 .hdr .r{color:var(--deep)}.dark .hdr .r{color:var(--mint)}
@@ -43,13 +45,13 @@ body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialias
   font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;
   border-top:1px solid var(--line);padding-top:12px}
 .dark .ftr{color:var(--mutD);border-color:var(--lineD)}
-.body{flex:1;padding-top:34px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.body{flex:1;padding-top:46px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:flex-start}
 
 /* type */
 h1{font-family:var(--dk-serif);font-weight:300;font-size:82px;line-height:1.02;letter-spacing:-.02em}
 h2{font-family:var(--dk-serif);font-weight:300;font-size:54px;line-height:1.06;letter-spacing:-.015em}
 h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
-.eyebrow{margin-bottom:20px;font-size:13px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--deep)}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--deep)}
 .dark .eyebrow{color:color-mix(in srgb,var(--mint) 62%,var(--cream))}
 .lede{font-size:20px;line-height:1.5;color:var(--mut);max-width:62ch;font-weight:400}
 .dark .lede{color:var(--mutD)}
@@ -58,12 +60,12 @@ h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
 .lbl{margin-bottom:8px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
 .dark .lbl{color:var(--mutD)}
 .num{line-height:1.14;font-family:var(--dk-serif);font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:var(--clay)}
+.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:color-mix(in srgb,var(--gold) 50%,var(--ink))}
 em{font-style:italic}
 
 /* cover */
 .cover-mark{position:absolute;right:-260px;top:-220px;width:1100px;height:1100px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%, rgba(121,210,192,.20), rgba(121,210,192,0) 62%)}
+  background:radial-gradient(circle at 35% 35%, color-mix(in srgb,var(--mint) 20%,transparent), color-mix(in srgb,var(--mint) 0%,transparent) 62%)}
 .cover-rings{position:absolute;right:80px;top:90px;width:720px;height:720px}
 .cover-rings div{position:absolute;border:1px solid rgba(244,240,231,.13);border-radius:50%;inset:0}
 
@@ -110,7 +112,7 @@ th.n{text-align:right;padding-right:0}
 
 /* flow */
 .node{border:1px solid var(--line);border-radius:3px;padding:16px 20px;background:#fff;color:var(--ink)}
-.node .mint{color:#12564C}
+.node .mint{color:color-mix(in srgb,var(--mint) 55%,var(--deeper))}
 .node .small{color:var(--mut)}
 .dark .node{background:rgba(244,240,231,.06);border-color:var(--lineD);color:var(--cream)}
 .dark .node .mint{color:var(--mint)}
@@ -123,13 +125,13 @@ th.n{text-align:right;padding-right:0}
 .dark .conn::after{border-left-color:var(--mint)}
 
 /* section divider */
-.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:rgba(121,210,192,.16);letter-spacing:-.04em}
+.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:color-mix(in srgb,var(--mint) 16%,transparent);letter-spacing:-.04em}
 .toc-item{display:flex;gap:20px;padding:17px 0;border-bottom:1px solid var(--lineD);font-size:20px}
 .toc-item .i{font-family:var(--dk-serif);color:var(--mint);width:34px;font-size:18px}
 .chip{display:inline-block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:99px}
-.chip.in{background:rgba(121,210,192,.18);color:#12564C}
-.chip.out{background:rgba(192,86,58,.13);color:var(--clay)}
-.dark .chip.in{background:rgba(121,210,192,.2);color:var(--mint)}
+.chip.in{background:color-mix(in srgb,var(--mint) 18%,transparent);color:color-mix(in srgb,var(--mint) 55%,var(--deeper))}
+.chip.out{background:color-mix(in srgb,var(--gold) 14%,var(--paper));color:color-mix(in srgb,var(--gold) 50%,var(--ink))}
+.dark .chip.in{background:color-mix(in srgb,var(--mint) 20%,transparent);color:var(--mint)}
 .dark .chip.out{background:rgba(217,162,95,.2);color:var(--gold)}
 .avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-size:15px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);background:#fff}
@@ -192,10 +194,10 @@ addEventListener('load',announce);
 <style id="ledger">
 /* ---- LEDGER MODE: dense, table-forward, one page = one worksheet ---- */
 .slide.led{padding:40px 88px 40px 88px}
-.led .body{padding-top:22px;padding-bottom:22px;justify-content:center}
+.led .body{padding-top:32px;padding-bottom:22px;justify-content:flex-start}
 .led .ftr{left:88px;right:88px;bottom:26px;padding-top:10px;font-size:11px}
 .led h2{font-size:42px}
-.led .eyebrow{font-size:11.5px;letter-spacing:.24em;margin-bottom:12px}
+.led .eyebrow{font-size:11.5px;letter-spacing:.16em;margin-bottom:12px}
 .led .hdr{font-size:12px;padding-bottom:10px}
 
 /* three scenario columns with hairline gutters */
@@ -229,7 +231,7 @@ addEventListener('load',announce);
 .hero-fig{font-family:var(--dk-serif);font-weight:300;font-size:64px;line-height:1;letter-spacing:-.025em;
   font-variant-numeric:tabular-nums;margin-top:4px}
 .delta{font-size:13px;font-weight:600;letter-spacing:.02em;margin-top:8px}
-.up{color:var(--clay)}.down{color:var(--mint)}
+.up{color:color-mix(in srgb,var(--gold) 50%,var(--ink))}.down{color:var(--mint)}
 
 /* dense table variant */
 table.dense{font-size:14.5px}
@@ -318,7 +320,7 @@ html[data-theme="midnight"] .vconn,html[data-theme="midnight"] .hconn{background
 .doc{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
 .dark .doc{border-color:var(--lineD)}
 .dot{width:9px;height:9px;border-radius:50%;flex:none}
-.dot.ok{background:var(--mint)}.dot.no{background:var(--clay)}.dot.wait{background:var(--gold)}
+.dot.ok{background:var(--mint)}.dot.no{background:color-mix(in srgb,var(--gold) 50%,var(--ink))}.dot.wait{background:var(--gold)}
 .pct{font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums}
 .dark .pct{color:var(--mutD)}
 .ownlbl{font-family:var(--dk-serif);font-size:15px;color:var(--mut);text-align:center;padding:4px 0}
@@ -753,7 +755,7 @@ html[data-theme="midnight"] .vconn,html[data-theme="midnight"] .hconn{background
         <tr><td>Cash &amp; equivalents</td><td style="text-align:right">$17,811,600</td><td style="text-align:right">$0</td><td style="text-align:right">$17,811,600</td><td style="text-align:right">3.6%</td><td><div class="meter"><i style="width:9%;background:var(--mint)"></i></div></td></tr>
         <tr><td>Operating entity interests</td><td style="text-align:right">$11,500,000</td><td style="text-align:right">$16,571,631</td><td style="text-align:right">$28,071,631</td><td style="text-align:right">5.7%</td><td><div class="meter"><i style="width:14%;background:var(--mint)"></i></div></td></tr>
         <tr><td>Retirement accounts</td><td style="text-align:right">$6,400,000</td><td style="text-align:right">$0</td><td style="text-align:right">$6,400,000</td><td style="text-align:right">1.3%</td><td><div class="meter"><i style="width:3%;background:var(--mint)"></i></div></td></tr>
-        <tr><td>Liabilities</td><td style="text-align:right">($11,300,000)</td><td style="text-align:right">$0</td><td style="text-align:right">($11,300,000)</td><td style="text-align:right">&mdash;</td><td><div class="meter"><i style="width:5%;background:var(--clay)"></i></div></td></tr>
+        <tr><td>Liabilities</td><td style="text-align:right">($11,300,000)</td><td style="text-align:right">$0</td><td style="text-align:right">($11,300,000)</td><td style="text-align:right">&mdash;</td><td><div class="meter"><i style="width:5%;background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i></div></td></tr>
         <tr class="total"><td>Total</td><td style="text-align:right">$334,211,600</td><td style="text-align:right">$157,571,631</td><td style="text-align:right">$491,783,231</td><td style="text-align:right">100%</td><td></td></tr>
       </tbody>
     </table>
@@ -841,7 +843,7 @@ html[data-theme="midnight"] .vconn,html[data-theme="midnight"] .hconn{background
           <div class="lr"><span class="k">Family</span><span class="v">54.3%</span></div>
           <div class="lr sub"><span class="k" style="grid-column:1 / -1"><div class="meter"><i style="width:54.3%;background:var(--deep)"></i></div></span></div>
           <div class="lr"><span class="k">Taxing authorities</span><span class="v">26.7%</span></div>
-          <div class="lr sub"><span class="k" style="grid-column:1 / -1"><div class="meter"><i style="width:26.7%;background:var(--clay)"></i></div></span></div>
+          <div class="lr sub"><span class="k" style="grid-column:1 / -1"><div class="meter"><i style="width:26.7%;background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i></div></span></div>
           <div class="lr"><span class="k">Existing trusts</span><span class="v">17.3%</span></div>
           <div class="lr sub"><span class="k" style="grid-column:1 / -1"><div class="meter"><i style="width:17.3%;background:var(--mint)"></i></div></span></div>
           <div class="lr" style="border-bottom:0"><span class="k">Charity</span><span class="v">1.7%</span></div>
@@ -1353,5 +1355,7 @@ html[data-theme="midnight"] .vconn,html[data-theme="midnight"] .hconn{background
   <div class="ftr"><span>wealth.com</span><span>24</span></div>
 </section>
 
+<script src="/reports/inspect.js"></script>
+<script src="/reports/format.js"></script>
 </body>
 </html>

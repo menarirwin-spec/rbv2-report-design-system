@@ -23,19 +23,21 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialiased}
 .slide{
+  --mixbg:var(--paper);
   width:1600px;height:900px;position:relative;overflow:hidden;
   background:var(--paper);color:var(--ink);
   padding:56px 88px 52px;display:flex;flex-direction:column;
   page-break-after:always;break-after:page;
 }
 .slide.dark,.ondark{--mut:var(--mutD)}
-.slide.dark{background:var(--deep);color:var(--cream)}
+.ondark{--mixbg:var(--deep)}
+.slide.dark{background:var(--deep);color:var(--cream);--mixbg:var(--deep)}
 .slide.dark .rule{background:var(--lineD)}
-.slide.deeper{background:var(--deeper)}
+.slide.deeper{background:var(--deeper);--mixbg:var(--deeper)}
 .rule{height:1px;background:var(--line);width:100%}
 
 /* header / footer */
-.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .dark .hdr{border-color:var(--lineD)}
 .hdr .l{color:var(--mut)}.dark .hdr .l{color:var(--mutD)}
 .hdr .r{color:var(--deep)}.dark .hdr .r{color:var(--mint)}
@@ -43,13 +45,13 @@ body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialias
   font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;
   border-top:1px solid var(--line);padding-top:12px}
 .dark .ftr{color:var(--mutD);border-color:var(--lineD)}
-.body{flex:1;padding-top:34px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.body{flex:1;padding-top:46px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:flex-start}
 
 /* type */
 h1{font-family:var(--dk-serif);font-weight:300;font-size:82px;line-height:1.02;letter-spacing:-.02em}
 h2{font-family:var(--dk-serif);font-weight:300;font-size:54px;line-height:1.06;letter-spacing:-.015em}
 h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
-.eyebrow{margin-bottom:20px;font-size:13px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--deep)}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--deep)}
 .dark .eyebrow{color:color-mix(in srgb,var(--mint) 62%,var(--cream))}
 .lede{font-size:20px;line-height:1.5;color:var(--mut);max-width:62ch;font-weight:400}
 .dark .lede{color:var(--mutD)}
@@ -58,12 +60,12 @@ h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
 .lbl{margin-bottom:8px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
 .dark .lbl{color:var(--mutD)}
 .num{line-height:1.14;font-family:var(--dk-serif);font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:var(--clay)}
+.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:color-mix(in srgb,var(--gold) 50%,var(--ink))}
 em{font-style:italic}
 
 /* cover */
 .cover-mark{position:absolute;right:-260px;top:-220px;width:1100px;height:1100px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%, rgba(121,210,192,.20), rgba(121,210,192,0) 62%)}
+  background:radial-gradient(circle at 35% 35%, color-mix(in srgb,var(--mint) 20%,transparent), color-mix(in srgb,var(--mint) 0%,transparent) 62%)}
 .cover-rings{position:absolute;right:80px;top:90px;width:720px;height:720px}
 .cover-rings div{position:absolute;border:1px solid rgba(244,240,231,.13);border-radius:50%;inset:0}
 
@@ -110,7 +112,7 @@ th.n{text-align:right;padding-right:0}
 
 /* flow */
 .node{border:1px solid var(--line);border-radius:3px;padding:16px 20px;background:#fff;color:var(--ink)}
-.node .mint{color:#12564C}
+.node .mint{color:color-mix(in srgb,var(--mint) 55%,var(--deeper))}
 .node .small{color:var(--mut)}
 .dark .node{background:rgba(244,240,231,.06);border-color:var(--lineD);color:var(--cream)}
 .dark .node .mint{color:var(--mint)}
@@ -123,13 +125,13 @@ th.n{text-align:right;padding-right:0}
 .dark .conn::after{border-left-color:var(--mint)}
 
 /* section divider */
-.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:rgba(121,210,192,.16);letter-spacing:-.04em}
+.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:color-mix(in srgb,var(--mint) 16%,transparent);letter-spacing:-.04em}
 .toc-item{display:flex;gap:20px;padding:17px 0;border-bottom:1px solid var(--lineD);font-size:20px}
 .toc-item .i{font-family:var(--dk-serif);color:var(--mint);width:34px;font-size:18px}
 .chip{display:inline-block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:99px}
-.chip.in{background:rgba(121,210,192,.18);color:#12564C}
-.chip.out{background:rgba(192,86,58,.13);color:var(--clay)}
-.dark .chip.in{background:rgba(121,210,192,.2);color:var(--mint)}
+.chip.in{background:color-mix(in srgb,var(--mint) 18%,transparent);color:color-mix(in srgb,var(--mint) 55%,var(--deeper))}
+.chip.out{background:color-mix(in srgb,var(--gold) 14%,var(--paper));color:color-mix(in srgb,var(--gold) 50%,var(--ink))}
+.dark .chip.in{background:color-mix(in srgb,var(--mint) 20%,transparent);color:var(--mint)}
 .dark .chip.out{background:rgba(217,162,95,.2);color:var(--gold)}
 .avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-size:15px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);background:#fff}
@@ -182,6 +184,35 @@ addEventListener('DOMContentLoaded',announce);
 addEventListener('load',announce);
 </script>
 </head>
+<style id="viz-extra">
+/* ---- visualization layer ---- */
+.viz{width:100%}
+.viz text{font-family:var(--dk-sans);}
+.vz-lbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;fill:var(--mut)}
+.dark .vz-lbl{fill:var(--mutD)}
+.vz-name{font-size:15px;font-weight:600;fill:var(--ink)}
+.dark .vz-name{fill:var(--cream)}
+.vz-num{font-family:var(--dk-serif);font-size:22px;fill:var(--ink);font-variant-numeric:tabular-nums}
+.dark .vz-num{fill:var(--cream)}
+.vz-sm{font-size:12.5px;fill:var(--mut)}
+.dark .vz-sm{fill:var(--mutD)}
+.vz-stroke{stroke:var(--line)}
+.dark .vz-stroke{stroke:var(--lineD)}
+.vz-hair{stroke:var(--line);stroke-width:1}
+.dark .vz-hair{stroke:var(--lineD)}
+.wf{display:grid;grid-template-columns:repeat(20,1fr);gap:3px}
+.wf i{display:block;aspect-ratio:1;border-radius:1px;background:color-mix(in srgb,var(--ink) 10%,var(--mixbg))}
+.dark .wf i{background:color-mix(in srgb,var(--cream) 12%,var(--mixbg))}
+.key{display:flex;gap:26px;flex-wrap:wrap;align-items:center}
+.key span{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut)}
+.dark .key span{color:var(--mutD)}
+.key i{width:12px;height:12px;border-radius:2px;display:block}
+.glyph-card{border:1px solid var(--line);border-radius:var(--dk-radius);padding:18px 18px 16px;background:#fff}
+.dark .glyph-card{background:color-mix(in srgb,var(--cream) 5%,var(--mixbg));border-color:var(--lineD)}
+.tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.dark .tag{color:var(--mutD)}
+</style>
+
 <body>
 
 <!-- 1 COVER -->
@@ -236,7 +267,7 @@ addEventListener('load',announce);
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>02</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>01</span></div>
 </section>
 
 <!-- 3 HEADLINE -->
@@ -248,7 +279,7 @@ addEventListener('load',announce);
       <div class="num" style="font-size:172px;line-height:1.12">$51,505</div>
 
       <div style="padding-bottom:26px">
-        <div class="num" style="font-size:64px;line-height:1;color:var(--clay)">−$9,770</div>
+        <div class="num" style="font-size:64px;line-height:1;color:color-mix(in srgb,var(--gold) 50%,var(--ink))">−$9,770</div>
         <div class="small" style="margin-top:8px;max-width:26ch">estimated annual reduction if all seven moves land — roughly 19%.</div>
       </div>
     </div>
@@ -260,7 +291,7 @@ addEventListener('load',announce);
       <div class="stat"><div class="lbl">Effective rate</div><div class="v">14.4%</div><div class="s">Against a 24% marginal bracket.</div></div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>03</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>02</span></div>
 </section>
 
 <!-- 4 OPPORTUNITY LADDER PREVIEW -->
@@ -288,7 +319,7 @@ addEventListener('load',announce);
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>04</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>03</span></div>
 </section>
 
 <!-- 5 SECTION 01 -->
@@ -301,7 +332,7 @@ addEventListener('load',announce);
       <p class="lede" style="margin-top:26px;max-width:52ch">Before we plan forward, we understand where this year's dollars came from and where they went. Five income sources, one home, one business, one rental, one S-corp — and a modest capital loss.</p>
     </div>
   </div>
-  <div class="ftr" style="border:none"><span>Plan for every tomorrow™</span><span>05</span></div>
+  <div class="ftr" style="border:none"><span>Plan for every tomorrow™</span><span>04</span></div>
 </section>
 
 <!-- 6 INCOME COMPOSITION -->
@@ -317,11 +348,11 @@ addEventListener('load',announce);
         <div class="num" style="font-size:64px;margin-top:6px">$360,880</div>
         <div class="small">pre-loss, before the $3,000 capital loss deduction</div>
         <div class="bar" style="margin-top:26px">
-          <span style="width:55.4%;background:#0E3330"></span>
-          <span style="width:30.3%;background:#2F6B62"></span>
-          <span style="width:6.9%;background:#31917E"></span>
-          <span style="width:4.2%;background:#B3762B"></span>
-          <span style="width:3.1%;background:#C9674D"></span>
+          <span style="width:55.4%;background:var(--deep)"></span>
+          <span style="width:30.3%;background:color-mix(in srgb,var(--mint) 55%,var(--deep))"></span>
+          <span style="width:6.9%;background:color-mix(in srgb,var(--mint) 72%,var(--cream))"></span>
+          <span style="width:4.2%;background:color-mix(in srgb,var(--gold) 80%,var(--cream))"></span>
+          <span style="width:3.1%;background:color-mix(in srgb,var(--gold) 55%,var(--cream))"></span>
         </div>
       </div>
       <div>
@@ -333,7 +364,7 @@ addEventListener('load',announce);
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>06</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>05</span></div>
 </section>
 
 <!-- 7 CALC WALK -->
@@ -359,10 +390,29 @@ addEventListener('load',announce);
       <div class="node" style="flex:0 0 auto;border-left:3px solid var(--gold)"><div class="small">Total tax</div><div class="v gold">$51,505</div><div class="small">Line 24</div></div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>07</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>06</span></div>
 </section>
 
 <!-- 8 SCHEDULE A -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">01 — in review</span><span class="r">Where the money goes</span></div>
+  <div class="body">
+
+    <div class="eyebrow">Ribbon flow · after Sankey, 1898</div>
+    <h2 style="margin-bottom:8px">$357,880 in. $51,505 out.</h2>
+    <p class="lede" style="margin-bottom:14px;max-width:86ch">Width is dollars, at one scale across the whole width. Deductions peel off the top of the stream; what survives is taxable, and only the gold sliver leaves the household.</p>
+    <svg class="viz" viewBox="0 0 1380 540" width="100%">
+<path d="M 160 10 C 245.0 10, 245.0 11.99, 330 11.99 L 330 274.3852162736113 C 245.0 274.3852162736113, 245.0 272.65787414775906, 160 272.65787414775906 Z" fill="color-mix(in srgb,var(--mint) 70%,var(--deep))"/><rect x="40" y="10" width="120" height="262.65787414775906" fill="color-mix(in srgb,var(--mint) 70%,var(--deep))"/><text x="48" y="139.32893707387953" class="vz-name" style="fill:var(--cream)">Wages</text><text x="48" y="157.32893707387953" class="vz-sm" style="fill:var(--cream)">$200,000</text><path d="M 160 272.65787414775906 C 245.0 272.65787414775906, 245.0 274.3852162736113, 330 274.3852162736113 L 330 417.71860316307146 C 245.0 417.71860316307146, 245.0 416.1347379009724, 160 416.1347379009724 Z" fill="color-mix(in srgb,var(--mint) 90%,var(--mixbg))"/><rect x="40" y="272.65787414775906" width="120" height="143.47686375321337" fill="var(--mint)"/><text x="48" y="342.39630602436574" class="vz-name" style="fill:var(--cream)">Sch E</text><text x="48" y="360.39630602436574" class="vz-sm" style="fill:var(--cream)">$109,250</text><path d="M 160 416.1347379009724 C 245.0 416.1347379009724, 245.0 417.71860316307146, 330 417.71860316307146 L 330 470.1976464177937 C 245.0 470.1976464177937, 245.0 468.6663127305242, 160 468.6663127305242 Z" fill="color-mix(in srgb,var(--gold) 90%,var(--mixbg))"/><rect x="40" y="416.1347379009724" width="120" height="52.5315748295518" fill="var(--gold)"/><text x="48" y="440.4005253157483" class="vz-name" style="fill:var(--cream)">Interest &amp; div.</text><text x="48" y="458.4005253157483" class="vz-sm" style="fill:var(--cream)">$40,000</text><path d="M 160 468.6663127305242 C 245.0 468.6663127305242, 245.0 470.1976464177937, 330 470.1976464177937 L 330 484.7999402034202 C 245.0 484.7999402034202, 245.0 483.28322342684703, 160 483.28322342684703 Z" fill="color-mix(in srgb,color-mix(in srgb,var(--ink) 45%,var(--paper)) 90%,var(--mixbg))"/><rect x="40" y="468.6663127305242" width="120" height="14.616910696322805" fill="color-mix(in srgb,var(--ink) 45%,var(--paper))"/><text x="48" y="479" class="vz-sm" style="fill:var(--cream);font-weight:600">Sch C · $11,130</text><rect x="330" y="12" width="26" height="468.9204761372527" fill="color-mix(in srgb,var(--cream) 50%,var(--mixbg))"/><path d="M 356 12 C 528.0 12, 528.0 12, 700 12 L 700 135.9521906784397 C 528.0 135.9521906784397, 528.0 135.9521906784397, 356 135.9521906784397 Z" fill="color-mix(in srgb,var(--mint) 55%,var(--mixbg))"/><path d="M 356 135.9521906784397 C 528.0 135.9521906784397, 528.0 141.9521906784397, 700 141.9521906784397 L 700 486.9204761372527 C 528.0 486.9204761372527, 528.0 480.9204761372527, 356 480.9204761372527 Z" fill="color-mix(in srgb,color-mix(in srgb,var(--cream) 42%,var(--mixbg)) 90%,var(--mixbg))"/><rect x="700" y="12" width="150" height="76.83771096456913" fill="color-mix(in srgb,var(--mint) 80%,var(--mixbg))"/><text x="860" y="50.16885548228456" class="vz-name" style="fill:var(--cream)">Mortgage interest</text><text x="860" y="68.16885548228456" class="vz-sm" style="fill:var(--cream)">−$59,650</text><rect x="700" y="90.33771096456913" width="150" height="29.45554375768414" fill="color-mix(in srgb,var(--mint) 80%,var(--mixbg))"/><text x="860" y="104.81548284341119" class="vz-name" style="fill:var(--cream)">Charitable (allowed)</text><text x="860" y="122.81548284341119" class="vz-sm" style="fill:var(--cream)">−$23,571</text><rect x="700" y="121.29325472225327" width="150" height="11.632893707387952" fill="color-mix(in srgb,var(--mint) 80%,var(--mixbg))"/><line x1="852" y1="127" x2="874" y2="158" stroke="color-mix(in srgb,var(--cream) 35%,var(--mixbg))" stroke-width="1"/><text x="880" y="162" class="vz-sm" style="fill:var(--cream)">SALT — capped −$10,000</text><rect x="700" y="134.42614842964122" width="150" height="1.5" fill="color-mix(in srgb,var(--mint) 80%,var(--mixbg))"/><line x1="852" y1="135" x2="874" y2="190" stroke="color-mix(in srgb,var(--cream) 35%,var(--mixbg))" stroke-width="1"/><text x="880" y="194" class="vz-sm" style="fill:var(--cream)">QBI + SE adj. −$1,984</text><path d="M 850 141.9521906784397 C 945.0 141.9521906784397, 945.0 141.9521906784397, 1040 141.9521906784397 L 1040 486.9204761372527 C 945.0 486.9204761372527, 945.0 486.9204761372527, 850 486.9204761372527 Z" fill="color-mix(in srgb,color-mix(in srgb,var(--cream) 36%,var(--mixbg)) 90%,var(--mixbg))"/><rect x="1040" y="141.9521906784397" width="24" height="344.968285458813" fill="color-mix(in srgb,var(--cream) 50%,var(--mixbg))"/><path d="M 1064 141.9521906784397 C 1157.0 141.9521906784397, 1157.0 141.9521906784397, 1250 141.9521906784397 L 1250 209.59315971834135 C 1157.0 209.59315971834135, 1157.0 209.59315971834135, 1064 209.59315971834135 Z" fill="var(--gold)"/><path d="M 1064 209.59315971834135 C 1157.0 209.59315971834135, 1157.0 209.59315971834135, 1250 209.59315971834135 L 1250 486.9204761372527 C 1157.0 486.9204761372527, 1157.0 486.9204761372527, 1064 486.9204761372527 Z" fill="color-mix(in srgb,color-mix(in srgb,var(--cream) 22%,var(--mixbg)) 90%,var(--mixbg))"/><rect x="1250" y="141.9521906784397" width="90" height="67.64096903990165" fill="var(--gold)"/><rect x="1250" y="209.59315971834135" width="90" height="277.3273164189113" fill="color-mix(in srgb,var(--cream) 30%,var(--mixbg))"/>
+<text x="40" y="504" class="vz-lbl" style="fill:var(--cream)">Income · Line 9</text>
+<text x="320" y="504" class="vz-lbl" style="fill:var(--cream)">AGI</text>
+<text x="700" y="504" class="vz-lbl" style="fill:var(--cream)">Deductions</text>
+<text x="1030" y="504" class="vz-lbl" style="fill:var(--cream)">Taxable · $262,675</text>
+<text x="1250" y="504" class="vz-lbl" style="fill:var(--cream)">Tax vs. retained</text>
+</svg>
+    <div class="key" style="margin-top:6px"><span><i style="background:var(--mint)"></i>Removed by deductions — $94,383</span><span><i style="background:var(--gold)"></i>Federal tax paid — $51,505 (14.4% effective)</span><span><i style="background:color-mix(in srgb,var(--cream) 30%,var(--mixbg))"></i>Retained — $306,375</span></div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>07</span></div>
+</section>
 <section class="slide">
   <div class="hdr"><span class="l">01 — in review</span><span class="r">Schedule A</span></div>
   <div class="body">
@@ -397,6 +447,38 @@ addEventListener('load',announce);
 </section>
 
 <!-- 9 RATES -->
+<section class="slide ">
+  <div class="hdr"><span class="l">01 — in review</span><span class="r">Schedule A waffles</span></div>
+  <div class="body">
+
+    <div class="eyebrow">Usable versus paid</div>
+    <h2 style="margin-bottom:10px">You paid $175,450. The return used $93,221.</h2>
+    <p class="lede" style="margin-bottom:30px;max-width:84ch">One square per percent of what you actually paid in each category. The filled squares are what the 1040 let you deduct — the empty ones are the gap planning is meant to close.</p>
+    <div class="g3" style="gap:44px">
+      <div>
+        <div class="lbl">State &amp; local tax</div>
+        <div class="wf"><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="num" style="font-size:34px;margin-top:14px">18%</div>
+        <div class="small">$10,000 deducted of $55,150 paid. The $10K SALT cap strands <strong>$45,150</strong> — the single largest leak in the return.</div>
+      </div>
+      <div>
+        <div class="lbl">Charitable gifts</div>
+        <div class="wf"><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i style="background:var(--gold)"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="num" style="font-size:34px;margin-top:14px">39%</div>
+        <div class="small">$23,571 deducted of $60,000 given, limited by the 60%-of-AGI ceiling. $36,429 carries forward up to five years.</div>
+      </div>
+      <div>
+        <div class="lbl">Mortgage interest</div>
+        <div class="wf"><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i><i style="background:var(--deep)"></i></div>
+        <div class="num" style="font-size:34px;margin-top:14px">100%</div>
+        <div class="small">$59,650 paid, $59,650 deducted. Fully usable — and the reason itemizing beats the standard deduction by a wide margin.</div>
+      </div>
+    </div>
+    <div class="rule" style="margin:30px 0 16px"></div>
+    <div class="key"><span><i style="background:color-mix(in srgb,var(--gold) 50%,var(--ink))"></i>Deducted</span><span><i style="background:color-mix(in srgb,var(--ink) 10%,var(--mixbg))"></i>Paid but not deducted — $82,229 across all categories</span></div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>09</span></div>
+</section>
 <section class="slide dark">
   <div class="hdr"><span class="l">01 — in review</span><span class="r">Marginal &amp; effective rate</span></div>
   <div class="body">
@@ -411,17 +493,29 @@ addEventListener('load',announce);
         <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">10%</span><span class="small">$0 – $23,200</span><span></span></div>
         <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">12%</span><span class="small">$23,200 – $94,300</span><span></span></div>
         <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">22%</span><span class="small">$94,300 – $201,050</span><span></span></div>
-        <div class="row" style="grid-template-columns:60px 1fr auto;background:rgba(121,210,192,.10)"><span class="num mint" style="font-size:22px;padding-left:8px">24%</span><span style="font-size:16px;font-weight:600">$201,050 – $383,900</span><span class="chip in">Current</span></div>
+        <div class="row" style="grid-template-columns:60px 1fr auto;background:color-mix(in srgb,var(--mint) 10%,var(--mixbg))"><span class="num mint" style="font-size:22px;padding-left:8px">24%</span><span style="font-size:16px;font-weight:600">$201,050 – $383,900</span><span class="chip in">Current</span></div>
         <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">32%</span><span class="small">$383,900 – $487,450</span><span></span></div>
         <div class="row" style="grid-template-columns:60px 1fr auto"><span class="num" style="font-size:20px">35%</span><span class="small">$487,450 – $731,200</span><span></span></div>
         <div class="row" style="grid-template-columns:60px 1fr auto;border-bottom:none"><span class="num" style="font-size:20px">37%</span><span class="small">$731,200+</span><span></span></div>
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>09</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>10</span></div>
 </section>
 
 <!-- 10 SECTION 02 -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">01 — in review</span><span class="r">Bracket staircase</span></div>
+  <div class="body">
+
+    <div class="eyebrow">Marginal geometry</div>
+    <h2 style="margin-bottom:8px">Every bracket, drawn to scale twice.</h2>
+    <p class="lede" style="margin-bottom:10px;max-width:88ch">Bar width is the dollar width of each bracket; bar height is its rate. Area, therefore, is tax at stake — and the filled portion is where your dollars actually landed.</p>
+    <svg class="viz" viewBox="0 0 1300 430" width="100%"><rect x="40.0" y="367.0" width="52.6" height="23.0" fill="color-mix(in srgb,var(--cream) 10%,var(--mixbg))" stroke="var(--lineD)"/><rect x="40.0" y="367.0" width="52.6" height="23.0" fill="color-mix(in srgb,color-mix(in srgb,var(--mint) 65%,var(--cream)) 45%,var(--mixbg))"/><text x="48.0" y="359.0" class="vz-num" style="font-size:18px;fill:var(--cream)">10%</text><text x="48.0" y="412.0" class="vz-sm" style="fill:var(--cream)">$0</text><rect x="92.6" y="344.0" width="161.3" height="46.0" fill="color-mix(in srgb,var(--cream) 10%,var(--mixbg))" stroke="var(--lineD)"/><rect x="92.6" y="344.0" width="161.3" height="46.0" fill="color-mix(in srgb,color-mix(in srgb,var(--mint) 65%,var(--cream)) 45%,var(--mixbg))"/><text x="100.6" y="336.0" class="vz-num" style="font-size:18px;fill:var(--cream)">12%</text><text x="100.6" y="412.0" class="vz-sm" style="fill:var(--cream)">$23,200</text><rect x="254.0" y="229.0" width="242.2" height="161.0" fill="color-mix(in srgb,var(--cream) 10%,var(--mixbg))" stroke="var(--lineD)"/><rect x="254.0" y="229.0" width="242.2" height="161.0" fill="color-mix(in srgb,color-mix(in srgb,var(--mint) 65%,var(--cream)) 45%,var(--mixbg))"/><text x="262.0" y="221.0" class="vz-num" style="font-size:18px;fill:var(--cream)">22%</text><text x="262.0" y="412.0" class="vz-sm" style="fill:var(--cream)">$94,300</text><rect x="496.2" y="206.0" width="414.9" height="184.0" fill="color-mix(in srgb,var(--cream) 10%,var(--mixbg))" stroke="var(--lineD)"/><rect x="496.2" y="206.0" width="139.8" height="184.0" fill="var(--mint)"/><text x="504.2" y="198.0" class="vz-num" style="font-size:18px;fill:var(--cream)">24%</text><text x="504.2" y="412.0" class="vz-sm" style="fill:var(--cream)">$201,050</text><rect x="911.2" y="114.0" width="235.0" height="276.0" fill="color-mix(in srgb,var(--cream) 10%,var(--mixbg))" stroke="var(--lineD)"/><text x="919.2" y="106.0" class="vz-num" style="font-size:18px;fill:var(--cream)">32%</text><text x="919.2" y="412.0" class="vz-sm" style="fill:var(--cream)">$383,900</text><rect x="1146.1" y="79.5" width="553.1" height="310.5" fill="color-mix(in srgb,var(--cream) 10%,var(--mixbg))" stroke="var(--lineD)"/><text x="1154.1" y="71.5" class="vz-num" style="font-size:18px;fill:var(--cream)">35%</text><text x="1154.1" y="412.0" class="vz-sm" style="fill:var(--cream)">$487,450</text><line x1="636.1" y1="40" x2="636.1" y2="390" stroke="var(--gold)" stroke-width="2"/><line x1="636.1" y1="62" x2="911.2" y2="62" stroke="var(--gold)" stroke-dasharray="4 4"/><line x1="911.2" y1="48" x2="911.2" y2="390" stroke="color-mix(in srgb,var(--gold) 50%,var(--mixbg))" stroke-dasharray="3 4"/><text x="773.6" y="52" text-anchor="middle" class="vz-lbl" style="fill:var(--gold)">$121,225 of 24% headroom</text><text x="626.1" y="372.0" text-anchor="end" class="vz-name" style="fill:var(--cream)">Taxable income $262,675</text></svg>
+    <p class="small" style="margin-top:6px">Read the gold gap as capacity: Roth conversions or accelerated income up to $121,225 still clear at 24% rather than 32%.</p>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>11</span></div>
+</section>
 <section class="slide dark deeper" style="justify-content:space-between">
   <div class="hdr"><span class="l">wealth.com · tax planning</span><span class="r">Section two</span></div>
   <div style="display:flex;align-items:flex-end;gap:64px">
@@ -431,7 +525,7 @@ addEventListener('load',announce);
       <p class="lede" style="margin-top:26px;max-width:52ch">Each recommendation is grounded in a specific line of the 2025 return and sized for 2026 limits — sequenced from highest leverage (the CA PTE election) to ongoing housekeeping (loss harvesting).</p>
     </div>
   </div>
-  <div class="ftr" style="border:none"><span>Plan for every tomorrow™</span><span>10</span></div>
+  <div class="ftr" style="border:none"><span>Plan for every tomorrow™</span><span>12</span></div>
 </section>
 
 <!-- 11 OPPORTUNITY SUMMARY -->
@@ -484,7 +578,7 @@ addEventListener('load',announce);
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>11</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>13</span></div>
 </section>
 
 <!-- 12 OPP 01 -->
@@ -514,7 +608,7 @@ addEventListener('load',announce);
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>12</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>14</span></div>
 </section>
 
 <!-- 13 OPP 02 -->
@@ -540,14 +634,14 @@ addEventListener('load',announce);
           <div class="row" style="grid-template-columns:1fr auto"><span class="name">Sch C net profit (Sally)</span><span class="val">$11,130</span></div>
           <div class="row" style="grid-template-columns:1fr auto"><span class="name">Est. deferral via Solo 401(k)</span><span class="val">$11,000</span></div>
           <div class="row" style="grid-template-columns:1fr auto"><span class="name">AGI reduction</span><span class="val">$11,000</span></div>
-          <div class="row" style="grid-template-columns:1fr auto"><span class="name">Federal tax saved @ 24%</span><span class="val" style="color:#12564C">$2,640</span></div>
+          <div class="row" style="grid-template-columns:1fr auto"><span class="name">Federal tax saved @ 24%</span><span class="val" style="color:color-mix(in srgb,var(--mint) 55%,var(--deeper))">$2,640</span></div>
           <div class="row" style="grid-template-columns:1fr auto;border-bottom:none"><span class="name">Action — establish plan by</span><span class="val clay">Dec 31, 2026</span></div>
         </div>
         <p class="small" style="margin-top:18px"><em>Bonus:</em> a Roth Solo 401(k) option lets some of this go in after-tax for fully tax-free growth — attractive given Sally's lower marginal rate on this income.</p>
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>13</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>15</span></div>
 </section>
 
 <!-- 14 OPP 03 -->
@@ -569,7 +663,7 @@ addEventListener('load',announce);
       <div><div class="lbl">Carried to 2026–2030</div><div class="num gold" style="font-size:36px">$36,429</div></div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>14</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>16</span></div>
 </section>
 
 <!-- 15 OPPS 04-07 -->
@@ -600,7 +694,7 @@ addEventListener('load',announce);
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>15</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>17</span></div>
 </section>
 
 <!-- 16 PROJECTED IMPACT -->
@@ -630,17 +724,29 @@ addEventListener('load',announce);
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>16</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>18</span></div>
 </section>
 
 <!-- 17 SEQUENCING -->
+<section class="slide dark">
+  <div class="hdr"><span class="l">02 — projected impact</span><span class="r">Before and after</span></div>
+  <div class="body">
+
+    <div class="eyebrow">Slopegraph · after Tufte</div>
+    <h2 style="margin-bottom:8px">Five lines, one direction.</h2>
+    <p class="lede" style="margin-bottom:16px;max-width:84ch">The plainest chart in the deck, and the most useful: two columns of numbers joined so direction reads instantly. Every line moves the way you want it to.</p>
+    <svg class="viz" viewBox="0 -34 1080 464" width="100%"><line x1="330" y1="60" x2="740" y2="30" stroke="var(--mint)" stroke-width="2.5"/><circle cx="330" cy="60" r="5" fill="var(--mut)"/><circle cx="740" cy="30" r="6" fill="var(--mint)"/><text x="312" y="65" text-anchor="end" class="vz-num" style="font-size:20px">$51,505</text><text x="758" y="35" class="vz-num" style="font-size:20px">$41,735</text><text x="0" y="65" class="vz-name">Total tax</text><line x1="330" y1="132" x2="740" y2="102" stroke="var(--mint)" stroke-width="2.5"/><circle cx="330" cy="132" r="5" fill="var(--mut)"/><circle cx="740" cy="102" r="6" fill="var(--mint)"/><text x="312" y="137" text-anchor="end" class="vz-num" style="font-size:20px">14.4%</text><text x="758" y="107" class="vz-num" style="font-size:20px">11.7%</text><text x="0" y="137" class="vz-name">Effective rate</text><line x1="330" y1="204" x2="740" y2="174" stroke="var(--mint)" stroke-width="2.5"/><circle cx="330" cy="204" r="5" fill="var(--mut)"/><circle cx="740" cy="174" r="6" fill="var(--mint)"/><text x="312" y="209" text-anchor="end" class="vz-num" style="font-size:20px">$93,221</text><text x="758" y="179" class="vz-num" style="font-size:20px">$101,971</text><text x="0" y="209" class="vz-name">Itemized deductions</text><line x1="330" y1="276" x2="740" y2="246" stroke="var(--mint)" stroke-width="2.5"/><circle cx="330" cy="276" r="5" fill="var(--mut)"/><circle cx="740" cy="246" r="6" fill="var(--mint)"/><text x="312" y="281" text-anchor="end" class="vz-num" style="font-size:20px">0.0%</text><text x="758" y="251" class="vz-num" style="font-size:20px">$25,130</text><text x="0" y="281" class="vz-name">Sheltered retirement savings</text><line x1="330" y1="348" x2="740" y2="318" stroke="var(--mint)" stroke-width="2.5"/><circle cx="330" cy="348" r="5" fill="var(--mut)"/><circle cx="740" cy="318" r="6" fill="var(--mint)"/><text x="312" y="353" text-anchor="end" class="vz-num" style="font-size:20px">$262,675</text><text x="758" y="323" class="vz-num" style="font-size:20px">$253,925</text><text x="0" y="353" class="vz-name">Taxable income</text><text x="330" y="-14" text-anchor="middle" class="vz-lbl">2025 actual</text><text x="740" y="-14" text-anchor="middle" class="vz-lbl">2026 projected</text></svg>
+    <p class="small">Sheltered savings combines the Solo 401(k) ($11,130 of profit), the family HSA ($8,750) and two backdoor Roth contributions — $25,130 of newly tax-advantaged dollars a year.</p>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>19</span></div>
+</section>
 <section class="slide">
   <div class="hdr"><span class="l">02 — sequencing</span><span class="r">Your 2026 calendar</span></div>
   <div class="body">
     <h2 style="margin-bottom:28px">Your 2026 action plan — by quarter.</h2>
     <div class="g4" style="gap:26px;align-items:start">
       <div class="card accent">
-        <div class="lbl" style="color:var(--clay)">Q3 2026 · now</div>
+        <div class="lbl" style="color:color-mix(in srgb,var(--gold) 50%,var(--ink))">Q3 2026 · now</div>
         <h3 style="margin-top:8px;font-size:24px">Lock the PTE mechanics.</h3>
         <div class="small" style="margin-top:12px;line-height:1.9">Confirm SCO Side Biz PTE tax is fully paid for 2026.<br>Calendar the $1,000 prepayment for the 2027 election.<br>Open a Solo 401(k) with E*Trade.<br>Confirm HDHP enrollment for HSA eligibility.</div>
       </div>
@@ -661,10 +767,27 @@ addEventListener('load',announce);
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>17</span></div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>20</span></div>
 </section>
 
 <!-- 18 NEXT STEPS -->
+<section class="slide ">
+  <div class="hdr"><span class="l">02 — sequencing</span><span class="r">The year, bent into a circle</span></div>
+  <div class="body">
+
+    <div class="g2" style="grid-template-columns:.95fr 1.05fr;gap:40px;align-items:center">
+      <div style="display:flex;justify-content:center"><svg class="viz" viewBox="0 0 700 700" width="560" height="560"><circle cx="350" cy="350" r="250" fill="none" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 90%,var(--mixbg))"/><circle cx="350" cy="350" r="196" fill="none" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 45%,var(--mixbg))"/><circle cx="350" cy="350" r="142" fill="none" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 30%,var(--mixbg))"/><line x1="350.0" y1="208.0" x2="350.0" y2="100.0" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 75%,var(--mixbg))"/><text x="419.4" y="95.1" text-anchor="middle" class="vz-lbl" style="font-size:10px">Aug</text><line x1="421.0" y1="227.0" x2="475.0" y2="133.5" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))"/><text x="539.5" y="164.5" text-anchor="middle" class="vz-lbl" style="font-size:10px">Sep</text><line x1="473.0" y1="279.0" x2="566.5" y2="225.0" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))"/><text x="608.9" y="284.6" text-anchor="middle" class="vz-lbl" style="font-size:10px">Oct</text><line x1="492.0" y1="350.0" x2="600.0" y2="350.0" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 75%,var(--mixbg))"/><text x="608.9" y="423.4" text-anchor="middle" class="vz-lbl" style="font-size:10px">Nov</text><line x1="473.0" y1="421.0" x2="566.5" y2="475.0" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))"/><text x="539.5" y="543.5" text-anchor="middle" class="vz-lbl" style="font-size:10px">Dec</text><line x1="421.0" y1="473.0" x2="475.0" y2="566.5" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))"/><text x="419.4" y="612.9" text-anchor="middle" class="vz-lbl" style="font-size:10px">Jan</text><line x1="350.0" y1="492.0" x2="350.0" y2="600.0" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 75%,var(--mixbg))"/><text x="280.6" y="612.9" text-anchor="middle" class="vz-lbl" style="font-size:10px">Feb</text><line x1="279.0" y1="473.0" x2="225.0" y2="566.5" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))"/><text x="160.5" y="543.5" text-anchor="middle" class="vz-lbl" style="font-size:10px">Mar</text><line x1="227.0" y1="421.0" x2="133.5" y2="475.0" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))"/><text x="91.1" y="423.4" text-anchor="middle" class="vz-lbl" style="font-size:10px">Apr</text><line x1="208.0" y1="350.0" x2="100.0" y2="350.0" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 75%,var(--mixbg))"/><text x="91.1" y="284.6" text-anchor="middle" class="vz-lbl" style="font-size:10px">May</text><line x1="227.0" y1="279.0" x2="133.5" y2="225.0" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))"/><text x="160.5" y="164.5" text-anchor="middle" class="vz-lbl" style="font-size:10px">Jun</text><line x1="279.0" y1="227.0" x2="225.0" y2="133.5" class="vz-hair" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))"/><text x="280.6" y="95.1" text-anchor="middle" class="vz-lbl" style="font-size:10px">Jul</text><path d="M 350.0 100.0 A 250 250 0 1 1 173.2 173.2" fill="none" stroke="var(--mint)" style="stroke:color-mix(in srgb,currentColor 28%,var(--mixbg))" stroke-width="8"/><line x1="379.5" y1="211.1" x2="402.0" y2="105.5" stroke="var(--mint)" stroke-width="2"/><circle cx="402.0" cy="105.5" r="6.5" fill="var(--mint)"/><circle cx="402.0" cy="105.5" r="12" fill="none" stroke="var(--mint)" style="stroke:color-mix(in srgb,currentColor 40%,var(--mixbg))"/><text x="414.9" y="49.8" text-anchor="middle" class="vz-num" style="font-size:16px;fill:var(--mint)">1</text><line x1="450.4" y1="249.6" x2="526.8" y2="173.2" stroke="var(--mut)" stroke-width="2"/><circle cx="526.8" cy="173.2" r="6.5" fill="var(--mut)"/><circle cx="526.8" cy="173.2" r="12" fill="none" stroke="var(--mut)" style="stroke:color-mix(in srgb,currentColor 40%,var(--mixbg))"/><text x="570.6" y="134.4" text-anchor="middle" class="vz-num" style="font-size:16px;fill:var(--mut)">2</text><line x1="488.9" y1="379.5" x2="594.5" y2="402.0" stroke="var(--gold)" stroke-width="2"/><circle cx="594.5" cy="402.0" r="6.5" fill="var(--gold)"/><circle cx="594.5" cy="402.0" r="12" fill="none" stroke="var(--gold)" style="stroke:color-mix(in srgb,currentColor 40%,var(--mixbg))"/><text x="655.2" y="419.9" text-anchor="middle" class="vz-num" style="font-size:16px;fill:var(--gold)">3</text><line x1="422.3" y1="472.2" x2="477.3" y2="565.2" stroke="var(--gold)" stroke-width="2"/><circle cx="477.3" cy="565.2" r="6.5" fill="var(--gold)"/><circle cx="477.3" cy="565.2" r="12" fill="none" stroke="var(--gold)" style="stroke:color-mix(in srgb,currentColor 40%,var(--mixbg))"/><text x="508.8" y="623.6" text-anchor="middle" class="vz-num" style="font-size:16px;fill:var(--gold)">4</text><line x1="386.8" y1="487.2" x2="414.7" y2="591.5" stroke="var(--mut)" stroke-width="2"/><circle cx="414.7" cy="591.5" r="6.5" fill="var(--mut)"/><circle cx="414.7" cy="591.5" r="12" fill="none" stroke="var(--mut)" style="stroke:color-mix(in srgb,currentColor 40%,var(--mixbg))"/><text x="430.8" y="656.4" text-anchor="middle" class="vz-num" style="font-size:16px;fill:var(--mut)">5</text><line x1="212.8" y1="386.8" x2="108.5" y2="414.7" stroke="var(--mint)" stroke-width="2"/><circle cx="108.5" cy="414.7" r="6.5" fill="var(--mint)"/><circle cx="108.5" cy="414.7" r="12" fill="none" stroke="var(--mint)" style="stroke:color-mix(in srgb,currentColor 40%,var(--mixbg))"/><text x="48.6" y="435.8" text-anchor="middle" class="vz-num" style="font-size:16px;fill:var(--mint)">6</text><line x1="249.6" y1="249.6" x2="173.2" y2="173.2" stroke="color-mix(in srgb,var(--gold) 50%,var(--ink))" stroke-width="2"/><circle cx="173.2" cy="173.2" r="6.5" fill="color-mix(in srgb,var(--gold) 50%,var(--ink))"/><circle cx="173.2" cy="173.2" r="12" fill="none" stroke="color-mix(in srgb,var(--gold) 50%,var(--ink))" style="stroke:color-mix(in srgb,currentColor 40%,var(--mixbg))"/><text x="129.4" y="134.4" text-anchor="middle" class="vz-num" style="font-size:16px;fill:color-mix(in srgb,var(--gold) 50%,var(--ink))">7</text><text x="350" y="338" text-anchor="middle" class="vz-lbl">Aug 2026 &#8594; Jun 2027</text><text x="350" y="378" text-anchor="middle" class="vz-num" style="font-size:30px">7 dates</text><text x="350" y="400" text-anchor="middle" class="vz-sm">Twelve o&#39;clock is today</text></svg></div>
+      <div>
+        <div class="eyebrow">Arc calendar · after The Book of Circles</div>
+        <h2 style="margin-bottom:14px">Eleven months,<br>seven fixed dates.</h2>
+        <p class="lede">Twelve o'clock is today. The year runs clockwise, and every spoke is a deadline you cannot move — so the empty arcs are the only time you have to act.</p>
+        <div class="rule" style="margin:22px 0 6px"></div>
+        <div class="row" style="grid-template-columns:26px 96px 1fr auto"><span class="num" style="font-size:15px;color:var(--mint)">1</span><span class="small" style="font-weight:600">Aug 2026</span><span class="name">Open Solo 401(k)</span><span class="tag">Window</span></div><div class="row" style="grid-template-columns:26px 96px 1fr auto"><span class="num" style="font-size:15px;color:var(--mut)">2</span><span class="small" style="font-weight:600">Sep 15</span><span class="name">Q3 estimate</span><span class="tag">Hard deadline</span></div><div class="row" style="grid-template-columns:26px 96px 1fr auto"><span class="num" style="font-size:15px;color:var(--gold)">3</span><span class="small" style="font-weight:600">Nov 2026</span><span class="name">HDHP / HSA election</span><span class="tag">Window</span></div><div class="row" style="grid-template-columns:26px 96px 1fr auto"><span class="num" style="font-size:15px;color:var(--gold)">4</span><span class="small" style="font-weight:600">Dec 31</span><span class="name">Fund DAF · harvest losses</span><span class="tag">Hard deadline</span></div><div class="row" style="grid-template-columns:26px 96px 1fr auto"><span class="num" style="font-size:15px;color:var(--mut)">5</span><span class="small" style="font-weight:600">Jan 15, 2027</span><span class="name">Q4 estimate</span><span class="tag">Hard deadline</span></div><div class="row" style="grid-template-columns:26px 96px 1fr auto"><span class="num" style="font-size:15px;color:var(--mint)">6</span><span class="small" style="font-weight:600">Apr 15, 2027</span><span class="name">File 2026 return</span><span class="tag">Hard deadline</span></div><div class="row" style="grid-template-columns:26px 96px 1fr auto"><span class="num" style="font-size:15px;color:color-mix(in srgb,var(--gold) 50%,var(--ink))">7</span><span class="small" style="font-weight:600">Jun 15, 2027</span><span class="name">2027 PTE prepayment</span><span class="tag">Hard deadline</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Bob &amp; Sally Jones — 2026 Tax Planning Report</span><span>21</span></div>
+</section>
 <section class="slide dark deeper">
   <div class="hdr"><span class="l">wealth.com · tax planning</span><span class="r">Next steps</span></div>
   <div class="body">
@@ -678,8 +801,10 @@ addEventListener('load',announce);
       <div class="stat"><div class="lbl">03</div><div class="v" style="font-size:34px">Implement &amp; measure.</div><div class="s">Every recommendation has a dollar target — we track them into next year's return.</div></div>
     </div>
   </div>
-  <div class="ftr"><span>Plan for every tomorrow™ · wealth.com</span><span>18</span></div>
+  <div class="ftr"><span>Plan for every tomorrow™ · wealth.com</span><span>22</span></div>
 </section>
 
+<script src="/reports/inspect.js"></script>
+<script src="/reports/format.js"></script>
 </body>
 </html>
