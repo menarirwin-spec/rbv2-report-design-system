@@ -14,6 +14,9 @@
 
   function apply(format) {
     current = format === "page" ? "page" : "wide";
+    /* expose the format so slide CSS can use the extra height of the page
+       format instead of leaving it empty at the bottom */
+    document.documentElement.setAttribute("data-format", current);
     style.textContent =
       current === "page"
         ? ".slide{width:1584px!important;height:1224px!important}" +

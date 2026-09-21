@@ -5,6 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'Reckless';src:url('/fonts/Reckless-Regular.otf') format('opentype');font-weight:100 900;font-style:normal;font-display:swap}</style>
 <style>
 :root{
   --deep:#0E3330;
@@ -138,7 +139,7 @@ th.n{text-align:right;padding-right:0}
 .dark .avatar{background:rgba(244,240,231,.07);border-color:var(--lineD)}
 </style>
 <style id="ds-themes">
-html{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:3px}
+html{--dk-serif:'Reckless',Georgia,serif;--dk-sans:'Neue Haas Unica W1G','Neue Haas Unica','Archivo',system-ui,sans-serif;--dk-radius:3px}
 html[data-theme="editorial"]{--deep:#0E3330;--deeper:#06201E;--ink:#0A2422;--cream:#F4F0E7;--paper:#FBF9F4;--mint:#31917E;--gold:#B3762B;--clay:#C9674D;--line:rgba(10,36,34,.14);--lineD:rgba(244,240,231,.18);--mut:#5E7370;--mutD:rgba(244,240,231,.78)}
 html[data-theme="bone"]{--dk-serif:'Instrument Serif',Georgia,serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:0px;
   --deep:#14120F;--deeper:#000000;--ink:#14120F;--cream:#F7F5F0;--paper:#F7F5F0;--mint:#B65E2D;--gold:#C94F2A;--clay:#C94F2A;
@@ -159,6 +160,11 @@ html[data-theme="schwab"]{--dk-serif:'Source Sans 3',system-ui,sans-serif;--dk-s
 html[data-theme="schwab"] h1,html[data-theme="schwab"] h2,html[data-theme="schwab"] h3,html[data-theme="schwab"] .num{font-weight:600;letter-spacing:-.02em}
 html[data-theme="schwab"] .card,html[data-theme="schwab"] .node,html[data-theme="schwab"] .box{border-radius:var(--dk-radius)}
 html[data-theme="schwab"] .r-dark .mint,html[data-theme="schwab"] .ondark .mint{color:#4FC3F2}
+html[data-theme="wealth"]{--dk-radius:8px;
+  --deep:#012824;--deeper:#001815;--ink:#142324;--cream:#E6F3F2;--paper:#FFFFFF;--mint:#156960;--gold:#C25423;--clay:#C22F30;
+  --line:rgba(1,40,36,.14);--lineD:rgba(230,243,242,.2);--mut:#4A5F5D;--mutD:rgba(230,243,242,.8)}
+html[data-theme="wealth"] .r-dark .mint,html[data-theme="wealth"] .ondark .mint,html[data-theme="wealth"] .dark .mint{color:#7FBFB4}
+html[data-theme="wealth"] .card,html[data-theme="wealth"] .node,html[data-theme="wealth"] .box{border-radius:var(--dk-radius)}
 /* midnight: light slides are dark, so accent text needs the light ink */
 html[data-theme="midnight"] .hdr .r{color:var(--gold)}
 /* midnight: base slides render on dark paper — mirror the .dark treatments */
