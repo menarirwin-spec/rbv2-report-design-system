@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'Reckless';src:url('/fonts/Reckless-Regular.otf') format('opentype');font-weight:100 900;font-style:normal;font-display:swap}.wf i{aspect-ratio:1;display:block}
+</style>
+<style>
+:root{
+  --deep:#0E3330;
+  --deeper:#06201E;
+  --ink:#0A2422;
+  --cream:#F4F0E7;
+  --paper:#FBF9F4;
+  --mint:#31917E;
+  --gold:#B3762B;
+  --clay:#C9674D;
+  --line:rgba(10,36,34,.14);
+  --lineD:rgba(244,240,231,.18);
+  --mut:#5E7370;
+  --mutD:rgba(244,240,231,.78);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialiased}
+.slide.hide{display:none}
+.slide{
+  --mixbg:var(--paper);
+  width:1600px;height:900px;position:relative;overflow:hidden;
+  background:var(--paper);color:var(--ink);
+  padding:56px 88px 52px;display:flex;flex-direction:column;
+  page-break-after:always;break-after:page;
+}
+.slide.dark,.ondark{--mut:var(--mutD)}
+.ondark{--mixbg:var(--deep)}
+.slide.dark{background:var(--deep);color:var(--cream);--mixbg:var(--deep)}
+.slide.dark .rule{background:var(--lineD)}
+.slide.deeper{background:var(--deeper);--mixbg:var(--deeper)}
+.rule{height:1px;background:var(--line);width:100%}
+
+/* header / footer */
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.dark .hdr{border-color:var(--lineD)}
+.hdr .l{color:var(--mut)}.dark .hdr .l{color:var(--mutD)}
+.hdr .r{color:var(--deep)}.dark .hdr .r{color:var(--mint)}
+.ftr{position:absolute;left:88px;right:88px;bottom:34px;display:flex;justify-content:space-between;
+  font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;
+  border-top:1px solid var(--line);padding-top:12px}
+.dark .ftr{color:var(--mutD);border-color:var(--lineD)}
+.body{flex:1;padding-top:46px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:flex-start}
+
+/* type */
+h1{font-family:var(--dk-serif);font-weight:300;font-size:82px;line-height:1.02;letter-spacing:-.02em}
+h2{font-family:var(--dk-serif);font-weight:300;font-size:54px;line-height:1.06;letter-spacing:-.015em}
+h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--deep)}
+/* eyebrows removed from this deck: the running header already names the page */
+.eyebrow{display:none}
+.dark .eyebrow{color:color-mix(in srgb,var(--mint) 62%,var(--cream))}
+.lede{font-size:20px;line-height:1.5;color:var(--mut);max-width:62ch;font-weight:400}
+.dark .lede{color:var(--mutD)}
+.small{font-size:16px;line-height:1.5;color:var(--mut)}
+.dark .small{color:var(--mutD)}
+.lbl{margin-bottom:8px;font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.lbl .note,.smlbl span .note{display:block;margin-top:4px;text-transform:none;letter-spacing:.02em;font-weight:500}
+.dark .lbl{color:var(--mutD)}
+.num{line-height:1.14;font-family:var(--dk-serif);font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:color-mix(in srgb,var(--gold) 50%,var(--ink))}
+em{font-style:italic}
+
+/* cover */
+.cover-mark{position:absolute;right:-260px;top:-220px;width:1100px;height:1100px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, color-mix(in srgb,var(--mint) 20%,transparent), color-mix(in srgb,var(--mint) 0%,transparent) 62%)}
+.cover-rings{position:absolute;right:80px;top:90px;width:720px;height:720px}
+.cover-rings div{position:absolute;border:1px solid rgba(244,240,231,.13);border-radius:50%;inset:0}
+
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+
+/* stat block */
+.stat{border-top:2px solid var(--deep);padding-top:16px}
+.dark .stat{border-color:var(--mint)}
+.stat .v{font-family:var(--dk-serif);font-weight:300;font-size:29px;line-height:1.1;letter-spacing:-.02em;margin-top:12px;font-variant-numeric:tabular-nums}
+.stat .s{font-size:14px;color:var(--mut);margin-top:10px}
+.dark .stat .s{color:var(--mutD)}
+
+/* bars */
+.bar{height:26px;display:flex;overflow:hidden;border-radius:2px}
+.bar > span{display:block;height:100%}
+.track{height:8px;background:rgba(10,36,34,.10);border-radius:99px;overflow:hidden}
+.dark .track{background:rgba(244,240,231,.14)}
+.track > i{display:block;height:100%;background:var(--deep);border-radius:99px}
+.dark .track > i{background:var(--mint)}
+
+/* rows */
+.row{display:grid;align-items:center;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}
+.dark .row{border-color:var(--lineD)}
+.row .name{font-size:17px;font-weight:500}
+.row .val{font-family:var(--dk-serif);font-size:24px;font-weight:400;text-align:right;font-variant-numeric:tabular-nums}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);font-weight:700;text-align:left;padding:0 14px 12px 0;border-bottom:1px solid var(--line)}
+td{padding:15px 14px 15px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.dark th,.dark td{border-color:var(--lineD)}
+.dark th{color:var(--mutD)}
+td.n{text-align:right;font-family:var(--dk-serif);font-size:20px;font-variant-numeric:tabular-nums;padding-right:0}
+th.n{text-align:right;padding-right:0}
+.pad td.n,.pad th.n{padding-right:34px}
+
+/* card */
+.card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:24px 26px}
+.dark .card{background:rgba(244,240,231,.05);border-color:var(--lineD)}
+.card.accent{border-left:3px solid var(--gold)}
+
+/* flow */
+.node{border:1px solid var(--line);border-radius:3px;padding:16px 20px;background:#fff;color:var(--ink)}
+.node .mint{color:color-mix(in srgb,var(--mint) 55%,var(--deeper))}
+.node .small{color:var(--mut)}
+.dark .node{background:rgba(244,240,231,.06);border-color:var(--lineD);color:var(--cream)}
+.dark .node .mint{color:var(--mint)}
+.dark .node .small{color:var(--mutD)}
+.node .t{font-size:16px;font-weight:600}
+.node .v{font-family:var(--dk-serif);font-size:22px;margin-top:4px}
+.conn{flex:1;height:1px;background:var(--line);position:relative}
+.dark .conn{background:var(--lineD)}
+.conn::after{content:'';position:absolute;right:0;top:-3px;border-left:7px solid var(--deep);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+.dark .conn::after{border-left-color:var(--mint)}
+
+/* section divider */
+.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:color-mix(in srgb,var(--mint) 16%,transparent);letter-spacing:-.04em}
+.toc-item{display:flex;gap:20px;padding:17px 0;border-bottom:1px solid var(--lineD);font-size:20px}
+.toc-item .i{font-family:var(--dk-serif);color:var(--mint);width:34px;font-size:18px}
+.chip{display:inline-block;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:99px}
+.chip.in{background:color-mix(in srgb,var(--mint) 18%,transparent);color:color-mix(in srgb,var(--mint) 55%,var(--deeper))}
+.chip.out{background:color-mix(in srgb,var(--gold) 14%,var(--paper));color:color-mix(in srgb,var(--gold) 50%,var(--ink))}
+.dark .chip.in{background:color-mix(in srgb,var(--mint) 20%,transparent);color:var(--mint)}
+.dark .chip.out{background:rgba(217,162,95,.2);color:var(--gold)}
+.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);background:#fff}
+.dark .avatar{background:rgba(244,240,231,.07);border-color:var(--lineD)}
+</style>
+<style id="ds-themes">
+html{--dk-serif:'Reckless',Georgia,serif;--dk-sans:'Neue Haas Unica W1G','Neue Haas Unica','Archivo',system-ui,sans-serif;--dk-radius:3px}
+html[data-theme="editorial"]{--deep:#0E3330;--deeper:#06201E;--ink:#0A2422;--cream:#F4F0E7;--paper:#FBF9F4;--mint:#31917E;--gold:#B3762B;--clay:#C9674D;--line:rgba(10,36,34,.14);--lineD:rgba(244,240,231,.18);--mut:#5E7370;--mutD:rgba(244,240,231,.78)}
+html[data-theme="bone"]{--dk-serif:'Instrument Serif',Georgia,serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#14120F;--deeper:#000000;--ink:#14120F;--cream:#F7F5F0;--paper:#F7F5F0;--mint:#B65E2D;--gold:#C94F2A;--clay:#C94F2A;
+  --line:rgba(20,18,15,.16);--lineD:rgba(247,245,240,.2);--mut:#6D675D;--mutD:rgba(247,245,240,.78)}
+html[data-theme="midnight"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:2px;
+  --deep:#060B16;--deeper:#03060D;--ink:#E8ECF5;--cream:#E8ECF5;--paper:#0B1120;--mint:#6FD3C7;--gold:#C9A84C;--clay:#E07A5F;
+  --line:rgba(232,236,245,.16);--lineD:rgba(232,236,245,.14);--mut:#8D9BB8;--mutD:rgba(232,236,245,.78)}
+html[data-theme="slate"]{--dk-serif:'Work Sans',system-ui,sans-serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:10px;
+  --deep:#0F1B2D;--deeper:#0A1220;--ink:#0F1B2D;--cream:#F8FAFC;--paper:#FFFFFF;--mint:#0F77F7;--gold:#AE7007;--clay:#E14242;
+  --line:rgba(15,27,45,.12);--lineD:rgba(248,250,252,.16);--mut:#5B6B82;--mutD:rgba(248,250,252,.78)}
+html[data-theme="goldman"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Libre Franklin',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#002849;--deeper:#001A2E;--ink:#0B1C2C;--cream:#F4F6F9;--paper:#FFFFFF;--mint:#5684BA;--gold:#9C7C49;--clay:#D15E4D;
+  --line:rgba(0,40,73,.16);--lineD:rgba(244,246,249,.18);--mut:#5A6B7D;--mutD:rgba(244,246,249,.78)}
+html[data-theme="goldman"] h1,html[data-theme="goldman"] h2,html[data-theme="goldman"] h3,html[data-theme="goldman"] .num{font-weight:400;letter-spacing:-.015em}
+html[data-theme="schwab"]{--dk-serif:'Source Sans 3',system-ui,sans-serif;--dk-sans:'Source Sans 3',system-ui,sans-serif;--dk-radius:6px;
+  --deep:#2E3D49;--deeper:#1C2833;--ink:#1C2833;--cream:#F2F5F7;--paper:#FFFFFF;--mint:#0096D1;--gold:#D67212;--clay:#EE5D37;
+  --line:rgba(28,40,51,.14);--lineD:rgba(242,245,247,.2);--mut:#5B6A76;--mutD:rgba(242,245,247,.78)}
+html[data-theme="schwab"] h1,html[data-theme="schwab"] h2,html[data-theme="schwab"] h3,html[data-theme="schwab"] .num{font-weight:600;letter-spacing:-.02em}
+html[data-theme="schwab"] .card,html[data-theme="schwab"] .node,html[data-theme="schwab"] .box{border-radius:var(--dk-radius)}
+html[data-theme="schwab"] .r-dark .mint,html[data-theme="schwab"] .ondark .mint{color:#4FC3F2}
+html[data-theme="wealth"]{--dk-radius:8px;
+  --deep:#012824;--deeper:#001815;--ink:#142324;--cream:#E6F3F2;--paper:#FFFFFF;--mint:#156960;--gold:#C25423;--clay:#C22F30;
+  --line:rgba(1,40,36,.14);--lineD:rgba(230,243,242,.2);--mut:#4A5F5D;--mutD:rgba(230,243,242,.8)}
+html[data-theme="wealth"] .r-dark .mint,html[data-theme="wealth"] .ondark .mint,html[data-theme="wealth"] .dark .mint{color:#7FBFB4}
+html[data-theme="wealth"] .card,html[data-theme="wealth"] .node,html[data-theme="wealth"] .box{border-radius:var(--dk-radius)}
+/* Scenario 3 (Strategy 2) must not read as a warning. In every theme the third
+   scenario hue is a second cool family — distinct from the baseline deep and the
+   Strategy 1 mid tone, with no warm/red valence. */
+html[data-theme="editorial"]{--gold:#3D6AA8}
+html[data-theme="bone"]{--gold:#4E6A78}
+html[data-theme="midnight"]{--gold:#8FA8E8}
+html[data-theme="slate"]{--gold:#0E8C8A}
+html[data-theme="goldman"]{--gold:#2F7D72}
+html[data-theme="schwab"]{--gold:#0E7C66}
+html[data-theme="wealth"]{--gold:#3C6E9E}
+/* midnight: light slides are dark, so accent text needs the light ink */
+html[data-theme="midnight"] .hdr .r{color:var(--gold)}
+/* midnight: base slides render on dark paper — mirror the .dark treatments */
+html[data-theme="midnight"] .card,html[data-theme="midnight"] .node,html[data-theme="midnight"] .avatar{background:rgba(232,236,245,.05);border-color:var(--lineD);color:var(--cream)}
+html[data-theme="midnight"] .eyebrow,html[data-theme="midnight"] .node .mint{color:var(--mint)}
+html[data-theme="midnight"] .track{background:rgba(232,236,245,.14)}
+html[data-theme="midnight"] .track > i,html[data-theme="midnight"] .sm .c > i,html[data-theme="midnight"] .bar > span:first-child{background:var(--mint)}
+html[data-theme="midnight"] .conn::after{border-left-color:var(--mint)}
+html[data-theme="midnight"] .chip.in{background:rgba(111,211,199,.2);color:var(--mint)}
+html[data-theme="midnight"] .keyline .sw[style*="--deep"]{background:var(--mint)!important}
+html[data-theme="slate"] .card,html[data-theme="slate"] .node,html[data-theme="slate"] .box{border-radius:var(--dk-radius)}
+html[data-theme="bone"] h1,html[data-theme="bone"] h2,html[data-theme="bone"] h3,html[data-theme="bone"] .num{font-weight:400}
+html[data-theme="slate"] h1,html[data-theme="slate"] h2,html[data-theme="slate"] h3,html[data-theme="slate"] .num{font-weight:500;letter-spacing:-.02em}
+body{background:transparent!important}
+.slide{margin:0 auto 28px}
+html{background:#111}
+</style>
+<script>
+document.documentElement.setAttribute('data-theme','editorial');
+addEventListener('message',function(e){
+  var d=e.data||{};
+  if(d.type==='ds-theme'&&typeof d.theme==='string')document.documentElement.setAttribute('data-theme',d.theme);
+  if(d.type==='ds-ping')announce();
+  if(d.type==='ds-goto'&&typeof d.index==='number'){
+    var s=document.querySelectorAll('.slide');
+    if(s[d.index])s[d.index].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+function announce(){parent.postMessage({type:'ds-ready',count:document.querySelectorAll('.slide').length},'*');}
+addEventListener('DOMContentLoaded',announce);
+addEventListener('load',announce);
+</script>
+<style id="ledger">
+/* ---- LEDGER MODE: dense, table-forward, one page = one worksheet ---- */
+.slide.led{padding:40px 88px 40px 88px}
+.led .body{padding-top:32px;padding-bottom:22px;justify-content:flex-start}
+.led .ftr{left:88px;right:88px;bottom:26px;padding-top:10px;font-size:12px}
+.led h2{font-size:42px}
+.led .eyebrow{font-size:14px;letter-spacing:.16em;margin-bottom:12px}
+.led .hdr{font-size:14px;padding-bottom:10px}
+
+/* "what is happening" line: small icon + plain-language action */
+.wih{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;
+  font-family:var(--dk-sans);font-size:16px;font-weight:700;line-height:1.25;color:var(--ink)}
+.wih svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;margin-top:1px;
+  stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tight01a tbody td,.tight01a thead th{padding-top:3px;padding-bottom:3px}
+.tight01a .note{line-height:1.25}
+.descrow td{vertical-align:top;padding-top:6px}
+.descrow .note{font-size:16px;line-height:1.35}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.dcard{border:1px solid var(--line);border-radius:6px;padding:10px 12px;box-sizing:border-box;
+  background:color-mix(in srgb,var(--ink) 3%,var(--paper))}
+.dcard .wih{margin-bottom:7px}
+
+/* three scenario columns with hairline gutters */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cols > div{padding:0 26px;border-left:1px solid var(--line)}
+.cols > div:first-child{padding-left:0;border-left:0}
+.cols > div:last-child{padding-right:0}
+
+/* scenario card: each scenario carries its own tinted ground so the three
+   columns break apart visually, not just by a rule underneath */
+.scen{min-height:110px;padding:10px 16px;margin-bottom:8px;border-radius:2px;
+  border-left:4px solid var(--deep);
+  background:color-mix(in srgb,var(--ink) 5%,var(--paper))}
+.scen .n{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;min-height:29px;
+  font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--ink);line-height:1.35}
+.scen .n>.chip{flex:none;margin-top:-1px}
+.scen.slim .n{min-height:0}
+/* scenario colour wins over the card's default ink, so card headers match
+   the table headers and chart labels everywhere else in the report */
+.scen .n.s1{color:var(--deep)}
+.scen .n.s2{color:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+.scen .n.s3{color:color-mix(in srgb,var(--gold) 72%,var(--ink))}
+.dark .scen .n.s1{color:var(--cream)}
+.dark .scen .n.s2{color:color-mix(in srgb,var(--mint) 78%,var(--cream))}
+.dark .scen .n.s3{color:color-mix(in srgb,var(--gold) 78%,var(--cream))}
+/* right-aligned variant used on the column-aligned summary */
+.scen.ralign .n{justify-content:flex-end}
+ .scen .t{font-family:var(--dk-serif);font-size:23px;margin-top:6px;line-height:1.15}
+ /* hero figure inside a scenario card: the headline number for that column */
+  .scen .hero{font-family:var(--dk-serif);font-size:29px;line-height:1.14;margin-top:8px;
+    font-variant-numeric:tabular-nums;color:var(--ink)}
+   .scen .hero .hd{font-family:var(--dk-sans);font-size:15px;color:var(--mut);letter-spacing:0}
+  tr.hrow td{padding-top:14px}
+  tr.hrow .hero{font-family:var(--dk-serif);font-size:29px;line-height:1.14;letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums;color:var(--ink)}
+ tr.hrow td.n .note{vertical-align:middle}
+
+.scen .m{font-size:16px;color:var(--mut);margin-top:6px;line-height:1.45}
+.scen.a{border-left-color:var(--mint);background:color-mix(in srgb,var(--mint) 13%,var(--paper))}
+.scen.b{border-left-color:var(--gold);background:color-mix(in srgb,var(--gold) 15%,var(--paper))}
+.scen.slim{min-height:0}
+.dark .scen{background:color-mix(in srgb,var(--paper) 8%,transparent)}
+/* column head: used where a scenario header sits directly above a filled bar.
+   Follows the table-header convention — no rule above the title, one hairline
+   beneath the block — so the header never reads as a second rectangle. */
+.scen.hd{min-height:0;background:none;border-left:0;border-radius:0;padding:0;
+  border-top:0;border-bottom:1px solid var(--line);padding-bottom:11px;margin-bottom:18px}
+.scen.hd.a,.scen.hd.b{background:none}
+.dark .scen.hd{background:none}
+.scen.hd .n{min-height:0;letter-spacing:.16em;font-size:14px;color:var(--deep)}
+.scen.hd.a .n{color:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+.scen.hd.b .n{color:color-mix(in srgb,var(--gold) 72%,var(--ink))}
+.scen.hd .t{font-size:26px;margin-top:8px}
+.scen.hd .m{margin-top:4px}
+/* scenario colours on table column headers, matching .scen.hd */
+thead th.n.s1{color:var(--deep)}
+thead th.n.s2{color:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+thead th.n.s3{color:color-mix(in srgb,var(--gold) 72%,var(--ink))}
+.dark thead th.n.s1{color:var(--cream)}
+.dark thead th.n.s2{color:color-mix(in srgb,var(--mint) 78%,var(--cream))}
+.dark thead th.n.s3{color:color-mix(in srgb,var(--gold) 78%,var(--cream))}
+thead th.n.s1 .note,thead th.n.s2 .note,thead th.n.s3 .note{color:var(--mut)}
+thead th.n .note{margin-right:0}
+/* ONE SCENARIO LABEL CONVENTION, EVERYWHERE.
+   Any label naming a scenario — table head, stat label, chart column label —
+   carries .s1 / .s2 / .s3 so the number, the wording and the colour match
+   across every page. */
+.lbl.s1,.smlbl span.s1,.s1{color:var(--deep)}
+.lbl.s2,.smlbl span.s2,.s2{color:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+.lbl.s3,.smlbl span.s3,.s3{color:color-mix(in srgb,var(--gold) 72%,var(--ink))}
+.dark .lbl.s1,.dark .smlbl span.s1,.dark .s1{color:var(--cream)}
+.dark .lbl.s2,.dark .smlbl span.s2,.dark .s2{color:color-mix(in srgb,var(--mint) 78%,var(--cream))}
+.dark .lbl.s3,.dark .smlbl span.s3,.dark .s3{color:color-mix(in srgb,var(--gold) 78%,var(--cream))}
+.s1 .note,.s2 .note,.s3 .note{color:var(--mut)}
+.smlbl span.s1,.smlbl span.s2,.smlbl span.s3{font-weight:700;letter-spacing:.04em}
+
+
+
+/* paired line items: two figures that sit beside each other because they are
+   treated differently on the return (tax-exempt vs taxable, ordinary vs qualified) */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line)}
+.pair > div{padding:11px 16px 11px 0}
+.pair > div + div{padding-left:16px;border-left:1px solid var(--line)}
+.pair .k{font-size:14px;color:var(--mut);display:block}
+.pair .v{font-family:var(--dk-serif);font-size:21px;font-variant-numeric:tabular-nums;display:block;margin-top:3px}
+.pair .t{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--mut);display:block;margin-top:4px}
+table.dense td.pairc{padding-right:0}
+table.dense td.pairc + td.pairc{border-left:1px solid var(--line);padding-left:14px}
+
+/* estimate marker for projected figures */
+.est{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  padding:2px 6px;border-radius:99px;vertical-align:2px;margin-left:6px;
+  border:1px solid var(--line);color:var(--mut)}
+.dark .est{border-color:var(--lineD)}
+
+/* ledger rows: label left, tabular figure right */
+.led-rows{width:100%}
+.lr{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    padding:11px 0;border-bottom:1px solid var(--line)}
+.lr:last-child{border-bottom:0}
+.lr .k{font-size:16px;color:var(--mut)}
+.lr .v{font-family:var(--dk-serif);font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.lr.tot{border-top:1.5px solid var(--deep);border-bottom:0;margin-top:6px;padding-top:11px}
+/* the dark total rule replaces the hairline above it */
+.lr:has(+ .lr.tot){border-bottom:0}
+.lr.tot .k{color:var(--ink);font-weight:600;font-size:16px}
+.lr.tot .v{font-size:29px}
+.lr.sub .k{padding-left:14px;font-size:15px}
+.lr.zero .v{color:var(--mut)}
+
+.hero-fig{font-family:var(--dk-serif);font-weight:300;font-size:29px;line-height:1.14;letter-spacing:-.025em;
+  font-variant-numeric:tabular-nums;margin-top:4px}
+.delta{font-size:14px;font-weight:600;letter-spacing:.02em;margin-top:8px}
+/* one rule for deltas: they always sit to the LEFT of the figure they modify,
+   matching the table convention, never beneath it */
+.figrow{display:flex;align-items:baseline;gap:12px}
+.figrow .delta{margin-top:0;white-space:nowrap}
+.up,.down{color:color-mix(in srgb,var(--ink) 74%,var(--paper))}
+
+/* dense table variant */
+table.dense{font-size:16px}
+table.dense th{font-size:14px;padding:0 10px 8px 0;letter-spacing:.16em}
+table.dense td{padding:8px 10px 8px 0;font-size:16px}
+table.dense td.n{font-size:17px}
+table.dense tr.total td{border-bottom:0;border-top:1.5px solid var(--deep);font-weight:600}
+table.dense tr:has(+ tr.total) td{border-bottom:0}
+/* Highlighting means one thing everywhere in this report: this is the line that
+   drives the outcome — the number to read first. It is a neutral ink tint (never a
+   scenario colour) and it says so on the row itself, so the meaning is not left to
+   a footnote. */
+tr.hi td{background:color-mix(in srgb,var(--ink) 7%,transparent)}
+tr.hi td:first-child{box-shadow:inset 3px 0 0 var(--ink)}
+tr.hi td:first-child{padding-left:12px}
+table.dense.sumt tr.hi td:first-child{padding-left:12px}
+tr.hi td:first-child::before{content:"KEY LINE";display:inline-block;margin-right:10px;
+  font-family:var(--dk-sans);font-size:11px;font-weight:700;letter-spacing:.16em;
+  vertical-align:1px;color:var(--paper);background:var(--ink);padding:2px 6px;border-radius:2px}
+
+/* bracket fill meter */
+.meter{display:flex;height:20px;border-radius:2px;overflow:hidden;border:1px solid var(--line)}
+.meter i{display:block;height:100%}
+.meter .room,.stack .room,.room{position:relative;background:var(--paper);background-clip:padding-box}
+.meter .room::before,.stack .room::before,.room::before{content:"";position:absolute;inset:2px;background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--ink) 4%,var(--paper)) 0 2.9px,color-mix(in srgb,var(--ink) 38%,var(--paper)) 3.4px 4.5px,color-mix(in srgb,var(--ink) 4%,var(--paper)) 5px 7.2px);pointer-events:none}
+.meter .room::after,.stack .room::after,.room::after{content:none}
+.dark .room::before,html[data-theme="midnight"] .room::before{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--cream) 6%,var(--ink)) 0 2.9px,color-mix(in srgb,var(--cream) 42%,var(--ink)) 3.4px 4.5px,color-mix(in srgb,var(--cream) 6%,var(--ink)) 5px 7.2px)}
+
+i.sw.room{border:1px solid var(--line)}
+.mscale{display:flex;justify-content:space-between;font-size:14px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mut);font-weight:700;margin-top:6px}
+
+/* small-multiple column chart */
+.sm{display:flex;align-items:flex-end;gap:14px;height:150px;border-bottom:1px solid var(--line);padding-bottom:0}
+.sm .c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.sm .c i{display:block;width:100%;background:var(--deep);border-radius:2px 2px 0 0}
+.sm .c .v{font-family:var(--dk-serif);font-size:14px;margin-bottom:5px;font-variant-numeric:tabular-nums}
+.smlbl{display:flex;gap:14px;margin-top:8px}
+.smlbl span{flex:1;text-align:center;font-size:14px;color:var(--mut);line-height:1.3}
+
+/* stacked column */
+.stack{width:78px;display:flex;flex-direction:column-reverse;border-radius:2px;overflow:hidden}
+.stack i{display:block;width:100%}
+
+.keyline{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--mut)}
+.sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+.note{font-size:14px;line-height:1.5;color:var(--mut)}
+.n .note{margin-right:9px;white-space:nowrap}
+
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  padding:4px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+
+/* worksheet math rows */
+.wk .lr .k{font-size:16px}
+.wk .lr .v{font-size:19px}
+.wk .lr.op{border-bottom:0;padding-bottom:2px}
+.wk .lr.op .k{color:var(--mut);font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lesser{border:1px solid var(--line);border-radius:2px;padding:12px 14px;margin-top:12px;
+  display:flex;justify-content:space-between;align-items:baseline}
+.dark .lesser{border-color:var(--lineD)}
+
+/* status chips for phase-out matrix */
+.chip.watch{background:color-mix(in srgb,var(--gold) 18%,transparent);color:color-mix(in srgb,var(--gold) 60%,var(--ink))}
+.dark .chip.watch,html[data-theme="midnight"] .chip.watch{color:var(--gold)}
+.chip.na{background:color-mix(in srgb,var(--mut) 16%,transparent);color:var(--mut)}
+td .chip{white-space:nowrap}
+
+/* observation cards */
+.obs{border-top:2px solid var(--line);padding-top:12px}
+.dark .obs{border-color:var(--lineD)}
+.obs.op{border-color:var(--mint)}
+.obs.wa{border-color:color-mix(in srgb,var(--ink) 45%,var(--paper))}
+.dark .obs.wa,html[data-theme="midnight"] .obs.wa{border-color:color-mix(in srgb,var(--cream) 42%,transparent)}
+.obs h4{font-family:var(--dk-serif);font-size:19px;font-weight:400;line-height:1.2;margin:9px 0 6px}
+.obs p{font-size:16px;line-height:1.5;color:var(--mut)}
+.led.tight .lr{padding:7px 0}
+table.dense.sumt td{padding:8px 10px 8px 0}
+.led.tight .lesser{padding:9px 14px;margin-top:9px}
+
+/* deltas carry direction through the sign, not through colour — no hue is
+   positive or negative, so the palette stays readable in every theme */
+td.n .dgood,td.n .dbad{margin-right:6px}
+td.n .dgood{color:color-mix(in srgb,var(--ink) 74%,var(--paper));font-weight:600;font-size:14px}
+td.n .dbad{color:color-mix(in srgb,var(--ink) 74%,var(--paper));font-weight:600;font-size:14px}
+/* two stacked rates in a single cell, so the pair reads as one stop */
+td.n .stack{display:block;width:100%;font-size:18px;line-height:1.35;white-space:nowrap;text-align:right}
+td .subk{display:block;font-family:var(--dk-sans);font-size:14px;color:var(--mut)}
+
+/* reference-layout pages: the card grammar of the source report, on our tokens */
+.refcard{background:#fff;border:1px solid var(--line);border-radius:4px;padding:16px 22px}
+.dark .refcard{background:rgba(244,240,231,.05);border-color:var(--lineD)}
+.refcard>.h{font-size:16px;font-weight:700;margin-bottom:8px}
+.refrow{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:5px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.refrow:last-child{border-bottom:0}
+.refrow .v{font-family:var(--dk-serif);font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.refrow.b,.refrow.b .v{font-weight:700}
+.refrow.ind{padding-left:18px}
+.refrow.ind2{padding-left:34px}
+.refhd{font-size:15px;font-weight:700;padding:8px 0 2px}
+.refcard.lad .refrow{font-size:14px;padding:2.5px 0}
+.refcard.lad .refrow .v{font-size:16px}
+.refcard.lad .refhd{font-size:14px;padding:4px 0 1px}
+.totalbar{background:var(--deep);color:var(--cream);border-radius:4px;padding:12px 22px;
+  display:flex;justify-content:space-between;align-items:center}
+.totalbar .k{font-size:16px;font-weight:700}
+.totalbar .k .note{color:color-mix(in srgb,var(--cream) 78%,var(--deep))}
+.totalbar .v{font-family:var(--dk-serif);font-size:29px;line-height:1.14;font-variant-numeric:tabular-nums}
+.dotm{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:1px}
+/* the reference summary page carries four cards, so its rows run tighter */
+.slide.refpg .refcard{padding:12px 18px}
+.slide.refpg .refrow{padding:2px 0;font-size:14px}
+.slide.refpg .refrow .v{font-size:16px}
+.slide.refpg .refcard>.h{margin-bottom:6px}
+
+/* section label row inside a ladder table: names a group of lines
+   (Retirement income, Schedule 1 income) without carrying figures */
+table.dense tr.sech td{font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--mut);padding-top:13px;padding-bottom:6px}
+table.dense tr.sech + tr td{border-top:0}
+/* indented sub-lines beneath a section label; .sub2 is the gross counterpart
+   of a taxable line (Total IRA distribution against IRA distributions, taxable) */
+table.dense tr.sub td:first-child{padding-left:18px}
+table.dense tr.sub2 td:first-child{padding-left:36px}
+table.dense tr.sub2 td{color:var(--mut)}
+/* grouping band inside a worksheet table: Tax before credits, Nonrefundable
+   credits, Other federal taxes — the reference report's section headers */
+table.dense tr.grp td{font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--ink);padding-top:14px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+table.dense tr.grp td .note{letter-spacing:.02em;text-transform:none;font-weight:500;margin-left:10px}
+/* subtotal inside a grouped worksheet — lighter than tr.total */
+table.dense tr.sub-tot td{font-weight:600;border-bottom:1.5px solid var(--line)}
+/* a total row whose top rule should match the lighter subtotal rule */
+table.dense tr.total.lightrule td{border-top:1.5px solid var(--line)}
+
+/* ============================================================
+   ONE FIGURE LADDER — three sizes, one colour rule.
+   hero  29px : the closing figure of a page or of a scenario column
+   total 24px : any total or subtotal row inside a table / worksheet
+   line  17px : ordinary line items (20px on non-dense tables)
+   Figures are ALWAYS neutral ink. Only scenario names and deltas
+   carry scenario colour, so size signals rank and colour signals
+   which scenario — never both at once.
+   ============================================================ */
+.hero,.hero-fig,.stat .v,.lr.tot .v,.totalbar .v,tr.hrow .hero{font-size:29px}
+table tr.total td.n,table.dense tr.total td.n,
+table.dense tr.sub-tot td.n,.wk .lr.tot .v,.refrow.b .v,.lesser .v{font-size:24px}
+/* figures never take scenario colour */
+.stat .v.mint,.stat .v.gold,.stat .v.s1,.stat .v.s2,.stat .v.s3,
+.lr .v.mint,.lr .v.gold,td.n .mint,td.n .gold,.hero.mint,.hero.gold{color:var(--ink)}
+.dark .stat .v.mint,.dark .stat .v.gold,.dark .lr .v.mint,.dark .lr .v.gold{color:var(--cream)}
+
+/* profile band: filing status, dependents, residence, business */
+.profile{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--deep)}
+.profile > div{padding:11px 22px 0 0}
+.profile > div + div{padding-left:22px;border-left:1px solid var(--line)}
+.profile .k{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.profile .v{font-size:17px;font-weight:600;margin-top:6px}
+.profile .m{font-size:14px;color:var(--mut);margin-top:4px;line-height:1.45}
+/* taken / not taken markers on the itemized-vs-standard comparison */
+.chip.taken{background:color-mix(in srgb,var(--mint) 20%,transparent);color:color-mix(in srgb,var(--mint) 58%,var(--deeper))}
+.chip.nottaken{background:color-mix(in srgb,var(--mut) 14%,transparent);color:var(--mut)}
+/* page format is 324px taller than 16:9 — let the ledger pages use the room
+   instead of leaving it empty at the bottom */
+html[data-format="page"] table.dense td{padding-top:11px;padding-bottom:11px}
+html[data-format="page"] table.dense th{padding-bottom:11px}
+html[data-format="page"] .lr{padding-top:14px;padding-bottom:14px}
+html[data-format="page"] .refrow{padding-top:5px;padding-bottom:5px}
+html[data-format="page"] .profile > div{padding-top:15px}
+/* the 16:9 format is short: long ledger tables run compact rows there.
+   Body text never drops below 16px — only the space between rows tightens. */
+html[data-format="wide"] table.dense td{padding-top:4px;padding-bottom:4px;font-size:16px}
+html[data-format="wide"] table.dense td.n{font-size:16px}
+html[data-format="wide"] table.dense th{padding-bottom:6px}
+/* the exhaustive ladders run compact in both formats */
+.slide.tightrows table.dense td{padding-top:3px;padding-bottom:3px;font-size:16px}
+.slide.tightrows table.dense td.n{font-size:16px}
+html[data-format="page"] .slide.tightrows table.dense td{padding-top:6px;padding-bottom:6px}
+
+/* ============================================================
+   SQUEEZE LADDER — how a page is made to fit.
+   The fit script raises data-sq on a slide until its content clears
+   the footer. Every level removes vertical SPACE (row padding, block
+   gaps, heading size); no rule here reduces body copy below 16px.
+   ============================================================ */
+.slide[data-sq] .body{padding-top:var(--sqpt) !important;padding-bottom:12px !important}
+.slide[data-sq] .body > *{margin-bottom:var(--sqgap) !important}
+.slide[data-sq] .body > *:last-child{margin-bottom:0 !important}
+.slide[data-sq] td{padding-top:var(--sqrow) !important;padding-bottom:var(--sqrow) !important}
+.slide[data-sq] th{padding-bottom:var(--sqrow) !important}
+.slide[data-sq] .lr,.slide[data-sq] .row,.slide[data-sq] .refrow{padding-top:var(--sqrow) !important;padding-bottom:var(--sqrow) !important}
+.slide[data-sq] h2{font-size:var(--sqh2) !important;margin-bottom:10px !important}
+.slide[data-sq] .lede{margin-bottom:12px !important}
+.slide[data-sq] .profile > div{padding-top:var(--sqrow) !important}
+.slide[data-sq] table.dense tr.grp td{padding-top:var(--sqrow) !important;padding-bottom:2px !important}
+.slide[data-sq="1"]{--sqpt:32px;--sqgap:22px;--sqrow:8px;--sqh2:50px}
+.slide[data-sq="2"]{--sqpt:26px;--sqgap:17px;--sqrow:6px;--sqh2:46px}
+.slide[data-sq="3"]{--sqpt:20px;--sqgap:13px;--sqrow:5px;--sqh2:42px}
+.slide[data-sq="4"]{--sqpt:15px;--sqgap:10px;--sqrow:4px;--sqh2:38px}
+.slide[data-sq="5"]{--sqpt:12px;--sqgap:7px;--sqrow:3px;--sqh2:34px}
+/* the deepest levels also close the gutters and bring the intro line down to
+   the 16px floor — body copy, tables and figures stay untouched */
+.slide[data-sq="6"]{--sqpt:10px;--sqgap:5px;--sqrow:2px;--sqh2:32px}
+.slide[data-sq="7"]{--sqpt:8px;--sqgap:4px;--sqrow:2px;--sqh2:30px}
+.slide[data-sq="8"]{--sqpt:6px;--sqgap:2px;--sqrow:1px;--sqh2:28px}
+.slide[data-sq="8"] .note,.slide[data-sq="8"] p.small{line-height:1.35 !important}
+
+.slide[data-sq="6"] .lede,.slide[data-sq="7"] .lede{font-size:16px !important;line-height:1.4 !important}
+.slide[data-sq="6"] .g2,.slide[data-sq="7"] .g2{gap:32px !important}
+.slide[data-sq="6"] .g3,.slide[data-sq="7"] .g3{gap:22px !important}
+.slide[data-sq="7"] p.small,.slide[data-sq="7"] .obs p{line-height:1.4 !important}
+</style>
+
+</head>
+<body>
+<body>
+<!-- 1 COVER -->
+<section class="slide dark deeper" style="justify-content:space-between">
+  <div class="cover-rings">
+    <div style="inset:0"></div><div style="inset:90px"></div><div style="inset:180px"></div><div style="inset:270px"></div>
+  </div>
+  <div class="hdr" style="position:relative"><span class="l" style="font-family:var(--dk-serif);text-transform:none;letter-spacing:0;font-size:22px;color:var(--cream)">wealth.com</span><span class="r">Brian Edition · Confidential</span></div>
+  <div style="position:relative">
+    <div class="eyebrow" style="margin-bottom:26px">Bob Jones</div>
+    <h1 style="font-size:100px">Tax Optimization<br>Report</h1>
+    <div class="g3" style="margin-top:44px;gap:0">
+      <div style="padding-right:26px">
+        <div class="lbl">2024</div>
+        <div style="font-family:var(--dk-serif);font-size:30px;margin-top:6px">Lookback</div>
+        <p class="note" style="color:var(--mutD);margin-top:6px">Single · California · age 50</p>
+        <div style="height:3px;background:color-mix(in srgb,var(--cream) 55%,transparent);margin-top:14px;width:70px"></div>
+      </div>
+      <div style="padding:0 26px;border-left:1px solid var(--lineD)">
+        <div class="lbl">2025</div>
+        <div style="font-family:var(--dk-serif);font-size:30px;margin-top:6px">Current Year</div>
+        <p class="note" style="color:var(--mutD);margin-top:6px">Single · California · age 51</p>
+        <div style="height:3px;background:var(--mint);margin-top:14px;width:70px"></div>
+      </div>
+      <div style="padding-left:26px;border-left:1px solid var(--lineD)">
+        <div class="lbl">2026</div>
+        <div style="font-family:var(--dk-serif);font-size:30px;margin-top:6px">Projection</div>
+        <p class="note" style="color:var(--mutD);margin-top:6px">Single · California · age 52</p>
+        <div style="height:3px;background:var(--gold);margin-top:14px;width:70px"></div>
+      </div>
+    </div>
+  </div>
+  <div style="position:relative">
+    <div class="rule" style="margin-bottom:18px"></div>
+    <p class="note" style="color:var(--mutD);max-width:120ch">This report is for illustrative purposes only and has been prepared at your request. Line labels follow the source tax optimization worksheet. Figures for years beyond the most recent filed return are projections. Consult your legal and tax advisors regarding the items discussed here.</p>
+  </div>
+</section>
+
+<!-- 2 TAX IMPACT SUMMARY -->
+<section class="slide led hide">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">Tax impact summary (not in use)</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:10px">Tax impact summary</h2>
+
+    <div class="g4" style="gap:0;border-bottom:2px solid var(--deep);margin-bottom:14px">
+      <div style="padding:8px 20px 10px 0">
+        <div class="lbl">Taxpayer</div>
+        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">Bob</div>
+        <p class="note" style="margin-top:2px">Birth Year 1974</p>
+      </div>
+      <div style="padding:8px 20px 10px;border-left:1px solid var(--line)">
+        <div class="lbl">Single</div>
+        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">Age in current year 50 · 51 · 52</div>
+        <p class="note" style="margin-top:2px">Over 65 — none of the three years</p>
+      </div>
+      <div style="padding:8px 20px 10px;border-left:1px solid var(--line)">
+        <div class="lbl">State</div>
+        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">California</div>
+        <p class="note" style="margin-top:2px">All three years</p>
+      </div>
+      <div style="padding:8px 0 10px 20px;border-left:1px solid var(--line)">
+        <div class="lbl">Age for RMDs</div>
+        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">75</div>
+        <p class="note" style="margin-top:2px">First required distribution year 2049</p>
+      </div>
+    </div>
+
+    <table class="dense sumt">
+      <thead><tr><th>Line item</th><th class="n s1">2024<br><span class="note">Lookback · as filed</span></th><th class="n s2">2025<br><span class="note">Current year</span></th><th class="n s3">2026<br><span class="note">Projected</span></th></tr></thead>
+      <tbody>
+        <tr><td>Adjusted Gross Income</td><td class="n">$357,094</td><td class="n"><span class="note">+$41,844</span> $398,938</td><td class="n"><span class="note">+$24,879</span> $381,973</td></tr>
+        <tr><td>Total Federal Income tax</td><td class="n">$50,723</td><td class="n"><span class="note">+$2,409</span> $53,132</td><td class="n"><span class="note">−$9,282</span> $41,441</td></tr>
+        <tr><td>Self-employment tax</td><td class="n">$1,572</td><td class="n"><span class="note">+$124</span> $1,696</td><td class="n"><span class="note">+$1,254</span> $2,826</td></tr>
+        <tr><td>Total Federal tax</td><td class="n">$52,295</td><td class="n"><span class="note">+$2,533</span> $54,828</td><td class="n"><span class="note">−$8,028</span> $44,267</td></tr>
+        <tr><td>California Tax</td><td class="n">$18,136</td><td class="n"><span class="note">+$3,891</span> $22,027</td><td class="n"><span class="note">+$2,313</span> $20,449</td></tr>
+        <tr><td>Effective Tax Rate (Average) - Income Only</td><td class="n">19.22%</td><td class="n">19.05%</td><td class="n">17.45%</td></tr>
+        <tr><td>Total effective state and federal rate</td><td class="n">26.50%</td><td class="n">26.69%</td><td class="n">25.53%</td></tr>
+        <tr class="total hrow hi"><td>Total state and federal taxes</td><td class="n"><span class="hero">$70,431</span></td><td class="n"><span class="dbad">+$6,424</span> <span class="hero">$76,855</span></td><td class="n"><span class="dgood">−$5,715</span> <span class="hero">$64,716</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule" style="margin:14px 0 12px"></div>
+    <div class="g3">
+      <div class="obs op">
+        <div class="lbl s1" style="margin-bottom:0">2024 · Lookback</div>
+        <h4>The measuring stick</h4>
+        <p>$70,431 of combined tax on $357,094 of AGI — an actual liability, not a projection, and the baseline every delta here is measured against.</p>
+      </div>
+      <div class="obs op">
+        <div class="lbl s2" style="margin-bottom:0">2025 · Current year</div>
+        <h4>Highest tax of the three</h4>
+        <p>AGI rises $41,844 and combined tax rises $6,424, yet the effective income-only rate falls slightly to 19.05% — the increase is volume, not rate.</p>
+      </div>
+      <div class="obs wa">
+        <div class="lbl s3" style="margin-bottom:0">2026 · Projected</div>
+        <h4>Lowest rate of the three</h4>
+        <p>Combined tax of $64,716 at a 25.53% effective rate: larger retirement contributions and a far larger medical deduction carry most of the difference.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>01</span></div>
+</section>
+
+<!-- 3 INCOME + ADJUSTMENTS + AGI (worksheet page 2 layout) -->
+<section class="slide led tightrows">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">01 — Income & Adjustments</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">Income & Adjustments</h2>
+
+    <div class="g4" style="gap:0;border-bottom:2px solid var(--deep);margin-bottom:12px">
+      <div style="padding:6px 20px 8px 0">
+        <div class="lbl">Taxpayer</div>
+        <div style="font-family:var(--dk-serif);font-size:20px;margin-top:2px">Bob · Birth Year 1974</div>
+      </div>
+      <div style="padding:6px 20px 8px;border-left:1px solid var(--line)">
+        <div class="lbl">Single</div>
+        <div style="font-family:var(--dk-serif);font-size:20px;margin-top:2px">Age in current year 50 · 51 · 52</div>
+      </div>
+      <div style="padding:6px 20px 8px;border-left:1px solid var(--line)">
+        <div class="lbl">State</div>
+        <div style="font-family:var(--dk-serif);font-size:20px;margin-top:2px">California</div>
+      </div>
+      <div style="padding:6px 0 8px 20px;border-left:1px solid var(--line)">
+        <div class="lbl">Age for RMDs</div>
+        <div style="font-family:var(--dk-serif);font-size:20px;margin-top:2px">75 · first year 2049</div>
+      </div>
+    </div>
+
+    <table class="dense">
+          <thead><tr><th>Income</th><th class="n s1">2024</th><th class="n s2">2025</th><th class="n s3">2026</th></tr></thead>
+          <tbody>
+            <tr><td>Wages</td><td class="n">$210,000</td><td class="n">$220,000</td><td class="n">$235,000</td></tr>
+            <tr class="sub"><td>Less: Retirement Contributions</td><td class="n">($10,000)</td><td class="n">($12,500)</td><td class="n">($24,500)</td></tr>
+            <tr><td>Interest - Taxable</td><td class="n">$25,000</td><td class="n">$25,000</td><td class="n">$25,000</td></tr>
+            <tr><td>Interest - Non-taxable</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+            <tr><td>Total Dividends</td><td class="n">$15,000</td><td class="n">$16,500</td><td class="n">$16,500</td></tr>
+            <tr class="sub"><td>Qualified Dividends <span class="note">33.33% · 43.64% · 43.64%</span></td><td class="n">$5,000</td><td class="n">$7,200</td><td class="n">$7,200</td></tr>
+            <tr class="sub"><td>Non-Qualified Dividends <span class="note">66.67% · 56.36% · 56.36%</span></td><td class="n">$10,000</td><td class="n">$9,300</td><td class="n">$9,300</td></tr>
+            <tr><td>Short-term capital gains - Prior Year Carryovers</td><td class="n">($35,000)</td><td class="n">($8,200)</td><td class="n">—</td></tr>
+            <tr><td>Long-term capital gains - Prior Year Carryovers</td><td class="n">$23,800</td><td class="n">$5,600</td><td class="n">—</td></tr>
+            <tr><td>Long-term Capital Gain Distributions</td><td class="n">—</td><td class="n">$10,000</td><td class="n">$10,000</td></tr>
+            <tr class="hi"><td>Capital Gains Limitation</td><td class="n">$8,200</td><td class="n">—</td><td class="n">—</td></tr>
+            <tr><td>Schedule C</td><td class="n">$11,130</td><td class="n">$12,000</td><td class="n">$20,000</td></tr>
+            <tr><td>Rental Income / Passive Income (Rentals)</td><td class="n">$9,250</td><td class="n">$30,886</td><td class="n">$886</td></tr>
+            <tr><td>Rental Income / Passive Income (K-1s)</td><td class="n">$100,000</td><td class="n">$100,000</td><td class="n">$100,000</td></tr>
+            <tr><td>Rental Income / Passive Income (Farm Inc)</td><td class="n">$500</td><td class="n">$500</td><td class="n">$500</td></tr>
+            <tr class="total"><td>Total Income</td><td class="n">$357,880</td><td class="n">$399,786</td><td class="n">$383,386</td></tr>
+            <tr class="grp"><td colspan="4">Adjustments</td></tr>
+            <tr><td>Deductible Part of Self-employment Tax</td><td class="n">($786)</td><td class="n">($848)</td><td class="n">($1,413)</td></tr>
+            <tr><td>Self-employed Retirement Contributions</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+            <tr><td>Self-employed Health Insurance</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+            <tr class="sub-tot"><td>Total Adjustments</td><td class="n">($786)</td><td class="n">($848)</td><td class="n">($1,413)</td></tr>
+            <tr class="total hi"><td>Adjusted Gross Income</td><td class="n">$357,094</td><td class="n">$398,938</td><td class="n">$381,973</td></tr>
+          </tbody>
+    </table>
+
+    <p class="note" style="margin-top:10px">Lines with no amount in any of the three years — REIT Dividends, IRA Distributions, Less: IRA Distributions - QCD, Roth Conversions, Pensions, Short-term capital gains, Long-term capital gains, Other Gains, Social Security, Less: Nontaxable portion of SSB — are carried on the worksheet and left blank here.</p>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>01</span></div>
+</section>
+
+<!-- AGI VISUAL -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">02 — Adjusted Gross Income, year over year</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">Adjusted Gross Income, year over year</h2>
+    <p class="lede" style="margin-bottom:18px">The same three AGI figures from the previous page, drawn to scale. 2025 is the high year; 2026 settles between the two, held down by larger retirement contributions.</p>
+    <div class="sm" style="height:300px">
+      <div class="c"><span class="v">$357,094</span><i style="height:89%;background:var(--deep)"></i></div>
+      <div class="c"><span class="v">$398,938</span><i style="height:100%;background:var(--mint)"></i></div>
+      <div class="c"><span class="v">$381,973</span><i style="height:96%;background:var(--gold)"></i></div>
+    </div>
+    <div class="smlbl"><span class="s1">2024 · as filed</span><span class="s2">2025 · current year</span><span class="s3">2026 · projected</span></div>
+    <div style="height:32px"></div>
+    <div class="g3">
+      <div class="obs op"><div class="lbl s1" style="margin-bottom:0">2024</div><h4>The measuring stick</h4><p>$357,094 of AGI, as filed — the baseline the other two years are read against.</p></div>
+      <div class="obs op"><div class="lbl s2" style="margin-bottom:0">2025</div><h4>+$41,844</h4><p>Higher wages, a larger rental result and smaller capital-loss carryovers lift AGI to its highest point.</p></div>
+      <div class="obs wa"><div class="lbl s3" style="margin-bottom:0">2026</div><h4>+$24,879 over 2024</h4><p>Wages rise again, but $24,500 of retirement contributions pull AGI back below the 2025 figure.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>02</span></div>
+</section>
+
+<!-- 5 ITEMIZED DEDUCTIONS -->
+<section class="slide led tightrows">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">03 — Itemized Deductions</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">Itemized Deductions</h2>
+    <p class="lede" style="margin-bottom:12px">Medical is reported gross with its floor added back; the three tax lines are reported gross with the limitation added back. Subtotals are computed from those lines.</p>
+    <table class="dense">
+      <thead><tr><th>Itemized Deductions</th><th class="n s1">2024</th><th class="n s2">2025</th><th class="n s3">2026</th></tr></thead>
+      <tbody>
+        <tr><td>Medical</td><td class="n">($50,003)</td><td class="n">($50,003)</td><td class="n">($75,000)</td></tr>
+        <tr class="sub"><td>Less: Medical Floor</td><td class="n">$26,782</td><td class="n">$29,920</td><td class="n">$28,648</td></tr>
+        <tr class="sub-tot"><td>Medical, deductible <span class="est">derived</span></td><td class="n">($23,221)</td><td class="n">($20,083)</td><td class="n">($46,352)</td></tr>
+        <tr><td>Taxes (Real estate)</td><td class="n">($25,000)</td><td class="n">($25,000)</td><td class="n">($25,000)</td></tr>
+        <tr><td>Taxes (Ad Valorem)</td><td class="n">($500)</td><td class="n">($500)</td><td class="n">($500)</td></tr>
+        <tr><td>Taxes (Income)</td><td class="n">($18,136)</td><td class="n">($22,027)</td><td class="n">($20,449)</td></tr>
+        <tr class="sub"><td>Tax Limitation</td><td class="n">$33,636</td><td class="n">$7,527</td><td class="n">$5,949</td></tr>
+        <tr class="sub-tot hi"><td>Taxes, deductible after limitation <span class="est">derived</span></td><td class="n">($10,000)</td><td class="n">($40,000)</td><td class="n">($40,800)</td></tr>
+        <tr><td>Interest Expense</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>Charitable Contributions - Cash</td><td class="n">($60,000)</td><td class="n">($60,000)</td><td class="n">—</td></tr>
+        <tr><td>Charitable Contributions - Non-cash</td><td class="n">—</td><td class="n">—</td><td class="n">($60,000)</td></tr>
+        <tr class="total"><td>Itemized Deductions, as computed from the lines above <span class="est">derived</span></td><td class="n">($93,221)</td><td class="n">($120,083)</td><td class="n">($147,152)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>03</span></div>
+</section>
+
+<!-- 04 TAX DEDUCTION LIMITATION -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">04 — Tax deduction limitation</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">Deductible state &amp; local tax after limitation</h2>
+    <p class="lede" style="margin-bottom:22px">The solid bar is the amount that can be deducted; the hatched area is the part the cap sets aside.</p>
+    <div class="g3" style="gap:26px">
+      <div>
+        <div class="scen hd slim"><div class="n s1">2024</div></div>
+        <div class="meter" style="margin-top:10px"><i style="width:23%;background:var(--deep)"></i><i class="room" style="width:77%"></i></div>
+        <div class="mscale"><span>$10,000 allowed</span><span>of $43,636</span></div>
+      </div>
+      <div>
+        <div class="scen hd a slim"><div class="n s2">2025</div></div>
+        <div class="meter" style="margin-top:10px"><i style="width:84%;background:var(--mint)"></i><i class="room" style="width:16%"></i></div>
+        <div class="mscale"><span>$40,000 allowed</span><span>of $47,527</span></div>
+      </div>
+      <div>
+        <div class="scen hd b slim"><div class="n s3">2026</div></div>
+        <div class="meter" style="margin-top:10px"><i style="width:89%;background:var(--gold)"></i><i class="room" style="width:11%"></i></div>
+        <div class="mscale"><span>$40,800 allowed</span><span>of $45,949</span></div>
+      </div>
+    </div>
+    <div class="rule" style="margin:26px 0 14px"></div>
+    <p class="note">The three tax lines — real estate, ad valorem and state income tax — are reported gross, and the limitation row on the previous page is the portion the cap disallows. In 2024 only $10,000 of $43,636 survives; the larger cap in 2025 and 2026 lets nearly all of it through.</p>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>04</span></div>
+</section>
+
+
+<!-- 6 FEDERAL TAX -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">05 — Federal tax</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">Federal tax</h2>
+    <p class="lede" style="margin-bottom:12px">Income tax, credits and the other federal taxes that sit beside it, then the two rate measures reported on the worksheet.</p>
+    <table class="dense">
+      <thead><tr><th>Federal</th><th class="n s1">2024</th><th class="n s2">2025</th><th class="n s3">2026</th></tr></thead>
+      <tbody>
+        <tr><td>Federal Taxable Income <span class="note">not supplied</span></td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td></tr>
+        <tr><td>Tax before credits <span class="note">not supplied</span></td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td></tr>
+        <tr><td>Child and other nonrefundable credits <span class="note">not supplied</span></td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td></tr>
+        <tr><td>Alternative minimum tax</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>Foreign Tax Credit</td><td class="n">—</td><td class="n">($825)</td><td class="n">($825)</td></tr>
+        <tr class="sub-tot"><td>Total Federal Income tax</td><td class="n">$50,723</td><td class="n">$53,132</td><td class="n">$41,441</td></tr>
+        <tr><td>Additional Medicare tax <span class="note">0.9%</span></td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>Self-employment tax</td><td class="n">$1,572</td><td class="n">$1,696</td><td class="n">$2,826</td></tr>
+        <tr><td>Premium Tax Credit / Repayment</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>Rounding</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr class="total hi hrow"><td>Total Federal tax</td><td class="n"><span class="hero">$52,295</span></td><td class="n"><span class="dbad">+$2,533</span> <span class="hero">$54,828</span></td><td class="n"><span class="dgood">−$8,028</span> <span class="hero">$44,267</span></td></tr>
+        <tr><td>Payments, withholding and estimates <span class="note">not supplied</span></td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td></tr>
+        <tr><td>Refund or balance due <span class="note">not supplied</span></td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td><td class="n" style="color:var(--mut)">n/a</td></tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:8px">Lines marked <b>not supplied</b> sit on pages 1, 4 and 5 of the source worksheet, which were not included in the material provided. They are shown here in their correct place, without a figure, rather than dropped from the return. Page 09 lists them in full.</p>
+
+
+    <div style="height:28px"></div>
+    <div class="g2">
+      <div>
+        <div class="lbl">Effective Tax Rate (Average) - Income Only</div>
+        <table class="dense" style="margin-top:4px"><tbody>
+          <tr><td class="s1">2024</td><td class="n">19.22%</td></tr>
+          <tr><td class="s2">2025</td><td class="n">19.05%</td></tr>
+          <tr><td class="s3">2026</td><td class="n">17.45%</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="lbl">Total average tax rate (includes other taxes)</div>
+        <table class="dense" style="margin-top:4px"><tbody>
+          <tr><td class="s1">2024</td><td class="n">19.82%</td></tr>
+          <tr><td class="s2">2025</td><td class="n">19.66%</td></tr>
+          <tr><td class="s3">2026</td><td class="n">18.64%</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>05</span></div>
+</section>
+
+<!-- 7 CALIFORNIA -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">06 — California</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">California</h2>
+    <p class="lede" style="margin-bottom:12px">California taxable income runs higher than the federal figure in all three years, and the state bill moves with it.</p>
+    <table class="dense">
+      <thead><tr><th>California:</th><th class="n s1">2024</th><th class="n s2">2025</th><th class="n s3">2026</th></tr></thead>
+      <tbody>
+        <tr><td>California Taxable Income</td><td class="n">$271,594</td><td class="n">$313,438</td><td class="n">$296,473</td></tr>
+        <tr><td>California Tax</td><td class="n">$18,136</td><td class="n">$22,027</td><td class="n">$20,449</td></tr>
+        <tr><td>California Effective Tax Rate</td><td class="n">6.68%</td><td class="n">7.03%</td><td class="n">6.90%</td></tr>
+        <tr class="total hrow hi"><td>Total state and federal taxes</td><td class="n"><span class="hero">$70,431</span></td><td class="n"><span class="dbad">+$6,424</span> <span class="hero">$76,855</span></td><td class="n"><span class="dgood">−$5,715</span> <span class="hero">$64,716</span></td></tr>
+        <tr><td>Total effective state and federal rate</td><td class="n">26.50%</td><td class="n">26.69%</td><td class="n">25.53%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule" style="margin:16px 0 12px"></div>
+    <div class="lbl">Federal and state share of the combined bill</div>
+    <div class="g3" style="gap:26px">
+      <div>
+        <div class="scen hd slim"><div class="n s1">2024 · $70,431</div></div>
+        <div class="bar" style="margin-top:8px"><span style="width:74.3%;background:var(--deep)"></span><span style="width:25.7%;background:color-mix(in srgb,var(--deep) 32%,var(--paper))"></span></div>
+        <div class="mscale"><span>Federal $52,295</span><span>CA $18,136</span></div>
+      </div>
+      <div>
+        <div class="scen hd a slim"><div class="n s2">2025 · $76,855</div></div>
+        <div class="bar" style="margin-top:8px"><span style="width:71.3%;background:var(--mint)"></span><span style="width:28.7%;background:color-mix(in srgb,var(--mint) 32%,var(--paper))"></span></div>
+        <div class="mscale"><span>Federal $54,828</span><span>CA $22,027</span></div>
+      </div>
+      <div>
+        <div class="scen hd b slim"><div class="n s3">2026 · $64,716</div></div>
+        <div class="bar" style="margin-top:8px"><span style="width:68.4%;background:var(--gold)"></span><span style="width:31.6%;background:color-mix(in srgb,var(--gold) 32%,var(--paper))"></span></div>
+        <div class="mscale"><span>Federal $44,267</span><span>CA $20,449</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>06</span></div>
+</section>
+
+<!-- 8 DIVIDEND COMPOSITION -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">07 — Dividend composition</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">Dividend composition</h2>
+    <p class="lede" style="margin-bottom:14px">Total dividends rise $1,500 from 2024 to 2025 and then hold flat, but the qualified share — the part taxed at the lower capital gain rates — climbs from a third to nearly half.</p>
+    <div class="g3" style="gap:36px">
+      <div>
+        <div class="scen hd slim"><div class="n s1">2024</div><div class="t">$15,000 total</div></div>
+        <div class="stack" style="height:190px;width:100%;margin-top:10px">
+          <i style="height:33.33%;background:var(--deep)"></i>
+          <i style="height:66.67%;background:color-mix(in srgb,var(--deep) 26%,var(--paper))"></i>
+        </div>
+        <div class="lr" style="margin-top:10px"><span class="k">Qualified · 33.33%</span><span class="v">$5,000</span></div>
+        <div class="lr"><span class="k">Non-Qualified · 66.67%</span><span class="v">$10,000</span></div>
+      </div>
+      <div>
+        <div class="scen hd a slim"><div class="n s2">2025</div><div class="t">$16,500 total</div></div>
+        <div class="stack" style="height:190px;width:100%;margin-top:10px">
+          <i style="height:43.64%;background:var(--mint)"></i>
+          <i style="height:56.36%;background:color-mix(in srgb,var(--mint) 26%,var(--paper))"></i>
+        </div>
+        <div class="lr" style="margin-top:10px"><span class="k">Qualified · 43.64%</span><span class="v">$7,200</span></div>
+        <div class="lr"><span class="k">Non-Qualified · 56.36%</span><span class="v">$9,300</span></div>
+      </div>
+      <div>
+        <div class="scen hd b slim"><div class="n s3">2026</div><div class="t">$16,500 total</div></div>
+        <div class="stack" style="height:190px;width:100%;margin-top:10px">
+          <i style="height:43.64%;background:var(--gold)"></i>
+          <i style="height:56.36%;background:color-mix(in srgb,var(--gold) 26%,var(--paper))"></i>
+        </div>
+        <div class="lr" style="margin-top:10px"><span class="k">Qualified · 43.64%</span><span class="v">$7,200</span></div>
+        <div class="lr"><span class="k">Non-Qualified · 56.36%</span><span class="v">$9,300</span></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px">Long-term Capital Gain Distributions of $10,000 also appear in 2025 and 2026 and are taxed on the same preferential schedule; they are reported on the income page rather than here.</p>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>07</span></div>
+</section>
+
+<!-- 9 WHAT MOVES THE BILL -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">08 — What moves the bill</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">What moves the bill</h2>
+    <p class="lede" style="margin-bottom:14px">Combined federal and state tax, year by year, and the lines behind each move.</p>
+    <div class="sm" style="height:170px">
+      <div class="c"><span class="v">$70,431</span><i style="height:91.6%;background:var(--deep)"></i></div>
+      <div class="c"><span class="v">$76,855</span><i style="height:100%;background:var(--mint)"></i></div>
+      <div class="c"><span class="v">$64,716</span><i style="height:84.2%;background:var(--gold)"></i></div>
+    </div>
+    <div class="smlbl"><span class="s1">2024 · as filed</span><span class="s2">2025 · current year</span><span class="s3">2026 · projected</span></div>
+
+    <div class="rule" style="margin:18px 0 12px"></div>
+    <div class="g3">
+      <div class="dcard">
+        <div class="wih"><svg viewBox="0 0 24 24"><path d="M4 18 L10 10 L14 14 L20 6"/></svg>2024 to 2025 · up $6,424</div>
+        <p class="note">Wages rise $10,000 and rental income rises $21,636, lifting AGI $41,844. The larger SALT limit gives back $30,000 of deduction, which is why tax rises far less than income.</p>
+      </div>
+      <div class="dcard">
+        <div class="wih"><svg viewBox="0 0 24 24"><path d="M4 6 L10 14 L14 10 L20 18"/></svg>2025 to 2026 · down $12,139</div>
+        <p class="note">Retirement contributions double to $24,500 and deductible medical rises to $46,352, while the Foreign Tax Credit of $825 stays in place.</p>
+      </div>
+      <div class="dcard">
+        <div class="wih"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v5"/></svg>Against the 2024 baseline</div>
+        <p class="note">2026 carries $24,879 more AGI than 2024 yet $5,715 less combined tax — the effective rate falls from 26.50% to 25.53%.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>08</span></div>
+</section>
+
+<!-- 10 DATA NOT SUPPLIED -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob Jones · Single · California</span><span class="r">09 — Source coverage</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:8px">What the source did not include</h2>
+    <p class="lede" style="margin-bottom:14px">This edition is built from pages 2 and 3 of the five-page source worksheet. Pages 1, 4 and 5 were not supplied, so the lines below carry no figure anywhere in this deck. They are stated rather than omitted, and each appears in its own place on page 05 marked "not supplied".</p>
+    <div class="g2">
+      <div>
+        <div class="lbl">Not supplied</div>
+        <div class="lr"><span class="k">Standard deduction comparison</span><span class="v">—</span></div>
+        <div class="lr"><span class="k">Federal Taxable Income</span><span class="v">—</span></div>
+        <div class="lr"><span class="k">Tax before credits and the bracket detail</span><span class="v">—</span></div>
+        <div class="lr"><span class="k">Child and other nonrefundable credits</span><span class="v">—</span></div>
+        <div class="lr"><span class="k">Payments, withholding and estimates</span><span class="v">—</span></div>
+        <div class="lr"><span class="k">Refund or balance due</span><span class="v">—</span></div>
+        <div class="lr"><span class="k">Pages 1, 4 and 5 of the worksheet</span><span class="v">—</span></div>
+      </div>
+      <div>
+        <div class="lbl">Computed here, not read from the source</div>
+        <div class="lr"><span class="k">Medical, deductible</span><span class="v">gross less floor</span></div>
+        <div class="lr"><span class="k">Taxes, deductible after limitation</span><span class="v">gross less limitation</span></div>
+        <div class="lr"><span class="k">Itemized Deductions total</span><span class="v">sum of the lines shown</span></div>
+        <div class="lr"><span class="k">Year-over-year deltas</span><span class="v">difference of supplied figures</span></div>
+        <p class="note" style="margin-top:12px">Everything else on pages 02 through 07 is transcribed from the worksheet, with its labels unchanged.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>09</span></div>
+</section>
+
+
+<script src="/reports/inspect.js"></script>
+<script src="/reports/format.js"></script>
+<script>
+(function(){
+  function overflow(s, body){
+    var ftr = s.querySelector('.ftr');
+    var limit = (ftr ? ftr.getBoundingClientRect().top : s.getBoundingClientRect().bottom);
+    var bottom = body.getBoundingClientRect().top;
+    body.querySelectorAll('*').forEach(function(k){
+      var r = k.getBoundingClientRect(); if(r.height>0) bottom = Math.max(bottom, r.bottom);
+    });
+    return bottom - (limit - 4);
+  }
+  function fit(){
+    document.querySelectorAll('.slide:not(.hide)').forEach(function(s){
+      var body = s.querySelector('.body'); if(!body) return;
+      s.removeAttribute('data-sq');
+      for(var lvl = 1; lvl <= 8; lvl++){
+        if(overflow(s, body) <= 0) return;
+        s.setAttribute('data-sq', String(lvl));
+      }
+    });
+  }
+  function fit2(){ fit(); setTimeout(fit, 120); }
+  var t; function schedule(){ clearTimeout(t); t = setTimeout(fit2, 160); }
+  window.addEventListener('load', schedule);
+  window.addEventListener('message', function(e){ if(e.data && e.data.type==='ds-format') schedule(); });
+  document.addEventListener('DOMContentLoaded', schedule);
+  setTimeout(fit2, 900);
+})();
+</script>
+</body>
+</html>

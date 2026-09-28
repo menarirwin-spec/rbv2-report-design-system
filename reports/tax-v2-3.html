@@ -403,6 +403,7 @@ i.sw.room{border:1px solid var(--line)}
 .keyline{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--mut)}
 .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
 .note{font-size:14px;line-height:1.5;color:var(--mut)}
+.note.n16,.descrow .note.n16{font-size:16px}
 .n .note{margin-right:9px;white-space:nowrap}
 
 .tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
@@ -617,7 +618,7 @@ html[data-format="wide"] .irmaasvg{width:64%}
 .slide[data-sq] td{padding-top:var(--sqrow) !important;padding-bottom:var(--sqrow) !important}
 .slide[data-sq] th{padding-bottom:var(--sqrow) !important}
 .slide[data-sq] .lr,.slide[data-sq] .row,.slide[data-sq] .refrow{padding-top:var(--sqrow) !important;padding-bottom:var(--sqrow) !important}
-.slide[data-sq] h2{font-size:var(--sqh2) !important;margin-bottom:10px !important}
+.slide[data-sq] h2{margin-bottom:10px !important}
 .slide[data-sq] .lede{margin-bottom:12px !important}
 .slide[data-sq] .profile > div{padding-top:var(--sqrow) !important}
 .slide[data-sq] table.dense tr.grp td{padding-top:var(--sqrow) !important;padding-bottom:2px !important}
@@ -631,6 +632,8 @@ html[data-format="wide"] .irmaasvg{width:64%}
 .slide[data-sq="6"]{--sqpt:10px;--sqgap:5px;--sqrow:2px;--sqh2:32px}
 .slide[data-sq="7"]{--sqpt:8px;--sqgap:4px;--sqrow:2px;--sqh2:30px}
 .slide[data-sq="8"]{--sqpt:6px;--sqgap:2px;--sqrow:1px;--sqh2:28px}
+.slide[data-sq="8"] .body{padding-top:0 !important}
+html:not([data-format="page"]) .slide[data-sq="8"]{--irmh:300px}.slide[data-sq="8"] h2{margin-bottom:6px !important;line-height:1 !important}
 .slide[data-sq="8"] .note,.slide[data-sq="8"] p.small{line-height:1.35 !important}
 
 .slide[data-sq="6"] .lede,.slide[data-sq="7"] .lede{font-size:16px !important;line-height:1.4 !important}
@@ -639,14 +642,68 @@ html[data-format="wide"] .irmaasvg{width:64%}
 .slide[data-sq="7"] p.small,.slide[data-sq="7"] .obs p{line-height:1.4 !important}
 </style>
 
+
+<style>
+/* V2.3: MAGI table follows the deck's dense-table conventions */
+.v23 table.mg2 td,.v23 table.mg2 th{white-space:nowrap}
+.v23 table.mg2 td.stc{text-align:right;padding-right:0}
+.v23 table.mg2 th.n{text-align:right}
+.v23 table.mg2 tr.grp sup{font-size:11px;color:var(--deep);margin-left:2px;letter-spacing:0}
+.v23 table.mg2 tr:not(.grp):not(.total) td:first-child{padding-left:14px}
+/* 16px is the floor for essential sentence-case information */
+.note,.fn p,.small,.stat .s,.pair .k,.delta,.lr.sub .k,.smlbl span,.keyline,.profile .m,
+td .subk,td.n .dgood,td.n .dbad,.ymap .yr,.ymap .yr .c,.refrow,.refhd,.refcard.lad .refrow,
+.slide.refpg .refrow,.v23 table.mg td,.obs p,.kc p,.v23 .kc p{font-size:16px !important}
+th .note,.ftr,.hdr{font-size:inherit}
+th .note{font-size:14px !important}
+/* Investment income efficiency: spacing follows the capital gains page */
+.slide.iie table.dense td.n{font-size:16px !important}
+.slide.iie .body > table.dense{margin-top:14px !important}
+.slide.iie .body > table.dense + *{margin-top:26px !important}
+.slide.iie .body > .obs{margin-top:16px !important}
+.slide.iie .body > .fn:last-child{margin-top:auto !important}
+.slide .body > .fn:last-child{padding-bottom:10px}
+html[data-format="wide"] .v23 table.mg2 td{padding-top:3px;padding-bottom:3px;line-height:1.3}
+html[data-format="wide"] .v23 table.mg2 tr.grp td{padding-top:7px;padding-bottom:2px}
+html[data-format="wide"] td .subk{line-height:1.25}
+html[data-format="wide"] .fn p{line-height:1.35}
+html[data-format="wide"] .v23 .kc p{line-height:1.4}
+html[data-format="wide"] .slide.tightrows table.dense td{padding-top:2px;padding-bottom:2px}
+html[data-format="wide"] table.sumt td:first-child{white-space:nowrap}
+html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.tightrows > .body > .small{line-height:1.3}
+</style>
 </head>
 <body>
 <!-- 1 COVER -->
+<style>
+.sum{font-family:var(--dk-serif);font-size:22px;line-height:1.35;color:var(--ink);border-left:3px solid var(--mint);padding:2px 0 2px 16px;margin:0 0 20px;max-width:120ch}
+.sum b{font-weight:600}
+.fn{margin-top:auto;padding-top:10px;border-top:1px solid var(--line)}
+.fn p{font-size:14px;line-height:1.45;color:var(--mut);margin:0}
+.fn p b{color:var(--ink);font-weight:600}
+.fn sup{font-size:11px;font-weight:700;color:var(--deep);margin:0 3px 0 6px}
+.v23 table.mg{width:100%;border-collapse:collapse}
+.v23 table.mg th{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:left;padding:0 10px 6px 0;border-bottom:1.5px solid var(--ink);vertical-align:bottom}
+.v23 table.mg th span{font-family:var(--dk-serif);font-size:17px;letter-spacing:0;text-transform:none;color:var(--ink)}
+.v23 table.mg td{font-size:15px;padding:4px 10px 4px 0;border-bottom:1px solid var(--line)}
+.v23 table.mg tr.g td{font-weight:700;padding-top:9px}
+.v23 table.mg tr.g sup{font-size:11px;color:var(--deep);margin-left:2px}
+.v23 table.mg tr:not(.g) td:first-child{padding-left:14px}
+.v23 .st{white-space:nowrap;font-weight:600}.v23 .st i{font-style:normal;margin-right:5px}
+.v23 .st.x{color:var(--clay)}.v23 .st.e{color:color-mix(in srgb,var(--mint) 70%,var(--ink))}.v23 .st.p{color:var(--gold)}
+.v23 .kc{display:grid;gap:12px}.v23 .kc>div{border-top:1px solid var(--line);padding-top:9px}
+.v23 .kc b{display:block;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);margin-bottom:3px}
+.v23 .kc p{font-size:16px;line-height:1.42;margin:0}
+.v23 .tg{display:grid;grid-template-columns:repeat(4,1fr);gap:0 36px}
+.v23 .tg h3{font-size:22px;margin:0 0 6px;padding-bottom:8px;border-bottom:1.5px solid var(--deep)}
+.v23 .tg .t{padding:10px 0;border-bottom:1px solid var(--line)}
+.v23 .tg .t b{display:block;font-size:16px;margin-bottom:2px}.v23 .tg .t p{font-size:16px;line-height:1.4;margin:0;color:var(--mut)}
+</style>
 <section class="slide dark deeper lit" style="justify-content:space-between">
   <div class="cover-rings">
     <div style="inset:0"></div><div style="inset:90px"></div><div style="inset:180px"></div><div style="inset:270px"></div>
   </div>
-  <div class="hdr" style="position:relative"><span class="l" style="font-family:var(--dk-serif);text-transform:none;letter-spacing:0;font-size:22px;color:var(--cream)">wealth.com</span><span class="r" style="color:var(--cream)">Prepared April 9, 2026 · Confidential</span></div>
+  <div class="hdr" style="position:relative"><span class="l" style="font-family:var(--dk-serif);text-transform:none;letter-spacing:0;font-size:22px;color:var(--cream)">wealth.com</span><span class="r" style="color:var(--mutD);font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:500">Prepared April 9, 2026 · Confidential</span></div>
   <div style="position:relative">
     <div class="eyebrow" style="margin-bottom:26px">Bob Jones and Sally Jones</div>
     <h1 style="font-size:100px">Tax Planning<br>Report</h1>
@@ -654,19 +711,19 @@ html[data-format="wide"] .irmaasvg{width:64%}
       <div style="padding-right:26px">
         <div class="lbl">2025</div>
         <div style="font-family:var(--dk-serif);font-size:30px;margin-top:6px">Lookback</div>
-        <p class="note" style="color:var(--mutD);margin-top:6px">California · current filing position</p>
+        <p class="note n16" style="color:var(--mutD);margin-top:6px">California · current filing position</p>
         <div style="height:3px;background:color-mix(in srgb,var(--cream) 55%,transparent);margin-top:14px;width:70px"></div>
       </div>
       <div style="padding:0 26px;border-left:1px solid var(--lineD)">
         <div class="lbl">2026</div>
         <div style="font-family:var(--dk-serif);font-size:30px;margin-top:6px">Florida Relocation</div>
-        <p class="note" style="color:var(--mutD);margin-top:6px">Domicile change</p>
+        <p class="note n16" style="color:var(--mutD);margin-top:6px">Domicile change</p>
         <div style="height:3px;background:var(--mint);margin-top:14px;width:70px"></div>
       </div>
       <div style="padding-left:26px;border-left:1px solid var(--lineD)">
         <div class="lbl">2026</div>
         <div style="font-family:var(--dk-serif);font-size:30px;margin-top:6px">Florida Relocation + Roth Conversion</div>
-        <p class="note" style="color:var(--mutD);margin-top:6px">$50,000 converted</p>
+        <p class="note n16" style="color:var(--mutD);margin-top:6px">$50,000 converted</p>
         <div style="height:3px;background:var(--gold);margin-top:14px;width:70px"></div>
       </div>
     </div>
@@ -677,104 +734,11 @@ html[data-format="wide"] .irmaasvg{width:64%}
   </div>
 </section>
 
-<!-- 2b TAX IMPACT SUMMARY — COMPACT SCENARIO STRIP -->
-<section class="slide led hide">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">01 — Tax impact summary</span></div>
-  <div class="body">
-    <div class="eyebrow">Lookback · Strategy 1 · Strategy 2</div>
-    <h2 style="margin-bottom:10px">Tax impact summary</h2>
-
-    <div class="g4" style="gap:0;margin-bottom:10px;border-top:2px solid var(--deep);border-bottom:1px solid var(--line)">
-      <div style="padding:8px 20px 8px 0">
-        <div class="lbl">Bob Jones</div>
-        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">Age 58</div>
-        <p class="note" style="margin-top:2px">Catch-up eligible · RMDs begin 2041</p>
-      </div>
-      <div style="padding:8px 20px;border-left:1px solid var(--line)">
-        <div class="lbl">Sally Jones</div>
-        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">Age 56</div>
-        <p class="note" style="margin-top:2px">Catch-up eligible · RMDs begin 2043</p>
-      </div>
-      <div style="padding:8px 20px;border-left:1px solid var(--line)">
-        <div class="lbl">Filing status</div>
-        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">Married Filing Jointly</div>
-        <p class="note" style="margin-top:2px">2 qualifying children · Billy 16, Betty 13</p>
-      </div>
-      <div style="padding:8px 0 8px 20px;border-left:1px solid var(--line)">
-        <div class="lbl">Age-based windows open now</div>
-        <div class="tagrow" style="margin-top:6px">
-          <span class="tag">Roth conversion window</span>
-          <span class="tag">401(k) catch-up</span>
-          <span class="tag">IRMAA lookback from 63</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- scenarios read as one quiet strip: no tinted cards, hairline gutters,
-         figure left and the two rates on a single line beneath it -->
-    <div class="cols" style="border-bottom:1px solid var(--line);padding-bottom:10px">
-      <div style="padding-right:26px">
-        <div class="scen hd slim"><div class="n">Lookback</div><div class="t">2025 · as filed, California</div></div>
-        <div style="margin-top:12px">
-          <div class="figrow"><span class="delta" style="visibility:hidden">—</span><span class="hero-fig">$24,541</span></div>
-          <div class="note" style="margin-top:4px">Total tax liability · federal + state</div>
-          <div class="note" style="margin-top:6px">Effective 9.7% · Marginal 22%</div>
-        </div>
-      </div>
-      <div style="padding:0 26px;border-left:1px solid var(--line)">
-        <div class="scen hd a slim"><div class="n">Strategy 1 · Florida</div><div class="t">2026 estimated · Florida domicile</div></div>
-        <div style="margin-top:12px">
-          <div class="figrow"><span class="delta down">▼ $6,812</span><span class="hero-fig">$17,729</span></div>
-          <div class="note" style="margin-top:4px">Estimated less tax this year than the lookback year</div>
-          <div class="note" style="margin-top:6px">Effective 7.0% · Marginal 22%</div>
-        </div>
-      </div>
-      <div style="padding-left:26px;border-left:1px solid var(--line)">
-        <div class="scen hd b slim"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">2026 estimated · Florida + $50,000 Roth</div></div>
-        <div style="margin-top:12px">
-          <div class="figrow"><span class="delta up">▲ $5,980</span><span class="hero-fig">$30,521</span></div>
-          <div class="note" style="margin-top:4px">Estimated more tax this year · <span class="chip watch">Costs now, saves later</span></div>
-          <div class="note" style="margin-top:6px">Effective 10.1% · Marginal 22%</div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="rule" style="margin:14px 0 6px"></div>
-    <div class="lbl" style="margin-bottom:2px">Where each dollar of income goes</div>
-    <table class="dense sumt" style="margin-top:2px">
-      <thead><tr><th>Line item</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
-      <tbody>
-        <tr><td>Federal tax <span class="note">1040, Line 24</span></td><td class="n">$17,341</td><td class="n"><span class="note">+$388</span> $17,729</td><td class="n"><span class="note">+$13,180</span> $30,521</td></tr>
-        <tr><td>State income tax <span class="note">CA 540 / none</span></td><td class="n">$7,200</td><td class="n"><span class="note">−$7,200</span> $0</td><td class="n"><span class="note">−$7,200</span> $0</td></tr>
-        <tr><td>Retained income <span class="note">AGI less total tax</span></td><td class="n">$227,553</td><td class="n"><span class="note">+$6,812</span> $234,365</td><td class="n"><span class="note">+$44,020</span> $271,573</td></tr>
-        <tr><td>Federal balance owed / (refund) <span class="note">1040, Lines 34–37</span></td><td class="n">($4,659)</td><td class="n"><span class="note">+$388</span> ($4,271)</td><td class="n"><span class="note">+$13,180</span> $8,521</td></tr>
-        <tr><td>State balance owed / (refund) <span class="note">CA 540, Lines 91–97</span></td><td class="n">$1,850</td><td class="n"><span class="note">−$1,850</span> $0</td><td class="n"><span class="note">−$1,850</span> $0</td></tr>
-        <tr class="total hrow"><td>Estimated total tax liability <span class="note">federal + state</span></td><td class="n"><span class="hero">$24,541</span></td><td class="n"><span class="dgood">−$6,812</span> <span class="hero">$17,729</span></td><td class="n"><span class="dbad">+$5,980</span> <span class="hero">$30,521</span></td></tr>
-      </tbody>
-    </table>
-
-    <div style="display:flex;align-items:baseline;gap:14px;margin-top:12px">
-      <div class="lbl" style="margin:0;white-space:nowrap">Applied changes</div>
-      <div class="tagrow">
-        <span class="tag">State relocation · FL</span>
-        <span class="tag">Roth conversion · $50,000</span>
-        <span class="tag">Charitable gifts · $25,000</span>
-        <span class="tag">401(k) catch-up</span>
-        <span class="tag">HSA contribution</span>
-      </div>
-    </div>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>01</span></div>
-</section>
-
-<!-- 2 TAX IMPACT SUMMARY -->
 <section class="slide led">
   <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">01 — Tax impact summary (scenario columns)</span></div>
   <div class="body">
         <h2 style="margin-bottom:2px">Tax impact summary</h2>
-
-    <!-- who they are: names and ages, filing status, dependents -->
+    <p class="sum">Strategy 1 lowers total tax to <b>$17,729</b>, $6,812 below the filed year. Strategy 2 costs <b>$5,980</b> more than the filed year in 2026 to move $50,000 into a Roth.</p><!-- who they are: names and ages, filing status, dependents -->
     <div class="g4" style="gap:0;margin-top:14px;margin-bottom:6px;border-top:2px solid var(--deep);border-bottom:1px solid var(--line)">
       <div style="padding:8px 20px 8px 0">
         <div class="lbl">Taxpayers</div>
@@ -801,9 +765,9 @@ html[data-format="wide"] .irmaasvg{width:64%}
       <thead>
         <tr>
           <th></th>
-          <th class="n"><span class="n s1" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px">1 · Lookback</span><br><span class="note">2025 · as filed, California · actual</span></th>
-          <th class="n"><span class="n s2" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px">2 · Strategy 1 · Florida</span><br><span class="note">2026 · projected · Florida domicile</span></th>
-          <th class="n"><span class="n s3" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px">3 · Strategy 2 · Florida + Roth</span><br><span class="note">2026 · projected · Florida + $50,000 Roth</span><br><span class="chip watch" style="font-family:var(--dk-sans);margin-top:4px;display:inline-block">Costs now, saves later</span></th>
+          <th class="n"><span class="n s1" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px">Lookback</span><br><span class="note">2025 · as filed</span></th>
+          <th class="n"><span class="n s2" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px">Strategy 1 · Florida</span><br><span class="note">2026 · estimated</span></th>
+          <th class="n"><span class="n s3" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px">Strategy 2 · Florida + Roth</span><br><span class="note">2026 · estimated</span></th>
         </tr>
       </thead>
       <tbody>
@@ -821,7 +785,7 @@ html[data-format="wide"] .irmaasvg{width:64%}
       </tbody>
     </table>
 
-    <p class="note" style="margin-top:12px;padding-top:8px">Reading the table — a minus sign is less tax than the filed year, a plus sign more; parentheses are amounts owed rather than refunded.</p>
+    <p class="note n16" style="margin-top:12px;padding-top:8px">Reading the table — a minus sign is less tax than the filed year, a plus sign more; parentheses are amounts owed rather than refunded.</p>
     <div class="g3" style="gap:32px;margin-top:20px">
       <div style="border-top:2px solid var(--ink);padding-top:10px">
         <div class="lbl">Lowest total tax</div>
@@ -834,9 +798,9 @@ html[data-format="wide"] .irmaasvg{width:64%}
         <p class="note" style="margin-top:4px"><b class="s3">Strategy 2</b>, on $50,000 more income after the conversion.</p>
       </div>
       <div style="border-top:2px solid var(--ink);padding-top:10px">
-        <div class="lbl">Cost of the conversion</div>
-        <div class="num" style="font-size:29px;margin-top:4px">$12,792</div>
-        <p class="note" style="margin-top:4px">Federal tax paid now, at 22%, to cut future required distributions.</p>
+        <div class="lbl">Best for the long run</div>
+        <div class="num" style="font-size:29px;margin-top:4px">$50,000</div>
+        <p class="note" style="margin-top:4px"><b class="s3">Strategy 2</b>, removed from future required distributions, plus its growth, from 2041 on. Costs $12,792 in 2026 tax, at 22%.</p>
       </div>
     </div>
 
@@ -846,62 +810,588 @@ html[data-format="wide"] .irmaasvg{width:64%}
   <div class="ftr"><span>Illustrative only · not tax advice</span><span>01</span></div>
 </section>
 
-
-
-<!-- 3 SCENARIO DEFINITIONS -->
-<section class="slide led hide">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">02 — Scenario definitions</span></div>
+<section class="slide led v23">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">02 — Key triggers</span></div>
   <div class="body">
-    <div class="eyebrow">Same three columns, every page</div>
-    <h2 style="margin-bottom:10px">Scenario definitions</h2>
-    <p class="small" style="max-width:130ch;margin-bottom:18px">Three columns, same order on every page, each on its own coloured card: the year already filed, the current year with the Florida move, and the current year with the Florida move plus the Roth conversion. Columns 2 and 3 are estimates.</p>
-    <div class="cols">
-      <div>
-        <div class="scen slim"><div class="n">Lookback</div><div class="t">2025 · as filed</div></div>
-        <div class="led-rows">
-          <div class="lr"><span class="k">California resident, San Francisco primary residence</span></div>
-          <div class="lr"><span class="k">SALT deduction capped at $10,000</span></div>
-          <div class="lr"><span class="k">No Roth conversion</span></div>
-          <div class="lr"><span class="k">Itemized deductions of $110,321</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="scen a slim"><div class="n">Strategy 1 · Florida</div><div class="t">2026 estimated · Florida domicile</div></div>
-        <div class="led-rows">
-          <div class="lr"><span class="k">Florida domicile established January 2026</span></div>
-          <div class="lr"><span class="k">California income tax eliminated; SALT falls to $8,200</span></div>
-          <div class="lr"><span class="k">No conversion, no other elections changed</span></div>
-          <div class="lr"><span class="k">Estimated figures, not a filed return</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="scen b slim"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">2026 estimated · Florida + $50,000 Roth</div></div>
-        <div class="led-rows">
-          <div class="lr"><span class="k">Florida domicile established January 2026</span></div>
-          <div class="lr"><span class="k">California income tax eliminated; SALT falls to $8,200</span></div>
-          <div class="lr"><span class="k">$50,000 traditional IRA converted to Roth at 22%</span></div>
-          <div class="lr"><span class="k">Raises MAGI into IRMAA Tier 2 and the NIIT threshold</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rule" style="margin:18px 0 14px"></div>
-    <div class="g4">
-      <div class="card"><div class="lbl">Bob Jones</div><div style="font-family:var(--dk-serif);font-size:24px">Age 58</div><p class="note" style="margin-top:4px">Catch-up contributions available · RMDs begin 2041</p></div>
-      <div class="card"><div class="lbl">Sally Jones</div><div style="font-family:var(--dk-serif);font-size:24px">Age 56</div><p class="note" style="margin-top:4px">Catch-up contributions available · RMDs begin 2043</p></div>
-      <div class="card"><div class="lbl">Dependents</div><div style="font-family:var(--dk-serif);font-size:24px">2 qualifying children</div><p class="note" style="margin-top:4px">Billy, 16 · Betty, 13</p></div>
-      <div class="card"><div class="lbl">Housing</div><div style="font-family:var(--dk-serif);font-size:24px">Mortgage interest $52,100</div><p class="note" style="margin-top:4px">Property taxes $8,200 · Schedule C net profit $11,130</p></div>
+    <div class="eyebrow">What to watch</div>
+    <h2 style="margin-bottom:10px">Key triggers</h2>
+    <p class="sum">Each item below is something on your return that signals a planning opportunity or something to confirm.</p>
+    <div class="tg">
+      <div><h3>Age</h3><div class="t"><b>Bob, 58</b><p>Catch-up contributions allowed (age 50+).</p></div><div class="t"><b>Sally, 56</b><p>Catch-up contributions allowed (age 50+).</p></div><div class="t"><b>Medicare ahead</b><p>Surcharges first apply at 63, in 2031, based on 2029 income.</p></div></div>
+      <div><h3>Income level</h3><div class="t"><b>Investment income tax</b><p>MAGI of $252,094 is $2,094 over the $250,000 line.</p></div><div class="t"><b>Medicare Tier 2</b><p>The conversion would pass the $274,000 line for 2028 premiums.</p></div><div class="t"><b>Room in the 22% bracket</b><p>$79,153 of income before the 24% rate.</p></div></div>
+      <div><h3>Income source</h3><div class="t"><b>Schedule C business</b><p>$11,130 net profit. A Solo 401(k) or SEP-IRA could lower income.</p></div><div class="t"><b>Schedule E rental</b><p>$9,250 net. Passive-activity and depreciation rules apply.</p></div><div class="t"><b>Capital loss</b><p>A $3,000 net loss offset other income this year.</p></div></div>
+      <div><h3>Deductions and state</h3><div class="t"><b>State and local tax cap</b><p>California tax filled the $10,000 cap.</p></div><div class="t"><b>$25,000 to charity</b><p>Grouping gifts in alternate years through a donor-advised fund could raise the benefit.</p></div><div class="t"><b>California resident</b><p>High state rates drive the Florida domicile review.</p></div></div>
     </div>
   </div>
   <div class="ftr"><span>Illustrative only · not tax advice</span><span>02</span></div>
 </section>
 
-<!-- 4 INCOME OVERVIEW -->
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">03 — Where each dollar goes · stacked bars</span></div>
+  <div class="body">
+    <div class="eyebrow">One shared axis · $0 to total income</div>
+    <h2 style="margin-bottom:10px">Where each dollar of income goes</h2>
+    <p class="sum">Florida keeps <b>93.0%</b> of income, the most of the three. The conversion keeps 89.9% of a larger total.</p>
+
+    <div class="g3" style="gap:44px">
+      <div>
+        <div class="scen hd "><div class="n">Lookback</div><div class="t">$252,094 AGI</div><div class="m">9.7% effective</div></div>
+        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
+          <i style="width:6.9%;background:var(--deep)"></i>
+          <i style="width:2.9%;background:color-mix(in srgb,var(--deep) 46%,var(--paper))"></i>
+          <i class="room" style="width:90.2%;border-left:1px solid var(--line)"></i>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">9.8% to tax</span><span class="note">$252,094</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--deep)"></i>Federal tax</span><span class="v">$17,341 <span class="note">6.9%</span></span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 46%,var(--paper))"></i>State tax</span><span class="v">$7,200 <span class="note">2.9%</span></span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Income retained</span><span class="v">$227,553 <span class="note">90.3%</span></span></div>
+          <div class="lr tot"><span class="k">Total tax taken</span><span class="v">$24,541</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen hd a"><div class="n">Strategy 1 · Florida</div><div class="t">$252,094 AGI</div><div class="m">7.0% effective</div></div>
+        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
+          <i style="width:7.0%;background:var(--mint)"></i>
+          
+          <i class="room" style="width:93.0%;border-left:1px solid var(--line)"></i>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">7.0% to tax</span><span class="note">$252,094</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--mint)"></i>Federal tax</span><span class="v">$17,729 <span class="note">7.0%</span></span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--mint) 46%,var(--paper))"></i>State tax</span><span class="v">$0 <span class="note">0.0%</span></span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Income retained</span><span class="v">$234,365 <span class="note">93.0%</span></span></div>
+          <div class="lr tot"><span class="k">Total tax taken</span><span class="v">$17,729</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen hd b"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">$302,094 AGI</div><div class="m">10.1% effective</div></div>
+        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
+          <i style="width:10.1%;background:var(--gold)"></i>
+          
+          <i class="room" style="width:89.9%;border-left:1px solid var(--line)"></i>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">10.1% to tax</span><span class="note">$302,094</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--gold)"></i>Federal tax</span><span class="v">$30,521 <span class="note">10.1%</span></span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--gold) 46%,var(--paper))"></i>State tax</span><span class="v">$0 <span class="note">0.0%</span></span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Income retained</span><span class="v">$271,573 <span class="note">89.9%</span></span></div>
+          <div class="lr tot"><span class="k">Total tax taken</span><span class="v">$30,521</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="obs op" style="margin-top:24px">
+      <div class="lbl">Reading the bars</div>
+      <p>Relocating removes the state segment entirely and pushes the hatched tail from 90.3% to 93.0% of income. The conversion widens the federal segment to 10.1% on a larger bar: more tax taken, but on $50,000 more income, and at 22% now rather than a higher rate later.</p>
+    </div>
+  <div class="fn"><p><b>How to read this page.</b> Each bar runs from $0 to that scenario's total income. Federal tax fills from the left, state tax follows in the lighter tint, and the hatched tail is the income retained.</p></div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>03</span></div>
+</section>
+
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">04 — Federal brackets, drawn · horizontal</span></div>
+  <div class="body">
+    <div class="eyebrow">One shared axis to $206,700</div>
+    <h2 style="margin-bottom:10px">Federal tax bracket distribution</h2>
+    <p class="sum">Every scenario stays in the 22% bracket. The conversion uses 86.8% of it, leaving <b>$27,353</b> before the 24% rate.</p>
+
+    <div class="g3" style="gap:44px">
+      <div>
+        <div class="scen hd"><div class="n">Lookback</div><div class="t">$127,547 ordinary taxable</div><div class="m">2025 · California</div></div>
+        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
+          <i style="width:11.5%;background:color-mix(in srgb,var(--deep) 26%,var(--paper))"></i>
+          <i style="width:35.4%;background:color-mix(in srgb,var(--deep) 52%,var(--paper))"></i>
+          <i style="width:14.8%;background:var(--deep)"></i>
+          <i class="room" style="width:38.3%;border-left:1px solid var(--line)"></i>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">61.7% used</span><span class="note">$206,700</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 26%,var(--paper))"></i>10% band</span><span class="v">$23,850</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 52%,var(--paper))"></i>12% band</span><span class="v">$73,100</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--deep)"></i>22% band</span><span class="v">$30,597</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Room remaining</span><span class="v">$79,153</span></div>
+          <div class="lr tot"><span class="k">Ordinary income tax</span><span class="v">$17,888 <span class="note">14.0%</span></span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="scen hd a"><div class="n">Strategy 1 · Florida</div><div class="t">$129,347 ordinary taxable</div><div class="m">2026 · estimated</div></div>
+        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
+          <i style="width:11.6%;background:color-mix(in srgb,var(--mint) 26%,var(--paper))"></i>
+          <i style="width:35.3%;background:color-mix(in srgb,var(--mint) 58%,var(--paper))"></i>
+          <i style="width:15.6%;background:var(--mint)"></i>
+          <i class="room" style="width:37.5%;border-left:1px solid var(--line)"></i>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">62.5% used</span><span class="note">$206,700</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--mint) 26%,var(--paper))"></i>10% band</span><span class="v">$24,000</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--mint) 58%,var(--paper))"></i>12% band</span><span class="v">$73,000</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--mint)"></i>22% band</span><span class="v">$32,347</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Room remaining</span><span class="v">$77,353</span></div>
+          <div class="lr tot"><span class="k">Ordinary income tax</span><span class="v mint">$18,276 <span class="note">14.1%</span></span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="scen hd b"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">$179,347 ordinary taxable</div><div class="m">2026 · +$50,000 converted</div></div>
+        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
+          <i style="width:11.6%;background:color-mix(in srgb,var(--gold) 28%,var(--paper))"></i>
+          <i style="width:35.3%;background:color-mix(in srgb,var(--gold) 60%,var(--paper))"></i>
+          <i style="width:39.8%;background:var(--gold)"></i>
+          <i class="room" style="width:13.2%;border-left:1px solid var(--line)"></i>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">86.8% used</span><span class="note">$206,700</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--gold) 28%,var(--paper))"></i>10% band</span><span class="v">$24,000</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--gold) 60%,var(--paper))"></i>12% band</span><span class="v">$73,000</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--gold)"></i>22% band</span><span class="v">$82,347</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Room remaining</span><span class="v">$27,353</span></div>
+          <div class="lr tot"><span class="k">Ordinary income tax</span><span class="v gold">$29,276 <span class="note">16.3%</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="gap:44px;margin-top:26px;align-items:start">
+      <div class="obs op"><div class="lbl">Bracket headroom</div><p>Every bar ends at the top of the 22% bracket, so the hatched tail reads as headroom: the conversion consumes $50,000 of the 22% band and leaves $27,353 before the 24% rate begins. The marginal rate stays at 22% in all three scenarios.</p></div>
+      <p class="note" style="padding-top:10px;font-size:16px">Qualified dividends are taxed at capital gains rates and are excluded from these bars. The 10% band figure is the statutory bracket width; the baseline year is $150 narrower.</p>
+    </div>
+  <div class="fn"><p><b>How to read this page.</b> The same brackets drawn left to right: each bar starts at $0 and ends at the top of the 22% bracket, so income climbs through the 10%, 12% and 22% bands and the hatched tail is the room remaining before the 24% rate begins. Every bar uses the same width, so headroom compares directly.</p></div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>04</span></div>
+</section>
+
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">05 — State brackets, drawn · horizontal</span></div>
+  <div class="body">
+    <div class="eyebrow">Six California bands against zero</div>
+    <h2 style="margin-bottom:10px">State tax bracket distribution</h2>
+    <p class="sum">Moving to Florida removes the <b>$7,200</b> California income tax entirely, in both strategies.</p>
+
+    <div class="g3" style="gap:44px">
+      <div>
+        <div class="scen hd"><div class="n">Lookback</div><div class="t">$151,773 CA taxable</div><div class="m">2025 · California</div></div>
+        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
+          <i style="width:14.2%;background:color-mix(in srgb,var(--deep) 18%,var(--paper))"></i>
+          <i style="width:19.4%;background:color-mix(in srgb,var(--deep) 34%,var(--paper))"></i>
+          <i style="width:19.4%;background:color-mix(in srgb,var(--deep) 50%,var(--paper))"></i>
+          <i style="width:20.6%;background:color-mix(in srgb,var(--deep) 66%,var(--paper))"></i>
+          <i style="width:19.4%;background:color-mix(in srgb,var(--deep) 82%,var(--paper))"></i>
+          <i style="width:7.0%;background:var(--deep)"></i>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">top bracket 9.3%</span><span class="note">$151,773</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 18%,var(--paper))"></i>1.0% $21,512</span><span class="v">$215</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 34%,var(--paper))"></i>2.0% $29,486</span><span class="v">$590</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 50%,var(--paper))"></i>4.0% $29,492</span><span class="v">$1,180</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 66%,var(--paper))"></i>6.0% $31,242</span><span class="v">$1,875</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 82%,var(--paper))"></i>8.0% $29,480</span><span class="v">$2,358</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--deep)"></i>9.3% $10,561</span><span class="v">$982</span></div>
+          <div class="lr tot"><span class="k">State income tax</span><span class="v">$7,200</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="scen hd a"><div class="n">Strategy 1 · Florida</div><div class="t">$0 FL taxable</div><div class="m">2026 · estimated</div></div>
+        <div style="display:flex;align-items:center;height:44px;margin-top:6px">
+          <div style="flex:1;height:2px;background:var(--mint)"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">no state brackets</span><span class="note">$151,773</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr zero"><span class="k">Florida income tax brackets <span class="note">none exist</span></span><span class="v">$0</span></div>
+          <div class="lr"><span class="k">Saved against the baseline</span><span class="v mint">$7,200</span></div>
+          <div class="lr tot"><span class="k">State income tax</span><span class="v mint">$0</span></div>
+        </div>
+        <p class="small" style="margin-top:10px">Florida levies no state income tax, so the whole $7,200 stays in the household every year.</p>
+      </div>
+
+      <div>
+        <div class="scen hd b"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">$0 FL taxable</div><div class="m">2026 · +$50,000 converted</div></div>
+        <div style="display:flex;align-items:center;height:44px;margin-top:6px">
+          <div style="flex:1;height:2px;background:var(--gold)"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note">no state brackets</span><span class="note">$151,773</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr zero"><span class="k">Florida income tax brackets <span class="note">none exist</span></span><span class="v">$0</span></div>
+          <div class="lr"><span class="k">Converted amount taxed by state</span><span class="v gold">$0</span></div>
+          <div class="lr tot"><span class="k">State income tax</span><span class="v gold">$0</span></div>
+        </div>
+        <p class="small" style="margin-top:10px">The $50,000 conversion is taxed federally only — no state ever reaches it.</p>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:22px;font-size:16px">California taxable income of $151,773 differs from federal because state and local taxes are not deductible on Form 540.</p>
+  <div class="fn"><p><b>How to read this page.</b> California taxable income climbs left to right through six brackets in the baseline. Both 2026 scenarios sit at zero, drawn on the same axis as a flat line rather than as separate panels.</p></div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>05</span></div>
+</section>
+
+<section class="slide led v23">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">06 — MAGI considerations</span></div>
+  <div class="body">
+    <div class="eyebrow">Modified adjusted gross income</div>
+    <h2 style="margin-bottom:10px">MAGI considerations</h2>
+    <p class="sum">Your income is above most credit and contribution limits already. The conversion also costs the new clean vehicle credit and the adoption credit, and adds Medicare surcharges.</p>
+    <div class="g2" style="grid-template-columns:2.2fr 1fr;gap:44px;align-items:start">
+      <table class="dense mg2"><thead><tr><th>Credit, deduction or tax</th><th>2025 range · MFJ</th><th class="n s1">Lookback &amp; Strategy 1<br><span class="note">2025 · 2026 est.</span></th><th class="n s3">Strategy 2<br><span class="note">2026 · estimated</span></th></tr></thead><tbody><tr class="grp"><td colspan="4">Education and family credits<sup>1</sup></td></tr><tr><td>Coverdell ESA</td><td>$190,000 – $220,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr><td>Lifetime Learning Credit</td><td>$160,000 – $180,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr><td>American Opportunity Credit</td><td>$160,000 – $180,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr><td>Child Tax Credit</td><td>$400,000 – $440,000</td><td class="stc"><span class="st e"><i>●</i>Eligible</span></td><td class="stc"><span class="st e"><i>●</i>Eligible</span></td></tr><tr><td>Qualified Adoption Expenses Credit</td><td>$259,190 – $299,190</td><td class="stc"><span class="st e"><i>●</i>Eligible</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr><td>Saver's Credit</td><td>$51,000 – $79,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr class="grp"><td colspan="4">Vehicle credits<sup>1</sup></td></tr><tr><td>Clean Vehicle Credit (new)</td><td>up to $300,000</td><td class="stc"><span class="st e"><i>●</i>Eligible</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr><td>Clean Vehicle Credit (used)</td><td>up to $150,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr class="grp"><td colspan="4">Student loan interest deduction<sup>2</sup></td></tr><tr><td>Student loan interest deduction</td><td>$170,000 – $200,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr class="grp"><td colspan="4">Net investment income tax<sup>3</sup></td></tr><tr><td>3.8% tax on investment income</td><td>over $250,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr class="grp"><td colspan="4">Roth IRA contributions<sup>4</sup></td></tr><tr><td>Direct Roth IRA contribution</td><td>$236,000 – $246,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr class="grp"><td colspan="4">IRA contribution deductibility<sup>5</sup></td></tr><tr><td>Covered by a workplace plan</td><td>$126,000 – $146,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr><td>Not covered, spouse covered</td><td>$236,000 – $246,000</td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td><td class="stc"><span class="st x"><i>▲</i>Exceeds</span></td></tr><tr class="total"><td colspan="2">Modified adjusted gross income</td><td class="n">$252,094</td><td class="n">$302,094</td></tr></tbody></table>
+      <div class="kc"><div class="lbl" style="margin:0">Key considerations</div>
+        <div><b>Investment income tax (3.8%)</b><p>MAGI is $2,094 over the $250,000 line today, costing $80. The conversion raises the tax to $1,872.</p></div>
+        <div><b>Medicare surcharge tiers</b><p>2026 income sets 2028 premiums. The conversion lands $28,094 past the $274,000 Tier 2 line; a smaller conversion could stay in Tier 1.</p></div>
+        <div><b>Roth IRA contributions</b><p>Direct contributions are not allowed in any scenario. A backdoor Roth could work, but only cleanly with no other pre-tax IRA balances, because of the pro-rata rule.</p></div>
+        <div><b>Credits the conversion would cost</b><p>The extra $50,000 moves MAGI past the $300,000 new clean vehicle limit and the $299,190 end of the adoption credit range.</p></div>
+      </div>
+    </div>
+    <div class="fn"><p><sup>1</sup>AGI plus excluded foreign income and housing amounts. <sup>2</sup>AGI plus the student loan interest deduction and foreign exclusions. <sup>3</sup>AGI plus excluded foreign earned income. <sup>4</sup>AGI plus the IRA deduction and student loan interest, less any Roth conversion income. <sup>5</sup>AGI plus the IRA deduction and foreign exclusions. Each MAGI definition adds back different items; with no foreign income or IRA deduction on this return, each equals AGI, shown in the bottom row. Strategy 1 has the same MAGI as the filed year. Ranges are 2025 figures; 2026 figures are indexed slightly higher.</p></div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>06</span></div>
+</section>
+
+<section class="slide tightrows led tight">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">07 — Net investment income</span></div>
+  <div class="body">
+    <div class="eyebrow">NIIT</div>
+    <h2 style="margin-bottom:10px">Net investment income summary</h2>
+    <p class="sum">The filed year and Strategy 1 sit <b>$2,094</b> over the $250,000 line, for $80 of tax. The conversion raises that to <b>$1,872</b>.</p>
+    <div class="g3" style="gap:44px">
+      <div>
+        <div class="scen hd"><div class="n">Lookback</div><div class="t">$252,094 MAGI</div><div class="m">2025 · as filed</div></div>
+        <div style="position:relative">
+          <div style="display:flex;height:30px;border-radius:2px;overflow:hidden;margin-top:6px">
+            <i style="width:78.1%;background:color-mix(in srgb,var(--deep) 46%,var(--paper))"></i>
+            <i style="width:0.7%;background:var(--deep)"></i>
+            <i class="room" style="width:21.2%;border-left:1px solid var(--line)"></i>
+          </div>
+          <div style="position:absolute;left:78.1%;top:0;bottom:-10px;border-left:1.5px dashed color-mix(in srgb,var(--gold) 65%,var(--ink))"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note" style="font-weight:700">$250,000 threshold</span><span class="note">$320,000 · scale end</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 46%,var(--paper))"></i>MAGI below the threshold</span><span class="v">$250,000</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--deep)"></i>Excess over the threshold</span><span class="v">$2,094</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Net investment income untaxed</span><span class="v">$47,156</span></div>
+          <div class="lr tot"><span class="k">Net investment income tax</span><span class="v">$80</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="scen hd a"><div class="n">Strategy 1 · Florida</div><div class="t">$252,094 MAGI</div><div class="m">2026 · estimated</div></div>
+        <div style="position:relative">
+          <div style="display:flex;height:30px;border-radius:2px;overflow:hidden;margin-top:6px">
+            <i style="width:78.1%;background:color-mix(in srgb,var(--mint) 46%,var(--paper))"></i>
+            <i style="width:0.7%;background:var(--mint)"></i>
+            <i class="room" style="width:21.2%;border-left:1px solid var(--line)"></i>
+          </div>
+          <div style="position:absolute;left:78.1%;top:0;bottom:-10px;border-left:1.5px dashed color-mix(in srgb,var(--gold) 65%,var(--ink))"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note" style="font-weight:700">$250,000 threshold</span><span class="note">$320,000 · scale end</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--mint) 46%,var(--paper))"></i>MAGI below the threshold</span><span class="v">$250,000</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--mint)"></i>Excess over the threshold</span><span class="v">$2,094</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Net investment income untaxed</span><span class="v">$47,156</span></div>
+          
+          <div class="lr tot"><span class="k">Net investment income tax</span><span class="v mint">$80</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="scen hd b"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">$302,094 MAGI</div><div class="m">2026 · +$50,000 converted</div></div>
+        <div style="position:relative">
+          <div style="display:flex;height:30px;border-radius:2px;overflow:hidden;margin-top:6px">
+            <i style="width:78.1%;background:color-mix(in srgb,var(--gold) 46%,var(--paper))"></i>
+            <i style="width:16.3%;background:var(--gold)"></i>
+            <i class="room" style="width:5.6%;border-left:1px solid var(--line)"></i>
+          </div>
+          <div style="position:absolute;left:78.1%;top:0;bottom:-10px;border-left:1.5px dashed color-mix(in srgb,var(--gold) 65%,var(--ink))"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span class="note">$0</span><span class="note" style="font-weight:700">$250,000 threshold</span><span class="note">$320,000 · scale end</span>
+        </div>
+        <div class="led-rows" style="margin-top:12px">
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--gold) 46%,var(--paper))"></i>MAGI below the threshold</span><span class="v">$250,000</span></div>
+          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--gold)"></i>Excess over the threshold</span><span class="v">$52,094</span></div>
+          <div class="lr zero"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Net investment income untaxed</span><span class="v">$0</span></div>
+          
+          <div class="lr tot"><span class="k">Net investment income tax</span><span class="v gold">$1,872</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule" style="margin:8px 0 8px"></div>
+    <div class="lbl" style="display:none">Form 8960 worksheet</div>
+    <table class="dense" style="margin-top:8px">
+      <thead><tr><th>Net investment income tax</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
+      <tbody>
+        <tr><td>Modified adjusted gross income <span class="note">Line 13</span></td><td class="n">$252,094</td><td class="n"><span class="note">—</span> $252,094</td><td class="n"><span class="note">+$50,000</span> $302,094</td></tr>
+        <tr><td>Threshold, married filing jointly <span class="note">Line 14</span></td><td class="n">($250,000)</td><td class="n"><span class="note">—</span> ($250,000)</td><td class="n"><span class="note">—</span> ($250,000)</td></tr>
+        <tr><td>Excess MAGI over threshold <span class="note">Line 15</span></td><td class="n">$2,094</td><td class="n"><span class="note">—</span> $2,094</td><td class="n"><span class="note">+$50,000</span> $52,094</td></tr>
+        <tr class="grp"><td colspan="4">Net investment income components <span class="note">Part I</span></td></tr>
+        <tr class="sub"><td>Rental net income <span class="note">Schedule E</span></td><td class="n">$9,250</td><td class="n"><span class="note">—</span> $9,250</td><td class="n"><span class="note">—</span> $9,250</td></tr>
+        <tr class="sub"><td>Interest &amp; dividends <span class="note">taxable interest and ordinary dividends</span></td><td class="n">$40,000</td><td class="n"><span class="note">—</span> $40,000</td><td class="n"><span class="note">—</span> $40,000</td></tr>
+        <tr class="sub zero"><td>Capital gains <span class="note">net loss in all three years</span></td><td class="n">$0</td><td class="n"><span class="note">—</span> $0</td><td class="n"><span class="note">—</span> $0</td></tr>
+        <tr class="sub zero"><td>Passive income <span class="note">no other passive activity</span></td><td class="n">$0</td><td class="n"><span class="note">—</span> $0</td><td class="n"><span class="note">—</span> $0</td></tr>
+        <tr class="sub-tot"><td>Net investment income <span class="note">Line 12</span></td><td class="n">$49,250</td><td class="n"><span class="note">—</span> $49,250</td><td class="n"><span class="note">—</span> $49,250</td></tr>
+        <tr class="hi"><td>Lesser of excess or NII <span class="note">Line 16</span></td><td class="n">$2,094</td><td class="n"><span class="note">—</span> $2,094</td><td class="n"><span class="note">+$47,156</span> $49,250</td></tr>
+        <tr class="total"><td>Net investment income tax <span class="note">3.8% of the lesser</span></td><td class="n">$80</td><td class="n"><span class="note">—</span> $80</td><td class="n"><span class="note">+$1,792</span> $1,872</td></tr>
+      </tbody>
+    </table>
+  <div class="fn"><p><b>How to read this page.</b> All three bars share one $320,000 scale (the highest MAGI, rounded up), so they compare directly. The dashed line marks the $250,000 threshold: the solid tip beyond it is the excess the 3.8% tax reaches; the hatched tail is investment income it never touches. Only the excess moves between scenarios.</p></div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>07</span></div>
+</section>
+
+<section class="slide led tight">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">08 — Medicare IRMAA</span></div>
+  <div class="body">
+    <div class="eyebrow">IRMAA</div>
+    <h2 style="margin-bottom:10px">Medicare IRMAA impact</h2>
+    <p class="sum">Strategy 2 moves 2026 income into <b>Tier 2</b>, raising 2028 Medicare premiums for both of you. The other scenarios stay in Tier 1.</p>
+    <table class="dense">
+      <thead><tr><th>Medicare IRMAA · each column on its own determination year</th><th class="n s1">Lookback<br><span class="note">2025 MAGI · sets 2027 premium</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 MAGI · sets 2028 premium</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 MAGI · sets 2028 premium</span></th></tr></thead>
+      <tbody>
+        <tr><td>MAGI used for the determination <span class="note">two years prior</span></td><td class="n">$252,094</td><td class="n"><span class="note">—</span> $252,094</td><td class="n"><span class="note">+$50,000</span> $302,094</td></tr>
+        <tr class="hi"><td>IRMAA tier reached</td><td class="n">Tier 1</td><td class="n"><span class="note">—</span> Tier 1</td><td class="n">Tier 2</td></tr>
+        <tr><td>Part B premium <span class="note">per enrollee, monthly</span></td><td class="n">$244.30</td><td class="n"><span class="note">—</span> $244.30</td><td class="n"><span class="note">+$105.10</span> $349.40</td></tr>
+        <tr><td>Part D surcharge <span class="note">per enrollee, monthly</span></td><td class="n">$12.90</td><td class="n"><span class="note">—</span> $12.90</td><td class="n"><span class="note">+$20.40</span> $33.30</td></tr>
+        <tr><td>Surcharge above standard <span class="note">per enrollee, annual</span></td><td class="n">$990</td><td class="n"><span class="note">—</span> $990</td><td class="n"><span class="note">+$1,506</span> $2,496</td></tr>
+        <tr><td>Headroom before the next tier</td><td class="n">$21,906</td><td class="n"><span class="note">—</span> $21,906</td><td class="n"><span class="note">+$18,000</span> $39,906</td></tr>
+        <tr class="total"><td>Household surcharge <span class="note">two enrollees, annual</span></td><td class="n">$1,980</td><td class="n"><span class="note">—</span> $1,980</td><td class="n"><span class="note">+$3,012</span> $4,992</td></tr>
+      </tbody>
+    </table>
+
+    <div class="obs wa" style="margin-top:22px">
+      <div class="lbl">Why the tier matters more than the rate</div>
+      <div class="g2" style="grid-template-columns:1fr 1fr;gap:44px;align-items:start">
+        <p>IRMAA steps rather than tapers: one dollar over a threshold moves the whole household to the next tier for the full year. The conversion clears the $274,000 line, so it carries $3,012 of surcharge on top of the income tax it triggers.</p>
+        <p>A partial conversion of about $21,900 would stay inside Tier 1 and avoid the surcharge entirely. The next page maps every tier threshold and what crossing each one costs.</p>
+      </div>
+    </div>
+  <div class="fn"><p><b>How to read this page.</b> Medicare surcharges are determined by modified adjusted gross income from two years prior, and each year is tested against its own thresholds: 2025 income sets the 2027 premium, 2026 income sets the 2028 premium. Surcharges are assessed per enrollee, and both Bob and Sally are assumed enrolled.</p></div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>08</span></div>
+</section>
+
+<section class="slide led shrinkviz">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">09 — IRMAA tier mapping</span></div>
+  <div class="body">
+    <div class="eyebrow">Steps, not tapers · 2026 income, 2028 premiums</div>
+    <h2 style="margin-bottom:10px">IRMAA tier threshold mapping</h2>
+    <p class="sum">Strategy 2's <b>$302,094</b> lands $28,094 past the $274,000 Tier 2 line. Strategy 1 stays in Tier 1.</p>
+
+    <svg class="irmaasvg" viewBox="0 -46 1400 446" style="height:auto;max-height:var(--irmh,none);overflow:visible" role="img" aria-label="IRMAA surcharge steps by modified adjusted gross income, with the scenarios marked">
+      <path d="M0 340 H540.3 V290.5 H679.5 V215.2 H848.2 V139.9 H1016.8 V64.6 H1240 V340 Z"
+            fill="color-mix(in srgb,var(--deep) 10%,var(--paper))"/>
+      <path d="M0 340 H540.3 V290.5 H679.5 V215.2 H848.2 V139.9 H1016.8 V64.6 H1240"
+            fill="none" stroke="var(--deep)" stroke-width="3" stroke-linejoin="miter"/>
+
+      <g stroke="var(--line)" stroke-dasharray="4 5">
+        <line x1="0" y1="290.5" x2="1246" y2="290.5"/>
+        <line x1="0" y1="215.2" x2="1246" y2="215.2"/>
+        <line x1="0" y1="139.9" x2="1246" y2="139.9"/>
+        <line x1="0" y1="64.6" x2="1246" y2="64.6"/>
+      </g>
+
+      <line x1="0" y1="340" x2="1240" y2="340" stroke="var(--line)" stroke-width="1"/>
+
+      <g fill="var(--mut)" font-family="var(--dk-sans)">
+        <text x="1252" y="18" font-size="12" font-weight="700" letter-spacing="0.12em">COMBINED ANNUAL</text>
+        <text x="1252" y="34" font-size="12" font-weight="700" letter-spacing="0.12em">HOUSEHOLD SURCHARGE</text>
+        <g font-size="14">
+          <text x="1252" y="345">Standard · $0</text>
+          <text x="1252" y="295">Tier 1 · $1,980</text>
+          <text x="1252" y="220">Tier 2 · $4,992</text>
+          <text x="1252" y="144">Tier 3 · $8,004</text>
+          <text x="1252" y="69">Tier 4 · $11,016</text>
+        </g>
+      </g>
+
+      <g>
+        <g stroke="var(--line)">
+          <line x1="0.5" y1="340" x2="0.5" y2="352"/>
+          <line x1="248" y1="340" x2="248" y2="352"/>
+          <line x1="540.3" y1="340" x2="540.3" y2="352"/>
+          <line x1="679.5" y1="340" x2="679.5" y2="352"/>
+          <line x1="848.2" y1="340" x2="848.2" y2="352"/>
+          <line x1="1016.8" y1="340" x2="1016.8" y2="352"/>
+        </g>
+        <g fill="var(--mut)" font-size="14" text-anchor="middle" font-family="var(--dk-sans)">
+          <text x="8" y="372">$0</text>
+          <text x="248" y="372">$100k</text>
+          <text x="540.3" y="372">$218k</text>
+          <text x="679.5" y="372">$274k</text>
+          <text x="848.2" y="372">$342k</text>
+          <text x="1016.8" y="372">$410k</text>
+        </g>
+      </g>
+
+      <text x="8" y="328" font-size="14" fill="var(--mut)" font-family="var(--dk-sans)">Standard band · no surcharge on any income up to $218,000</text>
+
+      <!-- one determination year only: 2026 income tested on 2028 thresholds -->
+      <g>
+        <path d="M632 282 V60 H430 V24" fill="none" stroke="var(--deep)" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <circle cx="632" cy="290.5" r="8" fill="var(--deep)"/>
+        <text x="430" y="-4" font-size="15" font-weight="700" letter-spacing="0.1em" fill="var(--deep)" text-anchor="end" font-family="var(--dk-sans)">STRATEGY 1 · FLORIDA</text>
+        <text x="430" y="16" font-size="14" fill="var(--mut)" text-anchor="end" font-family="var(--dk-sans)">Tier 1 · $21,906 of headroom</text>
+      </g>
+
+      <g>
+        <line x1="749.2" y1="207" x2="749.2" y2="24" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <circle cx="749.2" cy="215.2" r="8" fill="var(--gold)"/>
+        <text x="765" y="-4" font-size="15" font-weight="700" letter-spacing="0.1em" fill="var(--gold)" font-family="var(--dk-sans)">STRATEGY 2 · FLORIDA + ROTH · EST.</text>
+        <text x="765" y="16" font-size="14" fill="var(--mut)" font-family="var(--dk-sans)">Tier 2 · $28,094 over the line</text>
+      </g>
+
+      <g>
+        <line x1="632" y1="270" x2="679.5" y2="270" stroke="var(--mint)" stroke-width="3"/>
+        <text x="628" y="248" font-size="14" fill="var(--mint)" text-anchor="end" font-family="var(--dk-sans)">$21,906 buffer</text>
+      </g>
+
+      <g>
+        <line x1="679.5" y1="290.5" x2="679.5" y2="215.2" stroke="var(--gold)" stroke-width="4"/>
+        <text x="689" y="276" font-size="14" fill="var(--gold)" font-family="var(--dk-sans)">+$3,012 riser</text>
+      </g>
+    </svg>
+
+    <div class="lbl" style="margin:14px 0 0">Each income year on its own thresholds</div>
+    <div style="border-top:1.5px solid var(--ink);margin-top:8px">
+      <div style="display:flex;align-items:baseline;gap:26px;padding:9px 0;border-bottom:1px solid var(--line)"><div style="flex:0 0 300px"><div class="scen hd a slim" style="margin:0;border:0;padding:0"><div class="n">Lookback · as filed</div><div class="m">income 2025 → 2027 premiums · Tier 1</div></div></div><div class="num" style="flex:0 0 190px;font-size:29px;line-height:1">$21,906</div><p class="small" style="flex:1;margin:0">Buffer before Tier 2 on the 2027 thresholds. Not plotted above: the chart is drawn on a single determination year, and this year is read from its own row.</p></div>
+      <div style="display:flex;align-items:baseline;gap:26px;padding:9px 0;border-bottom:1px solid var(--line)"><div style="flex:0 0 300px"><div class="scen hd a slim" style="margin:0;border:0;padding:0"><div class="n">Strategy 1 · Florida</div><div class="m">income 2026 → 2028 premiums · Tier 1</div></div></div><div class="num" style="flex:0 0 190px;font-size:29px;line-height:1">$21,906</div><p class="small" style="flex:1;margin:0">Additional modified adjusted gross income available before the next riser is triggered. No surcharge is added in this scenario.</p></div>
+      <div style="display:flex;align-items:baseline;gap:26px;padding:9px 0;border-bottom:1px solid var(--line)"><div style="flex:0 0 300px"><div class="scen hd b slim" style="margin:0;border:0;padding:0"><div class="n">Strategy 2 · Florida + Roth</div><div class="m">income 2026 → 2028 premiums · Tier 2</div></div></div><div class="num" style="flex:0 0 190px;font-size:29px;line-height:1">$28,094</div><p class="small" style="flex:1;margin:0">Amount above the Tier 2 boundary. The conversion clears the line by this much, and the full riser is charged regardless of how far over it lands.</p></div>
+      <div style="display:flex;align-items:baseline;gap:26px;padding:9px 0;border-bottom:1px solid var(--line)"><div style="flex:0 0 300px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Cost of crossing</div><div class="num" style="flex:0 0 190px;font-size:29px;line-height:1">$3,012</div><p class="small" style="flex:1;margin:0">Combined annual surcharge for two enrollees, paid in full the moment the $274,000 line is crossed. A partial conversion of about $21,900 stays in Tier 1 and avoids it. A scenario spanning several years adds a row here per year, not a second dot above.</p></div>
+    </div>
+  <div class="fn"><p><b>How to read this page.</b> Surcharges use income from two years earlier and step rather than taper. The chart shows 2026 income against 2028 thresholds; other years are in their own rows.</p></div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>09</span></div>
+</section>
+
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">10 — Social Security projection</span></div>
+  <div class="body">
+    <div class="eyebrow">Projected to age 67</div>
+    <h2 style="margin-bottom:10px">Social Security projection</h2>
+    <p class="sum">In retirement, the conversion cuts the taxable share of Social Security from <b>77.6%</b> to <b>25.1%</b>.</p>
+    <table class="dense">
+      <thead><tr><th>Line item</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
+      <tbody>
+        <tr><td>Total Social Security benefits <span class="note">projected, age 67</span></td><td class="n">$68,000</td><td class="n"><span class="note">—</span> $68,000</td><td class="n"><span class="note">—</span> $68,000</td></tr>
+        <tr><td>Other adjusted gross income <span class="note">excluding benefits</span></td><td class="n">$60,000</td><td class="n"><span class="note">—</span> $60,000</td><td class="n"><span class="note">−$42,000</span> $18,000</td></tr>
+        <tr><td>Tax-exempt interest</td><td class="n">$5,000</td><td class="n"><span class="note">—</span> $5,000</td><td class="n"><span class="note">—</span> $5,000</td></tr>
+        <tr><td>One half of benefits</td><td class="n">$34,000</td><td class="n"><span class="note">—</span> $34,000</td><td class="n"><span class="note">—</span> $34,000</td></tr>
+        <tr><td>Combined income <span class="note">provisional income</span></td><td class="n">$99,000</td><td class="n"><span class="note">—</span> $99,000</td><td class="n"><span class="note">−$42,000</span> $57,000</td></tr>
+        <tr class="hi"><td>Share of benefits taxable <span class="note">85% maximum</span></td><td class="n">77.6%</td><td class="n"><span class="note">—</span> 77.6%</td><td class="n"><span class="note">−52.5 pp</span> 25.1%</td></tr>
+        <tr><td>Taxable benefits <span class="note">1040, Line 6b</span></td><td class="n">$52,750</td><td class="n"><span class="note">—</span> $52,750</td><td class="n"><span class="note">−$35,700</span> $17,050</td></tr>
+        <tr class="total"><td>Estimated federal tax on benefits</td><td class="n">$11,605</td><td class="n"><span class="note">—</span> $11,605</td><td class="n"><span class="note">−$9,559</span> $2,046</td></tr>
+      </tbody>
+    </table>
+    <div class="rule" style="margin:18px 0 12px"></div>
+    <div class="lbl">Share of benefits taxable <span class="note">against the 85% statutory maximum · one shared axis</span></div>
+    <div style="position:relative;display:flex;gap:70px;align-items:flex-end;height:150px;border-bottom:1px solid var(--line);padding:0 40px;margin-top:10px">
+      <div style="position:absolute;left:0;right:0;bottom:85%;border-top:1.5px dashed color-mix(in srgb,var(--gold) 70%,var(--ink))"></div>
+      <div style="position:absolute;right:0;bottom:87%;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:color-mix(in srgb,var(--gold) 55%,var(--ink))">85% statutory maximum</div>
+      <div style="flex:1;position:relative;height:100%">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:77.6%;background:var(--deep);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:22px;padding-top:8px;color:var(--paper)">77.6%</div></div>
+      </div>
+      <div style="flex:1;position:relative;height:100%">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:77.6%;background:var(--mint);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:22px;padding-top:8px;color:var(--paper)">77.6%</div></div>
+      </div>
+      <div style="flex:1;position:relative;height:100%">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:25.1%;background:var(--gold);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:22px;padding-top:8px;color:var(--paper)">25.1%</div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:70px;padding:8px 40px 0">
+      <div style="flex:1"><div class="scen hd slim" style="margin-bottom:0;border-bottom:0"><div class="n">Lookback</div><div class="m">$52,750 taxable</div></div></div>
+      <div style="flex:1"><div class="scen hd a slim" style="margin-bottom:0;border-bottom:0"><div class="n">Strategy 1 · Florida</div><div class="m">$52,750 taxable</div></div></div>
+      <div style="flex:1"><div class="scen hd b slim" style="margin-bottom:0;border-bottom:0"><div class="n">Strategy 2 · Florida + Roth</div><div class="m">$17,050 taxable</div></div></div>
+    </div>
+
+    <div class="obs op" style="margin-top:18px;max-width:none">
+      <div class="lbl">Why the conversion helps later</div>
+      <p>Converted balances carry no required minimum distributions, so other adjusted gross income at 67 falls from $60,000 to $18,000. That pulls combined income below the second threshold and drops the taxable share of benefits from 77.6% to 25.1%. Neither California nor Florida taxes Social Security benefits, so the two 2026 columns differ only by the conversion.</p>
+    </div>
+  <div class="fn"><p><b>How to read this page.</b> Assuming $68,000 of combined annual benefits. Up to 85% of benefits become taxable as combined income rises; the Roth conversion lowers future required distributions and pulls combined income back down.</p></div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>10</span></div>
+</section>
+
+<section class="slide led">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">11 — Recommendation &amp; next steps · alt B</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:14px">Recommendation &amp; next steps</h2>
+
+    <div class="g2" style="grid-template-columns:1fr auto;gap:44px;align-items:center;border-top:2px solid var(--mint);background:color-mix(in srgb,var(--mint) 7%,transparent);padding:16px 20px;margin-bottom:12px">
+      <div>
+        <span class="chip in">Recommended</span>
+        <h3 style="margin-top:8px">Strategy 1 · Florida domicile</h3>
+        <p class="small" style="max-width:88ch;margin-top:6px">Lowest 2026 total tax liability of the three scenarios. The Roth conversion remains worth modelling as a partial conversion once domicile is settled.</p>
+      </div>
+      <div style="text-align:right">
+        <div class="lbl" style="margin-bottom:6px">Estimated total tax liability</div>
+        <div class="figrow" style="justify-content:flex-end"><span class="delta down">▼ $6,812</span><span class="hero">$17,729</span></div>
+        <div class="note" style="margin-top:4px">federal + state · vs. lookback</div>
+      </div>
+    </div>
+
+    <div class="g3" style="gap:0;margin-bottom:22px;display:none">
+      <div style="border-top:1px solid var(--line);padding:10px 22px 0 0"><div class="lbl">1 · Lookback</div><div class="num" style="font-size:17px;margin-top:4px">$24,541</div></div>
+      <div style="border-top:2px solid var(--mint);border-left:1px solid var(--line);padding:10px 22px 0"><div class="lbl" style="color:var(--mint)">2 · Strategy 1 · Florida &nbsp;· chosen</div><div class="num" style="font-size:17px;margin-top:4px">$17,729 <span class="note">lowest</span></div></div>
+      <div style="border-top:1px solid var(--line);border-left:1px solid var(--line);padding:10px 0 0 22px"><div class="lbl">3 · Strategy 2 · Florida + Roth</div><div class="num" style="font-size:17px;margin-top:4px">$30,521</div></div>
+    </div>
+
+
+    <table class="dense sumt">
+      <thead>
+        <tr><th style="width:34%">Step</th><th style="width:40%">What it requires</th><th style="width:14%">Owner</th><th class="n" style="width:12%">Deadline</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>01 · Review this report</strong><br><span class="note n16">Confirm the assumptions match your plans for 2026.</span></td><td>Walk through each scenario together, line by line.</td><td>You &amp; advisor</td><td class="n">This month</td></tr>
+        <tr><td><strong>02 · Decide on domicile</strong><br><span class="note n16">The relocation drives most of the saving.</span></td><td>Timing, day count, and evidence for a California departure-year review.</td><td>You</td><td class="n">Before Jan 1</td></tr>
+        <tr><td><strong>03 · Size the conversion</strong><br><span class="note n16">Stay under $274,000 IRMAA Tier 2 and $250,000 NIIT.</span></td><td>Model the partial amount against both thresholds.</td><td>Advisor</td><td class="n">Dec 31</td></tr>
+        <tr><td><strong>04 · Schedule a follow-up</strong><br><span class="note n16">Nothing should wait on the conversion cut-off.</span></td><td>Set a date and a deadline for each remaining step.</td><td>Advisor</td><td class="n">Q3</td></tr>
+        <tr><td><strong>05 · Coordinate with your preparer</strong><br><span class="note n16">Estimated payments follow the scenario you implement.</span></td><td>Share this report and the safe harbor target.</td><td>Preparer</td><td class="n">Q4</td></tr>
+        <tr><td><strong>06 · Monitor and adjust</strong><br><span class="note n16">Watch anything that moves MAGI near an IRMAA line.</span></td><td>Revisit if income, tax law or circumstances change.</td><td>You &amp; advisor</td><td class="n">Ongoing</td></tr>
+        <tr class="total" style="display:none"><td><strong>Three considerations govern the recommended figure</strong></td><td colspan="3"><span class="note">Projections are estimates under current law, domicile must be established before the tax year begins, and this report is for planning rather than filing.</span></td></tr>
+      </tbody>
+    </table>
+    <p class="note n16" style="margin-top:14px">Confidential report prepared for Bob Jones and Sally Jones on April 9, 2026. Provided for informational and planning purposes only; not legal or tax advice. Consult a qualified tax professional before implementing any strategy.</p>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>11</span></div>
+</section>
+
+<section class="slide led v23" style="justify-content:center">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">Return detail</span></div>
+  <div class="body" style="justify-content:center">
+    <h2 style="margin:0 0 14px;font-size:52px;letter-spacing:-0.02em">Return detail</h2>
+    <p class="sum" style="max-width:70ch">Line-by-line worksheets for each scenario, with form and line references, to share with your tax preparer.</p>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>12</span></div>
+</section>
+
 <section class="slide led tightrows">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">02 — Income overview (reference layout)</span></div>
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">13 — Income overview (reference layout)</span></div>
   <div class="body">
     <h2 style="margin-bottom:2px">Income overview</h2>
-    <p class="note" style="margin-bottom:12px">The relocation changes no income line — only where that income is taxed. The Roth conversion adds $50,000 of taxable IRA income. Tax-exempt interest is disclosed but excluded from total income.</p>
+    <p class="sum">Only one line moves: the <b>$50,000</b> Roth conversion in Strategy 2. Total income is otherwise <b>$257,880</b> in every scenario.</p><p class="note n16" style="margin-bottom:12px">The relocation changes no income line — only where that income is taxed. The Roth conversion adds $50,000 of taxable IRA income. Tax-exempt interest is disclosed but excluded from total income.</p>
 
     <table class="dense sumt" style="margin-top:2px">
       <colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
@@ -936,15 +1426,15 @@ html[data-format="wide"] .irmaasvg{width:64%}
 
     <p class="small" style="margin-top:10px">Highlighted row: the only income line that moves between scenarios. Everything else is the same money, taxed in a different state.</p>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>02</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>13</span></div>
 </section>
 
 <section class="slide led tightrows">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">03 — Deductions &amp; taxable income</span></div>
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">14 — Deductions &amp; taxable income</span></div>
   <div class="body">
     <div class="eyebrow">From total income to taxable income</div>
     <h2 style="margin-bottom:10px">Deductions &amp; taxable income</h2>
-    <p class="small" style="max-width:118ch;margin-bottom:18px">Two sets of deductions sit between total income and taxable income: adjustments taken before the deduction choice, and the greater of itemized or standard taken after it.</p>
+    <p class="sum">AGI is <b>$252,094</b> in the filed year and Strategy 1, and <b>$302,094</b> with the conversion. Leaving California trims deductible state and local tax by $1,800.</p>
 
 
     <table class="dense sumt">
@@ -1014,21 +1504,21 @@ html[data-format="wide"] .irmaasvg{width:64%}
 
     <div class="obs wa" style="margin-top:14px">
       <div class="g2" style="gap:44px;align-items:start">
-        <div><div class="lbl">Why the deduction shrinks in Florida</div><p>California income tax was the largest component of the $10,000 SALT cap. Without it, only $8,200 of Florida property tax remains deductible — a $1,800 reduction that partly offsets the state tax saving.</p></div>
-        <div><div class="lbl">AGI is the figure the thresholds watch</div><p>Every threshold in this report is measured against AGI: the SALT cap, the net investment income tax at $250,000, and the IRMAA tiers. Schedule 1-A deductions sit in addition to the standard deduction rather than inside it, and none apply here.</p></div>
+        <div><div class="lbl">Why the deduction shrinks in Florida</div><p>California income tax made up most of the $10,000 SALT cap. In Florida only $8,200 of property tax remains deductible — $1,800 less, partly offsetting the state tax saving.</p></div>
+        <div><div class="lbl">AGI is the figure the thresholds watch</div><p>Every threshold here is measured against AGI: the SALT cap, the $250,000 investment income tax line and the IRMAA tiers. No Schedule 1-A deductions apply.</p></div>
       </div>
     </div>
+  <div class="fn"><p><b>How to read this page.</b> Two sets of deductions sit between total income and taxable income: adjustments taken before the deduction choice, and the greater of itemized or standard taken after it.</p></div>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>03</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>14</span></div>
 </section>
 
-<!-- 6 TAX LIABILITY & CREDITS -->
 <section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">04 — Deductions vs. standard</span></div>
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">15 — Deductions vs. standard</span></div>
   <div class="body">
     <div class="eyebrow">Stacked by component</div>
     <h2 style="margin-bottom:10px">Deductions vs. standard deduction</h2>
-    <p class="small" style="max-width:110ch;margin-bottom:22px">Itemized deductions stacked by component against the standard deduction available in each year. Itemizing is beneficial in all three scenarios; only the state and local tax block changes.</p>
+    <p class="sum">Itemizing beats the standard deduction in every scenario, by <b>$76,321</b> to <b>$80,321</b>.</p>
 
     <div class="g3" style="gap:44px">
       <div>
@@ -1080,18 +1570,18 @@ html[data-format="wide"] .irmaasvg{width:64%}
         <span class="keyline"><i class="sw room" style="border:1px solid var(--line)"></i>Standard deduction</span>
       </div>
     </div>
-    <p class="note" style="margin-top:12px">Each column stacks the same four components in the same order, darkest at the base, in that scenario's colour — so the key reads the same way in all three. Medical expenses are shown net of the 7.5% adjusted gross income floor.</p>
+    <p class="note n16" style="margin-top:12px">Each column stacks the same four components in the same order, darkest at the base, in that scenario's colour — so the key reads the same way in all three. Medical expenses are shown net of the 7.5% adjusted gross income floor.</p>
+  <div class="fn"><p><b>How to read this page.</b> Itemized deductions stacked by component against the standard deduction available in each year. Itemizing is beneficial in all three scenarios; only the state and local tax block changes.</p></div>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>04</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>15</span></div>
 </section>
 
-<!-- 22 SOCIAL SECURITY TAXABLE PERCENTAGE -->
 <section class="slide led tightrows">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">05 — Tax liability &amp; credits</span></div>
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">16 — Tax liability &amp; credits</span></div>
   <div class="body">
     <div class="eyebrow">Federal and state, before and after credits</div>
     <h2 style="margin-bottom:18px">Tax liability &amp; credits</h2>
-    <table class="dense">
+    <p class="sum">The conversion adds <b>$11,388</b> of federal tax before credits; the relocation alone adds <b>$388</b>.</p><table class="dense">
       <thead><tr><th>Line item</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
       <tbody>
         <tr class="grp"><td colspan="4">Tax before credits <span class="note">1040, Line 16 and Schedule 2, Part I</span></td></tr>
@@ -1120,85 +1610,15 @@ html[data-format="wide"] .irmaasvg{width:64%}
       <p>Relocating removes $7,200 of California tax and adds $388 of federal tax. The Roth conversion adds $12,792 of tax in 2026 in exchange for tax-free growth and no future required distributions on the converted balance.</p>
     </div>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>05</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>16</span></div>
 </section>
 
-<!-- 7 PAYMENTS & SAFE HARBOR -->
 <section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">06 — Where each dollar goes · stacked bars</span></div>
-  <div class="body">
-    <div class="eyebrow">One shared axis · $0 to total income</div>
-    <h2 style="margin-bottom:10px">Where each dollar of income goes</h2>
-    <p class="small" style="max-width:110ch;margin-bottom:26px">Each bar runs from $0 to that scenario's total income. Federal tax fills from the left, state tax follows in the lighter tint, and the hatched tail is the income retained.</p>
-
-    <div class="g3" style="gap:44px">
-      <div>
-        <div class="scen hd "><div class="n">Lookback</div><div class="t">$252,094 AGI</div><div class="m">9.7% effective</div></div>
-        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-          <i style="width:6.9%;background:var(--deep)"></i>
-          <i style="width:2.9%;background:color-mix(in srgb,var(--deep) 46%,var(--paper))"></i>
-          <i class="room" style="width:90.2%;border-left:1px solid var(--line)"></i>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">9.8% to tax</span><span class="note">$252,094</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--deep)"></i>Federal tax</span><span class="v">$17,341 <span class="note">6.9%</span></span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 46%,var(--paper))"></i>State tax</span><span class="v">$7,200 <span class="note">2.9%</span></span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Income retained</span><span class="v">$227,553 <span class="note">90.3%</span></span></div>
-          <div class="lr tot"><span class="k">Total tax taken</span><span class="v">$24,541</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="scen hd a"><div class="n">Strategy 1 · Florida</div><div class="t">$252,094 AGI</div><div class="m">7.0% effective</div></div>
-        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-          <i style="width:7.0%;background:var(--mint)"></i>
-          
-          <i class="room" style="width:93.0%;border-left:1px solid var(--line)"></i>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">7.0% to tax</span><span class="note">$252,094</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--mint)"></i>Federal tax</span><span class="v">$17,729 <span class="note">7.0%</span></span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--mint) 46%,var(--paper))"></i>State tax</span><span class="v">$0 <span class="note">0.0%</span></span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Income retained</span><span class="v">$234,365 <span class="note">93.0%</span></span></div>
-          <div class="lr tot"><span class="k">Total tax taken</span><span class="v">$17,729</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="scen hd b"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">$302,094 AGI</div><div class="m">10.1% effective</div></div>
-        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-          <i style="width:10.1%;background:var(--gold)"></i>
-          
-          <i class="room" style="width:89.9%;border-left:1px solid var(--line)"></i>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">10.1% to tax</span><span class="note">$302,094</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--gold)"></i>Federal tax</span><span class="v">$30,521 <span class="note">10.1%</span></span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--gold) 46%,var(--paper))"></i>State tax</span><span class="v">$0 <span class="note">0.0%</span></span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Income retained</span><span class="v">$271,573 <span class="note">89.9%</span></span></div>
-          <div class="lr tot"><span class="k">Total tax taken</span><span class="v">$30,521</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="obs op" style="margin-top:24px">
-      <div class="lbl">Reading the bars</div>
-      <p>Relocating removes the state segment entirely and pushes the hatched tail from 90.3% to 93.0% of income. The conversion widens the federal segment to 10.1% on a larger bar: more tax taken, but on $50,000 more income, and at 22% now rather than a higher rate later.</p>
-    </div>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>06</span></div>
-</section>
-<!-- 17 FEDERAL BRACKET DISTRIBUTION · VIZ -->
-<section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">07 — Payments &amp; safe harbor</span></div>
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">17 — Payments &amp; safe harbor</span></div>
   <div class="body">
     <div class="eyebrow">Withholding, estimates and the 110% rule</div>
     <h2 style="margin-bottom:18px">Payments &amp; safe harbor</h2>
-    <table class="dense">
+    <p class="sum">With today's withholding and estimates, Strategy 1 still refunds <b>$4,271</b>. Strategy 2 would owe <b>$8,521</b> at filing.</p><table class="dense">
       <thead><tr><th>Line item</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
       <tbody>
         <tr><td>Total federal tax <span class="note">1040, Line 24</span></td><td class="n">$17,341</td><td class="n"><span class="note">+$388</span> $17,729</td><td class="n"><span class="note">+$13,180</span> $30,521</td></tr>
@@ -1224,166 +1644,15 @@ html[data-format="wide"] .irmaasvg{width:64%}
       </div>
     </div>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>07</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>17</span></div>
 </section>
 
-<!-- 9 STATE TAX -->
-<section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">08 — Federal brackets, drawn · horizontal</span></div>
-  <div class="body">
-    <div class="eyebrow">One shared axis to $206,700</div>
-    <h2 style="margin-bottom:10px">Federal tax bracket distribution</h2>
-    <p class="small" style="max-width:110ch;margin-bottom:26px">The same brackets drawn left to right: each bar starts at $0 and ends at the top of the 22% bracket, so income climbs through the 10%, 12% and 22% bands and the hatched tail is the room remaining before the 24% rate begins. Every bar uses the same width, so headroom compares directly.</p>
-
-    <div class="g3" style="gap:44px">
-      <div>
-        <div class="scen hd"><div class="n">Lookback</div><div class="t">$127,547 ordinary taxable</div><div class="m">2025 · California</div></div>
-        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-          <i style="width:11.5%;background:color-mix(in srgb,var(--deep) 26%,var(--paper))"></i>
-          <i style="width:35.4%;background:color-mix(in srgb,var(--deep) 52%,var(--paper))"></i>
-          <i style="width:14.8%;background:var(--deep)"></i>
-          <i class="room" style="width:38.3%;border-left:1px solid var(--line)"></i>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">61.7% used</span><span class="note">$206,700</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 26%,var(--paper))"></i>10% band</span><span class="v">$23,850</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 52%,var(--paper))"></i>12% band</span><span class="v">$73,100</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--deep)"></i>22% band</span><span class="v">$30,597</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Room remaining</span><span class="v">$79,153</span></div>
-          <div class="lr tot"><span class="k">Ordinary income tax</span><span class="v">$17,888 <span class="note">14.0%</span></span></div>
-        </div>
-      </div>
-
-      <div>
-        <div class="scen hd a"><div class="n">Strategy 1 · Florida</div><div class="t">$129,347 ordinary taxable</div><div class="m">2026 · estimated</div></div>
-        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-          <i style="width:11.6%;background:color-mix(in srgb,var(--mint) 26%,var(--paper))"></i>
-          <i style="width:35.3%;background:color-mix(in srgb,var(--mint) 58%,var(--paper))"></i>
-          <i style="width:15.6%;background:var(--mint)"></i>
-          <i class="room" style="width:37.5%;border-left:1px solid var(--line)"></i>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">62.5% used</span><span class="note">$206,700</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--mint) 26%,var(--paper))"></i>10% band</span><span class="v">$24,000</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--mint) 58%,var(--paper))"></i>12% band</span><span class="v">$73,000</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--mint)"></i>22% band</span><span class="v">$32,347</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Room remaining</span><span class="v">$77,353</span></div>
-          <div class="lr tot"><span class="k">Ordinary income tax</span><span class="v mint">$18,276 <span class="note">14.1%</span></span></div>
-        </div>
-      </div>
-
-      <div>
-        <div class="scen hd b"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">$179,347 ordinary taxable</div><div class="m">2026 · +$50,000 converted</div></div>
-        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-          <i style="width:11.6%;background:color-mix(in srgb,var(--gold) 28%,var(--paper))"></i>
-          <i style="width:35.3%;background:color-mix(in srgb,var(--gold) 60%,var(--paper))"></i>
-          <i style="width:39.8%;background:var(--gold)"></i>
-          <i class="room" style="width:13.2%;border-left:1px solid var(--line)"></i>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">86.8% used</span><span class="note">$206,700</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--gold) 28%,var(--paper))"></i>10% band</span><span class="v">$24,000</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--gold) 60%,var(--paper))"></i>12% band</span><span class="v">$73,000</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--gold)"></i>22% band</span><span class="v">$82,347</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Room remaining</span><span class="v">$27,353</span></div>
-          <div class="lr tot"><span class="k">Ordinary income tax</span><span class="v gold">$29,276 <span class="note">16.3%</span></span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="g2" style="gap:44px;margin-top:26px;align-items:start">
-      <div class="obs op"><div class="lbl">Bracket headroom</div><p>Every bar ends at the top of the 22% bracket, so the hatched tail reads as headroom: the conversion consumes $50,000 of the 22% band and leaves $27,353 before the 24% rate begins. The marginal rate stays at 22% in all three scenarios.</p></div>
-      <p class="note" style="padding-top:10px;font-size:16px">Qualified dividends are taxed at capital gains rates and are excluded from these bars. The 10% band figure is the statutory bracket width; the baseline year is $150 narrower.</p>
-    </div>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>08</span></div>
-</section>
-
-
-<!-- 10 CAPITAL GAINS & INVESTMENT INCOME -->
-<section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">09 — State brackets, drawn · horizontal</span></div>
-  <div class="body">
-    <div class="eyebrow">Six California bands against zero</div>
-    <h2 style="margin-bottom:10px">State tax bracket distribution</h2>
-    <p class="small" style="max-width:110ch;margin-bottom:26px">California taxable income climbs left to right through six brackets in the baseline. Both 2026 scenarios sit at zero, drawn on the same axis as a flat line rather than as separate panels.</p>
-
-    <div class="g3" style="gap:44px">
-      <div>
-        <div class="scen hd"><div class="n">Lookback</div><div class="t">$151,773 CA taxable</div><div class="m">2025 · California</div></div>
-        <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-          <i style="width:14.2%;background:color-mix(in srgb,var(--deep) 18%,var(--paper))"></i>
-          <i style="width:19.4%;background:color-mix(in srgb,var(--deep) 34%,var(--paper))"></i>
-          <i style="width:19.4%;background:color-mix(in srgb,var(--deep) 50%,var(--paper))"></i>
-          <i style="width:20.6%;background:color-mix(in srgb,var(--deep) 66%,var(--paper))"></i>
-          <i style="width:19.4%;background:color-mix(in srgb,var(--deep) 82%,var(--paper))"></i>
-          <i style="width:7.0%;background:var(--deep)"></i>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">top bracket 9.3%</span><span class="note">$151,773</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 18%,var(--paper))"></i>1.0% $21,512</span><span class="v">$215</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 34%,var(--paper))"></i>2.0% $29,486</span><span class="v">$590</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 50%,var(--paper))"></i>4.0% $29,492</span><span class="v">$1,180</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 66%,var(--paper))"></i>6.0% $31,242</span><span class="v">$1,875</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 82%,var(--paper))"></i>8.0% $29,480</span><span class="v">$2,358</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--deep)"></i>9.3% $10,561</span><span class="v">$982</span></div>
-          <div class="lr tot"><span class="k">State income tax</span><span class="v">$7,200</span></div>
-        </div>
-      </div>
-
-      <div>
-        <div class="scen hd a"><div class="n">Strategy 1 · Florida</div><div class="t">$0 FL taxable</div><div class="m">2026 · estimated</div></div>
-        <div style="display:flex;align-items:center;height:44px;margin-top:6px">
-          <div style="flex:1;height:2px;background:var(--mint)"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">no state brackets</span><span class="note">$151,773</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr zero"><span class="k">Florida income tax brackets <span class="note">none exist</span></span><span class="v">$0</span></div>
-          <div class="lr"><span class="k">Saved against the baseline</span><span class="v mint">$7,200</span></div>
-          <div class="lr tot"><span class="k">State income tax</span><span class="v mint">$0</span></div>
-        </div>
-        <p class="small" style="margin-top:10px">Florida levies no state income tax, so the whole $7,200 stays in the household every year.</p>
-      </div>
-
-      <div>
-        <div class="scen hd b"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">$0 FL taxable</div><div class="m">2026 · +$50,000 converted</div></div>
-        <div style="display:flex;align-items:center;height:44px;margin-top:6px">
-          <div style="flex:1;height:2px;background:var(--gold)"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note">no state brackets</span><span class="note">$151,773</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr zero"><span class="k">Florida income tax brackets <span class="note">none exist</span></span><span class="v">$0</span></div>
-          <div class="lr"><span class="k">Converted amount taxed by state</span><span class="v gold">$0</span></div>
-          <div class="lr tot"><span class="k">State income tax</span><span class="v gold">$0</span></div>
-        </div>
-        <p class="small" style="margin-top:10px">The $50,000 conversion is taxed federally only — no state ever reaches it.</p>
-      </div>
-    </div>
-
-    <p class="note" style="margin-top:22px;font-size:16px">California taxable income of $151,773 differs from federal because state and local taxes are not deductible on Form 540.</p>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>09</span></div>
-</section>
-
-<!-- VARIANT · TITLED FRAME — CAPITAL GAINS -->
 <section class="slide led tight">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">10 — Capital gains &amp; investment income</span></div>
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">18 — Capital gains &amp; investment income</span></div>
   <div class="body">
     <div class="eyebrow">One shared axis to $583,750</div>
     <h2 style="margin-bottom:10px">Capital gains &amp; investment income</h2>
-    <p class="small" style="max-width:118ch;margin-bottom:22px">The same axis drawn left to right: each bar starts at $0 and ends where the 20% capital gains rate begins, so taxable income climbs through the ordinary and 15% preferential bands and the hatched tail is the room remaining before the 20% rate applies. The dashed line marks where the 0% capital gains bracket ends and the 15% rate begins.</p>
+    <p class="sum">All <b>$12,000</b> of qualified dividends are taxed at 15% in every scenario, well short of the 20% rate.</p>
     <div class="g3" style="gap:44px">
       <div>
         <div class="scen hd"><div class="n">Lookback</div><div class="t">$139,547 taxable income</div><div class="m">2025 · California</div></div>
@@ -1489,17 +1758,17 @@ html[data-format="wide"] .irmaasvg{width:64%}
       </div>
     </div>
     </div>
+  <div class="fn"><p><b>How to read this page.</b> The same axis drawn left to right: each bar starts at $0 and ends where the 20% capital gains rate begins, so taxable income climbs through the ordinary and 15% preferential bands and the hatched tail is the room remaining before the 20% rate applies. The dashed line marks where the 0% capital gains bracket ends and the 15% rate begins.</p></div>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>10</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>18</span></div>
 </section>
 
-<!-- 11 THRESHOLD EFFECTS -->
-<section class="slide led shrinkviz">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">11 — Investment income efficiency</span></div>
+<section class="slide led shrinkviz iie tightrows">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">19 — Investment income efficiency</span></div>
   <div class="body">
     <div class="eyebrow">Income against the tax it carries</div>
     <h2 style="margin-bottom:10px">Investment income tax efficiency</h2>
-    <p class="small" style="max-width:112ch;margin-bottom:14px">Every investment income type read across the three scenarios, grouped by how it is taxed. Neither the relocation nor the conversion changes the portfolio, so the income lines are identical in all three columns — the rate column shows what each dollar carries.</p>
+    <p class="sum">The portfolio is the same in every scenario. <b>$28,000</b> of it, taxable interest and non-qualified dividends, is taxed at ordinary rates.</p>
 
     <table class="dense">
       <thead>
@@ -1532,8 +1801,12 @@ html[data-format="wide"] .irmaasvg{width:64%}
       </tbody>
     </table>
 
-    <div class="rule" style="margin:12px 0 8px;visibility:hidden"></div>
-    <div class="lbl">Income against the federal tax it carries</div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-top:6px"><div class="lbl" style="margin:0">Income against the federal tax it carries</div><div style="display:flex;gap:26px;flex-wrap:wrap">
+      <span class="keyline"><i class="sw" style="background:var(--deep)"></i>Ordinary rates</span>
+      <span class="keyline"><i class="sw" style="background:var(--gold)"></i>Preferential rates</span>
+      <span class="keyline"><i class="sw" style="background:var(--mint)"></i>Excluded or offsetting</span>
+      <span class="keyline"><i class="sw room"></i>Federal tax carried</span>
+    </div></div>
     <div style="display:flex;gap:70px;align-items:flex-end;height:84px;border-bottom:1px solid var(--line);padding:0 40px;margin-top:10px">
       <div style="flex:1;display:flex;flex-direction:column;align-items:center">
         <div class="num" style="font-size:20px;margin-bottom:8px">$25,000</div>
@@ -1579,332 +1852,21 @@ html[data-format="wide"] .irmaasvg{width:64%}
       <span>Short-term loss <span class="note">$660 saved</span></span>
     </div>
 
-    <div style="display:flex;gap:30px;flex-wrap:wrap;margin-top:10px">
-      <span class="keyline"><i class="sw" style="background:var(--deep)"></i>Ordinary rates</span>
-      <span class="keyline"><i class="sw" style="background:var(--gold)"></i>Preferential rates</span>
-      <span class="keyline"><i class="sw" style="background:var(--mint)"></i>Excluded or offsetting</span>
-      <span class="keyline"><i class="sw room"></i>Federal tax carried</span>
-    </div>
 
 
-    <div class="obs op" style="margin-top:10px"><div class="lbl" style="display:none">Only one investment figure moves</div><p>Neither the relocation nor the conversion changes the portfolio, so every income line is identical across the three scenarios. The one investment-related figure that does move is the net investment income tax, which rises from $80 to $1,872 when the conversion pushes modified adjusted gross income $52,094 over the $250,000 threshold. Tax-exempt interest is the most efficient income at 0%, qualified dividends next at 15%, and taxable interest the least efficient at 22%.</p></div>
+
+    <div class="obs op" style="margin-top:10px"><div class="lbl" style="display:none">Only one investment figure moves</div><p>Neither the relocation nor the conversion changes the portfolio. The one figure that moves is the net investment income tax, from $80 to $1,872 once the conversion puts MAGI $52,094 over $250,000. Tax-exempt interest is most efficient at 0%, then qualified dividends at 15%, then taxable interest at 22%.</p></div>
+  <div class="fn"><p><b>How to read this page.</b> Each income type is grouped by how it is taxed; the rate column shows what each dollar carries.</p></div>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>11</span></div>
-</section><section class="slide led tight">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">12 — Net investment income</span></div>
-  <div class="body">
-    <div class="eyebrow">NIIT</div>
-    <h2 style="margin-bottom:10px">Net investment income summary</h2>
-    <p class="small" style="max-width:118ch;margin-bottom:22px">All three bars share one scale that ends at $320,000 — the highest modified adjusted gross income of the three scenarios, rounded up, so the bars compare directly. The dashed line marks the $250,000 threshold: the solid tip beyond it is the excess the 3.8% tax reaches, and the hatched tail is the investment income it never touches. The portfolio is identical in all three scenarios, so only the excess moves.</p>
-    <div class="g3" style="gap:44px">
-      <div>
-        <div class="scen hd"><div class="n">Lookback</div><div class="t">$252,094 MAGI</div><div class="m">2025 · as filed</div></div>
-        <div style="position:relative">
-          <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-            <i style="width:78.1%;background:color-mix(in srgb,var(--deep) 46%,var(--paper))"></i>
-            <i style="width:0.7%;background:var(--deep)"></i>
-            <i class="room" style="width:21.2%;border-left:1px solid var(--line)"></i>
-          </div>
-          <div style="position:absolute;left:78.1%;top:0;bottom:-10px;border-left:1.5px dashed color-mix(in srgb,var(--gold) 65%,var(--ink))"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note" style="font-weight:700">$250,000 threshold</span><span class="note">$320,000 · scale end</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--deep) 46%,var(--paper))"></i>MAGI below the threshold</span><span class="v">$250,000</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--deep)"></i>Excess over the threshold</span><span class="v">$2,094</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Net investment income untaxed</span><span class="v">$47,156</span></div>
-          <div class="lr tot"><span class="k">Net investment income tax</span><span class="v">$80</span></div>
-        </div>
-      </div>
-
-      <div>
-        <div class="scen hd a"><div class="n">Strategy 1 · Florida</div><div class="t">$252,094 MAGI</div><div class="m">2026 · estimated</div></div>
-        <div style="position:relative">
-          <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-            <i style="width:78.1%;background:color-mix(in srgb,var(--mint) 46%,var(--paper))"></i>
-            <i style="width:0.7%;background:var(--mint)"></i>
-            <i class="room" style="width:21.2%;border-left:1px solid var(--line)"></i>
-          </div>
-          <div style="position:absolute;left:78.1%;top:0;bottom:-10px;border-left:1.5px dashed color-mix(in srgb,var(--gold) 65%,var(--ink))"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note" style="font-weight:700">$250,000 threshold</span><span class="note">$320,000 · scale end</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--mint) 46%,var(--paper))"></i>MAGI below the threshold</span><span class="v">$250,000</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--mint)"></i>Excess over the threshold</span><span class="v">$2,094</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Net investment income untaxed</span><span class="v">$47,156</span></div>
-          
-          <div class="lr tot"><span class="k">Net investment income tax</span><span class="v mint">$80</span></div>
-        </div>
-      </div>
-
-      <div>
-        <div class="scen hd b"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">$302,094 MAGI</div><div class="m">2026 · +$50,000 converted</div></div>
-        <div style="position:relative">
-          <div style="display:flex;height:44px;border-radius:2px;overflow:hidden;margin-top:6px">
-            <i style="width:78.1%;background:color-mix(in srgb,var(--gold) 46%,var(--paper))"></i>
-            <i style="width:16.3%;background:var(--gold)"></i>
-            <i class="room" style="width:5.6%;border-left:1px solid var(--line)"></i>
-          </div>
-          <div style="position:absolute;left:78.1%;top:0;bottom:-10px;border-left:1.5px dashed color-mix(in srgb,var(--gold) 65%,var(--ink))"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px">
-          <span class="note">$0</span><span class="note" style="font-weight:700">$250,000 threshold</span><span class="note">$320,000 · scale end</span>
-        </div>
-        <div class="led-rows" style="margin-top:12px">
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:color-mix(in srgb,var(--gold) 46%,var(--paper))"></i>MAGI below the threshold</span><span class="v">$250,000</span></div>
-          <div class="lr"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw" style="background:var(--gold)"></i>Excess over the threshold</span><span class="v">$52,094</span></div>
-          <div class="lr zero"><span class="k" style="display:inline-flex;align-items:center;gap:9px"><i class="sw room"></i>Net investment income untaxed</span><span class="v">$0</span></div>
-          
-          <div class="lr tot"><span class="k">Net investment income tax</span><span class="v gold">$1,872</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rule" style="margin:18px 0 14px"></div>
-    <div class="lbl" style="display:none">Form 8960 worksheet</div>
-    <table class="dense" style="margin-top:8px">
-      <thead><tr><th>Net investment income tax</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
-      <tbody>
-        <tr><td>Modified adjusted gross income <span class="note">Line 13</span></td><td class="n">$252,094</td><td class="n"><span class="note">—</span> $252,094</td><td class="n"><span class="note">+$50,000</span> $302,094</td></tr>
-        <tr><td>Threshold, married filing jointly <span class="note">Line 14</span></td><td class="n">($250,000)</td><td class="n"><span class="note">—</span> ($250,000)</td><td class="n"><span class="note">—</span> ($250,000)</td></tr>
-        <tr><td>Excess MAGI over threshold <span class="note">Line 15</span></td><td class="n">$2,094</td><td class="n"><span class="note">—</span> $2,094</td><td class="n"><span class="note">+$50,000</span> $52,094</td></tr>
-        <tr class="grp"><td colspan="4">Net investment income components <span class="note">Part I</span></td></tr>
-        <tr class="sub"><td>Rental net income <span class="note">Schedule E</span></td><td class="n">$9,250</td><td class="n"><span class="note">—</span> $9,250</td><td class="n"><span class="note">—</span> $9,250</td></tr>
-        <tr class="sub"><td>Interest &amp; dividends <span class="note">taxable interest and ordinary dividends</span></td><td class="n">$40,000</td><td class="n"><span class="note">—</span> $40,000</td><td class="n"><span class="note">—</span> $40,000</td></tr>
-        <tr class="sub zero"><td>Capital gains <span class="note">net loss in all three years</span></td><td class="n">$0</td><td class="n"><span class="note">—</span> $0</td><td class="n"><span class="note">—</span> $0</td></tr>
-        <tr class="sub zero"><td>Passive income <span class="note">no other passive activity</span></td><td class="n">$0</td><td class="n"><span class="note">—</span> $0</td><td class="n"><span class="note">—</span> $0</td></tr>
-        <tr class="sub-tot"><td>Net investment income <span class="note">Line 12</span></td><td class="n">$49,250</td><td class="n"><span class="note">—</span> $49,250</td><td class="n"><span class="note">—</span> $49,250</td></tr>
-        <tr class="hi"><td>Lesser of excess or NII <span class="note">Line 16</span></td><td class="n">$2,094</td><td class="n"><span class="note">—</span> $2,094</td><td class="n"><span class="note">+$47,156</span> $49,250</td></tr>
-        <tr class="total"><td>Net investment income tax <span class="note">3.8% of the lesser</span></td><td class="n">$80</td><td class="n"><span class="note">—</span> $80</td><td class="n"><span class="note">+$1,792</span> $1,872</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>12</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>19</span></div>
 </section>
 
-<!-- MEDICARE IRMAA -->
-<section class="slide led tight">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">13 — Medicare IRMAA</span></div>
-  <div class="body">
-    <div class="eyebrow">IRMAA</div>
-    <h2 style="margin-bottom:10px">Medicare IRMAA impact</h2>
-    <p class="small" style="max-width:118ch;margin-bottom:16px">Medicare surcharges are determined by modified adjusted gross income from two years prior, and each year is tested against its own thresholds: 2025 income sets the 2027 premium, 2026 income sets the 2028 premium. Surcharges are assessed per enrollee, and both Bob and Sally are assumed enrolled.</p>
-    <table class="dense">
-      <thead><tr><th>Medicare IRMAA · each column on its own determination year</th><th class="n s1">Lookback<br><span class="note">2025 MAGI · sets 2027 premium</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 MAGI · sets 2028 premium</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 MAGI · sets 2028 premium</span></th></tr></thead>
-      <tbody>
-        <tr><td>MAGI used for the determination <span class="note">two years prior</span></td><td class="n">$252,094</td><td class="n"><span class="note">—</span> $252,094</td><td class="n"><span class="note">+$50,000</span> $302,094</td></tr>
-        <tr class="hi"><td>IRMAA tier reached</td><td class="n">Tier 1</td><td class="n"><span class="note">—</span> Tier 1</td><td class="n">Tier 2</td></tr>
-        <tr><td>Part B premium <span class="note">per enrollee, monthly</span></td><td class="n">$244.30</td><td class="n"><span class="note">—</span> $244.30</td><td class="n"><span class="note">+$105.10</span> $349.40</td></tr>
-        <tr><td>Part D surcharge <span class="note">per enrollee, monthly</span></td><td class="n">$12.90</td><td class="n"><span class="note">—</span> $12.90</td><td class="n"><span class="note">+$20.40</span> $33.30</td></tr>
-        <tr><td>Surcharge above standard <span class="note">per enrollee, annual</span></td><td class="n">$990</td><td class="n"><span class="note">—</span> $990</td><td class="n"><span class="note">+$1,506</span> $2,496</td></tr>
-        <tr><td>Headroom before the next tier</td><td class="n">$21,906</td><td class="n"><span class="note">—</span> $21,906</td><td class="n"><span class="note">+$18,000</span> $39,906</td></tr>
-        <tr class="total"><td>Household surcharge <span class="note">two enrollees, annual</span></td><td class="n">$1,980</td><td class="n"><span class="note">—</span> $1,980</td><td class="n"><span class="note">+$3,012</span> $4,992</td></tr>
-      </tbody>
-    </table>
-
-    <div class="obs wa" style="margin-top:22px">
-      <div class="lbl">Why the tier matters more than the rate</div>
-      <div class="g2" style="grid-template-columns:1fr 1fr;gap:44px;align-items:start">
-        <p>IRMAA steps rather than tapers: one dollar over a threshold moves the whole household to the next tier for the full year. The conversion clears the $274,000 line, so it carries $3,012 of surcharge on top of the income tax it triggers.</p>
-        <p>A partial conversion of about $21,900 would stay inside Tier 1 and avoid the surcharge entirely. The next page maps every tier threshold and what crossing each one costs.</p>
-      </div>
-    </div>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>13</span></div>
-</section>
-
-<!-- 12 SOCIAL SECURITY PROJECTION -->
-<section class="slide led shrinkviz">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">14 — IRMAA tier mapping</span></div>
-  <div class="body">
-    <div class="eyebrow">Steps, not tapers · 2026 income, 2028 premiums</div>
-    <h2 style="margin-bottom:10px">IRMAA tier threshold mapping</h2>
-    <p class="small" style="max-width:110ch;margin-bottom:14px">Medicare surcharges are assessed on modified adjusted gross income from two years prior, and they step rather than taper — one dollar over a line moves the household to the next tier. The chart always carries the nearest projection year of the strategies, and nothing else: here 2026 income tested on 2028 thresholds. Thresholds are indexed every year, so any other income year belongs on a different staircase and is read from its own row beneath the chart. Figures are the combined surcharge for two enrollees.</p>
-
-    <svg class="irmaasvg" viewBox="0 -46 1400 446" style="height:auto;overflow:visible" role="img" aria-label="IRMAA surcharge steps by modified adjusted gross income, with the scenarios marked">
-      <path d="M0 340 H540.3 V290.5 H679.5 V215.2 H848.2 V139.9 H1016.8 V64.6 H1240 V340 Z"
-            fill="color-mix(in srgb,var(--deep) 10%,var(--paper))"/>
-      <path d="M0 340 H540.3 V290.5 H679.5 V215.2 H848.2 V139.9 H1016.8 V64.6 H1240"
-            fill="none" stroke="var(--deep)" stroke-width="3" stroke-linejoin="miter"/>
-
-      <g stroke="var(--line)" stroke-dasharray="4 5">
-        <line x1="0" y1="290.5" x2="1246" y2="290.5"/>
-        <line x1="0" y1="215.2" x2="1246" y2="215.2"/>
-        <line x1="0" y1="139.9" x2="1246" y2="139.9"/>
-        <line x1="0" y1="64.6" x2="1246" y2="64.6"/>
-      </g>
-
-      <line x1="0" y1="340" x2="1240" y2="340" stroke="var(--line)" stroke-width="1"/>
-
-      <g fill="var(--mut)" font-family="var(--dk-sans)">
-        <text x="1252" y="18" font-size="12" font-weight="700" letter-spacing="0.12em">COMBINED ANNUAL</text>
-        <text x="1252" y="34" font-size="12" font-weight="700" letter-spacing="0.12em">HOUSEHOLD SURCHARGE</text>
-        <g font-size="14">
-          <text x="1252" y="345">Standard · $0</text>
-          <text x="1252" y="295">Tier 1 · $1,980</text>
-          <text x="1252" y="220">Tier 2 · $4,992</text>
-          <text x="1252" y="144">Tier 3 · $8,004</text>
-          <text x="1252" y="69">Tier 4 · $11,016</text>
-        </g>
-      </g>
-
-      <g>
-        <g stroke="var(--line)">
-          <line x1="0.5" y1="340" x2="0.5" y2="352"/>
-          <line x1="248" y1="340" x2="248" y2="352"/>
-          <line x1="540.3" y1="340" x2="540.3" y2="352"/>
-          <line x1="679.5" y1="340" x2="679.5" y2="352"/>
-          <line x1="848.2" y1="340" x2="848.2" y2="352"/>
-          <line x1="1016.8" y1="340" x2="1016.8" y2="352"/>
-        </g>
-        <g fill="var(--mut)" font-size="14" text-anchor="middle" font-family="var(--dk-sans)">
-          <text x="8" y="372">$0</text>
-          <text x="248" y="372">$100k</text>
-          <text x="540.3" y="372">$218k</text>
-          <text x="679.5" y="372">$274k</text>
-          <text x="848.2" y="372">$342k</text>
-          <text x="1016.8" y="372">$410k</text>
-        </g>
-      </g>
-
-      <text x="8" y="328" font-size="14" fill="var(--mut)" font-family="var(--dk-sans)">Standard band · no surcharge on any income up to $218,000</text>
-
-      <!-- one determination year only: 2026 income tested on 2028 thresholds -->
-      <g>
-        <path d="M632 282 V60 H430 V24" fill="none" stroke="var(--deep)" stroke-width="1.5" stroke-dasharray="3 4"/>
-        <circle cx="632" cy="290.5" r="8" fill="var(--deep)"/>
-        <text x="430" y="-4" font-size="15" font-weight="700" letter-spacing="0.1em" fill="var(--deep)" text-anchor="end" font-family="var(--dk-sans)">STRATEGY 1 · FLORIDA</text>
-        <text x="430" y="16" font-size="14" fill="var(--mut)" text-anchor="end" font-family="var(--dk-sans)">Tier 1 · $21,906 of headroom</text>
-      </g>
-
-      <g>
-        <line x1="749.2" y1="207" x2="749.2" y2="24" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="3 4"/>
-        <circle cx="749.2" cy="215.2" r="8" fill="var(--gold)"/>
-        <text x="765" y="-4" font-size="15" font-weight="700" letter-spacing="0.1em" fill="var(--gold)" font-family="var(--dk-sans)">STRATEGY 2 · FLORIDA + ROTH · EST.</text>
-        <text x="765" y="16" font-size="14" fill="var(--mut)" font-family="var(--dk-sans)">Tier 2 · $28,094 over the line</text>
-      </g>
-
-      <g>
-        <line x1="632" y1="270" x2="679.5" y2="270" stroke="var(--mint)" stroke-width="3"/>
-        <text x="628" y="248" font-size="14" fill="var(--mint)" text-anchor="end" font-family="var(--dk-sans)">$21,906 buffer</text>
-      </g>
-
-      <g>
-        <line x1="679.5" y1="290.5" x2="679.5" y2="215.2" stroke="var(--gold)" stroke-width="4"/>
-        <text x="689" y="276" font-size="14" fill="var(--gold)" font-family="var(--dk-sans)">+$3,012 riser</text>
-      </g>
-    </svg>
-
-    <div class="lbl" style="margin:14px 0 0">Each income year on its own thresholds</div>
-    <div style="border-top:1.5px solid var(--ink);margin-top:8px">
-      <div style="display:flex;align-items:baseline;gap:26px;padding:9px 0;border-bottom:1px solid var(--line)"><div style="flex:0 0 300px"><div class="scen hd a slim" style="margin:0;border:0;padding:0"><div class="n">Lookback · as filed</div><div class="m">income 2025 → 2027 premiums · Tier 1</div></div></div><div class="num" style="flex:0 0 190px;font-size:29px;line-height:1">$21,906</div><p class="small" style="flex:1;margin:0">Buffer before Tier 2 on the 2027 thresholds. Not plotted above: the chart is drawn on a single determination year, and this year is read from its own row.</p></div>
-      <div style="display:flex;align-items:baseline;gap:26px;padding:9px 0;border-bottom:1px solid var(--line)"><div style="flex:0 0 300px"><div class="scen hd a slim" style="margin:0;border:0;padding:0"><div class="n">Strategy 1 · Florida</div><div class="m">income 2026 → 2028 premiums · Tier 1</div></div></div><div class="num" style="flex:0 0 190px;font-size:29px;line-height:1">$21,906</div><p class="small" style="flex:1;margin:0">Additional modified adjusted gross income available before the next riser is triggered. No surcharge is added in this scenario.</p></div>
-      <div style="display:flex;align-items:baseline;gap:26px;padding:9px 0;border-bottom:1px solid var(--line)"><div style="flex:0 0 300px"><div class="scen hd b slim" style="margin:0;border:0;padding:0"><div class="n">Strategy 2 · Florida + Roth</div><div class="m">income 2026 → 2028 premiums · Tier 2</div></div></div><div class="num" style="flex:0 0 190px;font-size:29px;line-height:1">$28,094</div><p class="small" style="flex:1;margin:0">Amount above the Tier 2 boundary. The conversion clears the line by this much, and the full riser is charged regardless of how far over it lands.</p></div>
-      <div style="display:flex;align-items:baseline;gap:26px;padding:9px 0;border-bottom:1px solid var(--line)"><div style="flex:0 0 300px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Cost of crossing</div><div class="num" style="flex:0 0 190px;font-size:29px;line-height:1">$3,012</div><p class="small" style="flex:1;margin:0">Combined annual surcharge for two enrollees, paid in full the moment the $274,000 line is crossed. A partial conversion of about $21,900 stays in Tier 1 and avoids it. A scenario spanning several years adds a row here per year, not a second dot above.</p></div>
-    </div>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>14</span></div>
-</section>
-
-<!-- 21 DEDUCTIONS VS STANDARD -->
 <section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">15 — Social Security projection</span></div>
-  <div class="body">
-    <div class="eyebrow">Projected to age 67</div>
-    <h2 style="margin-bottom:10px">Social Security projection</h2>
-    <p class="small" style="max-width:104ch;margin-bottom:18px">Assuming $68,000 of combined annual benefits. Up to 85% of benefits become taxable as combined income rises; the Roth conversion lowers future required distributions and pulls combined income back down.</p>
-    <table class="dense">
-      <thead><tr><th>Line item</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
-      <tbody>
-        <tr><td>Total Social Security benefits <span class="note">projected, age 67</span></td><td class="n">$68,000</td><td class="n"><span class="note">—</span> $68,000</td><td class="n"><span class="note">—</span> $68,000</td></tr>
-        <tr><td>Other adjusted gross income <span class="note">excluding benefits</span></td><td class="n">$60,000</td><td class="n"><span class="note">—</span> $60,000</td><td class="n"><span class="note">−$42,000</span> $18,000</td></tr>
-        <tr><td>Tax-exempt interest</td><td class="n">$5,000</td><td class="n"><span class="note">—</span> $5,000</td><td class="n"><span class="note">—</span> $5,000</td></tr>
-        <tr><td>One half of benefits</td><td class="n">$34,000</td><td class="n"><span class="note">—</span> $34,000</td><td class="n"><span class="note">—</span> $34,000</td></tr>
-        <tr><td>Combined income <span class="note">provisional income</span></td><td class="n">$99,000</td><td class="n"><span class="note">—</span> $99,000</td><td class="n"><span class="note">−$42,000</span> $57,000</td></tr>
-        <tr class="hi"><td>Share of benefits taxable <span class="note">85% maximum</span></td><td class="n">77.6%</td><td class="n"><span class="note">—</span> 77.6%</td><td class="n"><span class="note">−52.5 pp</span> 25.1%</td></tr>
-        <tr><td>Taxable benefits <span class="note">1040, Line 6b</span></td><td class="n">$52,750</td><td class="n"><span class="note">—</span> $52,750</td><td class="n"><span class="note">−$35,700</span> $17,050</td></tr>
-        <tr class="total"><td>Estimated federal tax on benefits</td><td class="n">$11,605</td><td class="n"><span class="note">—</span> $11,605</td><td class="n"><span class="note">−$9,559</span> $2,046</td></tr>
-      </tbody>
-    </table>
-    <div class="rule" style="margin:18px 0 12px"></div>
-    <div class="lbl">Share of benefits taxable <span class="note">against the 85% statutory maximum · one shared axis</span></div>
-    <div style="position:relative;display:flex;gap:70px;align-items:flex-end;height:150px;border-bottom:1px solid var(--line);padding:0 40px;margin-top:10px">
-      <div style="position:absolute;left:0;right:0;bottom:85%;border-top:1.5px dashed color-mix(in srgb,var(--gold) 70%,var(--ink))"></div>
-      <div style="position:absolute;right:0;bottom:87%;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:color-mix(in srgb,var(--gold) 55%,var(--ink))">85% statutory maximum</div>
-      <div style="flex:1;position:relative;height:100%">
-        <div style="position:absolute;left:0;right:0;bottom:0;height:77.6%;background:var(--deep);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:22px;padding-top:8px;color:var(--paper)">77.6%</div></div>
-      </div>
-      <div style="flex:1;position:relative;height:100%">
-        <div style="position:absolute;left:0;right:0;bottom:0;height:77.6%;background:var(--mint);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:22px;padding-top:8px;color:var(--paper)">77.6%</div></div>
-      </div>
-      <div style="flex:1;position:relative;height:100%">
-        <div style="position:absolute;left:0;right:0;bottom:0;height:25.1%;background:var(--gold);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:22px;padding-top:8px;color:var(--paper)">25.1%</div></div>
-      </div>
-    </div>
-    <div style="display:flex;gap:70px;padding:8px 40px 0">
-      <div style="flex:1"><div class="scen hd slim" style="margin-bottom:0;border-bottom:0"><div class="n">Lookback</div><div class="m">$52,750 taxable</div></div></div>
-      <div style="flex:1"><div class="scen hd a slim" style="margin-bottom:0;border-bottom:0"><div class="n">Strategy 1 · Florida</div><div class="m">$52,750 taxable</div></div></div>
-      <div style="flex:1"><div class="scen hd b slim" style="margin-bottom:0;border-bottom:0"><div class="n">Strategy 2 · Florida + Roth</div><div class="m">$17,050 taxable</div></div></div>
-    </div>
-
-    <div class="obs op" style="margin-top:18px;max-width:none">
-      <div class="lbl">Why the conversion helps later</div>
-      <p>Converted balances carry no required minimum distributions, so other adjusted gross income at 67 falls from $60,000 to $18,000. That pulls combined income below the second threshold and drops the taxable share of benefits from 77.6% to 25.1%. Neither California nor Florida taxes Social Security benefits, so the two 2026 columns differ only by the conversion.</p>
-    </div>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>15</span></div>
-</section>
-
-<!-- 13 SCHEDULE A -->
-<section class="slide led hide">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">18 — Social Security taxable share</span></div>
-  <div class="body">
-    <div class="eyebrow">Against the 85% statutory maximum</div>
-    <h2 style="margin-bottom:10px">Social Security taxable percentage</h2>
-    <p class="small" style="max-width:110ch;margin-bottom:24px">Share of $68,000 of combined benefits subject to federal income tax at age 67, against the 85% statutory maximum. All three columns share one axis.</p>
-
-    <div style="display:flex;gap:70px;padding:0 40px;margin-bottom:16px">
-      <div style="flex:1"><div class="scen hd" style="margin-bottom:0"><div class="n">Lookback</div><div class="m">2025 · as filed · $52,750 taxable</div></div></div>
-      <div style="flex:1"><div class="scen hd a" style="margin-bottom:0"><div class="n">Strategy 1 · Florida</div><div class="m">2026 · estimated · $52,750 taxable</div></div></div>
-      <div style="flex:1"><div class="scen hd b" style="margin-bottom:0"><div class="n">Strategy 2 · Florida + Roth</div><div class="m">2026 · estimated · $17,050 taxable</div></div></div>
-    </div>
-
-    <div style="position:relative;display:flex;gap:70px;align-items:flex-end;height:250px;border-bottom:1px solid var(--line);padding:0 40px">
-      <div style="position:absolute;left:0;right:0;bottom:85%;border-top:1.5px dashed color-mix(in srgb,var(--gold) 70%,var(--ink))"></div>
-      <div style="position:absolute;right:0;bottom:86%;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:color-mix(in srgb,var(--gold) 55%,var(--ink))">85% statutory maximum</div>
-      <div style="flex:1;position:relative;height:100%">
-        <div style="position:absolute;left:0;right:0;bottom:0;height:77.6%;background:var(--deep);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:26px;padding-top:12px;color:var(--paper)">77.6%</div></div>
-      </div>
-      <div style="flex:1;position:relative;height:100%">
-        <div style="position:absolute;left:0;right:0;bottom:0;height:77.6%;background:var(--mint);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:26px;padding-top:12px;color:var(--paper)">77.6%</div></div>
-      </div>
-      <div style="flex:1;position:relative;height:100%">
-        <div style="position:absolute;left:0;right:0;bottom:0;height:25.1%;background:var(--gold);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:26px;padding-top:12px;color:var(--paper)">25.1%</div></div>
-      </div>
-
-    </div>
-
-
-    <div class="g3" style="gap:30px;margin-top:26px">
-      <div class="stat"><div class="lbl">Benefits assumed</div><div class="v">$68,000</div><div class="s">Combined annual benefit at 67, identical in all scenarios.</div></div>
-      <div class="stat"><div class="lbl">Taxable benefits removed</div><div class="v">$35,700</div><div class="s">Lower required distributions pull combined income down.</div></div>
-      <div class="stat"><div class="lbl">Annual tax saved</div><div class="v">$9,559</div><div class="s">Recurring, against a one-time $12,792 conversion cost.</div></div>
-    </div>
-    <p class="note" style="margin-top:14px">Neither California nor Florida taxes Social Security benefits, so the two 2026 columns differ only by the conversion.</p>
-  </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>21</span></div>
-</section>
-
-<!-- 23 INVESTMENT INCOME TAX EFFICIENCY -->
-<section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">16 — Schedule A</span></div>
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">20 — Schedule A</span></div>
   <div class="body">
     <div class="eyebrow">Itemized deductions</div>
     <h2 style="margin-bottom:18px">Schedule A · itemized deductions</h2>
-    <table class="dense">
+    <p class="sum">Mortgage and investment interest is the largest deduction, at <b>$52,100</b>.</p><table class="dense">
       <thead><tr><th>Deduction</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
       <tbody>
         <tr><td>Medical &amp; dental, over 7.5% AGI floor <span class="note">Sch A, Line 4</span></td><td class="n">$23,221</td><td class="n"><span class="note">—</span> $23,221</td><td class="n"><span class="note">—</span> $23,221</td></tr>
@@ -1920,16 +1882,15 @@ html[data-format="wide"] .irmaasvg{width:64%}
       </tbody>
     </table>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>16</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>20</span></div>
 </section>
 
-<!-- 14 SCHEDULE SUMMARIES -->
 <section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">17 — Schedule summaries</span></div>
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">21 — Schedule summaries</span></div>
   <div class="body">
     <div class="eyebrow">Lookback only · 2025 as filed</div>
     <h2 style="margin-bottom:10px">Schedule summaries</h2>
-    <p class="small" style="max-width:118ch;margin-bottom:20px">These schedules are drawn from the 2025 lookback return as filed. Business, capital, rental and farm activity are unchanged by the relocation and the conversion, so they are reported once rather than in three columns.</p>
+    <p class="sum">Business, rental and farm activity is the same in every scenario: <b>$11,130</b>, <b>$9,250</b> and <b>$500</b> net.</p>
     <div class="cols" style="grid-template-columns:repeat(4,minmax(0,1fr))">
       <div>
         <div class="scen slim"><div class="n">Schedule C</div><div class="t">Business · 2025 as filed</div></div>
@@ -1983,58 +1944,190 @@ html[data-format="wide"] .irmaasvg{width:64%}
       <div class="conn" style="max-width:70px"></div>
       <div class="node" style="flex:1;border-left:3px solid var(--mint)"><div class="t">Contribution to total income</div><div class="v mint">$17,880</div><div class="small">Of $257,880 lookback income</div></div>
     </div>
-    <p class="note" style="margin-top:16px;max-width:118ch">Schedule C profit also drives the $1,573 self-employment tax shown on page 05 and the $2,226 qualified business income deduction on page 03. Schedule E rental income is part of the $49,250 net investment income tested against the NIIT threshold on page 12.</p>
+    <p class="note n16" style="margin-top:16px;max-width:118ch">Schedule C profit also drives the $1,573 self-employment tax shown on page 16 and the $2,226 qualified business income deduction on page 14. Schedule E rental income is part of the $49,250 net investment income tested against the NIIT threshold on page 07.</p>
+  <div class="fn"><p><b>How to read this page.</b> These schedules are drawn from the 2025 lookback return as filed. Business, capital, rental and farm activity are unchanged by the relocation and the conversion, so they are reported once rather than in three columns.</p></div>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>17</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>21</span></div>
 </section>
 
-<!-- 15 CONSIDERATIONS & NEXT STEPS -->
-<section class="slide led">
-  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">18 — Recommendation &amp; next steps · alt B</span></div>
+<section class="slide led hide">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">01 — Tax impact summary</span></div>
   <div class="body">
-    <h2 style="margin-bottom:14px">Recommendation &amp; next steps</h2>
+    <div class="eyebrow">Lookback · Strategy 1 · Strategy 2</div>
+    <h2 style="margin-bottom:10px">Tax impact summary</h2>
 
-    <div class="g2" style="grid-template-columns:1fr auto;gap:44px;align-items:center;border-top:2px solid var(--mint);background:color-mix(in srgb,var(--mint) 7%,transparent);padding:16px 20px;margin-bottom:12px">
-      <div>
-        <span class="chip in">Recommended</span>
-        <h3 style="margin-top:8px">Strategy 1 · Florida domicile</h3>
-        <p class="small" style="max-width:88ch;margin-top:6px">Lowest 2026 total tax liability of the three scenarios. The Roth conversion remains worth modelling as a partial conversion once domicile is settled.</p>
+    <div class="g4" style="gap:0;margin-bottom:10px;border-top:2px solid var(--deep);border-bottom:1px solid var(--line)">
+      <div style="padding:8px 20px 8px 0">
+        <div class="lbl">Bob Jones</div>
+        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">Age 58</div>
+        <p class="note" style="margin-top:2px">Catch-up eligible · RMDs begin 2041</p>
       </div>
-      <div style="text-align:right">
-        <div class="lbl" style="margin-bottom:6px">Estimated total tax liability</div>
-        <div class="figrow" style="justify-content:flex-end"><span class="delta down">▼ $6,812</span><span class="hero">$17,729</span></div>
-        <div class="note" style="margin-top:4px">federal + state · vs. lookback</div>
+      <div style="padding:8px 20px;border-left:1px solid var(--line)">
+        <div class="lbl">Sally Jones</div>
+        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">Age 56</div>
+        <p class="note" style="margin-top:2px">Catch-up eligible · RMDs begin 2043</p>
+      </div>
+      <div style="padding:8px 20px;border-left:1px solid var(--line)">
+        <div class="lbl">Filing status</div>
+        <div style="font-family:var(--dk-serif);font-size:24px;margin-top:2px">Married Filing Jointly</div>
+        <p class="note" style="margin-top:2px">2 qualifying children · Billy 16, Betty 13</p>
+      </div>
+      <div style="padding:8px 0 8px 20px;border-left:1px solid var(--line)">
+        <div class="lbl">Age-based windows open now</div>
+        <div class="tagrow" style="margin-top:6px">
+          <span class="tag">Roth conversion window</span>
+          <span class="tag">401(k) catch-up</span>
+          <span class="tag">IRMAA lookback from 63</span>
+        </div>
       </div>
     </div>
 
-    <div class="g3" style="gap:0;margin-bottom:22px;display:none">
-      <div style="border-top:1px solid var(--line);padding:10px 22px 0 0"><div class="lbl">1 · Lookback</div><div class="num" style="font-size:17px;margin-top:4px">$24,541</div></div>
-      <div style="border-top:2px solid var(--mint);border-left:1px solid var(--line);padding:10px 22px 0"><div class="lbl" style="color:var(--mint)">2 · Strategy 1 · Florida &nbsp;· chosen</div><div class="num" style="font-size:17px;margin-top:4px">$17,729 <span class="note">lowest</span></div></div>
-      <div style="border-top:1px solid var(--line);border-left:1px solid var(--line);padding:10px 0 0 22px"><div class="lbl">3 · Strategy 2 · Florida + Roth</div><div class="num" style="font-size:17px;margin-top:4px">$30,521</div></div>
+    <!-- scenarios read as one quiet strip: no tinted cards, hairline gutters,
+         figure left and the two rates on a single line beneath it -->
+    <div class="cols" style="border-bottom:1px solid var(--line);padding-bottom:10px">
+      <div style="padding-right:26px">
+        <div class="scen hd slim"><div class="n">Lookback</div><div class="t">2025 · as filed, California</div></div>
+        <div style="margin-top:12px">
+          <div class="figrow"><span class="delta" style="visibility:hidden">—</span><span class="hero-fig">$24,541</span></div>
+          <div class="note" style="margin-top:4px">Total tax liability · federal + state</div>
+          <div class="note" style="margin-top:6px">Effective 9.7% · Marginal 22%</div>
+        </div>
+      </div>
+      <div style="padding:0 26px;border-left:1px solid var(--line)">
+        <div class="scen hd a slim"><div class="n">Strategy 1 · Florida</div><div class="t">2026 estimated · Florida domicile</div></div>
+        <div style="margin-top:12px">
+          <div class="figrow"><span class="delta down">▼ $6,812</span><span class="hero-fig">$17,729</span></div>
+          <div class="note" style="margin-top:4px">Estimated less tax this year than the lookback year</div>
+          <div class="note" style="margin-top:6px">Effective 7.0% · Marginal 22%</div>
+        </div>
+      </div>
+      <div style="padding-left:26px;border-left:1px solid var(--line)">
+        <div class="scen hd b slim"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">2026 estimated · Florida + $50,000 Roth</div></div>
+        <div style="margin-top:12px">
+          <div class="figrow"><span class="delta up">▲ $5,980</span><span class="hero-fig">$30,521</span></div>
+          <div class="note" style="margin-top:4px">Estimated more tax this year · <span class="chip watch">Costs now, saves later</span></div>
+          <div class="note" style="margin-top:6px">Effective 10.1% · Marginal 22%</div>
+        </div>
+      </div>
     </div>
 
 
-    <table class="dense sumt">
-      <thead>
-        <tr><th style="width:34%">Step</th><th style="width:40%">What it requires</th><th style="width:14%">Owner</th><th class="n" style="width:12%">Deadline</th></tr>
-      </thead>
+    <div class="rule" style="margin:14px 0 6px"></div>
+    <div class="lbl" style="margin-bottom:2px">Where each dollar of income goes</div>
+    <table class="dense sumt" style="margin-top:2px">
+      <thead><tr><th>Line item</th><th class="n s1">Lookback<br><span class="note">2025 · as filed</span></th><th class="n s2">Strategy 1 · Florida<br><span class="note">2026 · estimated</span></th><th class="n s3">Strategy 2 · Florida + Roth<br><span class="note">2026 · estimated</span></th></tr></thead>
       <tbody>
-        <tr><td><strong>01 · Review this report</strong><br><span class="note">Confirm the assumptions match your plans for 2026.</span></td><td>Walk through each scenario together, line by line.</td><td>You &amp; advisor</td><td class="n">This month</td></tr>
-        <tr><td><strong>02 · Decide on domicile</strong><br><span class="note">The relocation drives most of the saving.</span></td><td>Timing, day count, and evidence for a California departure-year review.</td><td>You</td><td class="n">Before Jan 1</td></tr>
-        <tr><td><strong>03 · Size the conversion</strong><br><span class="note">Stay under $274,000 IRMAA Tier 2 and $250,000 NIIT.</span></td><td>Model the partial amount against both thresholds.</td><td>Advisor</td><td class="n">Dec 31</td></tr>
-        <tr><td><strong>04 · Schedule a follow-up</strong><br><span class="note">Nothing should wait on the conversion cut-off.</span></td><td>Set a date and a deadline for each remaining step.</td><td>Advisor</td><td class="n">Q3</td></tr>
-        <tr><td><strong>05 · Coordinate with your preparer</strong><br><span class="note">Estimated payments follow the scenario you implement.</span></td><td>Share this report and the safe harbor target.</td><td>Preparer</td><td class="n">Q4</td></tr>
-        <tr><td><strong>06 · Monitor and adjust</strong><br><span class="note">Watch anything that moves MAGI near an IRMAA line.</span></td><td>Revisit if income, tax law or circumstances change.</td><td>You &amp; advisor</td><td class="n">Ongoing</td></tr>
-        <tr class="total" style="display:none"><td><strong>Three considerations govern the recommended figure</strong></td><td colspan="3"><span class="note">Projections are estimates under current law, domicile must be established before the tax year begins, and this report is for planning rather than filing.</span></td></tr>
+        <tr><td>Federal tax <span class="note">1040, Line 24</span></td><td class="n">$17,341</td><td class="n"><span class="note">+$388</span> $17,729</td><td class="n"><span class="note">+$13,180</span> $30,521</td></tr>
+        <tr><td>State income tax <span class="note">CA 540 / none</span></td><td class="n">$7,200</td><td class="n"><span class="note">−$7,200</span> $0</td><td class="n"><span class="note">−$7,200</span> $0</td></tr>
+        <tr><td>Retained income <span class="note">AGI less total tax</span></td><td class="n">$227,553</td><td class="n"><span class="note">+$6,812</span> $234,365</td><td class="n"><span class="note">+$44,020</span> $271,573</td></tr>
+        <tr><td>Federal balance owed / (refund) <span class="note">1040, Lines 34–37</span></td><td class="n">($4,659)</td><td class="n"><span class="note">+$388</span> ($4,271)</td><td class="n"><span class="note">+$13,180</span> $8,521</td></tr>
+        <tr><td>State balance owed / (refund) <span class="note">CA 540, Lines 91–97</span></td><td class="n">$1,850</td><td class="n"><span class="note">−$1,850</span> $0</td><td class="n"><span class="note">−$1,850</span> $0</td></tr>
+        <tr class="total hrow"><td>Estimated total tax liability <span class="note">federal + state</span></td><td class="n"><span class="hero">$24,541</span></td><td class="n"><span class="dgood">−$6,812</span> <span class="hero">$17,729</span></td><td class="n"><span class="dbad">+$5,980</span> <span class="hero">$30,521</span></td></tr>
       </tbody>
     </table>
-    <p class="note" style="margin-top:14px">Confidential report prepared for Bob Jones and Sally Jones on April 9, 2026. Provided for informational and planning purposes only; not legal or tax advice. Consult a qualified tax professional before implementing any strategy.</p>
+
+    <div style="display:flex;align-items:baseline;gap:14px;margin-top:12px">
+      <div class="lbl" style="margin:0;white-space:nowrap">Applied changes</div>
+      <div class="tagrow">
+        <span class="tag">State relocation · FL</span>
+        <span class="tag">Roth conversion · $50,000</span>
+        <span class="tag">Charitable gifts · $25,000</span>
+        <span class="tag">401(k) catch-up</span>
+        <span class="tag">HSA contribution</span>
+      </div>
+    </div>
   </div>
-  <div class="ftr"><span>Illustrative only · not tax advice</span><span>18</span></div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>01</span></div>
+</section>
+
+<section class="slide led hide">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">02 — Scenario definitions</span></div>
+  <div class="body">
+    <div class="eyebrow">Same three columns, every page</div>
+    <h2 style="margin-bottom:10px">Scenario definitions</h2>
+    <p class="small" style="max-width:130ch;margin-bottom:18px">Three columns, same order on every page, each on its own coloured card: the year already filed, the current year with the Florida move, and the current year with the Florida move plus the Roth conversion. Columns 2 and 3 are estimates.</p>
+    <div class="cols">
+      <div>
+        <div class="scen slim"><div class="n">Lookback</div><div class="t">2025 · as filed</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">California resident, San Francisco primary residence</span></div>
+          <div class="lr"><span class="k">SALT deduction capped at $10,000</span></div>
+          <div class="lr"><span class="k">No Roth conversion</span></div>
+          <div class="lr"><span class="k">Itemized deductions of $110,321</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen a slim"><div class="n">Strategy 1 · Florida</div><div class="t">2026 estimated · Florida domicile</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Florida domicile established January 2026</span></div>
+          <div class="lr"><span class="k">California income tax eliminated; SALT falls to $8,200</span></div>
+          <div class="lr"><span class="k">No conversion, no other elections changed</span></div>
+          <div class="lr"><span class="k">Estimated figures, not a filed return</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="scen b slim"><div class="n">Strategy 2 · Florida + Roth</div><div class="t">2026 estimated · Florida + $50,000 Roth</div></div>
+        <div class="led-rows">
+          <div class="lr"><span class="k">Florida domicile established January 2026</span></div>
+          <div class="lr"><span class="k">California income tax eliminated; SALT falls to $8,200</span></div>
+          <div class="lr"><span class="k">$50,000 traditional IRA converted to Roth at 22%</span></div>
+          <div class="lr"><span class="k">Raises MAGI into IRMAA Tier 2 and the NIIT threshold</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule" style="margin:18px 0 14px"></div>
+    <div class="g4">
+      <div class="card"><div class="lbl">Bob Jones</div><div style="font-family:var(--dk-serif);font-size:24px">Age 58</div><p class="note" style="margin-top:4px">Catch-up contributions available · RMDs begin 2041</p></div>
+      <div class="card"><div class="lbl">Sally Jones</div><div style="font-family:var(--dk-serif);font-size:24px">Age 56</div><p class="note" style="margin-top:4px">Catch-up contributions available · RMDs begin 2043</p></div>
+      <div class="card"><div class="lbl">Dependents</div><div style="font-family:var(--dk-serif);font-size:24px">2 qualifying children</div><p class="note" style="margin-top:4px">Billy, 16 · Betty, 13</p></div>
+      <div class="card"><div class="lbl">Housing</div><div style="font-family:var(--dk-serif);font-size:24px">Mortgage interest $52,100</div><p class="note" style="margin-top:4px">Property taxes $8,200 · Schedule C net profit $11,130</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>02</span></div>
+</section>
+
+<section class="slide led hide">
+  <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">18 — Social Security taxable share</span></div>
+  <div class="body">
+    <div class="eyebrow">Against the 85% statutory maximum</div>
+    <h2 style="margin-bottom:10px">Social Security taxable percentage</h2>
+    <p class="small" style="max-width:110ch;margin-bottom:24px">Share of $68,000 of combined benefits subject to federal income tax at age 67, against the 85% statutory maximum. All three columns share one axis.</p>
+
+    <div style="display:flex;gap:70px;padding:0 40px;margin-bottom:16px">
+      <div style="flex:1"><div class="scen hd" style="margin-bottom:0"><div class="n">Lookback</div><div class="m">2025 · as filed · $52,750 taxable</div></div></div>
+      <div style="flex:1"><div class="scen hd a" style="margin-bottom:0"><div class="n">Strategy 1 · Florida</div><div class="m">2026 · estimated · $52,750 taxable</div></div></div>
+      <div style="flex:1"><div class="scen hd b" style="margin-bottom:0"><div class="n">Strategy 2 · Florida + Roth</div><div class="m">2026 · estimated · $17,050 taxable</div></div></div>
+    </div>
+
+    <div style="position:relative;display:flex;gap:70px;align-items:flex-end;height:250px;border-bottom:1px solid var(--line);padding:0 40px">
+      <div style="position:absolute;left:0;right:0;bottom:85%;border-top:1.5px dashed color-mix(in srgb,var(--gold) 70%,var(--ink))"></div>
+      <div style="position:absolute;right:0;bottom:86%;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:color-mix(in srgb,var(--gold) 55%,var(--ink))">85% statutory maximum</div>
+      <div style="flex:1;position:relative;height:100%">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:77.6%;background:var(--deep);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:26px;padding-top:12px;color:var(--paper)">77.6%</div></div>
+      </div>
+      <div style="flex:1;position:relative;height:100%">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:77.6%;background:var(--mint);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:26px;padding-top:12px;color:var(--paper)">77.6%</div></div>
+      </div>
+      <div style="flex:1;position:relative;height:100%">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:25.1%;background:var(--gold);border-radius:2px 2px 0 0"><div class="num" style="text-align:center;font-size:26px;padding-top:12px;color:var(--paper)">25.1%</div></div>
+      </div>
+
+    </div>
+
+
+    <div class="g3" style="gap:30px;margin-top:26px">
+      <div class="stat"><div class="lbl">Benefits assumed</div><div class="v">$68,000</div><div class="s">Combined annual benefit at 67, identical in all scenarios.</div></div>
+      <div class="stat"><div class="lbl">Taxable benefits removed</div><div class="v">$35,700</div><div class="s">Lower required distributions pull combined income down.</div></div>
+      <div class="stat"><div class="lbl">Annual tax saved</div><div class="v">$9,559</div><div class="s">Recurring, against a one-time $12,792 conversion cost.</div></div>
+    </div>
+    <p class="note" style="margin-top:14px">Neither California nor Florida taxes Social Security benefits, so the two 2026 columns differ only by the conversion.</p>
+  </div>
+  <div class="ftr"><span>Illustrative only · not tax advice</span><span>21</span></div>
 </section>
 
 <!-- DIVIDER: EXTRAS / ALTS -->
-<section class="slide led" style="justify-content:center">
+<section class="slide hide led" style="justify-content:center">
   <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">Extras / Alts</span></div>
   <div class="body" style="display:flex;align-items:center">
     <h2 style="margin:0;font-size:52px;letter-spacing:-0.02em">Extras / Alts</h2>
@@ -3118,7 +3211,7 @@ html[data-format="wide"] .irmaasvg{width:64%}
 
 
 <!-- BACK POCKET: boxed-frame variants of the two scope pages -->
-<section class="slide led tightrows">
+<section class="slide hide led tightrows">
   <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">Variant · boxed frame — deductions</span></div>
   <div class="body">
     <div class="eyebrow">From total income to taxable income</div>
@@ -3196,15 +3289,15 @@ html[data-format="wide"] .irmaasvg{width:64%}
 
     <div class="obs wa" style="margin-top:14px">
       <div class="g2" style="gap:44px;align-items:start">
-        <div><div class="lbl">Why the deduction shrinks in Florida</div><p>California income tax was the largest component of the $10,000 SALT cap. Without it, only $8,200 of Florida property tax remains deductible — a $1,800 reduction that partly offsets the state tax saving.</p></div>
-        <div><div class="lbl">AGI is the figure the thresholds watch</div><p>Every threshold in this report is measured against AGI: the SALT cap, the net investment income tax at $250,000, and the IRMAA tiers. Schedule 1-A deductions sit in addition to the standard deduction rather than inside it, and none apply here. Itemized deductions exceed the standard deduction in all three scenarios; the two are compared side by side on the next page.</p></div>
+        <div><div class="lbl">Why the deduction shrinks in Florida</div><p>California income tax made up most of the $10,000 SALT cap. In Florida only $8,200 of property tax remains deductible — $1,800 less, partly offsetting the state tax saving.</p></div>
+        <div><div class="lbl">AGI is the figure the thresholds watch</div><p>Every threshold here is measured against AGI: the SALT cap, the $250,000 investment income tax line and the IRMAA tiers. No Schedule 1-A deductions apply. Itemized deductions exceed the standard deduction in all three scenarios; the two are compared side by side on the next page.</p></div>
       </div>
     </div>
   </div>
   <div class="ftr"><span>Illustrative only · not tax advice</span><span>Variant</span></div>
 </section>
 
-<section class="slide led tightrows">
+<section class="slide hide led tightrows">
   <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">Variant · boxed frame — capital gains</span></div>
   <div class="body">
     <div class="eyebrow">One shared axis to $583,750</div>
@@ -3324,7 +3417,7 @@ html[data-format="wide"] .irmaasvg{width:64%}
 </section>
 
 <!-- VARIANT · IRMAA WITH A THREE-YEAR SCENARIO -->
-<section class="slide led shrinkviz v3y">
+<section class="slide hide led shrinkviz v3y">
   <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">Variant · IRMAA with a three-year scenario</span></div>
   <div class="body">
     <div class="eyebrow">Steps, not tapers · one year plotted, every year listed</div>
@@ -3424,7 +3517,7 @@ html[data-format="wide"] .irmaasvg{width:64%}
 </section>
 
 <!-- VARIANT · IRMAA, SCENARIOS THAT START IN DIFFERENT YEARS -->
-<section class="slide led shrinkviz v2y">
+<section class="slide hide led shrinkviz v2y">
   <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">Variant · IRMAA with staggered scenario start years</span></div>
   <div class="body">
     <div class="eyebrow">Steps, not tapers · one staircase per determination year</div>
@@ -3493,7 +3586,7 @@ html[data-format="wide"] .irmaasvg{width:64%}
 </section>
 
 <!-- 13 CAPITAL GAINS & INVESTMENT INCOME -->
-<section class="slide led tightrows">
+<section class="slide hide led tightrows">
   <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">Variant · titled frame — capital gains</span></div>
   <div class="body">
     <div class="eyebrow">One shared axis to $583,750</div>
@@ -3616,7 +3709,7 @@ html[data-format="wide"] .irmaasvg{width:64%}
 
 
 <!-- 4/5 DEDUCTIONS & TAXABLE INCOME · comparison plus full breakdown -->
-<section class="slide led tightrows">
+<section class="slide hide led tightrows">
   <div class="hdr"><span class="l">Bob &amp; Sally Jones · MFJ</span><span class="r">Variant · titled frame — deductions</span></div>
   <div class="body">
     <div class="eyebrow">From total income to taxable income</div>
@@ -3697,8 +3790,8 @@ html[data-format="wide"] .irmaasvg{width:64%}
 
     <div class="obs wa" style="margin-top:14px">
       <div class="g2" style="gap:44px;align-items:start">
-        <div><div class="lbl">Why the deduction shrinks in Florida</div><p>California income tax was the largest component of the $10,000 SALT cap. Without it, only $8,200 of Florida property tax remains deductible — a $1,800 reduction that partly offsets the state tax saving.</p></div>
-        <div><div class="lbl">AGI is the figure the thresholds watch</div><p>Every threshold in this report is measured against AGI: the SALT cap, the net investment income tax at $250,000, and the IRMAA tiers. Schedule 1-A deductions sit in addition to the standard deduction rather than inside it, and none apply here. Itemized deductions exceed the standard deduction in all three scenarios; the two are compared side by side on the next page.</p></div>
+        <div><div class="lbl">Why the deduction shrinks in Florida</div><p>California income tax made up most of the $10,000 SALT cap. In Florida only $8,200 of property tax remains deductible — $1,800 less, partly offsetting the state tax saving.</p></div>
+        <div><div class="lbl">AGI is the figure the thresholds watch</div><p>Every threshold here is measured against AGI: the SALT cap, the $250,000 investment income tax line and the IRMAA tiers. No Schedule 1-A deductions apply. Itemized deductions exceed the standard deduction in all three scenarios; the two are compared side by side on the next page.</p></div>
       </div>
     </div>
   </div>
@@ -3720,9 +3813,9 @@ html[data-format="wide"] .irmaasvg{width:64%}
     var limit = (ftr ? ftr.getBoundingClientRect().top : s.getBoundingClientRect().bottom);
     var bottom = body.getBoundingClientRect().top;
     body.querySelectorAll('*').forEach(function(k){
-      var r = k.getBoundingClientRect(); if(r.height>0) bottom = Math.max(bottom, r.bottom);
+      var r = k.getBoundingClientRect(); if(r.height>0 && !k.children.length) bottom = Math.max(bottom, r.bottom);
     });
-    return bottom - (limit - 4);
+    return bottom - (limit - 16);
   }
   function fit(){
     document.querySelectorAll('.slide:not(.hide)').forEach(function(s){

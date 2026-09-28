@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'Reckless';src:url('/fonts/Reckless-Regular.otf') format('opentype');font-weight:100 900;font-style:normal;font-display:swap}.wf i{aspect-ratio:1;display:block}
+/* captions under figures: never light-on-light — normal weight, ink-level colour */
+.ins table.opt td.n span,.ins .cards .c .fig span,.ins .stackrows .n span,.ins .idx .e .g span{
+  font-weight:500;color:color-mix(in srgb,var(--ink) 80%,var(--paper))}
+.ins .idx .e .g span{font-size:16px;line-height:1.35}
+</style>
+<style>
+:root{
+  --deep:#0E3330;
+  --deeper:#06201E;
+  --ink:#0A2422;
+  --cream:#F4F0E7;
+  --paper:#FBF9F4;
+  --mint:#31917E;
+  --gold:#B3762B;
+  --clay:#C9674D;
+  --line:rgba(10,36,34,.14);
+  --lineD:rgba(244,240,231,.18);
+  --mut:#5E7370;
+  --mutD:rgba(244,240,231,.78);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#333;font-family:var(--dk-sans);-webkit-font-smoothing:antialiased}
+.slide.hide{display:none}
+.slide{
+  --mixbg:var(--paper);
+  width:1600px;height:900px;position:relative;overflow:hidden;
+  background:var(--paper);color:var(--ink);
+  padding:56px 88px 52px;display:flex;flex-direction:column;
+  page-break-after:always;break-after:page;
+}
+.slide.dark,.ondark{--mut:var(--mutD)}
+.ondark{--mixbg:var(--deep)}
+.slide.dark{background:var(--deep);color:var(--cream);--mixbg:var(--deep)}
+.slide.dark .rule{background:var(--lineD)}
+.slide.deeper{background:var(--deeper);--mixbg:var(--deeper)}
+.rule{height:1px;background:var(--line);width:100%}
+
+/* header / footer */
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.dark .hdr{border-color:var(--lineD)}
+.hdr .l{color:var(--mut)}.dark .hdr .l{color:var(--mutD)}
+.hdr .r{color:var(--deep)}.dark .hdr .r{color:var(--mint)}
+.ftr{position:absolute;left:88px;right:88px;bottom:34px;display:flex;justify-content:space-between;
+  font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;
+  border-top:1px solid var(--line);padding-top:12px}
+.dark .ftr{color:var(--mutD);border-color:var(--lineD)}
+.body{flex:1;padding-top:46px;padding-bottom:34px;min-height:0;display:flex;flex-direction:column;justify-content:flex-start}
+
+/* type */
+h1{font-family:var(--dk-serif);font-weight:300;font-size:82px;line-height:1.02;letter-spacing:-.02em}
+h2{font-family:var(--dk-serif);font-weight:300;font-size:54px;line-height:1.06;letter-spacing:-.015em}
+h3{font-family:var(--dk-serif);font-weight:400;font-size:30px;line-height:1.15}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--deep)}
+/* eyebrows removed from this deck: the running header already names the page */
+.eyebrow{display:none}
+.dark .eyebrow{color:color-mix(in srgb,var(--mint) 62%,var(--cream))}
+.lede{font-size:20px;line-height:1.5;color:var(--mut);max-width:62ch;font-weight:400}
+.dark .lede{color:var(--mutD)}
+.small{font-size:16px;line-height:1.5;color:var(--mut)}
+.dark .small{color:var(--mutD)}
+.lbl{margin-bottom:8px;font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.lbl .note,.smlbl span .note{display:block;margin-top:4px;text-transform:none;letter-spacing:.02em;font-weight:500}
+.dark .lbl{color:var(--mutD)}
+.num{line-height:1.14;font-family:var(--dk-serif);font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.mint{color:var(--mint)}.gold{color:var(--gold)}.clay{color:color-mix(in srgb,var(--gold) 50%,var(--ink))}
+em{font-style:italic}
+
+/* cover */
+.cover-mark{position:absolute;right:-260px;top:-220px;width:1100px;height:1100px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, color-mix(in srgb,var(--mint) 20%,transparent), color-mix(in srgb,var(--mint) 0%,transparent) 62%)}
+.cover-rings{position:absolute;right:80px;top:90px;width:720px;height:720px}
+.cover-rings div{position:absolute;border:1px solid rgba(244,240,231,.13);border-radius:50%;inset:0}
+
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+
+/* stat block */
+.stat{border-top:2px solid var(--deep);padding-top:16px}
+.dark .stat{border-color:var(--mint)}
+.stat .v{font-family:var(--dk-serif);font-weight:300;font-size:29px;line-height:1.1;letter-spacing:-.02em;margin-top:12px;font-variant-numeric:tabular-nums}
+.stat .s{font-size:14px;color:var(--mut);margin-top:10px}
+.dark .stat .s{color:var(--mutD)}
+
+/* bars */
+.bar{height:26px;display:flex;overflow:hidden;border-radius:2px}
+.bar > span{display:block;height:100%}
+.track{height:8px;background:rgba(10,36,34,.10);border-radius:99px;overflow:hidden}
+.dark .track{background:rgba(244,240,231,.14)}
+.track > i{display:block;height:100%;background:var(--deep);border-radius:99px}
+.dark .track > i{background:var(--mint)}
+
+/* rows */
+.row{display:grid;align-items:center;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}
+.dark .row{border-color:var(--lineD)}
+.row .name{font-size:17px;font-weight:500}
+.row .val{font-family:var(--dk-serif);font-size:24px;font-weight:400;text-align:right;font-variant-numeric:tabular-nums}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);font-weight:700;text-align:left;padding:0 14px 12px 0;border-bottom:1px solid var(--line)}
+td{padding:15px 14px 15px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.dark th,.dark td{border-color:var(--lineD)}
+.dark th{color:var(--mutD)}
+td.n{text-align:right;font-family:var(--dk-serif);font-size:20px;font-variant-numeric:tabular-nums;padding-right:0}
+th.n{text-align:right;padding-right:0}
+.pad td.n,.pad th.n{padding-right:34px}
+
+/* card */
+.card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:24px 26px}
+.dark .card{background:rgba(244,240,231,.05);border-color:var(--lineD)}
+.card.accent{border-left:3px solid var(--gold)}
+
+/* flow */
+.node{border:1px solid var(--line);border-radius:3px;padding:16px 20px;background:#fff;color:var(--ink)}
+.node .mint{color:color-mix(in srgb,var(--mint) 55%,var(--deeper))}
+.node .small{color:var(--mut)}
+.dark .node{background:rgba(244,240,231,.06);border-color:var(--lineD);color:var(--cream)}
+.dark .node .mint{color:var(--mint)}
+.dark .node .small{color:var(--mutD)}
+.node .t{font-size:16px;font-weight:600}
+.node .v{font-family:var(--dk-serif);font-size:22px;margin-top:4px}
+.conn{flex:1;height:1px;background:var(--line);position:relative}
+.dark .conn{background:var(--lineD)}
+.conn::after{content:'';position:absolute;right:0;top:-3px;border-left:7px solid var(--deep);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+.dark .conn::after{border-left-color:var(--mint)}
+
+/* section divider */
+.sec-num{font-family:var(--dk-serif);font-size:300px;line-height:.8;color:color-mix(in srgb,var(--mint) 16%,transparent);letter-spacing:-.04em}
+.toc-item{display:flex;gap:20px;padding:17px 0;border-bottom:1px solid var(--lineD);font-size:20px}
+.toc-item .i{font-family:var(--dk-serif);color:var(--mint);width:34px;font-size:18px}
+.chip{display:inline-block;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:99px}
+.chip.in{background:color-mix(in srgb,var(--mint) 18%,transparent);color:color-mix(in srgb,var(--mint) 55%,var(--deeper))}
+.chip.out{background:color-mix(in srgb,var(--gold) 14%,var(--paper));color:color-mix(in srgb,var(--gold) 50%,var(--ink))}
+.dark .chip.in{background:color-mix(in srgb,var(--mint) 20%,transparent);color:var(--mint)}
+.dark .chip.out{background:rgba(217,162,95,.2);color:var(--gold)}
+.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:600;letter-spacing:.04em;border:1px solid var(--line);background:#fff}
+.dark .avatar{background:rgba(244,240,231,.07);border-color:var(--lineD)}
+</style>
+<style id="ds-themes">
+html{--dk-serif:'Reckless',Georgia,serif;--dk-sans:'Neue Haas Unica W1G','Neue Haas Unica','Archivo',system-ui,sans-serif;--dk-radius:3px}
+html[data-theme="editorial"]{--deep:#0E3330;--deeper:#06201E;--ink:#0A2422;--cream:#F4F0E7;--paper:#FBF9F4;--mint:#31917E;--gold:#B3762B;--clay:#C9674D;--line:rgba(10,36,34,.14);--lineD:rgba(244,240,231,.18);--mut:#5E7370;--mutD:rgba(244,240,231,.78)}
+html[data-theme="bone"]{--dk-serif:'Instrument Serif',Georgia,serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#14120F;--deeper:#000000;--ink:#14120F;--cream:#F7F5F0;--paper:#F7F5F0;--mint:#B65E2D;--gold:#C94F2A;--clay:#C94F2A;
+  --line:rgba(20,18,15,.16);--lineD:rgba(247,245,240,.2);--mut:#6D675D;--mutD:rgba(247,245,240,.78)}
+html[data-theme="midnight"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Archivo',system-ui,sans-serif;--dk-radius:2px;
+  --deep:#060B16;--deeper:#03060D;--ink:#E8ECF5;--cream:#E8ECF5;--paper:#0B1120;--mint:#6FD3C7;--gold:#C9A84C;--clay:#E07A5F;
+  --line:rgba(232,236,245,.16);--lineD:rgba(232,236,245,.14);--mut:#8D9BB8;--mutD:rgba(232,236,245,.78)}
+html[data-theme="slate"]{--dk-serif:'Work Sans',system-ui,sans-serif;--dk-sans:'Work Sans',system-ui,sans-serif;--dk-radius:10px;
+  --deep:#0F1B2D;--deeper:#0A1220;--ink:#0F1B2D;--cream:#F8FAFC;--paper:#FFFFFF;--mint:#0F77F7;--gold:#AE7007;--clay:#E14242;
+  --line:rgba(15,27,45,.12);--lineD:rgba(248,250,252,.16);--mut:#5B6B82;--mutD:rgba(248,250,252,.78)}
+html[data-theme="goldman"]{--dk-serif:'Newsreader',Georgia,serif;--dk-sans:'Libre Franklin',system-ui,sans-serif;--dk-radius:0px;
+  --deep:#002849;--deeper:#001A2E;--ink:#0B1C2C;--cream:#F4F6F9;--paper:#FFFFFF;--mint:#5684BA;--gold:#9C7C49;--clay:#D15E4D;
+  --line:rgba(0,40,73,.16);--lineD:rgba(244,246,249,.18);--mut:#5A6B7D;--mutD:rgba(244,246,249,.78)}
+html[data-theme="goldman"] h1,html[data-theme="goldman"] h2,html[data-theme="goldman"] h3,html[data-theme="goldman"] .num{font-weight:400;letter-spacing:-.015em}
+html[data-theme="schwab"]{--dk-serif:'Source Sans 3',system-ui,sans-serif;--dk-sans:'Source Sans 3',system-ui,sans-serif;--dk-radius:6px;
+  --deep:#2E3D49;--deeper:#1C2833;--ink:#1C2833;--cream:#F2F5F7;--paper:#FFFFFF;--mint:#0096D1;--gold:#D67212;--clay:#EE5D37;
+  --line:rgba(28,40,51,.14);--lineD:rgba(242,245,247,.2);--mut:#5B6A76;--mutD:rgba(242,245,247,.78)}
+html[data-theme="schwab"] h1,html[data-theme="schwab"] h2,html[data-theme="schwab"] h3,html[data-theme="schwab"] .num{font-weight:600;letter-spacing:-.02em}
+html[data-theme="schwab"] .card,html[data-theme="schwab"] .node,html[data-theme="schwab"] .box{border-radius:var(--dk-radius)}
+html[data-theme="schwab"] .r-dark .mint,html[data-theme="schwab"] .ondark .mint{color:#4FC3F2}
+html[data-theme="wealth"]{--dk-radius:8px;
+  --deep:#012824;--deeper:#001815;--ink:#142324;--cream:#E6F3F2;--paper:#FFFFFF;--mint:#156960;--gold:#C25423;--clay:#C0530F;
+  --line:rgba(1,40,36,.14);--lineD:rgba(230,243,242,.2);--mut:#4A5F5D;--mutD:rgba(230,243,242,.8)}
+html[data-theme="wealth"] .r-dark .mint,html[data-theme="wealth"] .ondark .mint,html[data-theme="wealth"] .dark .mint{color:#7FBFB4}
+html[data-theme="wealth"] .card,html[data-theme="wealth"] .node,html[data-theme="wealth"] .box{border-radius:var(--dk-radius)}
+/* Scenario 3 (Strategy 2) must not read as a warning. In every theme the third
+   scenario hue is a second cool family — distinct from the baseline deep and the
+   Strategy 1 mid tone, with no warm/red valence. */
+html[data-theme="editorial"]{--gold:#3D6AA8}
+html[data-theme="bone"]{--gold:#4E6A78}
+html[data-theme="midnight"]{--gold:#8FA8E8}
+html[data-theme="slate"]{--gold:#0E8C8A}
+html[data-theme="goldman"]{--gold:#2F7D72}
+html[data-theme="schwab"]{--gold:#0E7C66}
+html[data-theme="wealth"]{--gold:#3C6E9E}
+/* midnight: light slides are dark, so accent text needs the light ink */
+html[data-theme="midnight"] .hdr .r{color:var(--gold)}
+/* midnight: base slides render on dark paper — mirror the .dark treatments */
+html[data-theme="midnight"] .card,html[data-theme="midnight"] .node,html[data-theme="midnight"] .avatar{background:rgba(232,236,245,.05);border-color:var(--lineD);color:var(--cream)}
+html[data-theme="midnight"] .eyebrow,html[data-theme="midnight"] .node .mint{color:var(--mint)}
+html[data-theme="midnight"] .track{background:rgba(232,236,245,.14)}
+html[data-theme="midnight"] .track > i,html[data-theme="midnight"] .sm .c > i,html[data-theme="midnight"] .bar > span:first-child{background:var(--mint)}
+html[data-theme="midnight"] .conn::after{border-left-color:var(--mint)}
+html[data-theme="midnight"] .chip.in{background:rgba(111,211,199,.2);color:var(--mint)}
+html[data-theme="midnight"] .keyline .sw[style*="--deep"]{background:var(--mint)!important}
+html[data-theme="slate"] .card,html[data-theme="slate"] .node,html[data-theme="slate"] .box{border-radius:var(--dk-radius)}
+html[data-theme="bone"] h1,html[data-theme="bone"] h2,html[data-theme="bone"] h3,html[data-theme="bone"] .num{font-weight:400}
+html[data-theme="slate"] h1,html[data-theme="slate"] h2,html[data-theme="slate"] h3,html[data-theme="slate"] .num{font-weight:500;letter-spacing:-.02em}
+body{background:transparent!important}
+.slide{margin:0 auto 28px}
+html{background:#111}
+</style>
+<script>
+document.documentElement.setAttribute('data-theme','editorial');
+addEventListener('message',function(e){
+  var d=e.data||{};
+  if(d.type==='ds-theme'&&typeof d.theme==='string')document.documentElement.setAttribute('data-theme',d.theme);
+  if(d.type==='ds-ping')announce();
+  if(d.type==='ds-goto'&&typeof d.index==='number'){
+    var s=document.querySelectorAll('.slide');
+    if(s[d.index])s[d.index].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+function announce(){parent.postMessage({type:'ds-ready',count:document.querySelectorAll('.slide').length},'*');}
+addEventListener('DOMContentLoaded',announce);
+addEventListener('load',announce);
+</script>
+<style id="ledger">
+/* ---- LEDGER MODE: dense, table-forward, one page = one worksheet ---- */
+.slide.led{padding:40px 88px 40px 88px}
+.led .body{padding-top:32px;padding-bottom:22px;justify-content:flex-start}
+.led .ftr{left:88px;right:88px;bottom:26px;padding-top:10px;font-size:14px}
+.led h2{font-size:42px}
+.led .eyebrow{font-size:14px;letter-spacing:.16em;margin-bottom:12px}
+.led .hdr{font-size:14px;padding-bottom:10px}
+
+/* "what is happening" line: small icon + plain-language action */
+.wih{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;
+  font-family:var(--dk-sans);font-size:16px;font-weight:700;line-height:1.25;color:var(--ink)}
+.wih svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;margin-top:1px;
+  stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tight01a tbody td,.tight01a thead th{padding-top:3px;padding-bottom:3px}
+.tight01a .note{line-height:1.25}
+.descrow td{vertical-align:top;padding-top:6px}
+.descrow .note{font-size:16px;line-height:1.35}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.dcard{border:1px solid var(--line);border-radius:6px;padding:10px 12px;box-sizing:border-box;
+  background:color-mix(in srgb,var(--ink) 3%,var(--paper))}
+.dcard .wih{margin-bottom:7px}
+
+/* three scenario columns with hairline gutters */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cols > div{padding:0 26px;border-left:1px solid var(--line)}
+.cols > div:first-child{padding-left:0;border-left:0}
+.cols > div:last-child{padding-right:0}
+
+/* scenario card: each scenario carries its own tinted ground so the three
+   columns break apart visually, not just by a rule underneath */
+.scen{min-height:110px;padding:10px 16px;margin-bottom:8px;border-radius:2px;
+  border-left:4px solid var(--deep);
+  background:color-mix(in srgb,var(--ink) 5%,var(--paper))}
+.scen .n{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;min-height:29px;
+  font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--ink);line-height:1.35}
+.scen .n>.chip{flex:none;margin-top:-1px}
+.scen.slim .n{min-height:0}
+/* scenario colour wins over the card's default ink, so card headers match
+   the table headers and chart labels everywhere else in the report */
+.scen .n.s1{color:var(--deep)}
+.scen .n.s2{color:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+.scen .n.s3{color:color-mix(in srgb,var(--gold) 72%,var(--ink))}
+.dark .scen .n.s1{color:var(--cream)}
+.dark .scen .n.s2{color:color-mix(in srgb,var(--mint) 78%,var(--cream))}
+.dark .scen .n.s3{color:color-mix(in srgb,var(--gold) 78%,var(--cream))}
+/* right-aligned variant used on the column-aligned summary */
+.scen.ralign .n{justify-content:flex-end}
+ .scen .t{font-family:var(--dk-serif);font-size:23px;margin-top:6px;line-height:1.15}
+ /* hero figure inside a scenario card: the headline number for that column */
+  .scen .hero{font-family:var(--dk-serif);font-size:29px;line-height:1.14;margin-top:8px;
+    font-variant-numeric:tabular-nums;color:var(--ink)}
+   .scen .hero .hd{font-family:var(--dk-sans);font-size:16px;color:var(--mut);letter-spacing:0}
+  tr.hrow td{padding-top:14px}
+  tr.hrow .hero{font-family:var(--dk-serif);font-size:29px;line-height:1.14;letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums;color:var(--ink)}
+ tr.hrow td.n .note{vertical-align:middle}
+
+.scen .m{font-size:16px;color:var(--mut);margin-top:6px;line-height:1.45}
+.scen.a{border-left-color:var(--mint);background:color-mix(in srgb,var(--mint) 13%,var(--paper))}
+.scen.b{border-left-color:var(--gold);background:color-mix(in srgb,var(--gold) 15%,var(--paper))}
+.scen.slim{min-height:0}
+.dark .scen{background:color-mix(in srgb,var(--paper) 8%,transparent)}
+/* column head: used where a scenario header sits directly above a filled bar.
+   Follows the table-header convention — no rule above the title, one hairline
+   beneath the block — so the header never reads as a second rectangle. */
+.scen.hd{min-height:0;background:none;border-left:0;border-radius:0;padding:0;
+  border-top:0;border-bottom:1px solid var(--line);padding-bottom:11px;margin-bottom:18px}
+.scen.hd.a,.scen.hd.b{background:none}
+.dark .scen.hd{background:none}
+.scen.hd .n{min-height:0;letter-spacing:.16em;font-size:14px;color:var(--deep)}
+.scen.hd.a .n{color:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+.scen.hd.b .n{color:color-mix(in srgb,var(--gold) 72%,var(--ink))}
+.scen.hd .t{font-size:26px;margin-top:8px}
+.scen.hd .m{margin-top:4px}
+/* scenario colours on table column headers, matching .scen.hd */
+thead th.n.s1{color:var(--deep)}
+thead th.n.s2{color:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+thead th.n.s3{color:color-mix(in srgb,var(--gold) 72%,var(--ink))}
+.dark thead th.n.s1{color:var(--cream)}
+.dark thead th.n.s2{color:color-mix(in srgb,var(--mint) 78%,var(--cream))}
+.dark thead th.n.s3{color:color-mix(in srgb,var(--gold) 78%,var(--cream))}
+thead th.n.s1 .note,thead th.n.s2 .note,thead th.n.s3 .note{color:var(--mut)}
+thead th.n .note{margin-right:0}
+/* ONE SCENARIO LABEL CONVENTION, EVERYWHERE.
+   Any label naming a scenario — table head, stat label, chart column label —
+   carries .s1 / .s2 / .s3 so the number, the wording and the colour match
+   across every page. */
+.lbl.s1,.smlbl span.s1,.s1{color:var(--deep)}
+.lbl.s2,.smlbl span.s2,.s2{color:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+.lbl.s3,.smlbl span.s3,.s3{color:color-mix(in srgb,var(--gold) 72%,var(--ink))}
+.dark .lbl.s1,.dark .smlbl span.s1,.dark .s1{color:var(--cream)}
+.dark .lbl.s2,.dark .smlbl span.s2,.dark .s2{color:color-mix(in srgb,var(--mint) 78%,var(--cream))}
+.dark .lbl.s3,.dark .smlbl span.s3,.dark .s3{color:color-mix(in srgb,var(--gold) 78%,var(--cream))}
+.s1 .note,.s2 .note,.s3 .note{color:var(--mut)}
+.smlbl span.s1,.smlbl span.s2,.smlbl span.s3{font-weight:700;letter-spacing:.04em}
+
+
+
+/* paired line items: two figures that sit beside each other because they are
+   treated differently on the return (tax-exempt vs taxable, ordinary vs qualified) */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line)}
+.pair > div{padding:11px 16px 11px 0}
+.pair > div + div{padding-left:16px;border-left:1px solid var(--line)}
+.pair .k{font-size:14px;color:var(--mut);display:block}
+.pair .v{font-family:var(--dk-serif);font-size:21px;font-variant-numeric:tabular-nums;display:block;margin-top:3px}
+.pair .t{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--mut);display:block;margin-top:4px}
+table.dense td.pairc{padding-right:0}
+table.dense td.pairc + td.pairc{border-left:1px solid var(--line);padding-left:14px}
+
+/* estimate marker for projected figures */
+.est{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  padding:2px 6px;border-radius:99px;vertical-align:2px;margin-left:6px;
+  border:1px solid var(--line);color:var(--mut)}
+.dark .est{border-color:var(--lineD)}
+
+/* ledger rows: label left, tabular figure right */
+.led-rows{width:100%}
+.lr{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    padding:11px 0;border-bottom:1px solid var(--line)}
+.lr:last-child{border-bottom:0}
+.lr .k{font-size:16px;color:var(--mut)}
+.lr .v{font-family:var(--dk-serif);font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.lr.tot{border-top:1.5px solid var(--deep);border-bottom:0;margin-top:6px;padding-top:11px}
+/* the dark total rule replaces the hairline above it */
+.lr:has(+ .lr.tot){border-bottom:0}
+.lr.tot .k{color:var(--ink);font-weight:600;font-size:16px}
+.lr.tot .v{font-size:29px}
+.lr.sub .k{padding-left:14px;font-size:16px}
+.lr.zero .v{color:var(--mut)}
+
+.hero-fig{font-family:var(--dk-serif);font-weight:300;font-size:29px;line-height:1.14;letter-spacing:-.025em;
+  font-variant-numeric:tabular-nums;margin-top:4px}
+.delta{font-size:14px;font-weight:600;letter-spacing:.02em;margin-top:8px}
+/* one rule for deltas: they always sit to the LEFT of the figure they modify,
+   matching the table convention, never beneath it */
+.figrow{display:flex;align-items:baseline;gap:12px}
+.figrow .delta{margin-top:0;white-space:nowrap}
+.up,.down{color:color-mix(in srgb,var(--ink) 74%,var(--paper))}
+
+/* dense table variant */
+table.dense{font-size:16px}
+table.dense th{font-size:14px;padding:0 10px 8px 0;letter-spacing:.16em}
+table.dense td{padding:8px 10px 8px 0;font-size:16px}
+table.dense td.n{font-size:17px}
+table.dense tr.total td{border-bottom:0;border-top:1.5px solid var(--deep);font-weight:600}
+table.dense tr:has(+ tr.total) td{border-bottom:0}
+/* Highlighting means one thing everywhere in this report: this is the line that
+   drives the outcome — the number to read first. It is a neutral ink tint (never a
+   scenario colour) and it says so on the row itself, so the meaning is not left to
+   a footnote. */
+tr.hi td{background:color-mix(in srgb,var(--ink) 7%,transparent)}
+tr.hi td:first-child{box-shadow:inset 3px 0 0 var(--ink)}
+tr.hi td:first-child{padding-left:12px}
+table.dense.sumt tr.hi td:first-child{padding-left:12px}
+tr.hi td:first-child::before{content:"KEY LINE";display:inline-block;margin-right:10px;
+  font-family:var(--dk-sans);font-size:14px;font-weight:700;letter-spacing:.16em;
+  vertical-align:1px;color:var(--paper);background:var(--ink);padding:2px 6px;border-radius:2px}
+
+/* bracket fill meter */
+.meter{display:flex;height:20px;border-radius:2px;overflow:hidden;border:1px solid var(--line)}
+.meter i{display:block;height:100%}
+.meter .room,.stack .room,.room{position:relative;background:var(--paper);background-clip:padding-box}
+.meter .room::before,.stack .room::before,.room::before{content:"";position:absolute;inset:2px;background-color:transparent;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-2 2 L2 -2 M0 7 L7 0 M5 9 L9 5' stroke='%23616b5f' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:repeat;pointer-events:none}
+.meter .room::after,.stack .room::after,.room::after{content:none}
+.dark .room::before,html[data-theme="midnight"] .room::before{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-2 2 L2 -2 M0 7 L7 0 M5 9 L9 5' stroke='%23b9c6b9' stroke-width='1.5'/%3E%3C/svg%3E")}
+
+i.sw.room{border:1px solid var(--line)}
+.mscale{display:flex;justify-content:space-between;font-size:14px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mut);font-weight:700;margin-top:6px}
+
+/* small-multiple column chart */
+.sm{display:flex;align-items:flex-end;gap:14px;height:150px;border-bottom:1px solid var(--line);padding-bottom:0}
+.sm .c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.sm .c i{display:block;width:100%;background:var(--deep);border-radius:2px 2px 0 0}
+.sm .c .v{font-family:var(--dk-serif);font-size:14px;margin-bottom:5px;font-variant-numeric:tabular-nums}
+.smlbl{display:flex;gap:14px;margin-top:8px}
+.smlbl span{flex:1;text-align:center;font-size:14px;color:var(--mut);line-height:1.3}
+
+/* stacked column */
+.stack{width:78px;display:flex;flex-direction:column-reverse;border-radius:2px;overflow:hidden}
+.stack i{display:block;width:100%}
+
+.keyline{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--mut)}
+.sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+.note{font-size:14px;line-height:1.5;color:var(--mut)}
+.n .note{margin-right:9px;white-space:nowrap}
+
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  padding:4px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+
+/* worksheet math rows */
+.wk .lr .k{font-size:16px}
+.wk .lr .v{font-size:19px}
+.wk .lr.op{border-bottom:0;padding-bottom:2px}
+.wk .lr.op .k{color:var(--mut);font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lesser{border:1px solid var(--line);border-radius:2px;padding:12px 14px;margin-top:12px;
+  display:flex;justify-content:space-between;align-items:baseline}
+.dark .lesser{border-color:var(--lineD)}
+
+/* status chips for phase-out matrix */
+.chip.watch{background:color-mix(in srgb,var(--gold) 18%,transparent);color:color-mix(in srgb,var(--gold) 60%,var(--ink))}
+.dark .chip.watch,html[data-theme="midnight"] .chip.watch{color:var(--gold)}
+.chip.na{background:color-mix(in srgb,var(--mut) 16%,transparent);color:var(--mut)}
+td .chip{white-space:nowrap}
+
+/* observation cards */
+.obs{border-top:2px solid var(--line);padding-top:12px}
+.dark .obs{border-color:var(--lineD)}
+.obs.op{border-color:var(--mint)}
+.obs.wa{border-color:color-mix(in srgb,var(--ink) 45%,var(--paper))}
+.dark .obs.wa,html[data-theme="midnight"] .obs.wa{border-color:color-mix(in srgb,var(--cream) 42%,transparent)}
+.obs h4{font-family:var(--dk-serif);font-size:19px;font-weight:400;line-height:1.2;margin:9px 0 6px}
+.obs p{font-size:16px;line-height:1.5;color:var(--mut)}
+.led.tight .lr{padding:7px 0}
+table.dense.sumt td{padding:8px 10px 8px 0}
+.led.tight .lesser{padding:9px 14px;margin-top:9px}
+
+/* deltas carry direction through the sign, not through colour — no hue is
+   positive or negative, so the palette stays readable in every theme */
+td.n .dgood,td.n .dbad{margin-right:6px}
+td.n .dgood{color:color-mix(in srgb,var(--ink) 74%,var(--paper));font-weight:600;font-size:14px}
+td.n .dbad{color:color-mix(in srgb,var(--ink) 74%,var(--paper));font-weight:600;font-size:14px}
+/* two stacked rates in a single cell, so the pair reads as one stop */
+td.n .stack{display:block;width:100%;font-size:18px;line-height:1.35;white-space:nowrap;text-align:right}
+td .subk{display:block;font-family:var(--dk-sans);font-size:14px;color:var(--mut)}
+
+/* reference-layout pages: the card grammar of the source report, on our tokens */
+.refcard{background:#fff;border:1px solid var(--line);border-radius:4px;padding:16px 22px}
+.dark .refcard{background:rgba(244,240,231,.05);border-color:var(--lineD)}
+.refcard>.h{font-size:16px;font-weight:700;margin-bottom:8px}
+.refrow{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:5px 0;border-bottom:1px dashed var(--line);font-size:16px}
+.refrow:last-child{border-bottom:0}
+.refrow .v{font-family:var(--dk-serif);font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.refrow.b,.refrow.b .v{font-weight:700}
+.refrow.ind{padding-left:18px}
+.refrow.ind2{padding-left:34px}
+.refhd{font-size:16px;font-weight:700;padding:8px 0 2px}
+.refcard.lad .refrow{font-size:14px;padding:2.5px 0}
+.refcard.lad .refrow .v{font-size:16px}
+.refcard.lad .refhd{font-size:14px;padding:4px 0 1px}
+.totalbar{background:var(--deep);color:var(--cream);border-radius:4px;padding:12px 22px;
+  display:flex;justify-content:space-between;align-items:center}
+.totalbar .k{font-size:16px;font-weight:700}
+.totalbar .k .note{color:color-mix(in srgb,var(--cream) 78%,var(--deep))}
+.totalbar .v{font-family:var(--dk-serif);font-size:29px;line-height:1.14;font-variant-numeric:tabular-nums}
+.dotm{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:1px}
+/* the reference summary page carries four cards, so its rows run tighter */
+.slide.refpg .refcard{padding:12px 18px}
+.slide.refpg .refrow{padding:2px 0;font-size:14px}
+.slide.refpg .refrow .v{font-size:16px}
+.slide.refpg .refcard>.h{margin-bottom:6px}
+
+/* section label row inside a ladder table: names a group of lines
+   (Retirement income, Schedule 1 income) without carrying figures */
+table.dense tr.sech td{font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--mut);padding-top:13px;padding-bottom:6px}
+table.dense tr.sech + tr td{border-top:0}
+/* indented sub-lines beneath a section label; .sub2 is the gross counterpart
+   of a taxable line (Total IRA distribution against IRA distributions, taxable) */
+table.dense tr.sub td:first-child{padding-left:18px}
+table.dense tr.sub2 td:first-child{padding-left:36px}
+table.dense tr.sub2 td{color:var(--mut)}
+/* grouping band inside a worksheet table: Tax before credits, Nonrefundable
+   credits, Other federal taxes — the reference report's section headers */
+table.dense tr.grp td{font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--ink);padding-top:14px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+table.dense tr.grp td .note{letter-spacing:.02em;text-transform:none;font-weight:500;margin-left:10px}
+/* subtotal inside a grouped worksheet — lighter than tr.total */
+table.dense tr.sub-tot td{font-weight:600;border-bottom:1.5px solid var(--line)}
+/* a total row whose top rule should match the lighter subtotal rule */
+table.dense tr.total.lightrule td{border-top:1.5px solid var(--line)}
+
+/* ============================================================
+   ONE FIGURE LADDER — three sizes, one colour rule.
+   hero  29px : the closing figure of a page or of a scenario column
+   total 24px : any total or subtotal row inside a table / worksheet
+   line  17px : ordinary line items (20px on non-dense tables)
+   Figures are ALWAYS neutral ink. Only scenario names and deltas
+   carry scenario colour, so size signals rank and colour signals
+   which scenario — never both at once.
+   ============================================================ */
+.hero,.hero-fig,.stat .v,.lr.tot .v,.totalbar .v,tr.hrow .hero{font-size:29px}
+table tr.total td.n,table.dense tr.total td.n,
+table.dense tr.sub-tot td.n,.wk .lr.tot .v,.refrow.b .v,.lesser .v{font-size:24px}
+/* figures never take scenario colour */
+.stat .v.mint,.stat .v.gold,.stat .v.s1,.stat .v.s2,.stat .v.s3,
+.lr .v.mint,.lr .v.gold,td.n .mint,td.n .gold,.hero.mint,.hero.gold{color:var(--ink)}
+.dark .stat .v.mint,.dark .stat .v.gold,.dark .lr .v.mint,.dark .lr .v.gold{color:var(--cream)}
+
+/* profile band: filing status, dependents, residence, business */
+.profile{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--deep)}
+.profile > div{padding:11px 22px 0 0}
+.profile > div + div{padding-left:22px;border-left:1px solid var(--line)}
+.profile .k{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.profile .v{font-size:17px;font-weight:600;margin-top:6px}
+.profile .m{font-size:14px;color:var(--mut);margin-top:4px;line-height:1.45}
+/* taken / not taken markers on the itemized-vs-standard comparison */
+.chip.taken{background:color-mix(in srgb,var(--mint) 20%,transparent);color:color-mix(in srgb,var(--mint) 58%,var(--deeper))}
+.chip.nottaken{background:color-mix(in srgb,var(--mut) 14%,transparent);color:var(--mut)}
+/* page format is 324px taller than 16:9 — let the ledger pages use the room
+   instead of leaving it empty at the bottom */
+html[data-format="page"] table.dense td{padding-top:11px;padding-bottom:11px}
+html[data-format="page"] table.dense th{padding-bottom:11px}
+html[data-format="page"] .lr{padding-top:14px;padding-bottom:14px}
+html[data-format="page"] .refrow{padding-top:5px;padding-bottom:5px}
+html[data-format="page"] .profile > div{padding-top:15px}
+/* the 16:9 format is short: long ledger tables run compact rows there.
+   Body text never drops below 16px — only the space between rows tightens. */
+html[data-format="wide"] table.dense td{padding-top:4px;padding-bottom:4px;font-size:16px}
+html[data-format="wide"] table.dense td.n{font-size:16px}
+html[data-format="wide"] table.dense th{padding-bottom:6px}
+/* the exhaustive ladders run compact in both formats */
+.slide.tightrows table.dense td{padding-top:3px;padding-bottom:3px;font-size:16px}
+.slide.tightrows table.dense td.n{font-size:16px}
+html[data-format="page"] .slide.tightrows table.dense td{padding-top:6px;padding-bottom:6px}
+
+/* ============================================================
+   SQUEEZE LADDER — how a page is made to fit.
+   The fit script raises data-sq on a slide until its content clears
+   the footer. Every level removes vertical SPACE (row padding, block
+   gaps, heading size); no rule here reduces body copy below 16px.
+   ============================================================ */
+.slide[data-sq] .body{padding-top:var(--sqpt) !important;padding-bottom:12px !important}
+.slide[data-sq] .body > *{margin-bottom:var(--sqgap) !important}
+.slide[data-sq] .body > *:last-child{margin-bottom:0 !important}
+.slide[data-sq] td{padding-top:var(--sqrow) !important;padding-bottom:var(--sqrow) !important}
+.slide[data-sq] th{padding-bottom:var(--sqrow) !important}
+.slide[data-sq] .lr,.slide[data-sq] .row,.slide[data-sq] .refrow{padding-top:var(--sqrow) !important;padding-bottom:var(--sqrow) !important}
+.slide[data-sq] h2{font-size:var(--sqh2) !important;margin-bottom:10px !important}
+.slide[data-sq] .lede{margin-bottom:12px !important}
+.slide[data-sq] .profile > div{padding-top:var(--sqrow) !important}
+.slide[data-sq] table.dense tr.grp td{padding-top:var(--sqrow) !important;padding-bottom:2px !important}
+.slide[data-sq="1"]{--sqpt:32px;--sqgap:22px;--sqrow:8px;--sqh2:50px}
+.slide[data-sq="2"]{--sqpt:26px;--sqgap:17px;--sqrow:6px;--sqh2:46px}
+.slide[data-sq="3"]{--sqpt:20px;--sqgap:13px;--sqrow:5px;--sqh2:42px}
+.slide[data-sq="4"]{--sqpt:15px;--sqgap:10px;--sqrow:4px;--sqh2:38px}
+.slide[data-sq="5"]{--sqpt:12px;--sqgap:7px;--sqrow:3px;--sqh2:34px}
+/* the deepest levels also close the gutters and bring the intro line down to
+   the 16px floor — body copy, tables and figures stay untouched */
+.slide[data-sq="6"]{--sqpt:10px;--sqgap:5px;--sqrow:2px;--sqh2:32px}
+.slide[data-sq="7"]{--sqpt:8px;--sqgap:4px;--sqrow:2px;--sqh2:30px}
+.slide[data-sq="8"]{--sqpt:6px;--sqgap:2px;--sqrow:1px;--sqh2:28px}
+.slide[data-sq="8"] .note,.slide[data-sq="8"] p.small{line-height:1.35 !important}
+
+.slide[data-sq="6"] .lede,.slide[data-sq="7"] .lede{font-size:16px !important;line-height:1.4 !important}
+.slide[data-sq="6"] .g2,.slide[data-sq="7"] .g2{gap:32px !important}
+.slide[data-sq="6"] .g3,.slide[data-sq="7"] .g3{gap:22px !important}
+.slide[data-sq="7"] p.small,.slide[data-sq="7"] .obs p{line-height:1.4 !important}
+</style>
+
+<style id="sundance">
+/* ---- SUNDANCE: lookback report ---- */
+.slide.sun{padding:0}
+/* ---- SUNDANCE COLOUR CONTRACT — three roles, one meaning each ----
+   green family (deep / --sun-ord / --sun-oth / 42% tint) = size of a tax figure,
+     structure and chart magnitude. Carries no judgement.
+   mint  = within a limit: headroom remaining, items standing as filed, confirmed.
+   clay  = needs attention: an amount owed, a return anomaly, a figure over a
+     threshold, something still needed to size the plan.
+   Nothing else is coloured. The strategy blue (--gold) is not used in this deck,
+   because there are no strategy scenarios to name. */
+.sun,.ins{--sun-ord:color-mix(in srgb,var(--deep) 78%,var(--paper));
+     --sun-oth:color-mix(in srgb,var(--mint) 45%,var(--deeper));
+     --sun-due:color-mix(in srgb,var(--clay) 58%,var(--cream))}
+/* over-threshold chips join clay, so "over" reads the same as "owed" */
+.sun .chip.watch,.ins .chip.watch{background:color-mix(in srgb,var(--clay) 13%,var(--paper));
+  color:color-mix(in srgb,var(--clay) 68%,var(--ink))}
+.dark .sun .chip.watch,.dark .ins .chip.watch{background:color-mix(in srgb,var(--clay) 24%,transparent);color:var(--clay)}
+.sun .band{background:linear-gradient(118deg,var(--deeper) 0%,var(--deeper) 34%,var(--deep) 100%);
+  color:var(--cream);padding:44px 88px 34px;position:relative;overflow:hidden}
+/* light fall from the upper right, as in the reference cover */
+.sun .band::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(115% 145% at 90% -28%,rgba(244,240,231,.30) 0%,rgba(244,240,231,.16) 26%,rgba(244,240,231,.06) 52%,transparent 76%)}
+.sun .band .rings{position:absolute;right:-180px;top:-260px;width:760px;height:760px}
+.sun .band .rings div{position:absolute;border:1px solid rgba(244,240,231,.10);border-radius:50%;inset:0}
+.sun .band .top{display:flex;justify-content:space-between;align-items:baseline;position:relative}
+.sun .band .wm{font-family:var(--dk-serif);font-size:22px}
+.sun .band .pp{font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;color:var(--mutD)}
+.sun .band h1{font-size:66px;margin-top:22px;position:relative}
+.sun .band .who{font-size:16px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--mutD);margin-top:12px;position:relative}
+.sun .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:26px;border-top:1px solid var(--lineD);position:relative}
+.sun .kpis > div{padding:14px 26px 0 0}
+.sun .kpis > div + div{padding-left:26px;border-left:1px solid var(--lineD)}
+.sun .kpis .k{font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mutD)}
+.sun .kpis .v{font-family:var(--dk-serif);font-weight:300;font-size:44px;line-height:1.1;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
+.sun .kpis .s{font-size:14px;color:var(--mutD);margin-top:8px}
+.sun .sheet{flex:1;min-height:0;padding:30px 88px 30px;display:flex;flex-direction:column}
+.sun .g2{gap:48px}
+.sun .g2 > div + div{padding-left:48px;border-left:1px solid var(--line)}
+.sun table.gl{font-size:16px}
+.sun table.gl td{padding:11px 10px 11px 0}
+.sun table.gl tr.total td{border-bottom:0;border-top:1.5px solid var(--deep);font-weight:600}
+.sun table.gl tr:has(+ tr.total) td{border-bottom:0}
+.sun table.gl td.n{font-family:var(--dk-serif);font-size:23px;font-weight:300;font-variant-numeric:tabular-nums;text-align:right;padding-right:0}
+.sun table.gl tr.total td.n{font-size:25px}
+.sun table.gl td.n.zero{color:var(--mut)}
+.sun table.gl td.n.due{color:var(--clay)}
+.sun .legend{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:14px}
+.sun .legend .k{display:flex;align-items:center;gap:8px;font-size:16px}
+.sun .legend .v{font-family:var(--dk-serif);font-size:22px;font-variant-numeric:tabular-nums;margin-top:4px}
+
+/* insights pages */
+.ins .anom{border-left:3px solid var(--clay);border-radius:0 3px 3px 0;padding:16px 22px;
+  background:color-mix(in srgb,var(--clay) 9%,var(--paper))}
+.ins .anom h3{font-size:24px}
+.ins .anom p{font-size:16px;line-height:1.5;margin-top:7px}
+.ins .anom .act{color:var(--clay);font-weight:600;margin-top:6px;font-size:16px}
+.ins .sublbl{font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mint)}
+.ins .ops{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ins .ops > div{padding:0 30px}
+.ins .ops > div:first-child{padding-left:0}
+.ins .ops > div + div{border-left:1px solid var(--line)}
+.ins .op-item{display:grid;grid-template-columns:52px 1fr;gap:6px;padding:13px 0;border-bottom:1px solid var(--line)}
+.ins .op-item:last-child{border-bottom:0}
+.ins .op-item .i{font-family:var(--dk-serif);font-size:24px;color:var(--mut);line-height:1.2}
+.ins .op-item h4{font-family:var(--dk-serif);font-size:21px;font-weight:400;line-height:1.2}
+.ins .op-item p{font-size:16px;line-height:1.45;color:var(--mut);margin-top:5px}
+.ins .sig{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:13px 0;border-bottom:1px solid var(--line)}
+.ins .sig .k{font-size:17px}
+.ins .sig .k .note{display:block}
+.ins .sig .chip{font-family:var(--dk-sans);white-space:nowrap}
+.ins .cfm{display:grid;grid-template-columns:16px 1fr;gap:10px;padding:8px 0;font-size:16px;line-height:1.45;color:var(--mut)}
+.ins .cfm b{color:var(--ink)}
+.ins .cfm i.d{width:9px;height:9px;border-radius:50%;background:var(--mint);margin-top:7px;display:block}
+.ins .cfm i.d.c{background:var(--clay)}
+/* 16:9 is 324px shorter than the page format — the lookback sheet closes its
+   vertical space there; body copy stays at 16px. */
+html[data-format="wide"] .sun .band{padding:30px 88px 24px}
+html[data-format="wide"] .sun .band h1{font-size:54px;margin-top:14px}
+html[data-format="wide"] .sun .band .who{margin-top:9px}
+html[data-format="wide"] .sun .kpis{margin-top:16px}
+html[data-format="wide"] .sun .kpis > div{padding-top:10px}
+html[data-format="wide"] .sun .kpis .v{font-size:36px;margin-top:5px}
+html[data-format="wide"] .sun .kpis .s{margin-top:5px}
+html[data-format="wide"] .sun .sheet{padding:20px 88px 22px}
+html[data-format="wide"] .sun table.gl td{padding-top:6px;padding-bottom:6px}
+html[data-format="wide"] .sun table.gl td.n{font-size:20px}
+html[data-format="wide"] .sun .legend{margin-top:10px}
+/* ---- alt layouts for the insights pages (appended slides) ---- */
+.ins .altbar{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:2px solid var(--line);padding:10px 0 4px;margin-top:14px}
+.ins .anomslim{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;
+  border-left:3px solid var(--clay);padding:12px 20px;margin-top:14px;
+  background:color-mix(in srgb,var(--clay) 9%,var(--paper))}
+.ins .anomslim .fig{font-family:var(--dk-serif);font-size:30px;font-weight:300;font-variant-numeric:tabular-nums;color:var(--clay);white-space:nowrap}
+.ins .anomslim p{font-size:16px;line-height:1.45}
+.ins .anomslim .act{color:var(--clay);font-weight:600;font-size:16px;white-space:nowrap}
+
+/* A — opportunity cards, three across */
+.ins .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px;align-items:stretch}
+.ins .cards .c{border:1px solid var(--line);border-top:3px solid var(--deep);padding:16px 18px;
+  background:color-mix(in srgb,var(--deep) 3%,var(--paper));display:flex;flex-direction:column}
+.ins .cards .c .top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.ins .cards .c .i{font-family:var(--dk-serif);font-size:22px;color:var(--mut)}
+.ins .cards .c h4{font-family:var(--dk-serif);font-size:21px;font-weight:400;line-height:1.22;margin-top:8px}
+.ins .cards .c p{font-size:16px;line-height:1.45;color:var(--mut);margin-top:7px}
+.ins .cards .c .fig{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);
+  font-family:var(--dk-serif);font-size:24px;font-weight:300;font-variant-numeric:tabular-nums}
+.ins .cards .c .fig span{font-family:var(--dk-sans);font-size:16px;line-height:1.35;color:var(--mut);margin-left:8px}
+
+/* B — opportunities as a full-width ledger list */
+.ins table.opt{width:100%;font-size:16px;margin-top:10px}
+.ins table.opt th{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--mut);
+  text-align:left;padding:0 14px 8px 0;border-bottom:1px solid var(--line)}
+.ins table.opt th:last-child,.ins table.opt td:last-child{text-align:right;padding-right:0}
+.ins table.opt td{padding:13px 14px 13px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+.ins table.opt tr:last-child td{border-bottom:0}
+.ins table.opt td.i{font-family:var(--dk-serif);font-size:22px;color:var(--mut);width:46px}
+.ins table.opt td.l{width:33%}
+.ins table.opt td.l b{font-family:var(--dk-serif);font-size:20px;font-weight:400;display:block;line-height:1.22}
+.ins table.opt td.d{color:var(--mut)}
+.ins table.opt td.n{font-family:var(--dk-serif);font-size:23px;font-weight:300;font-variant-numeric:tabular-nums;white-space:nowrap;width:160px}
+.ins table.opt td.n span{display:block;font-family:var(--dk-sans);font-size:16px;line-height:1.35;color:var(--mut);white-space:normal;margin-top:3px}
+
+/* C — thresholds drawn as position bars */
+.ins .tbar{padding:13px 0 15px;border-bottom:0}
+.ins .tbar:last-child{border-bottom:0;padding-bottom:6px}
+
+.ins .tbar .row{display:flex;align-items:baseline;justify-content:space-between;gap:18px;border-bottom:0}
+.ins .tbar .k{font-size:17px}
+.ins .tbar .k .note{margin-left:8px}
+.ins .tbar .track{position:relative;height:12px;margin-top:8px;background:color-mix(in srgb,var(--deep) 8%,var(--paper))}
+.ins .tbar .track .fill{position:absolute;left:0;top:0;bottom:0;background:var(--deep)}
+.ins .tbar .track .fill.in{background:var(--mint)}
+.ins .tbar .track .mk{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--paper);box-shadow:0 0 0 1px var(--ink)}
+.ins .tbar .track .mk b{position:absolute;left:50%;transform:translateX(-50%);top:-17px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--mut);white-space:nowrap}
+.ins .tbar .sc{display:flex;justify-content:space-between;margin-top:5px}
+
+/* D — thresholds as one table */
+.ins table.thr{width:100%;font-size:16px;margin-top:10px}
+.ins table.thr th{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--mut);
+  text-align:left;padding:0 14px 8px 0;border-bottom:1px solid var(--line)}
+.ins table.thr td{padding:11px 14px 11px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.ins table.thr tr:last-child td{border-bottom:0}
+.ins table.thr th.hn{text-align:right}
+.ins table.thr td.n{font-family:var(--dk-serif);font-size:21px;font-weight:300;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.ins table.thr td.e{color:var(--mut)}
+.ins .cfm3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:8px}
+.ins .cfm3 > div{padding:0 26px}
+.ins .cfm3 > div:first-child{padding-left:0}
+.ins .cfm3 > div + div{border-left:1px solid var(--line)}
+html[data-format="wide"] .ins .tbar{padding:7px 0}
+html[data-format="wide"] .ins .tbar .track{height:10px;margin-top:6px}
+html[data-format="wide"] .ins .tbar .sc{display:none}
+html[data-format="wide"] .ins .anomslim{padding:10px 20px;margin-top:10px}
+html[data-format="wide"] .ins .anomslim .fig{font-size:26px}
+/* E — findings: confirm-first rail beside a numbered stack */
+.ins .rail{display:grid;grid-template-columns:300px 1fr;gap:0;margin-top:16px;align-items:start}
+.ins .rail > .side{padding-right:32px}
+.ins .rail > .main{padding-left:32px;border-left:1px solid var(--line)}
+.ins .confirmcard{border-top:3px solid var(--clay);background:color-mix(in srgb,var(--clay) 7%,var(--paper));padding:16px 18px}
+.ins .confirmcard .lbl{margin:0;color:var(--clay)}
+.ins .confirmcard .fig{font-family:var(--dk-serif);font-size:38px;font-weight:300;font-variant-numeric:tabular-nums;color:var(--clay);margin-top:6px;line-height:1}
+.ins .confirmcard p{font-size:16px;line-height:1.45;margin-top:8px}
+.ins .confirmcard .act{font-size:16px;font-weight:600;color:var(--clay);margin-top:10px}
+.ins .stackrows > div{display:grid;grid-template-columns:40px 1fr 150px;gap:16px;align-items:baseline;
+  padding:11px 0;border-top:1px solid var(--line)}
+.ins .stackrows > div:first-child{border-top:0;padding-top:4px}
+.ins .stackrows .i{font-family:var(--dk-serif);font-size:20px;color:var(--mut)}
+.ins .stackrows h4{font-family:var(--dk-serif);font-size:20px;font-weight:400;line-height:1.2}
+.ins .stackrows p{font-size:16px;line-height:1.45;color:var(--mut);margin-top:4px}
+.ins .stackrows .n{text-align:right;font-family:var(--dk-serif);font-size:22px;font-weight:300;font-variant-numeric:tabular-nums}
+.ins .stackrows .n span{display:block;font-family:var(--dk-sans);font-size:16px;line-height:1.35;color:var(--mut);margin-top:3px}
+
+/* F — findings: figure gutter, editorial index */
+.ins .idx{margin-top:12px;column-count:2;column-gap:44px;column-rule:1px solid var(--line)}
+.ins .idx .e{break-inside:avoid;display:grid;grid-template-columns:118px 1fr;gap:18px;padding:12px 0}
+.ins .idx .e + .e{border-top:1px solid var(--line)}
+.ins .idx .e .g{text-align:right}
+.ins .idx .e .g b{display:block;font-family:var(--dk-serif);font-size:25px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1.05}
+.ins .idx .e .g span{display:block;font-size:14px;line-height:1.3;color:var(--mut);margin-top:4px}
+.ins .idx .e h4{font-family:var(--dk-serif);font-size:20px;font-weight:400;line-height:1.2}
+.ins .idx .e h4 i{font-style:normal;color:var(--mut);margin-right:8px}
+.ins .idx .e p{font-size:16px;line-height:1.45;color:var(--mut);margin-top:5px}
+
+/* G — positioning: one shared scale + checklist band */
+.ins .scale{margin-top:12px}
+.ins .scale .r{display:grid;grid-template-columns:230px 1fr 190px;gap:20px;align-items:center;padding:10px 0;border-top:0}
+.ins .scale .k{font-size:17px}
+.ins .scale .k span{display:block;font-size:14px;color:var(--mut);margin-top:2px}
+.ins .scale .tr{position:relative;height:16px;background:color-mix(in srgb,var(--deep) 7%,var(--paper))}
+.ins .scale .tr .f{position:absolute;left:0;top:0;bottom:0;background:var(--deep)}
+.ins .scale .tr .f.in{background:var(--mint)}
+.ins .scale .tr .o{position:absolute;top:0;bottom:0;background:var(--clay)}
+.ins .scale .tr .mk{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.ins .scale .v{text-align:right;font-size:16px;color:var(--mut)}
+.ins .scale .v b{display:block;font-family:var(--dk-serif);font-size:20px;font-weight:300;color:var(--ink);font-variant-numeric:tabular-nums}
+.ins .keyline{display:flex;gap:26px;align-items:center;margin-top:10px}
+.ins .keyline span{font-size:16px;color:var(--mut);display:flex;align-items:center;gap:8px}
+.ins .keyline i{width:16px;height:10px;display:inline-block}
+html[data-format="wide"] .ins .stackrows > div{padding:8px 0}
+html[data-format="wide"] .ins .idx .e{padding:9px 0}
+html[data-format="wide"] .ins .scale .r{padding:3px 0}
+html[data-format="wide"] .ins .scale .tr{height:12px}
+html[data-format="wide"] .ins .scale{margin-top:6px}
+html[data-format="wide"] .ins .keyline{margin-top:6px}
+html[data-format="wide"] .ins .confirmcard{padding:13px 15px}
+/* ALT H — grouped threshold spine. Each group states the figure its rows are
+   tested against, so no row needs to repeat its own measuring stick. One
+   status word per row: within / phasing out / over, in the deck colour rule. */
+.ins .spine{margin-top:8px}
+.ins .spine .gh{display:grid;grid-template-columns:1fr 168px 210px;gap:18px;align-items:baseline;
+  border-top:2px solid var(--line);padding:7px 0 5px;margin-top:2px}
+.ins .spine .gh:first-child{margin-top:0}
+.ins .spine .gh .t{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.ins .spine .gh .t span{display:inline;letter-spacing:0;text-transform:none;font-size:14px;font-weight:400;margin-left:10px}
+.ins .spine .gh .t span::before{content:'· '}
+.ins .spine .gh .f{text-align:right;font-family:var(--dk-serif);font-size:21px;font-weight:300;color:var(--ink);font-variant-numeric:tabular-nums}
+.ins .spine .gh .f span{display:block;font-family:var(--dk-sans);font-size:14px;font-weight:500;color:color-mix(in srgb,var(--ink) 78%,var(--paper));margin-top:-1px}
+.ins .spine .r{display:grid;grid-template-columns:1fr 168px 210px;gap:18px;align-items:baseline;
+  padding:6px 0;border-top:1px solid var(--line)}
+.ins .spine .r .k{font-size:17px}
+.ins .spine .r .k em{font-style:normal;color:var(--mut);font-size:16px}
+.ins .spine .r .n{text-align:right;font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums}
+.ins .spine .r .n span{display:block;font-size:14px;color:var(--mut)}
+.ins .spine .r .s{font-size:16px;font-weight:600;letter-spacing:.02em}
+.ins .spine .r .s.over{color:color-mix(in srgb,var(--clay) 82%,var(--ink))}
+.ins .spine .r .s.ph{color:color-mix(in srgb,var(--clay) 60%,var(--ink))}
+.ins .spine .r .s.win{color:color-mix(in srgb,var(--mint) 78%,var(--ink))}
+.ins .spine .r .s i{display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:currentColor;vertical-align:1px}
+html:not([data-format="page"]) .ins .spine .r{padding:3px 0}
+html:not([data-format="page"]) .ins .spine .gh{padding:6px 0 3px;margin-top:2px}
+/* 16:9 is 324px shorter: the group's plain-language gloss folds away, the
+   figure it states stays. Page format keeps both. */
+html:not([data-format="page"]) .ins .spine .gh .t span{display:none}
+html:not([data-format="page"]) .ins .spine .gh .f span{display:none}
+html:not([data-format="page"]) .ins .spine .gh .f{font-size:19px}
+html:not([data-format="page"]) .ins .spine .r .n span{display:inline;margin-left:8px}
+html:not([data-format="page"]) .ins .spine{margin-top:4px}
+html:not([data-format="page"]) .ins .spine + p.note{margin-top:4px!important}
+html:not([data-format="page"]) .ins .spine ~ .altbar{margin-top:8px;padding-top:6px}
+html:not([data-format="page"]) .ins .spine ~ .cfm3 .cfm{padding:3px 0}
+/* F5 — findings grouped into three priority tiers, colour carries urgency only
+   through the deck rule: clay = needs attention, mint = within/standing. */
+.ins .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:16px;align-items:stretch}
+.ins .tiers .t{display:flex;flex-direction:column}
+.ins .tiers .t > .h{border-top:3px solid var(--deep);padding-top:9px}
+.ins .tiers .t.now > .h{border-top-color:var(--clay)}
+.ins .tiers .t.watch > .h{border-top-color:var(--mint)}
+.ins .tiers .t .h .n{font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.ins .tiers .t.now .h .n{color:var(--clay)}
+.ins .tiers .t.watch .h .n{color:color-mix(in srgb,var(--mint) 82%,var(--ink))}
+.ins .tiers .t .h .w{font-size:16px;color:var(--mut);margin-top:4px;line-height:1.4}
+.ins .tiers .it{padding:14px 0 2px}
+.ins .tiers .it + .it{margin-top:2px;border-top:1px solid var(--line)}
+.ins .tiers .it h4{font-family:var(--dk-serif);font-size:21px;font-weight:400;line-height:1.22}
+.ins .tiers .it h4 i{font-style:normal;color:var(--mut);margin-right:9px;font-size:18px}
+.ins .tiers .it p{font-size:16px;line-height:1.45;color:var(--mut);margin-top:6px}
+.ins .tiers .it .f{font-family:var(--dk-serif);font-size:22px;font-weight:300;font-variant-numeric:tabular-nums;margin-top:8px}
+.ins .tiers .it .f span{font-family:var(--dk-sans);font-size:14px;color:var(--mut);margin-left:9px}
+
+/* F6 — mosaic: one feature opening, five supporting panels */
+.ins .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+.ins .bento .b{border:1px solid var(--line);padding:15px 18px;display:flex;flex-direction:column;
+  background:color-mix(in srgb,var(--deep) 3%,var(--paper))}
+.ins .bento .b.wide3{grid-column:span 3;flex-direction:row;align-items:baseline;gap:26px}
+.ins .bento .b.wide3 h4{margin-top:0;width:300px;flex:none}
+.ins .bento .b.wide3 p{margin-top:0;flex:1}
+.ins .bento .b.wide3 .f{margin-top:0;padding-top:0;width:200px;flex:none;text-align:right}
+.ins .bento .b.feat{grid-column:span 2;background:color-mix(in srgb,var(--deep) 7%,var(--paper));border-color:color-mix(in srgb,var(--deep) 22%,var(--paper))}
+.ins .bento .b .i{font-size:14px;letter-spacing:.2em;font-weight:700;color:var(--mut)}
+.ins .bento .b h4{font-family:var(--dk-serif);font-size:21px;font-weight:400;line-height:1.22;margin-top:7px}
+.ins .bento .b.feat h4{font-size:29px;line-height:1.14}
+.ins .bento .b p{font-size:16px;line-height:1.45;color:var(--mut);margin-top:7px}
+.ins .bento .b .f{margin-top:auto;padding-top:10px;font-family:var(--dk-serif);font-size:24px;font-weight:300;font-variant-numeric:tabular-nums}
+.ins .bento .b.feat .f{font-size:34px}
+.ins .bento .b .f span{display:block;font-family:var(--dk-sans);font-size:14px;color:var(--mut);margin-top:2px}
+
+/* P5 — each signal as a small gauge card: where the return sits on its line */
+.ins .gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+.ins .gauges .g{border:1px solid var(--line);padding:14px 16px 15px;background:color-mix(in srgb,var(--deep) 3%,var(--paper))}
+.ins .gauges .g.over{border-top:3px solid var(--clay)}
+.ins .gauges .g.in{border-top:3px solid var(--mint)}
+.ins .gauges .g .k{font-size:17px;line-height:1.25}
+.ins .gauges .g .lim{font-size:14px;color:var(--mut);margin-top:3px}
+.ins .gauges .g .tr{position:relative;height:10px;margin-top:12px;background:color-mix(in srgb,var(--deep) 9%,var(--paper))}
+.ins .gauges .g .tr .f{position:absolute;left:0;top:0;bottom:0;background:var(--deep)}
+.ins .gauges .g .tr .x{position:absolute;top:0;bottom:0;background:var(--clay)}
+.ins .gauges .g .tr .mk{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.ins .gauges .g .d{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:11px}
+.ins .gauges .g .d b{font-family:var(--dk-serif);font-size:24px;font-weight:300;font-variant-numeric:tabular-nums}
+.ins .gauges .g.over .d b{color:color-mix(in srgb,var(--clay) 80%,var(--ink))}
+.ins .gauges .g.in .d b{color:color-mix(in srgb,var(--mint) 78%,var(--ink))}
+.ins .gauges .g .d span{font-size:14px;color:var(--mut);text-align:right;line-height:1.3}
+
+/* P6 — two-state ledger: crossed lines on the left, room left on the right */
+.ins .duo{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:16px}
+.ins .duo > div{padding:0 34px}
+.ins .duo > div:first-child{padding-left:0}
+.ins .duo > div + div{border-left:1px solid var(--line)}
+.ins .duo .h{display:flex;align-items:baseline;gap:12px;border-top:3px solid var(--clay);padding-top:9px}
+.ins .duo > div + div .h{border-top-color:var(--mint)}
+.ins .duo .h .n{font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--clay)}
+.ins .duo > div + div .h .n{color:color-mix(in srgb,var(--mint) 82%,var(--ink))}
+.ins .duo .r{display:grid;grid-template-columns:1fr 168px;gap:16px;align-items:baseline;padding:13px 0}
+.ins .duo .r + .r{border-top:1px solid var(--line)}
+.ins .duo .r .k{font-size:17px}
+.ins .duo .r .k span{display:block;font-size:14px;color:var(--mut);margin-top:3px}
+.ins .duo .r .n{text-align:right;font-family:var(--dk-serif);font-size:24px;font-weight:300;font-variant-numeric:tabular-nums}
+.ins .duo .r .n em{display:block;font-style:normal;font-family:var(--dk-sans);font-size:14px;color:var(--mut);margin-top:3px}
+/* F7 — magnitude ladder: each opening drawn to the size of the amount in play */
+.ins .mag{margin-top:14px}
+.ins .mag .m{display:grid;grid-template-columns:34px 1fr 200px;gap:16px;align-items:center;padding:9px 0}
+.ins .mag .m + .m{border-top:1px solid var(--line)}
+.ins .mag .m .i{font-family:var(--dk-serif);font-size:24px;font-weight:300;color:var(--mut)}
+.ins .mag .m .k{font-size:19px;line-height:1.25}
+.ins .mag .m .k em{font-style:normal;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--mut);margin-right:12px}
+.ins .mag .m.now .k em{color:var(--clay)}
+.ins .mag .m.later .k em{color:color-mix(in srgb,var(--mint) 82%,var(--ink))}
+.ins .mag .m .k span{display:block;font-size:16px;color:var(--mut);margin-top:4px;line-height:1.45;max-width:96ch}
+.ins .mag .m .bar{grid-column:2;height:10px;margin-top:7px;background:color-mix(in srgb,var(--deep) 8%,var(--paper));position:relative}
+.ins .mag .m .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--sun-ord)}
+.ins .mag .m.later .bar i{background:color-mix(in srgb,var(--mint) 60%,var(--paper))}
+.ins .mag .m .n{grid-row:span 2;text-align:right;font-family:var(--dk-serif);font-size:30px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1.05}
+.ins .mag .m .n em{display:block;font-style:normal;font-family:var(--dk-sans);font-size:14px;color:var(--mut);margin-top:5px;line-height:1.35}
+.ins .mag .m .when{grid-column:2;grid-row:3;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--mut);margin-top:6px}
+.ins .mag .m.now .when{color:var(--clay)}
+.ins .mag .m.later .when{color:color-mix(in srgb,var(--mint) 82%,var(--ink))}
+
+/*F8old — timeline of openings: bubbles sized by the amount, placed by when they act */
+.ins .tline{margin-top:18px}
+.ins .tline .band{display:grid;grid-template-columns:repeat(6,1fr);align-items:flex-end;gap:10px;min-height:150px}
+.ins .tline .bub{display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.ins .tline .bub .c{display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:color-mix(in srgb,var(--sun-ord) 16%,var(--paper));border:1px solid color-mix(in srgb,var(--sun-ord) 46%,var(--paper));
+  font-family:var(--dk-serif);font-weight:300;font-variant-numeric:tabular-nums;color:color-mix(in srgb,var(--sun-ord) 82%,var(--ink))}
+.ins .tline .bub.later .c{background:color-mix(in srgb,var(--mint) 13%,var(--paper));border-color:color-mix(in srgb,var(--mint) 46%,var(--paper));
+  color:color-mix(in srgb,var(--mint) 80%,var(--ink))}
+.ins .tline .axis{height:0;border-top:2px solid var(--deep);margin-top:12px}
+.ins .tline .ticks{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.ins .tline .ticks > div{border-left:1px solid var(--line);padding:9px 0 0 10px}
+.ins .tline .ticks > div:first-child{border-left:0;padding-left:0}
+.ins .tline .ticks .i{font-size:14px;letter-spacing:.2em;font-weight:700;color:var(--mut)}
+.ins .tline .ticks h4{font-family:var(--dk-serif);font-size:19px;font-weight:400;line-height:1.2;margin-top:5px}
+.ins .tline .ticks p{font-size:16px;line-height:1.45;color:var(--mut);margin-top:6px}
+.ins .tline .ticks .w{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--mut);margin-top:7px}
+.ins .tline .ticks .w.now{color:var(--clay)}
+.ins .tline .ticks .w.later{color:color-mix(in srgb,var(--mint) 82%,var(--ink))}
+html[data-format="wide"] .ins .mag .m{padding:3px 0}
+html[data-format="wide"] .ins .mag .m .bar{margin-top:5px;height:9px}
+html[data-format="wide"] .ins .mag .m .k span{margin-top:2px}
+html[data-format="wide"] .ins .mag .m .when{margin-top:3px}
+html[data-format="wide"] .ins .mag .m .n{font-size:26px}
+html[data-format="wide"] .ins .mag .m .bar{margin-top:6px}
+html[data-format="wide"] .ins .tline{margin-top:10px}
+html[data-format="wide"] .ins .tline .band{min-height:120px}
+html[data-format="wide"] .ins .tline .ticks > div{padding-top:7px}
+/* F9 — one stacked column of everything in play, legend at right */
+.ins .stackw{display:grid;grid-template-columns:150px 1fr;gap:34px;margin-top:16px;align-items:stretch}
+.ins .stackw .col{display:flex;flex-direction:column;border:1px solid color-mix(in srgb,var(--deep) 18%,var(--paper))}
+.ins .stackw .col .sg{display:flex;align-items:center;justify-content:center;font-family:var(--dk-serif);
+  font-size:17px;font-weight:300;font-variant-numeric:tabular-nums;color:var(--paper);border-bottom:1px solid var(--paper)}
+.ins .stackw .col .sg:last-child{border-bottom:0}
+.ins .stackw .col .sg:nth-child(n+4){color:var(--ink)}
+.ins .stackw .tot{font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--mut);margin-bottom:6px}
+.ins .stackw .tot b{display:block;font-family:var(--dk-serif);font-size:28px;font-weight:300;letter-spacing:0;text-transform:none;color:var(--ink);margin-top:2px}
+.ins .stackw .lg .r{display:grid;grid-template-columns:16px 1fr 190px;gap:16px;align-items:baseline;padding:10px 0}
+.ins .stackw .lg .r + .r{border-top:1px solid var(--line)}
+.ins .stackw .lg .r i{width:14px;height:14px;display:block;margin-top:4px}
+.ins .stackw .lg .r .k{font-size:18px;line-height:1.25}
+.ins .stackw .lg .r .k em{font-style:normal;color:var(--mut);margin-right:9px;font-family:var(--dk-serif);font-size:16px}
+.ins .stackw .lg .r .k span{display:block;font-size:16px;color:var(--mut);margin-top:3px;line-height:1.45}
+.ins .stackw .lg .r .n{text-align:right;font-family:var(--dk-serif);font-size:24px;font-weight:300;font-variant-numeric:tabular-nums}
+.ins .stackw .lg .r .n u{display:block;text-decoration:none;font-family:var(--dk-sans);font-size:14px;color:var(--mut);margin-top:3px}
+
+/* F10 — plot: how soon it acts across the bottom, how much is in play up the side */
+.ins .plot{position:relative;margin-top:18px;height:330px;border-left:2px solid var(--deep);border-bottom:2px solid var(--deep)}
+.ins .plot .gl{position:absolute;left:0;right:0;border-top:1px dashed color-mix(in srgb,var(--deep) 14%,var(--paper))}
+.ins .plot .pt{position:absolute;transform:translate(-50%,50%);display:flex;flex-direction:column;align-items:center;gap:5px}
+.ins .plot .pt .dot{width:15px;height:15px;border-radius:50%;background:var(--sun-ord)}
+.ins .plot .pt.later .dot{background:color-mix(in srgb,var(--mint) 62%,var(--paper));border:1px solid color-mix(in srgb,var(--mint) 70%,var(--ink))}
+.ins .plot .pt .lb{text-align:center;white-space:nowrap}
+.ins .plot .pt .lb b{display:block;font-family:var(--dk-serif);font-size:20px;font-weight:300;font-variant-numeric:tabular-nums}
+.ins .plot .pt .lb span{display:block;font-size:14px;color:var(--mut);margin-top:1px}
+.ins .plotg{display:grid;grid-template-columns:20px 84px 1fr;align-items:stretch;margin-top:18px}
+.ins .plotg .yt{position:relative;display:flex;align-items:center;justify-content:center}
+.ins .plotg .yt span{transform:rotate(-180deg);writing-mode:vertical-rl;font-size:14px;letter-spacing:.16em;
+  text-transform:uppercase;font-weight:700;color:var(--mut)}
+.ins .plotg .yv{position:relative}
+.ins .plotg .yv b{position:absolute;right:12px;transform:translateY(50%);font-family:var(--dk-serif);
+  font-size:16px;font-weight:300;font-variant-numeric:tabular-nums;color:var(--mut)}
+.ins .plotg .plot{margin-top:0}
+.ins .xv{position:relative;height:26px;margin-left:104px}
+.ins .xv b{position:absolute;transform:translateX(-50%);top:9px;font-family:var(--dk-serif);font-size:16px;
+  font-weight:300;font-variant-numeric:tabular-nums;white-space:nowrap;color:color-mix(in srgb,var(--ink) 78%,var(--paper))}
+.ins .xv i{position:absolute;top:0;width:1px;height:6px;background:color-mix(in srgb,var(--deep) 35%,var(--paper))}
+.ins .xtitle{text-align:center;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--mut);margin-top:9px}
+.ins .plot .ax{position:absolute;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.ins .plot .plotx{position:absolute;top:100%;left:0;right:0;margin-top:8px}
+.ins .plotx{display:flex;justify-content:space-between;margin-top:8px;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--mut)}
+.ins .plotk{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 28px;margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.ins .plotk .k{font-size:16px;line-height:1.4}
+.ins .plotk .k em{font-style:normal;font-family:var(--dk-serif);font-size:16px;color:var(--mut);margin-right:8px}
+.ins .plotk .k b{font-weight:600}
+
+/* F11 — editorial spread: the figure is the headline */
+.ins .spread{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:16px}
+.ins .spread .c{border-top:2px solid var(--deep);padding:14px 26px 18px 0}
+.ins .spread .c.later{border-top-color:color-mix(in srgb,var(--mint) 70%,var(--paper))}
+.ins .spread .c.now{border-top-color:var(--clay)}
+.ins .spread .c + .c{padding-left:26px;border-left:1px solid var(--line)}
+.ins .spread .c:nth-child(4){padding-left:0;border-left:0}
+.ins .spread .c .i{font-size:14px;letter-spacing:.2em;font-weight:700;color:var(--mut)}
+.ins .spread .c .big{font-family:var(--dk-serif);font-size:46px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;margin-top:8px}
+.ins .spread .c .u{font-size:14px;color:var(--mut);margin-top:5px}
+.ins .spread .c h4{font-family:var(--dk-serif);font-size:20px;font-weight:400;line-height:1.22;margin-top:11px}
+.ins .spread .c p{font-size:16px;line-height:1.45;color:var(--mut);margin-top:6px}
+html[data-format="wide"] .ins .stackw{margin-top:10px}
+html[data-format="wide"] .ins .stackw .lg .r{padding:6px 0}
+html[data-format="wide"] .ins .plot{height:250px}
+html[data-format="wide"] .ins .plotg{margin-top:12px}
+html[data-format="wide"] .ins .xtitle{margin-top:2px}
+html[data-format="wide"] .ins .xv{height:23px}
+html[data-format="wide"] .ins .plotk{margin-top:10px;padding-top:9px;gap:10px 28px}
+html[data-format="wide"] .ins .spread .c{padding-bottom:12px;padding-top:11px}
+html[data-format="wide"] .ins .spread .c .big{font-size:38px}
+/* legibility: small sub-captions must not be light-on-light */
+.ins .tiers .it .f span,
+.ins .bento .b .f span,
+.ins .mag .m .n em,
+.ins .mag .m .k span,
+.ins .stackw .lg .r .n u,
+.ins .stackw .lg .r .k span,
+.ins .gauges .g .lim,
+.ins .gauges .g .d span,
+.ins .duo .r .k span,
+.ins .duo .r .n em{color:color-mix(in srgb,var(--ink) 78%,var(--paper));font-weight:500}
+.ins .tiers .it p,
+.ins .bento .b p{color:color-mix(in srgb,var(--ink) 80%,var(--paper))}
+.ins .tiers .t .h .w{color:color-mix(in srgb,var(--ink) 78%,var(--paper));font-weight:500}
+/* F8 — proportional squares: area is the amount in play */
+.ins .tmap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.34fr) 210px;gap:12px;margin-top:16px;height:352px;overflow:hidden;position:relative;z-index:1}
+.ins .tmap .tile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:13px 15px;background:var(--sun-ord);color:var(--paper);overflow:hidden}
+.ins .tmap .tile .i{position:absolute;top:11px;left:15px;font-size:14px;letter-spacing:.2em;font-weight:700;opacity:.82}
+.ins .tmap .tile b{font-family:var(--dk-serif);font-size:30px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1}
+.ins .tmap .tile span{font-size:15px;line-height:1.3;margin-top:5px;opacity:.9}
+.ins .tmap .tile.s2{background:color-mix(in srgb,var(--sun-ord) 82%,var(--paper))}
+.ins .tmap .tile.s3{background:color-mix(in srgb,var(--sun-ord) 66%,var(--paper))}
+.ins .tmap .tile.s4{background:color-mix(in srgb,var(--sun-ord) 50%,var(--paper));color:var(--ink)}
+.ins .tmap .tile.s5{background:color-mix(in srgb,var(--sun-ord) 36%,var(--paper));color:var(--ink)}
+.ins .tmap .tile.s4 b,.ins .tmap .tile.s5 b{font-size:22px}
+.ins .tmap .row .tile span{font-size:14px}
+.ins .tmap .tile.s4 span,.ins .tmap .tile.s5 span{opacity:1;color:color-mix(in srgb,var(--ink) 80%,var(--paper))}
+.ins .tmap .col{display:grid;gap:12px;min-height:0}
+.ins .tmap .tile,.ins .tmap .unsized{min-height:0}
+.ins .tmap .row{display:grid;grid-template-columns:minmax(0,1.63fr) minmax(0,1fr);gap:12px;min-height:0}
+.ins .tmap .row .tile .i{position:static;margin-bottom:auto}
+.ins .tmap .unsized{border:1px dashed color-mix(in srgb,var(--mint) 72%,var(--ink));background:color-mix(in srgb,var(--mint) 12%,var(--paper));
+  display:flex;flex-direction:column;justify-content:flex-end;padding:13px 15px;position:relative;color:var(--ink)}
+.ins .tmap .unsized .i{position:absolute;top:11px;left:15px;font-size:14px;letter-spacing:.2em;font-weight:700;color:color-mix(in srgb,var(--mint) 82%,var(--ink))}
+.ins .tmap .unsized b{font-family:var(--dk-serif);font-size:26px;font-weight:300;line-height:1}
+.ins .tmap .unsized span{font-size:15px;line-height:1.35;margin-top:5px;color:color-mix(in srgb,var(--ink) 80%,var(--paper));font-weight:500}
+.ins .tnote{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 30px;margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.ins .tnote .k{font-size:16px;line-height:1.45;color:color-mix(in srgb,var(--ink) 82%,var(--paper))}
+.ins .tnote .k em{font-style:normal;font-family:var(--dk-serif);font-size:16px;color:var(--mut);margin-right:8px}
+.ins .tnote .k b{font-weight:600;color:var(--ink)}
+html[data-format="wide"] .ins .tmap{height:268px;margin-top:11px;gap:10px}
+html[data-format="wide"] .ins .tmap .col{gap:10px}
+html[data-format="wide"] .ins .tmap .row{gap:10px}
+html[data-format="wide"] .ins .tmap .tile{padding:10px 13px;justify-content:center}
+html[data-format="wide"] .ins .tmap .tile .i{position:static;margin-bottom:5px}
+html[data-format="wide"] .ins .tmap .tile b{font-size:25px}
+html[data-format="wide"] .ins .tmap .tile.s4 b,html[data-format="wide"] .ins .tmap .tile.s5 b{font-size:20px}
+html[data-format="wide"] .ins .tmap .tile span{font-size:14px;margin-top:3px;line-height:1.25}
+html[data-format="wide"] .ins .tmap .unsized{padding:10px 13px;justify-content:center}
+html[data-format="wide"] .ins .tmap .unsized .i{position:static;margin-bottom:5px}
+html[data-format="wide"] .ins .tmap .unsized b{font-size:23px}
+html[data-format="wide"] .ins .tnote{margin-top:11px;padding-top:9px;gap:9px 30px}
+html[data-format="wide"] .ins .tiers .it{padding-top:9px}
+html[data-format="wide"] .ins .bento{gap:10px;margin-top:8px}
+html[data-format="wide"] .ins .bento .b{padding:8px 12px}
+html[data-format="wide"] .ins .bento .b h4{font-size:18px;margin-top:4px}
+html[data-format="wide"] .ins .bento .b.feat h4{font-size:23px}
+html[data-format="wide"] .ins .bento .b p{margin-top:5px}
+html[data-format="wide"] .ins .bento .b .f{padding-top:5px;font-size:20px}
+html[data-format="wide"] .ins .bento .b.feat .f{font-size:26px}
+html[data-format="wide"] .ins .gauges .g{padding:11px 13px 12px}
+html[data-format="wide"] .ins .gauges .g .tr{margin-top:8px}
+html[data-format="wide"] .ins .gauges .g .d{margin-top:8px}
+html[data-format="wide"] .ins .duo .r{padding:8px 0}
+</style>
+</head>
+
+
+<body>
+
+<!-- 01 TAX LOOKBACK REPORT -->
+<section class="slide sun" style="padding:0">
+  <div class="band">
+    <div class="rings"><div style="inset:0"></div><div style="inset:90px"></div><div style="inset:180px"></div></div>
+    <div class="top"><span class="wm">wealth.com</span><span class="pp">Prepared September 2026 · Confidential</span></div>
+    <h1>Tax Lookback Report</h1>
+    <div class="who">David &amp; Victoria Riley · MFJ · California · Tax year 2025</div>
+    <div class="kpis">
+      <div><div class="k">Total federal tax</div><div class="v">$191,615</div><div class="s">1040, Line 24</div></div>
+      <div><div class="k">Effective rate</div><div class="v">24.2%</div><div class="s">federal tax ÷ AGI</div></div>
+      <div><div class="k">Marginal bracket</div><div class="v">35%</div><div class="s">federal · CA 9.3%</div></div>
+      <div><div class="k">Federal balance due</div><div class="v" style="color:var(--sun-due)">$15,971</div><div class="s">owed at filing · 1040, L37</div></div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="g2" style="display:grid;grid-template-columns:1fr 1fr">
+      <div>
+        <div class="lbl">Return at a glance</div>
+        <table class="gl">
+          <tbody>
+            <tr><td>Total income <span class="note">1040, L9</span></td><td class="n">$793,440</td></tr>
+            <tr><td>Adjusted gross income <span class="note">1040, L11</span></td><td class="n">$791,038</td></tr>
+            <tr><td>Deductions <span class="note">itemized · vs. $33,100 standard</span></td><td class="n">$77,500</td></tr>
+            <tr><td>Taxable income <span class="note">1040, L15</span></td><td class="n">$713,538</td></tr>
+            <tr><td>Credits claimed <span class="note">1040 L19, 27, 28, 29 + Sch 3 L8, 9, 12</span></td><td class="n zero">$0</td></tr>
+            <tr><td>Total payments <span class="note">federal withholding · L25</span></td><td class="n">$175,644</td></tr>
+            <tr><td>Safe harbor — 90% of current-year tax <span class="note">Form 2210 · lesser of 90% current / 110% prior · AGI &gt; $150k</span></td><td class="n">$172,454</td></tr>
+            <tr class="total"><td>Federal balance due <span class="note">1040, L37</span></td><td class="n due">$15,971</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="lbl">How the tax breaks down</div>
+        <table class="gl">
+          <tbody>
+            <tr><td>Tax on ordinary income <span class="note">up to 35%</span></td><td class="n">$167,955</td></tr>
+            <tr><td>LTG &amp; qualified dividends <span class="note">20% rate</span></td><td class="n">$11,930</td></tr>
+            <tr><td>Net investment income tax <span class="note">3.8%</span></td><td class="n">$2,449</td></tr>
+            <tr><td>Additional Medicare tax <span class="note">0.9%</span></td><td class="n">$4,477</td></tr>
+            <tr><td>Self-employment tax <span class="note">Sch SE</span></td><td class="n">$4,804</td></tr>
+            <tr><td>Alternative minimum tax</td><td class="n zero">$0</td></tr>
+            <tr class="total"><td>Federal tax</td><td class="n">$191,615</td></tr>
+            <tr><td>State income tax <span class="note">CA 540</span></td><td class="n">$58,204</td></tr>
+            <tr class="total"><td>Combined federal + state</td><td class="n">$249,819</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:8px">Components are stated before credits. No credits were claimed on this return, so they sum to the federal tax shown.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:26px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px">
+        <h3>Where each dollar of income goes</h3>
+        <span class="note">Bar runs $0 → total income of $793,440 · tax fills from the left, retained income is the hatched tail</span>
+      </div>
+      <div style="display:flex;height:34px;border-radius:2px;overflow:hidden;margin-top:12px">
+        <i style="width:21.2%;background:var(--sun-ord)"></i>
+        <i style="width:1.5%;background:var(--mint)"></i>
+        <i style="width:1.5%;background:var(--sun-oth)"></i>
+        <i style="width:7.3%;background:color-mix(in srgb,var(--deep) 42%,var(--paper))"></i>
+        <i class="room" style="width:68.5%;border-left:1px solid var(--line)"></i>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px">
+        <span class="note">$0</span><span class="note">31.5% to tax</span><span class="note">$793,440</span>
+      </div>
+      <div class="legend">
+        <div><span class="k"><i class="sw" style="background:var(--sun-ord)"></i>Ordinary income tax</span><div class="v">$167,955 <span class="note">21.2%</span></div></div>
+        <div><span class="k"><i class="sw" style="background:var(--mint)"></i>LTG &amp; qual. dividends</span><div class="v">$11,930 <span class="note">1.5%</span></div></div>
+        <div><span class="k"><i class="sw" style="background:var(--sun-oth)"></i>NIIT · Medicare · SE</span><div class="v">$11,730 <span class="note">1.5%</span></div></div>
+        <div><span class="k"><i class="sw" style="background:color-mix(in srgb,var(--deep) 42%,var(--paper))"></i>State income tax</span><div class="v">$58,204 <span class="note">7.3%</span></div></div>
+        <div><span class="k"><i class="sw room"></i>Income retained</span><div class="v">$543,621 <span class="note">68.5%</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 TAX INSIGHTS — FINDINGS -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">02 — Tax planning summary</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">One item to confirm, then the planning conversations a 35% federal / 9.3% California household supports.</p>
+
+    <div style="margin-top:18px">
+      <div style="display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--line);padding-bottom:8px">
+        <span class="lbl" style="margin:0;color:var(--clay)">Return anomaly</span>
+        <span class="note">confirm before the return stands</span>
+      </div>
+      <div class="anom" style="margin-top:14px">
+        <h3>California coverage penalty of $9,048</h3>
+        <p>Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+        <p class="act">Confirm 2025 coverage; the CA return may warrant correction.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:20px">
+      <div style="border-bottom:2px solid var(--line);padding-bottom:8px">
+        <span class="lbl" style="margin:0">Planning opportunities</span>
+      </div>
+      <div class="ops" style="margin-top:8px">
+        <div>
+          <div class="op-item"><div class="i">01</div><div><h4>Self-employment income carries no retirement plan</h4><p>Victoria's Schedule C nets $34,000 with the SEP/SIMPLE line at $0 — a SEP-IRA or solo 401(k) would shelter earnings at the 35% / 9.3% marginal.</p></div></div>
+          <div class="op-item"><div class="i">02</div><div><h4>The QBI deduction is fully limited to zero</h4><p>$31,598 of qualified business income yields no deduction — a sole prop with no W-2 wages above the $494,600 ceiling. An S-corp election would build a wage base and open the CA PTET.</p></div></div>
+          <div class="op-item"><div class="i">03</div><div><h4>Cash gifts while appreciated securities are held</h4><p>$15,000 given in cash against a taxable portfolio with embedded gain — gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</p></div></div>
+        </div>
+        <div>
+          <div class="op-item"><div class="i">04</div><div><h4>Out-of-state municipals are taxed by California</h4><p>Schedule CA adds back $9,200 of federally tax-exempt interest — in-state munis or Treasuries would avoid the 9.3% state drag at the top bracket.</p></div></div>
+          <div class="op-item"><div class="i">05</div><div><h4>Every gain and dividend sits at 20% + 3.8%</h4><p>Ordinary taxable income already tops the $600,050 breakpoint, so all $59,650 of preferential income is taxed at 23.8% federal — and no loss carryover is stored against it.</p></div></div>
+          <div class="op-item"><div class="i">06</div><div><h4>A Roth-conversion window opens when David retires</h4><p>He's 66 and still maxing a workplace plan; the years between retirement and RMDs at 73 are the low-rate conversion window — sizing needs balances and a retirement date.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>02</span></div>
+</section>
+
+<!-- 03 TAX INSIGHTS — POSITIONING & FOLLOW-UPS -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">02 — Tax planning summary · continued</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Positioning &amp; follow-ups</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Where the return sits against the rate and surcharge lines, and what to confirm next.</p>
+
+    <div class="g2" style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:18px">
+      <div style="padding-right:44px">
+        <div style="border-bottom:2px solid var(--line);padding-bottom:8px"><span class="lbl" style="margin:0">Threshold &amp; timing signals</span></div>
+        <div class="sig"><span class="k">Net investment income tax<span class="note">$250,000 MAGI</span></span><span class="chip watch">$541,038 over · $2,449</span></div>
+        <div class="sig"><span class="k">Additional Medicare tax<span class="note">$250,000 wages + SE</span></span><span class="chip watch">$4,477 assessed</span></div>
+        <div class="sig"><span class="k">Top IRMAA tier<span class="note">$750,000 MAGI</span></span><span class="chip watch">$50,238 over · sets 2027</span></div>
+        <div class="sig"><span class="k">Capital-gains 20% rate<span class="note">$600,050 · ordinary taxable</span></span><span class="chip watch">$53,838 over · all at 20%</span></div>
+        <div class="sig"><span class="k">QBI phase-out ceiling<span class="note">$494,600 taxable</span></span><span class="chip watch">$218,938 over · lost</span></div>
+        <div class="sig" style="border-bottom:0"><span class="k">Federal 37% bracket<span class="note">$751,600 taxable</span></span><span class="chip in">$38,062 under</span></div>
+      </div>
+      <div style="padding-left:44px;border-left:1px solid var(--line)">
+        <div style="border-bottom:2px solid var(--line);padding-bottom:8px"><span class="lbl" style="margin:0;color:var(--mint)">To confirm</span></div>
+        <div style="margin-top:8px">
+          <div class="cfm"><i class="d"></i><span><b>Coverage all of 2025?</b> A $9,048 penalty conflicts with David's Medicare eligibility.</span></div>
+          <div class="cfm"><i class="d"></i><span><b>Home-acquisition debt ≤ $750k?</b> $52,500 of mortgage interest carries the "may be limited" flag.</span></div>
+          <div class="cfm"><i class="d"></i><span><b>Any self-employed plan for Victoria?</b> Schedule 1, Line 16 is empty.</span></div>
+          <div class="cfm"><i class="d"></i><span><b>David's plan:</b> after-tax + in-plan Roth available, and the full match captured?</span></div>
+          <div class="cfm"><i class="d"></i><span><b>Is the design business a non-SSTB?</b> It governs an S-corp / QBI fix.</span></div>
+          <div class="cfm"><i class="d"></i><span><b>What is the $2,204 SALT "carryover to 2026"?</b> SALT isn't normally a federal carryforward.</span></div>
+        </div>
+        <div style="border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:16px"><span class="lbl" style="margin:0;color:var(--clay)">Still needed to size</span></div>
+        <div style="margin-top:8px">
+          <div class="cfm"><i class="d c"></i><span><b>Roth-window sizing</b> needs pretax IRA/401(k) balances and David's expected retirement date — the return confirms active contributions but not balances or timing.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>03</span></div>
+</section>
+
+
+<!-- SECTION COVER — Findings — alternate layouts -->
+<section class="slide led ins" style="justify-content:center;text-align:center">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alt layouts</span></div>
+  <div class="body" style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+    <h2 style="font-size:52px;margin:0 0 14px">Findings — alt layouts</h2>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span></span></div>
+</section>
+
+<!-- ALT A — findings as opportunity cards -->
+<section class="slide led ins hide">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F1 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · card layout</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">One item to confirm, then the planning conversations a 35% federal / 9.3% California household supports.</p>
+      <div class="anomslim">
+        <div class="fig">$9,048</div>
+        <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+        <div class="act">Confirm 2025 coverage</div>
+      </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">six openings · each card carries the figure that sizes it</span></div>
+    <div class="cards">
+        <div class="c"><div class="top"><span class="i">01</span></div><h4>Self-employment income carries no retirement plan</h4><p>Victoria's Schedule C nets $34,000 with the SEP/SIMPLE line at $0 — a SEP-IRA or solo 401(k) would shelter earnings at the 35% / 9.3% marginal.</p><div class="fig">$34,000<span>Schedule C net income, no plan in place</span></div></div>
+        <div class="c"><div class="top"><span class="i">02</span></div><h4>The QBI deduction is fully limited to zero</h4><p>$31,598 of qualified business income yields no deduction — a sole prop with no W-2 wages above the $494,600 ceiling. An S-corp election would build a wage base and open the CA PTET.</p><div class="fig">$31,598<span>Qualified business income, no deduction</span></div></div>
+        <div class="c"><div class="top"><span class="i">03</span></div><h4>Cash gifts while appreciated securities are held</h4><p>$15,000 given in cash against a taxable portfolio with embedded gain — gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</p><div class="fig">$15,000<span>Given in cash this year</span></div></div>
+        <div class="c"><div class="top"><span class="i">04</span></div><h4>Out-of-state municipals are taxed by California</h4><p>Schedule CA adds back $9,200 of federally tax-exempt interest — in-state munis or Treasuries would avoid the 9.3% state drag at the top bracket.</p><div class="fig">$9,200<span>Added back on the California return</span></div></div>
+        <div class="c"><div class="top"><span class="i">05</span></div><h4>Every gain and dividend sits at 20% + 3.8%</h4><p>Ordinary taxable income already tops the $600,050 breakpoint, so all preferential income is taxed at 23.8% federal — and no loss carryover is stored against it.</p><div class="fig">$59,650<span>Taxed at 23.8% federal</span></div></div>
+        <div class="c"><div class="top"><span class="i">06</span></div><h4>A Roth-conversion window opens when David retires</h4><p>He's 66 and still maxing a workplace plan; the years between retirement and RMDs at 73 are the low-rate conversion window — sizing needs balances and a retirement date.</p><div class="fig">7 years<span>From age 66 until RMDs at 73</span></div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F1</span></div>
+</section>
+
+<!-- ALT B — findings as a full-width ledger list -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F2 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · ledger layout</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">One item to confirm, then the planning conversations a 35% federal / 9.3% California household supports.</p>
+      <div class="anomslim">
+        <div class="fig">$9,048</div>
+        <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+        <div class="act">Confirm 2025 coverage</div>
+      </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">read top to bottom · the right column is what each one is worth looking at</span></div>
+    <table class="opt">
+      <thead><tr><th></th><th>Opportunity</th><th>What the return shows</th><th>Amount in play</th></tr></thead>
+      <tbody>
+          <tr><td class="i">01</td><td class="l"><b>Self-employment income carries no retirement plan</b></td><td class="d">Victoria's Schedule C nets $34,000 with the SEP/SIMPLE line at $0 — a SEP-IRA or solo 401(k) would shelter earnings at the 35% / 9.3% marginal.</td><td class="n">$34,000<span>Schedule C net income, no plan in place</span></td></tr>
+          <tr><td class="i">02</td><td class="l"><b>The QBI deduction is fully limited to zero</b></td><td class="d">$31,598 of qualified business income yields no deduction — a sole prop with no W-2 wages above the $494,600 ceiling. An S-corp election would build a wage base and open the CA PTET.</td><td class="n">$31,598<span>Qualified business income, no deduction</span></td></tr>
+          <tr><td class="i">03</td><td class="l"><b>Cash gifts while appreciated securities are held</b></td><td class="d">$15,000 given in cash against a taxable portfolio with embedded gain — gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</td><td class="n">$15,000<span>Given in cash this year</span></td></tr>
+          <tr><td class="i">04</td><td class="l"><b>Out-of-state municipals are taxed by California</b></td><td class="d">Schedule CA adds back $9,200 of federally tax-exempt interest — in-state munis or Treasuries would avoid the 9.3% state drag at the top bracket.</td><td class="n">$9,200<span>Added back on the California return</span></td></tr>
+          <tr><td class="i">05</td><td class="l"><b>Every gain and dividend sits at 20% + 3.8%</b></td><td class="d">Ordinary taxable income already tops the $600,050 breakpoint, so all preferential income is taxed at 23.8% federal — and no loss carryover is stored against it.</td><td class="n">$59,650<span>Taxed at 23.8% federal</span></td></tr>
+          <tr><td class="i">06</td><td class="l"><b>A Roth-conversion window opens when David retires</b></td><td class="d">He's 66 and still maxing a workplace plan; the years between retirement and RMDs at 73 are the low-rate conversion window — sizing needs balances and a retirement date.</td><td class="n">7 years<span>From age 66 until RMDs at 73</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F2</span></div>
+</section>
+
+<!-- ALT E — findings: confirm-first rail beside a numbered stack -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F3 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · confirm-first layout</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">The one item to settle sits apart; the planning conversations run down the page in priority order.</p>
+    <div class="rail">
+      <div class="side"><div class="confirmcard"><div class="lbl">Confirm first</div><div class="fig">$9,048</div><p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p><div class="act">Confirm 2025 coverage; the CA return may warrant correction.</div></div></div>
+      <div class="main">
+        <div class="altbar" style="margin-top:0"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">amount in play at right</span></div>
+        <div class="stackrows"><div><div class="i">01</div><div><h4>Self-employment income carries no retirement plan</h4><p>Victoria's Schedule C nets $34,000 with the SEP/SIMPLE line at $0 — a SEP-IRA or solo 401(k) would shelter earnings at the 35% / 9.3% marginal.</p></div><div class="n">$34,000<span>Schedule C net income, no plan in place</span></div></div><div><div class="i">02</div><div><h4>The QBI deduction is fully limited to zero</h4><p>$31,598 of qualified business income yields no deduction — a sole prop with no W-2 wages above the $494,600 ceiling. An S-corp election would build a wage base and open the CA PTET.</p></div><div class="n">$31,598<span>Qualified business income, no deduction</span></div></div><div><div class="i">03</div><div><h4>Cash gifts while appreciated securities are held</h4><p>$15,000 given in cash against a taxable portfolio with embedded gain — gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</p></div><div class="n">$15,000<span>Given in cash this year</span></div></div><div><div class="i">04</div><div><h4>Out-of-state municipals are taxed by California</h4><p>Schedule CA adds back $9,200 of federally tax-exempt interest — in-state munis or Treasuries would avoid the 9.3% state drag at the top bracket.</p></div><div class="n">$9,200<span>Added back on the California return</span></div></div><div><div class="i">05</div><div><h4>Every gain and dividend sits at 20% + 3.8%</h4><p>Ordinary taxable income already tops the $600,050 breakpoint, so all preferential income is taxed at 23.8% federal — and no loss carryover is stored against it.</p></div><div class="n">$59,650<span>Taxed at 23.8% federal</span></div></div><div><div class="i">06</div><div><h4>A Roth-conversion window opens when David retires</h4><p>He's 66 and still maxing a workplace plan; the years between retirement and RMDs at 73 are the low-rate conversion window — sizing needs balances and a retirement date.</p></div><div class="n">7 years<span>From age 66 until RMDs at 73</span></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F3</span></div>
+</section>
+
+<!-- ALT F — findings: figure gutter, editorial index -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F4 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · editorial index</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Each opportunity is led by the figure that sizes it, so the page can be scanned by number or by name.</p>
+    <div class="anomslim">
+      <div class="fig">$9,048</div>
+      <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+      <div class="act">Confirm 2025 coverage</div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">figure first · then what the return shows</span></div>
+    <div class="idx"><div class="e"><div class="g"><b>$34,000</b><span>Schedule C net income, no plan in place</span></div><div><h4><i>01</i>Self-employment income carries no retirement plan</h4><p>Victoria's Schedule C nets $34,000 with the SEP/SIMPLE line at $0 — a SEP-IRA or solo 401(k) would shelter earnings at the 35% / 9.3% marginal.</p></div></div><div class="e"><div class="g"><b>$31,598</b><span>Qualified business income, no deduction</span></div><div><h4><i>02</i>The QBI deduction is fully limited to zero</h4><p>$31,598 of qualified business income yields no deduction — a sole prop with no W-2 wages above the $494,600 ceiling. An S-corp election would build a wage base and open the CA PTET.</p></div></div><div class="e"><div class="g"><b>$15,000</b><span>Given in cash this year</span></div><div><h4><i>03</i>Cash gifts while appreciated securities are held</h4><p>$15,000 given in cash against a taxable portfolio with embedded gain — gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</p></div></div><div class="e"><div class="g"><b>$9,200</b><span>Added back on the California return</span></div><div><h4><i>04</i>Out-of-state municipals are taxed by California</h4><p>Schedule CA adds back $9,200 of federally tax-exempt interest — in-state munis or Treasuries would avoid the 9.3% state drag at the top bracket.</p></div></div><div class="e"><div class="g"><b>$59,650</b><span>Taxed at 23.8% federal</span></div><div><h4><i>05</i>Every gain and dividend sits at 20% + 3.8%</h4><p>Ordinary taxable income already tops the $600,050 breakpoint, so all preferential income is taxed at 23.8% federal — and no loss carryover is stored against it.</p></div></div><div class="e"><div class="g"><b>7 years</b><span>From age 66 until RMDs at 73</span></div><div><h4><i>06</i>A Roth-conversion window opens when David retires</h4><p>He's 66 and still maxing a workplace plan; the years between retirement and RMDs at 73 are the low-rate conversion window — sizing needs balances and a retirement date.</p></div></div></div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F4</span></div>
+</section>
+
+<!-- ALT F5 — findings grouped into three priority tiers -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F5 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · by priority</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">The same anomaly and six openings, sorted by when each needs a decision rather than by form line.</p>
+    <div class="anomslim">
+      <div class="fig">$9,048</div>
+      <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+      <div class="act">Confirm 2025 coverage</div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">three columns, three timeframes · the figure under each is what sizes it</span></div>
+    <div class="tiers">
+      <div class="t now">
+        <div class="h"><div class="n">Decide before year end</div><div class="w">Both close with the tax year.</div></div>
+        <div class="it"><h4><i>01</i>Self-employment income carries no retirement plan</h4><p>Victoria's Schedule C nets $34,000 with the SEP/SIMPLE line at $0 — a SEP-IRA or solo 401(k) would shelter earnings at the 35% / 9.3% marginal.</p><div class="f">$34,000<span>Schedule C net income</span></div></div>
+        <div class="it"><h4><i>03</i>Cash gifts while appreciated securities are held</h4><p>$15,000 given in cash against a taxable portfolio with embedded gain — gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</p><div class="f">$15,000<span>Given in cash this year</span></div></div>
+      </div>
+      <div class="t">
+        <div class="h"><div class="n">Structural, this year</div><div class="w">Changes to how income is earned or held.</div></div>
+        <div class="it"><h4><i>02</i>The QBI deduction is fully limited to zero</h4><p>$31,598 of qualified business income yields no deduction — a sole prop with no W-2 wages above the $494,600 ceiling. An S-corp election would build a wage base and open the CA PTET.</p><div class="f">$31,598<span>Qualified business income</span></div></div>
+        <div class="it"><h4><i>04</i>Out-of-state municipals are taxed by California</h4><p>Schedule CA adds back $9,200 of federally tax-exempt interest — in-state munis or Treasuries would avoid the 9.3% state drag at the top bracket.</p><div class="f">$9,200<span>Added back by California</span></div></div>
+      </div>
+      <div class="t watch">
+        <div class="h"><div class="n">Watch and size later</div><div class="w">Held open until balances or a date are known.</div></div>
+        <div class="it"><h4><i>05</i>Every gain and dividend sits at 20% + 3.8%</h4><p>Ordinary taxable income already tops the $600,050 breakpoint, so all preferential income is taxed at 23.8% federal — and no loss carryover is stored against it.</p><div class="f">$59,650<span>Taxed at 23.8% federal</span></div></div>
+        <div class="it"><h4><i>06</i>A Roth-conversion window opens when David retires</h4><p>He's 66 and still maxing a workplace plan; the years between retirement and RMDs at 73 are the low-rate conversion window.</p><div class="f">7 years<span>Age 66 until RMDs at 73</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F5</span></div>
+</section>
+
+<!-- ALT F6 — findings as a mosaic with one feature opening -->
+<section class="slide led ins hide">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F6 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · mosaic</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">The largest opening leads the page; the rest read as panels around it.</p>
+    <div class="anomslim">
+      <div class="fig">$9,048</div>
+      <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+      <div class="act">Confirm 2025 coverage</div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">largest amount in play first</span></div>
+    <div class="bento">
+      <div class="b feat"><div class="i">01</div><h4>Self-employment income carries no retirement plan</h4><p>Victoria's Schedule C nets $34,000 with the SEP/SIMPLE line at $0 — a SEP-IRA or solo 401(k) would shelter those earnings at the 35% federal / 9.3% California marginal rate.</p><div class="f">$34,000<span>Schedule C net income, no plan in place</span></div></div>
+      <div class="b"><div class="i">02</div><h4>QBI deduction limited to zero</h4><p>$31,598 of business income yields no deduction above the $494,600 ceiling. An S-corp election would build a wage base and open the CA PTET.</p><div class="f">$31,598<span>Qualified business income</span></div></div>
+      <div class="b"><div class="i">05</div><h4>Gains and dividends at 23.8%</h4><p>Ordinary taxable income tops the $600,050 breakpoint, so all preferential income carries 20% plus 3.8% — and no loss carryover is stored against it.</p><div class="f">$59,650<span>Taxed at 23.8% federal</span></div></div>
+      <div class="b"><div class="i">03</div><h4>Cash gifts, appreciated shares held</h4><p>Gifting long-term shares, or bunching into a donor-advised fund, removes the built-in tax the cash gift leaves behind.</p><div class="f">$15,000<span>Given in cash this year</span></div></div>
+      <div class="b"><div class="i">04</div><h4>Out-of-state munis taxed by California</h4><p>Schedule CA adds back federally exempt interest; in-state munis or Treasuries avoid the 9.3% state drag.</p><div class="f">$9,200<span>Added back by California</span></div></div>
+      <div class="b wide3"><div class="i">06</div><h4>Roth window at retirement</h4><p>The years between David's retirement and RMDs at 73 are the low-rate conversion window; sizing needs balances and a date.</p><div class="f">7 years<span>Age 66 until RMDs at 73</span></div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F6</span></div>
+</section>
+
+<!-- ALT F7 — findings as a magnitude ladder -->
+<section class="slide led ins hide">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F7 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · by amount in play</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Every opening drawn to the size of the figure behind it, so the biggest one is visible before it is read.</p>
+    <div class="anomslim">
+      <div class="fig">$9,048</div>
+      <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+      <div class="act">Confirm 2025 coverage</div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">bar length is the amount in play · the word under it is when it acts</span></div>
+    <div class="mag">
+      <div class="m later"><div class="i">05</div><div class="k"><em>Watch and size later</em>Every gain and dividend sits at 20% + 3.8%<span>Ordinary taxable income tops the $600,050 breakpoint, so all preferential income carries 23.8% federal.</span></div><div class="n">$59,650<em>Taxed at 23.8% federal</em></div><div class="bar"><i style="width:100%"></i></div></div>
+      <div class="m now"><div class="i">01</div><div class="k"><em>Decide before year end</em>Self-employment income carries no retirement plan<span>The SEP/SIMPLE line is $0 — a SEP-IRA or solo 401(k) shelters earnings at the 35% / 9.3% marginal rate.</span></div><div class="n">$34,000<em>Schedule C net income</em></div><div class="bar"><i style="width:57%"></i></div></div>
+      <div class="m "><div class="i">02</div><div class="k"><em>Structural, this year</em>The QBI deduction is fully limited to zero<span>No W-2 wages above the $494,600 ceiling; an S-corp election builds a wage base and opens the CA PTET.</span></div><div class="n">$31,598<em>Qualified business income</em></div><div class="bar"><i style="width:53%"></i></div></div>
+      <div class="m now"><div class="i">03</div><div class="k"><em>Decide before year end</em>Cash gifts while appreciated securities are held<span>Gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</span></div><div class="n">$15,000<em>Given in cash this year</em></div><div class="bar"><i style="width:25%"></i></div></div>
+      <div class="m "><div class="i">04</div><div class="k"><em>Structural, this year</em>Out-of-state municipals are taxed by California<span>Schedule CA adds the interest back; in-state munis or Treasuries avoid the 9.3% state drag.</span></div><div class="n">$9,200<em>Added back by California</em></div><div class="bar"><i style="width:15%"></i></div></div>
+      <div class="m later"><div class="i">06</div><div class="k"><em>Watch and size later</em>A Roth-conversion window opens when David retires<span>The years between David&#39;s retirement and RMDs at 73 are the low-rate conversion window.</span></div><div class="n">7 years<em>Age 66 until RMDs at 73</em></div><div class="bar"><i style="width:12%"></i></div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F7</span></div>
+</section>
+
+<!-- ALT F8 — findings as proportional squares -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F8 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · sized by what is in play</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Each opening is drawn to the amount behind it, so the $149,448 in play divides visibly before a word is read.</p>
+    <div class="anomslim">
+      <div class="fig">$9,048</div>
+      <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+      <div class="act">Confirm 2025 coverage</div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">area is the amount in play · the dashed panel carries no figure until balances and a date are known</span></div>
+    <div class="tmap">
+      <div class="tile"><div class="i">05</div><b>$59,650</b><span>Gains and dividends taxed at 23.8%</span></div>
+      <div class="col" style="grid-template-rows:minmax(0,1.04fr) minmax(0,0.98fr) minmax(0,0.83fr)">
+        <div class="tile s2"><div class="i">01</div><b>$34,000</b><span>Schedule C income with no retirement plan</span></div>
+        <div class="tile s3"><div class="i">02</div><b>$31,598</b><span>Qualified business income, deduction limited to zero</span></div>
+        <div class="row">
+          <div class="tile s4"><div class="i">03</div><b>$15,000</b><span>Cash gifts while appreciated shares are held</span></div>
+          <div class="tile s5"><div class="i">04</div><b>$9,200</b><span>Munis added back by California</span></div>
+        </div>
+      </div>
+      <div class="unsized"><div class="i">06</div><b>7 years</b><span>Roth-conversion window, age 66 until RMDs at 73 — not yet sized</span></div>
+    </div>
+    <div class="tnote">
+      <div class="k"><em>01</em><b>No retirement plan on Schedule C.</b> A SEP-IRA or solo 401(k) shelters Victoria&#39;s net income at the 35% / 9.3% marginal rate.</div>
+      <div class="k"><em>02</em><b>QBI deduction limited to zero.</b> No W-2 wages above the $494,600 ceiling; an S-corp election builds a wage base and opens the CA PTET.</div>
+      <div class="k"><em>03</em><b>Cash gifts, appreciated shares held.</b> Gifting long-term shares, or a donor-advised fund, removes the 23.8% built-in tax.</div>
+      <div class="k"><em>04</em><b>Out-of-state munis taxed by California.</b> Schedule CA adds the interest back; in-state munis or Treasuries avoid the 9.3% drag.</div>
+      <div class="k"><em>05</em><b>All gains and dividends at 23.8%.</b> Ordinary taxable income tops the $600,050 breakpoint, and no loss carryover is stored against it.</div>
+      <div class="k"><em>06</em><b>Roth-conversion window opens.</b> The years between David&#39;s retirement and RMDs at 73 are the low-rate conversion window.</div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F8</span></div>
+</section>
+
+<!-- ALT F9 — findings as one stacked column of everything in play -->
+<section class="slide led ins hide">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F9 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · everything in play</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Five of the six openings carry a dollar figure; stacked together they show how the total is composed.</p>
+    <div class="anomslim">
+      <div class="fig">$9,048</div>
+      <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+      <div class="act">Confirm 2025 coverage</div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">segment height is each opening&#39;s share of the total in play</span></div>
+    <div class="stackw">
+      <div>
+        <div class="tot">Total in play<b>$149,448</b></div>
+        <div class="col" style="height:330px">
+          <div class="sg" style="flex:40;background:color-mix(in srgb,var(--sun-ord) 100%,var(--paper))">$59,650</div>
+          <div class="sg" style="flex:23;background:color-mix(in srgb,var(--sun-ord) 82%,var(--paper))">$34,000</div>
+          <div class="sg" style="flex:21;background:color-mix(in srgb,var(--sun-ord) 64%,var(--paper))">$31,598</div>
+          <div class="sg" style="flex:10;background:color-mix(in srgb,var(--sun-ord) 48%,var(--paper))">$15,000</div>
+          <div class="sg" style="flex:6;background:color-mix(in srgb,var(--sun-ord) 34%,var(--paper))">$9,200</div>
+        </div>
+      </div>
+      <div class="lg">
+        <div class="r"><i style="background:color-mix(in srgb,var(--sun-ord) 100%,var(--paper))"></i><div class="k"><em>05</em>Every gain and dividend sits at 20% + 3.8%<span>Ordinary taxable income tops the $600,050 breakpoint, so all preferential income carries 23.8%.</span></div><div class="n">$59,650<u>Taxed at 23.8% federal</u></div></div>
+        <div class="r"><i style="background:color-mix(in srgb,var(--sun-ord) 82%,var(--paper))"></i><div class="k"><em>01</em>Self-employment income carries no retirement plan<span>The SEP/SIMPLE line is $0 — a SEP-IRA or solo 401(k) shelters earnings at the 35% / 9.3% marginal rate.</span></div><div class="n">$34,000<u>Schedule C net income</u></div></div>
+        <div class="r"><i style="background:color-mix(in srgb,var(--sun-ord) 64%,var(--paper))"></i><div class="k"><em>02</em>The QBI deduction is fully limited to zero<span>No W-2 wages above the $494,600 ceiling; an S-corp election builds a wage base and opens the CA PTET.</span></div><div class="n">$31,598<u>Qualified business income</u></div></div>
+        <div class="r"><i style="background:color-mix(in srgb,var(--sun-ord) 48%,var(--paper))"></i><div class="k"><em>03</em>Cash gifts while appreciated securities are held<span>Gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</span></div><div class="n">$15,000<u>Given in cash this year</u></div></div>
+        <div class="r"><i style="background:color-mix(in srgb,var(--sun-ord) 34%,var(--paper))"></i><div class="k"><em>04</em>Out-of-state municipals are taxed by California<span>Schedule CA adds the interest back; in-state munis or Treasuries avoid the 9.3% state drag.</span></div><div class="n">$9,200<u>Added back by California</u></div></div>
+        <div class="r"><i style="background:color-mix(in srgb,var(--mint) 55%,var(--paper))"></i><div class="k"><em>06</em>A Roth-conversion window opens when David retires<span>Not in the stack: sizing waits on pretax balances and a retirement date.</span></div><div class="n">7 years<u>Age 66 until RMDs at 73</u></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F9</span></div>
+</section>
+
+<!-- ALT F10 — findings plotted by timing against amount in play -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F10 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · plotted</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Each opening placed by how soon it needs a decision and how much is in play, so the near-term, high-value corner reads first.</p>
+    <div class="anomslim">
+      <div class="fig">$9,048</div>
+      <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+      <div class="act">Confirm 2025 coverage</div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">the Roth window sits on the baseline — it carries no dollar figure until balances and a date are known</span></div>
+    <div class="plotg">
+      <div class="yt"><span>Amount in play</span></div>
+      <div class="yv"><b style="bottom:90%">$60,000</b><b style="bottom:47%">$30,000</b><b style="bottom:4%">$0</b></div>
+      <div class="plot">
+      <div class="gl" style="bottom:90%"></div><div class="gl" style="bottom:47%"></div>
+      <div class="pt now" style="left:8%;bottom:60.76%"><div class="lb"><b>$34,000</b><span>01 · Retirement plan</span></div><div class="dot"></div></div>
+      <div class="pt now" style="left:15%;bottom:28.94%"><div class="lb"><b>$15,000</b><span>03 · Gifting method</span></div><div class="dot"></div></div>
+      <div class="pt " style="left:36%;bottom:56.46%"><div class="lb"><b>$31,598</b><span>02 · QBI / S-corp</span></div><div class="dot"></div></div>
+      <div class="pt " style="left:47%;bottom:19.48%"><div class="lb"><b>$9,200</b><span>04 · Muni location</span></div><div class="dot"></div></div>
+      <div class="pt later" style="left:62%;bottom:90.0%"><div class="lb"><b>$59,650</b><span>05 · Preferential rate</span></div><div class="dot"></div></div>
+      <div class="pt later" style="left:92%;bottom:7%"><div class="lb"><b>7 years</b><span>06 · Roth window · not yet sized</span></div><div class="dot"></div></div>
+      </div>
+    </div>
+    <div class="xv"><i style="left:2%"></i><b style="left:2%">Dec 2025</b><i style="left:34%"></i><b style="left:34%">2026</b><i style="left:66%"></i><b style="left:66%">2027</b><i style="left:98%"></i><b style="left:98%;transform:translateX(-100%)">2032 · retirement</b></div>
+    <div class="xtitle">When the decision is needed</div>
+    <div class="plotk">
+      <div class="k"><em>01</em><b>No retirement plan on Schedule C.</b> A SEP-IRA or solo 401(k) shelters Victoria&#39;s net income at the 35% / 9.3% marginal rate.</div>
+      <div class="k"><em>02</em><b>QBI deduction limited to zero.</b> No W-2 wages above the $494,600 ceiling; an S-corp election builds a wage base and opens the CA PTET.</div>
+      <div class="k"><em>03</em><b>Cash gifts, appreciated shares held.</b> Gifting long-term shares, or a donor-advised fund, removes the 23.8% built-in tax.</div>
+      <div class="k"><em>04</em><b>Out-of-state munis taxed by California.</b> Schedule CA adds the interest back; in-state munis or Treasuries avoid the 9.3% drag.</div>
+      <div class="k"><em>05</em><b>All gains and dividends at 23.8%.</b> Ordinary taxable income tops the $600,050 breakpoint, and no loss carryover is stored against it.</div>
+      <div class="k"><em>06</em><b>Roth-conversion window opens.</b> The years between David&#39;s retirement and RMDs at 73 are the low-rate conversion window.</div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F10</span></div>
+</section>
+
+<!-- ALT F11 — findings as an editorial spread, figure as headline -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout F11 — tax planning summary · findings</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Findings · figures first</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">The figure leads each opening; the sentence under it says what the return shows.</p>
+    <div class="anomslim">
+      <div class="fig">$9,048</div>
+      <p><b>California coverage penalty.</b> Form 3853 assesses the health-mandate penalty — it drives the $11,252 CA balance due — yet David is 66 and Medicare-eligible, which is qualifying coverage.</p>
+      <div class="act">Confirm 2025 coverage</div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0">Planning opportunities</span><span class="note">rule colour marks the timing: clay before year end, mint held for later</span></div>
+    <div class="spread">
+      <div class="c now"><div class="i">01</div><div class="big">$34,000</div><div class="u">Schedule C net income, no plan</div><h4>Self-employment income carries no retirement plan</h4><p>The SEP/SIMPLE line is $0 — a SEP-IRA or solo 401(k) shelters earnings at the 35% / 9.3% marginal rate.</p></div>
+      <div class="c "><div class="i">02</div><div class="big">$31,598</div><div class="u">Qualified business income</div><h4>The QBI deduction is fully limited to zero</h4><p>No W-2 wages above the $494,600 ceiling; an S-corp election builds a wage base and opens the CA PTET.</p></div>
+      <div class="c now"><div class="i">03</div><div class="big">$15,000</div><div class="u">Given in cash this year</div><h4>Cash gifts while appreciated securities are held</h4><p>Gifting long-term shares, or bunching into a donor-advised fund, removes the 23.8% built-in tax.</p></div>
+      <div class="c "><div class="i">04</div><div class="big">$9,200</div><div class="u">Added back by California</div><h4>Out-of-state municipals are taxed by California</h4><p>Schedule CA adds the interest back; in-state munis or Treasuries avoid the 9.3% state drag.</p></div>
+      <div class="c later"><div class="i">05</div><div class="big">$59,650</div><div class="u">Taxed at 23.8% federal</div><h4>Every gain and dividend sits at 20% + 3.8%</h4><p>Ordinary taxable income tops the $600,050 breakpoint, and no loss carryover is stored against it.</p></div>
+      <div class="c later"><div class="i">06</div><div class="big">7 years</div><div class="u">Age 66 until RMDs at 73</div><h4>A Roth-conversion window opens when David retires</h4><p>The years between retirement and RMDs at 73 are the low-rate conversion window.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>F11</span></div>
+</section>
+
+<!-- SECTION COVER — Positioning — alternate layouts -->
+<section class="slide led ins" style="justify-content:center;text-align:center">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alt layouts</span></div>
+  <div class="body" style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+    <h2 style="font-size:52px;margin:0 0 14px">Positioning — alt layouts</h2>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span></span></div>
+</section>
+
+<!-- ALT C — positioning drawn as threshold bars -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout P1 — tax planning summary · positioning</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Positioning &amp; follow-ups · drawn thresholds</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Each bar runs to the return's own figure; the tick is the threshold it is measured against.</p>
+    <div class="altbar"><span class="lbl" style="margin:0">Threshold &amp; timing signals</span><span class="note">bars past the tick are over the line · mint is headroom still available</span></div>
+        <div class="tbar"><div class="row"><span class="k">Net investment income tax<span class="note">threshold $250,000 MAGI</span></span><span class="chip watch">$541,038 over · $2,449 assessed</span></div><div class="track"><div class="fill" style="width:100%"></div><div class="mk" style="left:31.6%"><b>threshold</b></div></div><div class="sc"><span class="note">$0</span><span class="note">threshold $250,000 MAGI · return at $791,038 MAGI</span></div></div>
+        <div class="tbar"><div class="row"><span class="k">Additional Medicare tax<span class="note">threshold $250,000 wages + SE</span></span><span class="chip watch">$4,477 assessed</span></div><div class="track"><div class="fill" style="width:100%"></div><div class="mk" style="left:70%"><b>threshold</b></div></div><div class="sc"><span class="note">$0</span><span class="note">threshold $250,000 wages + SE · return at above the line</span></div></div>
+        <div class="tbar"><div class="row"><span class="k">Top IRMAA tier<span class="note">threshold $750,000 MAGI</span></span><span class="chip watch">$50,238 over · sets 2027 premiums</span></div><div class="track"><div class="fill" style="width:100%"></div><div class="mk" style="left:93.7%"><b>threshold</b></div></div><div class="sc"><span class="note">$0</span><span class="note">threshold $750,000 MAGI · return at $800,238 MAGI</span></div></div>
+        <div class="tbar"><div class="row"><span class="k">Capital-gains 20% rate<span class="note">threshold $600,050 ordinary taxable</span></span><span class="chip watch">$53,838 over · all gains at 20%</span></div><div class="track"><div class="fill" style="width:100%"></div><div class="mk" style="left:91.8%"><b>threshold</b></div></div><div class="sc"><span class="note">$0</span><span class="note">threshold $600,050 ordinary taxable · return at $653,888</span></div></div>
+        <div class="tbar"><div class="row"><span class="k">QBI phase-out ceiling<span class="note">threshold $494,600 taxable</span></span><span class="chip watch">$218,938 over · deduction lost</span></div><div class="track"><div class="fill" style="width:100%"></div><div class="mk" style="left:69.3%"><b>threshold</b></div></div><div class="sc"><span class="note">$0</span><span class="note">threshold $494,600 taxable · return at $713,538</span></div></div>
+        <div class="tbar"><div class="row"><span class="k">Federal 37% bracket<span class="note">threshold $751,600 taxable</span></span><span class="chip in">$38,062 of headroom remains</span></div><div class="track"><div class="fill in" style="width:95%"></div><div class="mk" style="left:100%"><b>threshold</b></div></div><div class="sc"><span class="note">$0</span><span class="note">threshold $751,600 taxable · return at $713,538</span></div></div>
+    <div class="altbar"><span class="lbl" style="margin:0;color:var(--mint)">To confirm</span><span class="note">and one item still needed to size</span></div>
+    <div class="cfm3">
+      <div><div class="cfm"><i class="d"></i><span><b>Coverage all of 2025?</b> A $9,048 penalty conflicts with David's Medicare eligibility.</span></div><div class="cfm"><i class="d"></i><span><b>Home-acquisition debt ≤ $750k?</b> $52,500 of mortgage interest carries the "may be limited" flag.</span></div></div>
+      <div><div class="cfm"><i class="d"></i><span><b>Any self-employed plan for Victoria?</b> Schedule 1, Line 16 is empty.</span></div><div class="cfm"><i class="d"></i><span><b>David's plan:</b> after-tax + in-plan Roth available, and the full match captured?</span></div></div>
+      <div><div class="cfm"><i class="d"></i><span><b>Is the design business a non-SSTB?</b> It governs an S-corp / QBI fix.</span></div><div class="cfm"><i class="d"></i><span><b>What is the $2,204 SALT "carryover to 2026"?</b> SALT isn't normally a federal carryforward.</span></div></div>
+    </div>
+    <div class="cfm" style="border-top:1px solid var(--line);margin-top:8px;padding-top:10px"><i class="d c"></i><span><b>Roth-window sizing</b> needs pretax IRA/401(k) balances and David's expected retirement date — the return confirms active contributions but not balances or timing.</span></div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>P1</span></div>
+</section>
+
+<!-- ALT D — positioning as one table -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout P2 — tax planning summary · positioning</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Positioning &amp; follow-ups · table layout</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Every rate and surcharge line in one table, with the return's figure beside the threshold it is tested against.</p>
+    <div class="altbar"><span class="lbl" style="margin:0">Threshold &amp; timing signals</span><span class="note">one row per line · last column is where the return sits</span></div>
+    <table class="thr">
+      <thead><tr><th>Signal</th><th class="hn">Threshold</th><th class="hn">The return</th><th>Effect</th><th style="text-align:right">Position</th></tr></thead>
+      <tbody>
+          <tr><td>Net investment income tax</td><td class="n">$250,000</td><td class="n">$791,038 MAGI</td><td class="e">$541,038 over · $2,449 assessed</td><td style="text-align:right"><span class="chip watch">over</span></td></tr>
+          <tr><td>Additional Medicare tax</td><td class="n">$250,000</td><td class="n">above the line</td><td class="e">$4,477 assessed</td><td style="text-align:right"><span class="chip watch">over</span></td></tr>
+          <tr><td>Top IRMAA tier</td><td class="n">$750,000</td><td class="n">$800,238 MAGI</td><td class="e">$50,238 over · sets 2027 premiums</td><td style="text-align:right"><span class="chip watch">over</span></td></tr>
+          <tr><td>Capital-gains 20% rate</td><td class="n">$600,050</td><td class="n">$653,888</td><td class="e">$53,838 over · all gains at 20%</td><td style="text-align:right"><span class="chip watch">over</span></td></tr>
+          <tr><td>QBI phase-out ceiling</td><td class="n">$494,600</td><td class="n">$713,538</td><td class="e">$218,938 over · deduction lost</td><td style="text-align:right"><span class="chip watch">over</span></td></tr>
+          <tr><td>Federal 37% bracket</td><td class="n">$751,600</td><td class="n">$713,538</td><td class="e">$38,062 of headroom remains</td><td style="text-align:right"><span class="chip in">under</span></td></tr>
+      </tbody>
+    </table>
+    <div class="g2" style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:16px">
+      <div style="padding-right:44px">
+        <div style="border-bottom:2px solid var(--line);padding-bottom:8px"><span class="lbl" style="margin:0;color:var(--mint)">To confirm</span></div>
+        <div style="margin-top:8px"><div class="cfm"><i class="d"></i><span><b>Coverage all of 2025?</b> A $9,048 penalty conflicts with David's Medicare eligibility.</span></div><div class="cfm"><i class="d"></i><span><b>Home-acquisition debt ≤ $750k?</b> $52,500 of mortgage interest carries the "may be limited" flag.</span></div><div class="cfm"><i class="d"></i><span><b>Any self-employed plan for Victoria?</b> Schedule 1, Line 16 is empty.</span></div></div>
+      </div>
+      <div style="padding-left:44px;border-left:1px solid var(--line)">
+        <div style="border-bottom:2px solid var(--line);padding-bottom:8px"><span class="lbl" style="margin:0;color:var(--mint)">&nbsp;</span></div>
+        <div style="margin-top:8px"><div class="cfm"><i class="d"></i><span><b>David's plan:</b> after-tax + in-plan Roth available, and the full match captured?</span></div><div class="cfm"><i class="d"></i><span><b>Is the design business a non-SSTB?</b> It governs an S-corp / QBI fix.</span></div><div class="cfm"><i class="d"></i><span><b>What is the $2,204 SALT "carryover to 2026"?</b> SALT isn't normally a federal carryforward.</span></div></div>
+      </div>
+    </div>
+    <div class="cfm" style="border-top:1px solid var(--line);margin-top:12px;padding-top:10px"><i class="d c"></i><span><b>Still needed to size — Roth window:</b> pretax IRA/401(k) balances and David's expected retirement date; the return confirms active contributions but not balances or timing.</span></div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>P2</span></div>
+</section>
+
+<!-- ALT G — positioning on one shared scale -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout P3 — tax planning summary · positioning</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Positioning &amp; follow-ups · shared scale</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">One bar per line: the tick is the threshold, and the length past it is how far the return sits above it.</p>
+    <div class="altbar"><span class="lbl" style="margin:0">Threshold &amp; timing signals</span><span class="note">the return&#39;s own figure and its effect sit at right</span></div>
+    <div class="scale"><div class="r"><div class="k">Net investment income tax<span>threshold $250,000 MAGI</span></div><div class="tr"><div class="f" style="width:29.3%"></div><div class="o" style="left:29.3%;width:63.3%"></div><div class="mk" style="left:29.3%"></div></div><div class="v"><b>$791,038 MAGI</b>$541,038 over · $2,449 assessed</div></div><div class="r"><div class="k">Additional Medicare tax<span>threshold $250,000 wages + SE</span></div><div class="tr"><div class="f" style="width:45.0%"></div><div class="o" style="left:45.0%;width:47.6%"></div><div class="mk" style="left:45.0%"></div></div><div class="v"><b>above the line</b>$4,477 assessed</div></div><div class="r"><div class="k">Top IRMAA tier<span>threshold $750,000 MAGI</span></div><div class="tr"><div class="f" style="width:86.8%"></div><div class="o" style="left:86.8%;width:5.8%"></div><div class="mk" style="left:86.8%"></div></div><div class="v"><b>$800,238 MAGI</b>$50,238 over · sets 2027 premiums</div></div><div class="r"><div class="k">Capital-gains 20% rate<span>threshold $600,050 ordinary taxable</span></div><div class="tr"><div class="f" style="width:85.0%"></div><div class="o" style="left:85.0%;width:7.6%"></div><div class="mk" style="left:85.0%"></div></div><div class="v"><b>$653,888</b>$53,838 over · all gains at 20%</div></div><div class="r"><div class="k">QBI phase-out ceiling<span>threshold $494,600 taxable</span></div><div class="tr"><div class="f" style="width:64.2%"></div><div class="o" style="left:64.2%;width:28.4%"></div><div class="mk" style="left:64.2%"></div></div><div class="v"><b>$713,538</b>$218,938 over · deduction lost</div></div><div class="r"><div class="k">Federal 37% bracket<span>threshold $751,600 taxable</span></div><div class="tr"><div class="f in" style="width:87.9%"></div><div class="mk" style="left:92.6%"></div></div><div class="v"><b>$713,538</b>$38,062 of headroom remains</div></div></div>
+    <div class="keyline">
+      <span><i style="background:var(--deep)"></i>up to the threshold</span>
+      <span><i style="background:var(--clay)"></i>amount above it</span>
+      <span><i style="background:var(--mint)"></i>headroom still available</span>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0;color:var(--mint)">To confirm</span><span class="note">and one item still needed to size</span></div>
+    <div class="cfm3"><div><div class="cfm"><i class="d"></i><span><b>Coverage all of 2025?</b> A $9,048 penalty conflicts with David's Medicare eligibility.</span></div><div class="cfm"><i class="d"></i><span><b>Home-acquisition debt ≤ $750k?</b> $52,500 of mortgage interest carries the "may be limited" flag.</span></div></div><div><div class="cfm"><i class="d"></i><span><b>Any self-employed plan for Victoria?</b> Schedule 1, Line 16 is empty.</span></div><div class="cfm"><i class="d"></i><span><b>David's plan:</b> after-tax + in-plan Roth available, and the full match captured?</span></div></div><div><div class="cfm"><i class="d"></i><span><b>Is the design business a non-SSTB?</b> It governs an S-corp / QBI fix.</span></div><div class="cfm"><i class="d"></i><span><b>What is the $2,204 SALT "carryover to 2026"?</b> SALT isn't normally a federal carryforward.</span></div></div></div>
+    <div class="cfm" style="border-top:1px solid var(--line);margin-top:8px;padding-top:10px"><i class="d c"></i><span><b>Roth-window sizing</b> needs pretax IRA/401(k) balances and David&#39;s expected retirement date — the return confirms active contributions but not balances or timing.</span></div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>P3</span></div>
+</section>
+
+<!-- ALT H — positioning as a grouped threshold spine, one status word per row -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout P4 — tax planning summary · positioning</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Positioning &amp; follow-ups · grouped by what each line is measured against</div>
+    <div class="altbar"><span class="lbl" style="margin:0">Threshold &amp; timing signals</span><span class="note">each group states the income figure its lines are tested against</span></div>
+    <div class="spine">
+      <div class="gh"><div class="t">Measured against modified AGI<span>AGI plus tax-exempt interest and foreign exclusions</span></div><div class="f">$791,038<span>this return</span></div><div></div></div>
+      <div class="r"><div class="k">Net investment income tax <em>3.8% on investment income</em></div><div class="n">$250,000<span>$541,038 over</span></div><div class="s over"><i></i>Over · $2,449 assessed</div></div>
+
+      <div class="gh"><div class="t">Measured against IRMAA MAGI<span>the 2025 figure that sets 2027 Medicare premiums</span></div><div class="f">$800,238<span>this return</span></div><div></div></div>
+      <div class="r"><div class="k">Top IRMAA tier <em>highest Part B and D surcharge</em></div><div class="n">$750,000<span>$50,238 over</span></div><div class="s over"><i></i>Over · sets 2027 premiums</div></div>
+
+      <div class="gh"><div class="t">Measured against taxable income<span>after deductions · 1040, Line 15</span></div><div class="f">$713,538<span>this return</span></div><div></div></div>
+      <div class="r"><div class="k">QBI phase-out ceiling <em>deduction for business income</em></div><div class="n">$494,600<span>$218,938 over</span></div><div class="s over"><i></i>Over · deduction lost</div></div>
+      <div class="r"><div class="k">Federal 37% bracket <em>top ordinary rate</em></div><div class="n">$751,600<span>$38,062 below</span></div><div class="s win"><i></i>Within · headroom remains</div></div>
+
+      <div class="gh"><div class="t">Measured against ordinary taxable income<span>taxable income less preferential gains and dividends</span></div><div class="f">$653,888<span>this return</span></div><div></div></div>
+      <div class="r"><div class="k">Capital-gains 20% rate <em>breakpoint above the 15% rate</em></div><div class="n">$600,050<span>$53,838 over</span></div><div class="s over"><i></i>Over · all gains at 20%</div></div>
+
+      <div class="gh"><div class="t">Measured against wages plus self-employment earnings<span>not AGI</span></div><div class="f">above the line<span>this return</span></div><div></div></div>
+      <div class="r"><div class="k">Additional Medicare tax <em>0.9% on earnings</em></div><div class="n">$250,000<span>exceeded</span></div><div class="s over"><i></i>Over · $4,477 assessed</div></div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0;color:var(--mint)">To confirm</span><span class="note">and one item still needed to size</span></div>
+    <div class="cfm3"><div><div class="cfm"><i class="d"></i><span><b>Coverage all of 2025?</b> A $9,048 penalty conflicts with David's Medicare eligibility.</span></div><div class="cfm"><i class="d"></i><span><b>Home-acquisition debt ≤ $750k?</b> $52,500 of mortgage interest carries the "may be limited" flag.</span></div></div><div><div class="cfm"><i class="d"></i><span><b>Any self-employed plan for Victoria?</b> Schedule 1, Line 16 is empty.</span></div><div class="cfm"><i class="d"></i><span><b>David's plan:</b> after-tax + in-plan Roth available, and the full match captured?</span></div></div><div><div class="cfm"><i class="d"></i><span><b>Is the design business a non-SSTB?</b> It governs an S-corp / QBI fix.</span></div><div class="cfm"><i class="d"></i><span><b>What is the $2,204 SALT "carryover to 2026"?</b> SALT isn't normally a federal carryforward.</span></div></div></div>
+    <div class="cfm" style="border-top:1px solid var(--line);margin-top:8px;padding-top:10px"><i class="d c"></i><span><b>Roth-window sizing</b> needs pretax IRA/401(k) balances and David&#39;s expected retirement date — the return confirms active contributions but not balances or timing.</span></div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>P4</span></div>
+</section>
+
+<!-- ALT P5 — positioning as gauge cards, one per signal -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout P5 — tax planning summary · positioning</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Positioning &amp; follow-ups · gauges</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Each line gets its own gauge: the marker is the limit, the bar is where this return sits against it.</p>
+    <div class="altbar"><span class="lbl" style="margin:0">Threshold &amp; timing signals</span><span class="note">the figure below each gauge is the distance to the line</span></div>
+    <div class="gauges">
+      <div class="g over"><div class="k">Net investment income tax</div><div class="lim">$250,000 modified AGI</div><div class="tr"><i class="f" style="width:32%"></i><i class="x" style="left:32%;width:68%"></i><i class="mk" style="left:32%"></i></div><div class="d"><b>$541,038</b><span>over the line<br>$2,449 assessed</span></div></div>
+      <div class="g over"><div class="k">Additional Medicare tax</div><div class="lim">$250,000 wages + self-employment</div><div class="tr"><i class="f" style="width:38%"></i><i class="x" style="left:38%;width:62%"></i><i class="mk" style="left:38%"></i></div><div class="d"><b>$4,477</b><span>assessed at 0.9%<br>on earnings above the line</span></div></div>
+      <div class="g over"><div class="k">Top IRMAA tier</div><div class="lim">$750,000 IRMAA MAGI</div><div class="tr"><i class="f" style="width:82%"></i><i class="x" style="left:82%;width:18%"></i><i class="mk" style="left:82%"></i></div><div class="d"><b>$50,238</b><span>over the line<br>sets 2027 premiums</span></div></div>
+      <div class="g over"><div class="k">Capital-gains 20% rate</div><div class="lim">$600,050 ordinary taxable income</div><div class="tr"><i class="f" style="width:78%"></i><i class="x" style="left:78%;width:22%"></i><i class="mk" style="left:78%"></i></div><div class="d"><b>$53,838</b><span>over the line<br>all gains at 20%</span></div></div>
+      <div class="g over"><div class="k">QBI phase-out ceiling</div><div class="lim">$494,600 taxable income</div><div class="tr"><i class="f" style="width:56%"></i><i class="x" style="left:56%;width:44%"></i><i class="mk" style="left:56%"></i></div><div class="d"><b>$218,938</b><span>over the line<br>deduction lost</span></div></div>
+      <div class="g in"><div class="k">Federal 37% bracket</div><div class="lim">$751,600 taxable income</div><div class="tr"><i class="f" style="width:95%;background:var(--mint)"></i><i class="mk" style="left:100%"></i></div><div class="d"><b>$38,062</b><span>of headroom<br>below the top bracket</span></div></div>
+    </div>
+    <div class="altbar"><span class="lbl" style="margin:0;color:var(--mint)">To confirm</span><span class="note">and one item still needed to size</span></div>
+    <div class="cfm3"><div><div class="cfm"><i class="d"></i><span><b>Coverage all of 2025?</b> A $9,048 penalty conflicts with David's Medicare eligibility.</span></div><div class="cfm"><i class="d"></i><span><b>Home-acquisition debt ≤ $750k?</b> $52,500 of mortgage interest carries the "may be limited" flag.</span></div></div><div><div class="cfm"><i class="d"></i><span><b>Any self-employed plan for Victoria?</b> Schedule 1, Line 16 is empty.</span></div><div class="cfm"><i class="d"></i><span><b>David's plan:</b> after-tax + in-plan Roth available, and the full match captured?</span></div></div><div><div class="cfm"><i class="d"></i><span><b>Is the design business a non-SSTB?</b> It governs an S-corp / QBI fix.</span></div><div class="cfm"><i class="d c"></i><span><b>Roth-window sizing</b> needs pretax balances and an expected retirement date.</span></div></div></div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>P5</span></div>
+</section>
+
+<!-- ALT P6 — positioning split by state: crossed vs. room remaining -->
+<section class="slide led ins">
+  <div class="hdr"><span class="l" style="color:var(--ink);font-weight:700">David &amp; Victoria Riley</span><span class="r">Alternate layout P6 — tax planning summary · positioning</span></div>
+  <div class="body">
+    <h2 style="margin-bottom:6px">Tax Insights</h2>
+    <div class="sublbl">Positioning &amp; follow-ups · crossed and clear</div>
+    <p class="small" style="margin-top:6px;max-width:120ch">Lines already crossed on the left, lines with room still on the right — the figure on each row is the distance.</p>
+    <div class="duo">
+      <div>
+        <div class="h"><div class="n">Lines already crossed</div><span class="note">five of six</span></div>
+        <div class="r"><div class="k">QBI phase-out ceiling<span>$494,600 taxable income · deduction lost entirely</span></div><div class="n">$218,938<em>over</em></div></div>
+        <div class="r"><div class="k">Net investment income tax<span>$250,000 modified AGI · $2,449 assessed at 3.8%</span></div><div class="n">$541,038<em>over</em></div></div>
+        <div class="r"><div class="k">Capital-gains 20% rate<span>$600,050 ordinary taxable · all gains at 20%</span></div><div class="n">$53,838<em>over</em></div></div>
+        <div class="r"><div class="k">Top IRMAA tier<span>$750,000 IRMAA MAGI · sets 2027 premiums</span></div><div class="n">$50,238<em>over</em></div></div>
+        <div class="r"><div class="k">Additional Medicare tax<span>$250,000 wages + self-employment earnings</span></div><div class="n">$4,477<em>assessed</em></div></div>
+      </div>
+      <div>
+        <div class="h"><div class="n">Room still remaining</div><span class="note">one of six</span></div>
+        <div class="r"><div class="k">Federal 37% bracket<span>$751,600 taxable income · top ordinary rate</span></div><div class="n">$38,062<em>of headroom</em></div></div>
+        <div style="margin-top:22px">
+          <div class="h" style="border-top-color:var(--mint)"><div class="n">To confirm</div></div>
+          <div style="margin-top:6px">
+            <div class="cfm"><i class="d"></i><span><b>Coverage all of 2025?</b> A $9,048 penalty conflicts with David's Medicare eligibility.</span></div>
+            <div class="cfm"><i class="d"></i><span><b>Home-acquisition debt ≤ $750k?</b> $52,500 of mortgage interest carries the "may be limited" flag.</span></div>
+            <div class="cfm"><i class="d"></i><span><b>Any self-employed plan for Victoria?</b> Schedule 1, Line 16 is empty.</span></div>
+            <div class="cfm"><i class="d"></i><span><b>Is the design business a non-SSTB?</b> It governs an S-corp / QBI fix.</span></div>
+            <div class="cfm"><i class="d c"></i><span><b>Roth-window sizing</b> needs pretax IRA/401(k) balances and David's expected retirement date.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>Prepared from the 2025 filed return · not tax advice</span><span>P6</span></div>
+</section>
+
+
+<script src="/reports/inspect.js"></script>
+<script src="/reports/format.js"></script>
+<script>
+/* Fit-to-page: the 16:9 format is 324px shorter than the page format, so a few
+   dense ledger pages need a small proportional reduction to clear the footer.
+   Page format is left untouched. */
+(function(){
+  /* Fit by COMPRESSING vertical space, never by shrinking type. Each slide
+     climbs the data-sq ladder until its content clears the footer. */
+  function overflow(s, body){
+    var ftr = s.querySelector('.ftr');
+    var limit = (ftr ? ftr.getBoundingClientRect().top : s.getBoundingClientRect().bottom);
+    var bottom = body.getBoundingClientRect().top;
+    body.querySelectorAll('*').forEach(function(k){
+      var r = k.getBoundingClientRect(); if(r.height>0) bottom = Math.max(bottom, r.bottom);
+    });
+    return bottom - (limit - 4);
+  }
+  function fit(){
+    document.querySelectorAll('.slide:not(.hide)').forEach(function(s){
+      var body = s.querySelector('.body'); if(!body) return;
+      body.style.transform=''; body.style.width='';
+      s.removeAttribute('data-sq');
+      for(var lvl = 1; lvl <= 8; lvl++){
+        if(overflow(s, body) <= 0) return;
+        s.setAttribute('data-sq', String(lvl));
+      }
+    });
+  }
+  function fit2(){ fit(); setTimeout(fit, 120); }
+  var t; function schedule(){ clearTimeout(t); t = setTimeout(fit2, 160); }
+  window.addEventListener('load', schedule);
+  window.addEventListener('message', function(e){ if(e.data && e.data.type==='ds-format') schedule(); });
+  document.addEventListener('DOMContentLoaded', schedule);
+  setTimeout(fit2, 900);
+})();
+</script>
+</body>
+</html>
