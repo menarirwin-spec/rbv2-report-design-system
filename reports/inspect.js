@@ -128,6 +128,8 @@
     shrinkviz: { kind: "Modifier", name: "Fitted chart page", note: "Chart-led page fitted proportionally to the shorter 16:9 format", within: "slide" },
     dgood: { kind: "Modifier", name: "Saving delta", note: "Delta that reduces tax; reads mint" },
     dbad: { kind: "Modifier", name: "Added-tax delta", note: "Delta that increases tax; reads gold" },
+    pnl: { kind: "Structure", name: "Report panel", note: "Auto-injected at runtime, never hand-applied: every bare top-level block in a slide body — and any bare table, which gets wrapped in one — becomes an ink-tinted panel (2.5% ink into paper) with a hairline border and 10px corners. This is the 'different background + stroke around the container' frame seen around tables and grouped content throughout the Lookback/Return-detail pages." },
+    "pnl-kids": { kind: "Structure", name: "Report panel (split)", note: "Variant of .pnl applied when a block's children already carry their own border (or the block is a 3-up grid, paired with .pnl-split): each child becomes its own panel instead of one wrapping panel." },
     nopnl: { kind: "Modifier", name: "Unframed report content", note: "Keep titles, summaries, contents and reading notes outside panel framing." },
     fn: { kind: "Component", name: "Bottom reading note", note: "Explanation after the chart, table and scenario summary; keep readable fine print and visible footer." },
     ssum: { kind: "Component", name: "Scenario summary", note: "Unframed summary below the numbers and above the bottom reading note." },
