@@ -380,9 +380,12 @@ tr.hi td:first-child::before{content:"KEY LINE";display:inline-block;margin-righ
 .meter{display:flex;height:20px;border-radius:2px;overflow:hidden;border:1px solid var(--line)}
 .meter i{display:block;height:100%}
 .meter .room,.stack .room,.room{position:relative;background:var(--paper);background-clip:padding-box}
-.meter .room::before,.stack .room::before,.room::before{content:"";position:absolute;inset:2px;background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--ink) 4%,var(--paper)) 0 2.9px,color-mix(in srgb,var(--ink) 38%,var(--paper)) 3.4px 4.5px,color-mix(in srgb,var(--ink) 4%,var(--paper)) 5px 7.2px);pointer-events:none}
+.meter .room::before,.stack .room::before,.room::before{content:none}
+.room,.hatch{position:relative;color:color-mix(in srgb,var(--ink) 38%,var(--paper))}
+.hatch-mint{color:var(--mint)}
+.dark .room,html[data-theme="midnight"] .room{color:color-mix(in srgb,var(--cream) 42%,var(--ink))}
+svg.hsvg{position:absolute;inset:2px;width:calc(100% - 4px);height:calc(100% - 4px);pointer-events:none;display:block}
 .meter .room::after,.stack .room::after,.room::after{content:none}
-.dark .room::before,html[data-theme="midnight"] .room::before{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--cream) 6%,var(--ink)) 0 2.9px,color-mix(in srgb,var(--cream) 42%,var(--ink)) 3.4px 4.5px,color-mix(in srgb,var(--cream) 6%,var(--ink)) 5px 7.2px)}
 
 i.sw.room{border:1px solid var(--line)}
 .mscale{display:flex;justify-content:space-between;font-size:14px;letter-spacing:.14em;
@@ -703,7 +706,7 @@ html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.
   <div class="cover-rings">
     <div style="inset:0"></div><div style="inset:90px"></div><div style="inset:180px"></div><div style="inset:270px"></div>
   </div>
-  <div class="hdr" style="position:relative"><span class="l" style="font-family:var(--dk-serif);text-transform:none;letter-spacing:0;font-size:22px;color:var(--cream)">wealth.com</span><span class="r" style="color:var(--mutD);font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:500">Prepared April 9, 2026 · Confidential</span></div>
+  <div class="hdr" style="position:relative"><span class="l" style="color:var(--cream);display:flex;align-items:center"><svg role="img" aria-label="wealth.com" style="height:22px;width:auto;display:block" viewBox="0 0 350 49" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M216.869 48.0191C214.391 48.0191 212.326 46.0771 212.326 43.5108C212.326 41.0139 214.391 39.0024 216.869 39.0024C219.622 39.0024 221.343 41.0139 221.343 43.5108C221.343 46.0771 219.416 48.0191 216.869 48.0191Z" fill="currentColor"/><path d="M238.871 48.0252C228.694 48.0252 222.908 40.1488 222.908 30.0419C222.908 19.7956 229.321 11.0827 239.359 11.0827C246.05 11.0827 250.581 14.9861 251.487 19.1683L245.911 21.8867C244.935 17.1469 242.565 13.6617 238.452 13.6617C232.318 13.6617 228.764 19.7259 228.764 27.4629C228.764 36.594 233.016 43.2157 241.241 43.2157C245.074 43.2157 249.257 40.4973 251.487 36.2454L252.742 36.8031C250.372 43.9824 244.865 48.0252 238.871 48.0252Z" fill="currentColor"/><path d="M271.69 48.0252C262.001 48.0252 255.589 40.567 255.589 30.3207C255.589 18.75 263.117 11.0827 272.108 11.0827C281.937 11.0827 288.349 18.6106 288.349 28.9266C288.349 40.4276 280.752 48.0252 271.69 48.0252ZM261.862 27.7417C261.862 34.9211 264.789 45.2371 272.736 45.2371C278.452 45.2371 282.146 39.3821 282.146 31.2268C282.146 24.1172 279.218 13.8011 271.272 13.8011C265.556 13.8011 261.862 19.5865 261.862 27.7417Z" fill="currentColor"/><path d="M300.789 42.2406C300.789 45.3075 302.95 46.0046 305.738 46.4925V48.0259H289.915V46.4925C292.773 46.0046 294.934 45.3075 294.934 42.2406V20.7722C294.934 18.0537 294.028 16.59 290.682 16.3809L289.915 16.3112V14.8474L299.534 12.0593H300.789V19.9357C304.623 14.4292 308.317 12.0593 312.569 12.0593C317.309 12.0593 321.491 14.7777 322.606 20.3539C326.579 14.4989 330.413 12.0593 334.665 12.0593C340.381 12.0593 345.051 15.893 345.051 23.6997V42.2406C345.051 45.3075 347.212 46.0046 350 46.4925V48.0259H334.386V46.4925C337.035 46.0046 339.126 45.3075 339.126 42.2406V24.1179C339.126 18.7508 336.408 16.3809 332.365 16.3809C329.158 16.3809 326.161 17.984 322.885 22.0965C322.955 22.5844 322.955 23.142 322.955 23.6997V42.2406C322.955 45.3075 325.116 46.0046 327.904 46.4925V48.0259H312.22V46.4925C314.939 46.0046 317.03 45.3075 317.03 42.2406V24.1179C317.03 18.7508 314.311 16.3809 310.199 16.3809C307.062 16.3809 303.995 17.984 300.789 22.0965V42.2406Z" fill="currentColor"/><path d="M120.318 41.5801V25.229C120.318 16.7775 115.534 11.6615 107.298 11.6615C99.3238 11.6615 92.6308 16.5016 92.6308 22.1192C92.6308 23.5738 93.1014 24.8026 94.0687 26.1318L99.7944 24.1004C99.0624 22.7211 98.6964 21.6177 98.6964 20.3136C98.6964 16.8277 101.337 14.044 105.468 14.044C110.906 14.044 114.2 18.2321 114.2 25.0283V26.1318L109.233 27.1851C97.9643 29.5926 92.6569 32.6773 92.6569 39.298C92.6569 44.4642 96.6832 48.3262 102.566 48.3262C107.324 48.3262 111.716 45.8435 114.174 40.4767V47.2729H125.416V45.7682C122.567 45.3419 120.318 44.6397 120.318 41.5801ZM114.226 38.5456C112.056 42.3576 108.762 44.5645 105.233 44.5645C101.546 44.5645 99.1408 42.0817 99.1408 38.4202C99.1408 33.7807 101.808 31.3481 109.912 29.4672L114.226 28.4892V38.5456ZM186.569 45.7682V47.2729H170.124V45.7682C173.078 45.2917 175.327 44.5895 175.327 41.5049V8.17559C175.327 5.69282 174.15 4.58936 171.353 4.26334L170.124 4.13795V2.70848L180.137 0H181.418V19.5111C185.392 14.069 189.262 11.6615 193.628 11.6615C199.51 11.6615 204.4 15.4734 204.4 23.2478V41.5049C204.4 44.5645 206.648 45.2416 209.524 45.7682V47.2729H193.288V45.7682C196.085 45.2917 198.282 44.5895 198.282 41.5049V23.6992C198.282 18.3324 195.432 15.975 191.196 15.975C187.928 15.975 184.791 17.6051 181.444 21.6678V41.555C181.418 44.5895 183.641 45.2917 186.569 45.7682ZM167.117 42.809C165.627 43.9375 164.32 44.6397 162.28 44.6397C159.091 44.6397 156.685 42.8842 156.685 37.9688V15.1976H167.588V12.7148H156.685V3.3856H154.829L144.45 13.3919V15.1725H150.594V37.8936C150.594 45.0159 153.783 48.3513 159.274 48.3513C163.091 48.3513 165.836 45.7933 167.823 44.0378L167.117 42.809ZM143.639 45.7682V47.2729H127.194V45.7682C130.148 45.2917 132.397 44.5895 132.397 41.5049V8.65208C132.397 5.91852 131.456 4.41381 127.978 4.21319L127.168 4.13795V2.70848L137.208 0H138.515V41.555C138.515 44.5895 140.763 45.2917 143.639 45.7682ZM88.0816 28.2133H63.1657C63.4533 37.5676 68.3685 43.461 75.7151 43.461C80.8134 43.461 84.2645 40.6271 86.5652 37.4923L87.8463 38.0691C85.99 43.762 80.6304 48.3513 73.2314 48.3513C63.3225 48.3513 57.1262 40.3513 57.1262 30.9218C57.1262 18.859 64.3422 11.6866 74.3033 11.6866C83.5324 11.6615 88.0816 19.3606 88.0816 28.2133ZM81.4931 25.7305C81.0748 19.1349 78.8525 14.2195 73.0484 14.2195C66.9044 14.2195 63.767 18.9343 63.218 25.7305H81.4931ZM54.7994 17.3292L42.093 48.3513H40.4459L29.5958 22.8967L19.1902 48.3513H17.5431L4.31388 17.254C3.58183 15.5988 2.66676 14.9719 0 14.3198V12.7399H16.1052V14.2947C11.4514 15.0972 10.5886 15.8747 11.739 18.8089L20.1837 40.0754L28.2363 19.5612L27.2167 17.254C26.5369 15.7493 25.648 14.9719 22.8505 14.3198V12.7399H39.0079V14.2947C34.3803 15.0972 33.4914 15.8747 34.6418 18.8089L43.1911 40.0002L51.4528 18.8089C52.6032 15.6741 51.5313 15.0722 46.8252 14.2947V12.7399H59.0871V14.2947C56.4988 14.7963 55.4791 15.4985 54.7994 17.3292Z" fill="currentColor"/></svg></span><span class="r" style="color:var(--mutD);font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:500">Prepared April 9, 2026 · Confidential</span></div>
   <div style="position:relative">
     <div class="eyebrow" style="margin-bottom:26px">Bob Jones and Sally Jones</div>
     <h1 style="font-size:100px">Tax Planning<br>Report</h1>
@@ -1343,7 +1346,7 @@ html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.
       <div>
         <span class="chip in">Recommended</span>
         <h3 style="margin-top:8px">Strategy 1 · Florida domicile</h3>
-        <p class="small" style="max-width:88ch;margin-top:6px">Lowest 2026 total tax liability of the three scenarios. The Roth conversion remains worth modelling as a partial conversion once domicile is settled.</p>
+        <p class="small" style="max-width:88ch;margin-top:6px">Lowest 2026 total tax liability of the three scenarios. The Roth conversion remains worth modeling as a partial conversion once domicile is settled.</p>
       </div>
       <div style="text-align:right">
         <div class="lbl" style="margin-bottom:6px">Estimated total tax liability</div>
@@ -1530,7 +1533,7 @@ html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.
             <i style="height:47.2%;background:color-mix(in srgb,var(--deep) 54%,var(--paper));box-shadow:inset 0 -1.5px 0 var(--paper)"></i>
             <i style="height:22.7%;background:color-mix(in srgb,var(--deep) 20%,var(--paper))"></i>
           </div>
-          <div style="flex:1;height:67px;background:repeating-linear-gradient(135deg,transparent 0 2.9px,color-mix(in srgb,var(--ink) 38%,var(--paper)) 3.4px 4.5px,transparent 5px 7.2px);background-clip:padding-box;background-origin:padding-box;border:1px solid var(--line)"></div>
+          <div class="hatch" style="flex:1;height:67px;border:1px solid var(--line)"></div>
         </div>
       </div>
       <div>
@@ -1542,7 +1545,7 @@ html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.
             <i style="height:48.0%;background:color-mix(in srgb,var(--mint) 56%,var(--paper));box-shadow:inset 0 -1.5px 0 var(--paper)"></i>
             <i style="height:23.0%;background:color-mix(in srgb,var(--mint) 22%,var(--paper))"></i>
           </div>
-          <div style="flex:1;height:72px;background:repeating-linear-gradient(135deg,transparent 0 2.9px,color-mix(in srgb,var(--ink) 38%,var(--paper)) 3.4px 4.5px,transparent 5px 7.2px);background-clip:padding-box;background-origin:padding-box;border:1px solid var(--line)"></div>
+          <div class="hatch" style="flex:1;height:72px;border:1px solid var(--line)"></div>
         </div>
       </div>
       <div>
@@ -1554,7 +1557,7 @@ html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.
             <i style="height:48.0%;background:color-mix(in srgb,var(--gold) 58%,var(--paper));box-shadow:inset 0 -1.5px 0 var(--paper)"></i>
             <i style="height:23.0%;background:color-mix(in srgb,var(--gold) 24%,var(--paper))"></i>
           </div>
-          <div style="flex:1;height:72px;background:repeating-linear-gradient(135deg,transparent 0 2.9px,color-mix(in srgb,var(--ink) 38%,var(--paper)) 3.4px 4.5px,transparent 5px 7.2px);background-clip:padding-box;background-origin:padding-box;border:1px solid var(--line)"></div>
+          <div class="hatch" style="flex:1;height:72px;border:1px solid var(--line)"></div>
         </div>
       </div>
     </div>
@@ -1839,7 +1842,7 @@ html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.
       <div style="flex:1;display:flex;flex-direction:column;align-items:center">
         <div class="num mint" style="font-size:20px;margin-bottom:8px">($3,000)</div>
         <div style="display:flex;gap:14px;width:100%;align-items:flex-end;height:18px">
-          <div style="flex:1;height:100%;background:repeating-linear-gradient(135deg,transparent 0 2.9px,var(--mint) 3.4px 4.5px,transparent 5px 7.2px);background-clip:padding-box;background-origin:padding-box;border:1px solid color-mix(in srgb,var(--mint) 70%,var(--paper))"></div>
+          <div class="hatch hatch-mint" style="flex:1;height:100%;border:1px solid color-mix(in srgb,var(--mint) 70%,var(--paper))"></div>
           <div style="flex:1;height:1px;background:color-mix(in srgb,var(--ink) 45%,var(--paper))"></div>
         </div>
       </div>
@@ -2920,7 +2923,7 @@ html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.
         <div class="card accent">
           <span class="chip in">Recommended</span>
           <h3 style="margin-top:12px">Strategy 1 · Florida domicile</h3>
-          <p class="small" style="margin-top:10px">Lowest 2026 total tax liability of the three. The Roth conversion remains worth modelling as a partial conversion once domicile is settled.</p>
+          <p class="small" style="margin-top:10px">Lowest 2026 total tax liability of the three. The Roth conversion remains worth modeling as a partial conversion once domicile is settled.</p>
           <div class="g2" style="gap:20px;margin-top:8px">
             <div><div class="figrow"><span class="delta down">▼ $6,812</span><span class="num" style="font-size:29px">$17,729</span></div><div class="lbl" style="margin-top:6px">Total tax · vs. baseline</div></div>
           </div>
@@ -3853,5 +3856,6 @@ html[data-format="wide"] .slide.tightrows .fn p,html[data-format="wide"] .slide.
   setTimeout(fit2, 900);
 })();
 </script>
+<script>(function(){var i=0;function h(){document.querySelectorAll('.room,.hatch').forEach(function(el){if(el.querySelector(':scope>svg.hsvg'))return;var id='hp'+(i++);el.insertAdjacentHTML('afterbegin','<svg class="hsvg" aria-hidden="true"><defs><pattern id="'+id+'" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.4" height="6" fill="currentColor"/></pattern></defs><rect width="100%" height="100%" fill="url(#'+id+')"/></svg>')})}if(document.readyState!=='loading')h();else document.addEventListener('DOMContentLoaded',h)})();</script>
 </body>
 </html>

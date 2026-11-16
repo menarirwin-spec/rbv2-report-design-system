@@ -1,0 +1,92 @@
+.pa-grid2{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;margin-top:18px;align-items:start}
+.pa-chartbox{width:100%;min-height:220px}
+.pa-chart{display:block;overflow:visible}
+html[data-format="wide"] .pa-grid2{gap:14px;margin-top:10px}
+.pa-grid{stroke:var(--line);stroke-width:1;stroke-dasharray:4 5}
+.pa-axis{stroke:color-mix(in srgb,var(--ink) 55%,var(--paper));stroke-width:1.5}
+.pa-ref{stroke:color-mix(in srgb,var(--ink) 50%,var(--paper));stroke-width:1.5;stroke-dasharray:6 5}
+.pa-tick{fill:var(--mut);font-size:14px;font-family:var(--dk-sans)}
+.pa-step{fill:var(--mut);font-size:14px;font-weight:400;font-family:var(--dk-sans)}
+.pa-line{fill:none;stroke:var(--deep);stroke-width:2.5;stroke-linejoin:miter}
+.pa-area{fill:color-mix(in srgb,var(--deep) 10%,var(--paper))}
+.pa-change{fill:none;stroke:var(--mint);stroke-width:2.5}
+.pa-marker-label{fill:var(--deep);font-size:16px;font-weight:500;font-family:var(--dk-sans)}
+.pa-marker-label.modeled{fill:var(--gold)}
+.pa-span{fill:color-mix(in srgb,var(--mint) 22%,var(--paper))}
+.pa-drop{fill:none;stroke:var(--deep);stroke-width:1.5;stroke-dasharray:3 4}
+.pa-cur{fill:var(--paper);stroke:var(--deep);stroke-width:3}
+.pa-mod{fill:var(--gold);stroke:var(--gold);stroke-width:3}
+.pa-drop.modeled{stroke:var(--gold)}
+.pa-legend{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:16px;color:var(--ink);margin-bottom:12px}
+.pa-legend span{display:inline-flex;align-items:center;gap:8px}
+.pa-k{display:inline-block;width:14px;height:14px;border-radius:50%;border:3px solid var(--deep)}
+.pa-k.cur{background:var(--paper)}.pa-k.mod{background:var(--gold);border-color:var(--gold)}
+.pa-k.span{border:0;border-radius:2px;background:color-mix(in srgb,var(--mint) 22%,var(--paper))}
+.pa-table{font-size:16px;width:100%}
+.slide .pa-profile{gap:18px;margin-top:24px;margin-bottom:6px;border:0}
+.slide .pa-profile > div{padding:16px 20px!important;border:1px solid var(--line)!important}
+.slide.pa-tax-summary .obs.wa{border-top:0}
+.slide.pa-tax-summary .body > .fn{margin-top:10px!important;padding-top:10px}
+html[data-format="wide"] .slide.pa-tax-summary .body > .fn{margin-top:4px!important;padding-top:4px}
+.slide.v23 .tg .t:last-child{border-bottom:0;padding-bottom:0}
+.slide.toc-light .body{gap:0;padding-top:28px!important;padding-bottom:18px!important}
+.slide.toc-light .toc-item{font-size:18px;padding:11px 0;line-height:1.3}
+.slide.toc-light .toc-item .i{flex:0 0 32px;white-space:nowrap}
+.slide.toc-light .actw{margin-top:24px!important}
+.slide.toc-light .actg{gap:18px}
+.slide.toc-light .actg > div{border-radius:8px}
+.pa-optional-index{margin-top:16px}
+.pa-optional-index[hidden]{display:none!important}
+.pa-optional-index .lbl{margin-bottom:6px}
+.pa-optional-list{display:flex;flex-wrap:wrap;gap:6px 24px;font-size:16px;line-height:1.35;color:var(--ink)}
+.pa-optional-list b{font-weight:500;margin-right:6px}
+html[data-format="wide"] .slide.toc-light .body{padding-top:20px!important;padding-bottom:12px!important}
+html[data-format="wide"] .slide.toc-light .body > .nopnl:first-of-type p{font-size:16px!important;line-height:1.3!important}
+html[data-format="wide"] .slide.toc-light .body > .lbl{margin-top:16px!important}
+html[data-format="wide"] .slide.toc-light .toc-item{padding:6px 0;font-size:16px;line-height:1.2}
+html[data-format="wide"] .slide.toc-light .actw{margin-top:10px!important}
+html[data-format="wide"] .slide.toc-light .actg p{font-size:14px;line-height:1.3}
+html[data-format="wide"] .slide.toc-light .actg > div > .ak{margin-top:8px}
+html[data-format="wide"] .slide.toc-light .actg .ar .num{font-size:18px}
+html[data-format="wide"] .slide.toc-light .actg .ar{flex-wrap:wrap;gap:0 8px}
+html[data-format="wide"] .slide.toc-light .actw > .note{font-size:14px;line-height:1.25;margin-top:6px!important}
+html[data-format="wide"] .pa-optional-index{margin-top:6px}
+html[data-format="wide"] .slide.toc-light h2{margin-bottom:6px!important}
+html[data-format="wide"] .slide.toc-light .actg > div{padding-top:10px;padding-bottom:6px}
+html[data-format="wide"] .pa-optional-list{font-size:14px;gap:4px 18px}
+.pa-bar{fill:var(--gold)}
+.pa-bar.current{fill:color-mix(in srgb,var(--deep) 55%,var(--paper))}
+.pa-bar-ex{fill:url(#none);fill:color-mix(in srgb,var(--mint) 22%,var(--paper));stroke:var(--mint);stroke-width:1.5;stroke-dasharray:5 4}
+.pa-bar-val{fill:var(--ink);font-size:16px;font-weight:500;font-family:var(--dk-sans)}
+.pa-legend{display:none}
+html[data-format] body .slide.slide .irmaasvg.irmaasvg{width:100%!important;max-height:none!important}
+/* Accessibility: darker secondary gray (>=6:1 on paper and cream in every light theme) */
+html[data-theme="editorial"]:root{--mut:#4A5D5A}
+html[data-theme="bone"]:root{--mut:#57524A}
+html[data-theme="slate"]:root{--mut:#475670}
+html[data-theme="goldman"]:root{--mut:#475768}
+html[data-theme="schwab"]:root{--mut:#475561}
+/* Accessibility: larger fine print (footnotes, MAGI markers, footers, disclosures, small labels) */
+html body .slide .fn p{font-size:15px}
+html body .slide .fn sup,html body .slide.v23 table.mg2 tr.grp sup,html body .slide.v23 table.mg tr.g sup{font-size:13px}
+html body .slide.led .ftr{font-size:13px}
+html body .slide .est,html body .slide .tag,html body .slide .pair .t{font-size:12px}
+html body .slide .disc{font-size:15.75px}
+html[data-format="wide"] body .slide .disc{font-size:13.5px}
+/* Background guides: slightly less faint, still lighter than the marker drop lines */
+.pa-grid{stroke:color-mix(in srgb,var(--ink) 22%,var(--paper))}
+.pa-lookback-line{fill:none;stroke:var(--deep);stroke-width:1.5;stroke-dasharray:5 5;opacity:.65}
+.pa-point{stroke-width:2.5;stroke:var(--deep);fill:var(--paper)}
+.pa-point.florida{stroke:var(--mint);fill:var(--mint)}
+.pa-point.florida-roth{stroke:var(--gold);fill:var(--gold)}
+.pa-marker-label.florida{fill:color-mix(in srgb,var(--mint) 72%,var(--ink))}
+.pa-marker-label.florida-roth{fill:var(--gold)}
+.pa-drop.florida{stroke:var(--mint)}
+.pa-drop.florida-roth{stroke:var(--gold)}
+.pa-table{table-layout:fixed}
+.pa-table thead th:first-child{width:31%}
+.pa-table th{white-space:normal;overflow-wrap:break-word}
+/* Accessible row headers use the same body-cell treatment as core Medicare. */
+.slide table.dense.pa-table tbody th{font-weight:400;text-align:left;text-transform:none;letter-spacing:0;font-size:16px;color:var(--ink);padding:8px 10px 8px 0;vertical-align:middle}
+.pa-page .body > .fn{margin-top:auto;padding-top:14px}
+.pa-table-panel .pa-table tbody tr:last-child th{border-bottom:0}
